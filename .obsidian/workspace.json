@@ -178,6 +178,12 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/summaries/主题-MySQL体系.md",
+    "llm-wiki-java/wiki/concepts/概念-SQL查询优化.md",
+    "llm-wiki-java/wiki/concepts/机制-InnoDB锁机制.md",
+    "llm-wiki-java/wiki/concepts/机制-MySQL三种日志.md",
+    "llm-wiki-java/wiki/concepts/机制-MVCC.md",
+    "llm-wiki-java/wiki/concepts/机制-InnoDB索引模型.md",
     "llm-wiki-java/wiki/summaries/主题-Java并发体系.md",
     "llm-wiki-java/wiki/concepts/概念-ThreadLocal.md",
     "llm-wiki-java/wiki/concepts/机制-CAS.md",

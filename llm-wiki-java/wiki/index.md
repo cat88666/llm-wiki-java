@@ -59,7 +59,11 @@
 - [[概念-图论基础]](concepts/概念-图论基础.md) — 多对多关系，DFS/BFS 两种遍历，Dijkstra 依赖小顶堆 `#data-structure`
 
 ### L5 存储层
-<!-- 待摄入：MySQL/、Redis/、MyBatis/ -->
+- [[机制-InnoDB索引模型]](concepts/机制-InnoDB索引模型.md) — B+树索引、聚簇/二级索引、回表、覆盖索引、索引下推、最左前缀 `#storage`
+- [[机制-MVCC]](concepts/机制-MVCC.md) — 快照读/当前读、undo log版本链、ReadView可见性、RC vs RR差异 `#storage`
+- [[机制-MySQL三种日志]](concepts/机制-MySQL三种日志.md) — undo/redo/binlog的角色、两阶段提交保证主备一致、WAL原理 `#storage`
+- [[机制-InnoDB锁机制]](concepts/机制-InnoDB锁机制.md) — S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR防幻读、死锁 `#storage`
+- [[概念-SQL查询优化]](concepts/概念-SQL查询优化.md) — EXPLAIN执行计划、索引失效场景、深分页、慢SQL排查流程 `#storage`
 
 ### L6 应用框架
 <!-- 待摄入：Spring/、SpringBoot -->
@@ -84,6 +88,7 @@
 
 > 每页对应一个知识主题，聚合多个来源。不按源文件逐篇生成。
 
+- [[主题-MySQL体系]](summaries/主题-MySQL体系.md) — L5 MySQL 知识地图 + 高频考点，含索引/MVCC/三种日志/锁机制/SQL优化 `#storage`
 - [[主题-Java并发体系]](summaries/主题-Java并发体系.md) — L3 并发知识地图 + 高频考点，含 JMM/锁/CAS/AQS/线程池/ThreadLocal 依赖关系 `#concurrency`
 - [[主题-Java语言基础]](summaries/主题-Java语言基础.md) — L1 概念地图 + 高频考点汇总，含 11 个 concept 页的依赖关系 `#java-lang`
 - [[主题-数据结构体系]](summaries/主题-数据结构体系.md) — L4 数据结构知识地图 + 高频考点，含与 L5 MySQL/Redis 的联系 `#data-structure`

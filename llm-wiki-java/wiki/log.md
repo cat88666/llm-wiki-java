@@ -5,6 +5,17 @@
 格式：
 `## [YYYY-MM-DD] 操作类型 | 标题`
 
+## [2026-05-02] Ingest | MySQL模块（L5 存储层）
+- 来源：`raw/note/📚 Hollis Java/MySQL/`（120+ 个问答式笔记）
+- 新建 concept 页 × 5：
+  - `机制-InnoDB索引模型.md`（B+树选型、聚簇/非聚簇索引、回表、覆盖索引、索引下推、最左前缀）
+  - `机制-MVCC.md`（undo log版本链、ReadView四字段、快照读/当前读、RC vs RR）
+  - `机制-MySQL三种日志.md`（undo/redo/binlog角色对比、两阶段提交XID机制、WAL原理）
+  - `机制-InnoDB锁机制.md`（S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR加锁规则、死锁）
+  - `概念-SQL查询优化.md`（EXPLAIN关键字段、索引失效场景、深分页优化、调优流程）
+- 新建 summary 页 × 1：`主题-MySQL体系.md`（含知识地图 + 高频考点 + 与 L4/L6/L7 联系）
+- 更新 `wiki/index.md`：L5 存储层分区填充 5 个 concept 链接；Summaries 分区新增 1 条
+
 ## [2026-05-02] Ingest | Java并发模块（L3 并发编程）
 - 来源：`raw/note/📚 Hollis Java/Java并发/`（68 个问答式笔记）
 - 新建 concept 页 × 7：
