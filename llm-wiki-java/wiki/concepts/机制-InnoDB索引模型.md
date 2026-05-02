@@ -10,11 +10,11 @@ related:
   - "[[机制-InnoDB锁机制]]"
   - "[[概念-SQL查询优化]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/MySQL/✅InnoDB为什么使用B+树实现索引？ 30f3673e11388195a750f5e6f87b0bb0.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅什么是聚簇索引和非聚簇索引？ 30f3673e11388163ab83fb19a3d1ee06.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅什么是回表，怎么减少回表的次数？ 30f3673e1138817cb541e388d18f0016.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅什么是索引覆盖、索引下推？ 30f3673e113881d8af69cdcf2e16946d.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅什么是最左前缀匹配？为什么要遵守？ 30f3673e1138818b981cf0a1b7d4098d.md"
+  - "../../raw/note/Hollis/MySQL/✅InnoDB为什么使用B+树实现索引？ 30f3673e11388195a750f5e6f87b0bb0.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是聚簇索引和非聚簇索引？ 30f3673e11388163ab83fb19a3d1ee06.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是回表，怎么减少回表的次数？ 30f3673e1138817cb541e388d18f0016.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是索引覆盖、索引下推？ 30f3673e113881d8af69cdcf2e16946d.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是最左前缀匹配？为什么要遵守？ 30f3673e1138818b981cf0a1b7d4098d.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

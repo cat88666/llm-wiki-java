@@ -9,11 +9,11 @@ related:
   - "[[机制-MVCC]]"
   - "[[机制-InnoDB锁机制]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/MySQL/✅如何进行SQL调优？ 30f3673e113881fd86ddebce22dedd07.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅慢SQL的问题如何排查？ 30f3673e11388117a543f74357604d2c.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅SQL执行计划分析的时候，要关注哪些信息？ 30f3673e1138810c8eb7f5433743a0f0.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅什么是最左前缀匹配？为什么要遵守？ 30f3673e1138818b981cf0a1b7d4098d.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅MySQL的深度分页如何优化 30f3673e113881bc85cdd7b151c67f44.md"
+  - "../../raw/note/Hollis/MySQL/✅如何进行SQL调优？ 30f3673e113881fd86ddebce22dedd07.md"
+  - "../../raw/note/Hollis/MySQL/✅慢SQL的问题如何排查？ 30f3673e11388117a543f74357604d2c.md"
+  - "../../raw/note/Hollis/MySQL/✅SQL执行计划分析的时候，要关注哪些信息？ 30f3673e1138810c8eb7f5433743a0f0.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是最左前缀匹配？为什么要遵守？ 30f3673e1138818b981cf0a1b7d4098d.md"
+  - "../../raw/note/Hollis/MySQL/✅MySQL的深度分页如何优化 30f3673e113881bc85cdd7b151c67f44.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

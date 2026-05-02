@@ -10,9 +10,9 @@ related:
   - "[[机制-Redis集群与高可用]]"
   - "[[机制-B树与B加树]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Redis/✅Redis 支持哪几种数据类型？ 30f3673e113881a3bfb2c64c52e11fa7.md"
-  - "../../raw/note/📚 Hollis Java/Redis/✅Redis中的Zset是怎么实现的？ 30f3673e113881319e8ddeb6b71b3b4c.md"
-  - "../../raw/note/📚 Hollis Java/Redis/✅Redis为什么这么快？ 30f3673e11388198b8b8d7e0cdd9b62f.md"
+  - "../../raw/note/Hollis/Redis/✅Redis 支持哪几种数据类型？ 30f3673e113881a3bfb2c64c52e11fa7.md"
+  - "../../raw/note/Hollis/Redis/✅Redis中的Zset是怎么实现的？ 30f3673e113881319e8ddeb6b71b3b4c.md"
+  - "../../raw/note/Hollis/Redis/✅Redis为什么这么快？ 30f3673e11388198b8b8d7e0cdd9b62f.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

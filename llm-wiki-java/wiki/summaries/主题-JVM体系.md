@@ -11,7 +11,7 @@ topics:
   - JIT编译与优化
   - 引用类型
 sources:
-  - "../../raw/note/📚 Hollis Java/JVM/"
+  - "../../raw/note/Hollis/JVM/"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""
@@ -148,4 +148,4 @@ JIT编译（热点代码编译机器码）
 
 ## 来源
 
-- `raw/note/📚 Hollis Java/JVM/`（57 个问答式笔记，2026-05-02 摄入）
+- `raw/note/Hollis/JVM/`（57 个问答式笔记，2026-05-02 摄入）

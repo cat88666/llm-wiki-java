@@ -9,9 +9,9 @@ related:
   - "[[概念-引用类型]]"
   - "[[概念-JMM]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java并发/✅ThreadLocal为什么会导致内存泄漏？如何解决的？ 30f3673e11388186a780d557d5f8cc3b.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅ThreadLocal的应用场景有哪些？ 30f3673e113881c68ddafd2dfe5c3f17.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅线程池中使用ThreadLocal会有哪些潜在风险？ 30f3673e113881dda797decc50fa08f7.md"
+  - "../../raw/note/Hollis/Java并发/✅ThreadLocal为什么会导致内存泄漏？如何解决的？ 30f3673e11388186a780d557d5f8cc3b.md"
+  - "../../raw/note/Hollis/Java并发/✅ThreadLocal的应用场景有哪些？ 30f3673e113881c68ddafd2dfe5c3f17.md"
+  - "../../raw/note/Hollis/Java并发/✅线程池中使用ThreadLocal会有哪些潜在风险？ 30f3673e113881dda797decc50fa08f7.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

@@ -9,9 +9,9 @@ related:
   - "[[机制-synchronized]]"
   - "[[机制-AQS]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java并发/✅什么是CAS？存在什么问题？ 30f3673e11388159a4a6fe8bead80ccd.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅CAS在操作系统层面是如何保证原子性的？ 30f3673e113881489549dc73299871e9.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅CAS一定有自旋吗？ 30f3673e11388121a0f8f78d65537fd8.md"
+  - "../../raw/note/Hollis/Java并发/✅什么是CAS？存在什么问题？ 30f3673e11388159a4a6fe8bead80ccd.md"
+  - "../../raw/note/Hollis/Java并发/✅CAS在操作系统层面是如何保证原子性的？ 30f3673e113881489549dc73299871e9.md"
+  - "../../raw/note/Hollis/Java并发/✅CAS一定有自旋吗？ 30f3673e11388121a0f8f78d65537fd8.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

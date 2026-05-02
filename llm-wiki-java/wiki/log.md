@@ -1,7 +1,7 @@
 # Wiki Log
 
 ## [2026-05-02] Ingest | Redis模块（L5 存储层）
-- 来源：`raw/note/📚 Hollis Java/Redis/`（11 个问答式笔记）
+- 来源：`raw/note/Hollis/Redis/`（11 个问答式笔记）
 - 新建 concept 页 × 5：
   - `概念-Redis数据类型与底层结构.md`（5种类型、SDS、ZipList/ListPack/SkipList二态编码、Redis快的5个原因）
   - `机制-Redis持久化.md`（RDB/AOF/混合持久化、fork+COW、AOF三种写回策略、重写机制）
@@ -17,7 +17,7 @@
 `## [YYYY-MM-DD] 操作类型 | 标题`
 
 ## [2026-05-02] Ingest | MySQL模块（L5 存储层）
-- 来源：`raw/note/📚 Hollis Java/MySQL/`（120+ 个问答式笔记）
+- 来源：`raw/note/Hollis/MySQL/`（120+ 个问答式笔记）
 - 新建 concept 页 × 5：
   - `机制-InnoDB索引模型.md`（B+树选型、聚簇/非聚簇索引、回表、覆盖索引、索引下推、最左前缀）
   - `机制-MVCC.md`（undo log版本链、ReadView四字段、快照读/当前读、RC vs RR）
@@ -28,7 +28,7 @@
 - 更新 `wiki/index.md`：L5 存储层分区填充 5 个 concept 链接；Summaries 分区新增 1 条
 
 ## [2026-05-02] Ingest | Java并发模块（L3 并发编程）
-- 来源：`raw/note/📚 Hollis Java/Java并发/`（68 个问答式笔记）
+- 来源：`raw/note/Hollis/Java并发/`（68 个问答式笔记）
 - 新建 concept 页 × 7：
   - `概念-JMM.md`（主内存/工作内存、三大并发问题、happens-before 8条规则、内存屏障）
   - `机制-synchronized.md`（ObjectMonitor、偏向→轻量级→重量级锁升级、JDK15废弃偏向锁）
@@ -41,7 +41,7 @@
 - 更新 `wiki/index.md`：L3 并发编程分区填充 7 个 concept 链接；Summaries 分区新增 1 条
 
 ## [2026-05-02] Ingest | JVM模块（L2 运行时）
-- 来源：`raw/note/📚 Hollis Java/JVM/`（57 个问答式笔记）
+- 来源：`raw/note/Hollis/JVM/`（57 个问答式笔记）
 - 注：`容器/` 目录是 Docker/k8s 内容（非 Java 集合框架），本次跳过
 - 新建 concept 页 × 5：
   - `机制-JVM内存模型.md`（5大区域、堆分代、元空间演变）
@@ -53,7 +53,7 @@
 - 更新 `wiki/index.md`：L2 运行时分区填充 5 个 concept 链接；Summaries 分区新增 1 条
 
 ## [2026-05-02] Ingest | 数据结构模块（L4 数据结构）
-- 来源：`raw/note/📚 Hollis Java/数据结构/`（12 个问答式笔记）
+- 来源：`raw/note/Hollis/数据结构/`（12 个问答式笔记）
 - 新建 concept 页 × 7：
   - `概念-线性数据结构.md`（数组/链表/栈/队列）
   - `机制-红黑树.md`（5条规则、旋转着色、HashMap/TreeMap 应用）
@@ -66,7 +66,7 @@
 - 更新 `wiki/index.md`：L4 数据结构分区填充 7 个 concept 链接；Summaries 分区新增 1 条
 
 ## [2026-05-02] Ingest | Java基础模块（L1 语言基础）
-- 来源：`raw/note/📚 Hollis Java/Java基础/`（60+ 问答式笔记）
+- 来源：`raw/note/Hollis/Java基础/`（60+ 问答式笔记）
 - 新建 concept 页 × 11：
   - `概念-OOP三大特征.md`
   - `机制-反射.md`
@@ -89,3 +89,7 @@
 - 重写实例 `CLAUDE.md`：定义知识分层（L1-L8）、concepts/ 6段结构、Java特定摄入规则
 - 重置 `wiki/index.md`：清除 demo 内容，按 L1-L8 层级建立占位骨架
 
+## [2026-05-02] Update | Hollis来源目录更名
+- 重命名来源目录：emoji 前缀的旧 Hollis 目录 → `raw/note/Hollis/`
+- 批量更新项目说明、实例规范、wiki concept/summary/log 中的来源路径引用
+- 验证旧目录名称已无文本残留

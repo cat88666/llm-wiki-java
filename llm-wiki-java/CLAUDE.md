@@ -10,7 +10,7 @@
 ```text
 llm-wiki-java/
 ├── raw/                        ← 只读原始资料（永不修改）
-│   ├── note/📚 Hollis Java/    ← Hollis Java 课程笔记（问答式）
+│   ├── note/Hollis/              ← Hollis 课程笔记（问答式）
 │   │   ├── Java基础/
 │   │   ├── Java并发/
 │   │   ├── JVM/
@@ -127,7 +127,7 @@ llm-wiki-java/
 ## 五、页面格式规范
 
 - 内部链接：Obsidian 风格 `[[页面名]]`
-- 来源路径：相对路径 `../../raw/note/📚 Hollis Java/模块名/文件名.md`
+- 来源路径：相对路径 `../../raw/note/Hollis/模块名/文件名.md`
 - 文件命名：遵循 `.claude/skills/naming/SKILL.md` 规则
 - 层级标签：每个 concept 页 frontmatter 中必须包含 `layer` 字段（L1-L8）
 

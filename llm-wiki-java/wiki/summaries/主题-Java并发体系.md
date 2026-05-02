@@ -13,7 +13,7 @@ concepts:
   - "[[机制-线程池]]"
   - "[[概念-ThreadLocal]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java并发/"
+  - "../../raw/note/Hollis/Java并发/"
 created: 2026-05-02
 updated: 2026-05-02
 ---

@@ -8,7 +8,7 @@ related:
   - "[[概念-前缀树]]"
   - "[[概念-线性数据结构]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/数据结构/✅什么是BitMap？有什么用？ 30f3673e113881f38f2ce34a527f4a44.md"
+  - "../../raw/note/Hollis/数据结构/✅什么是BitMap？有什么用？ 30f3673e113881f38f2ce34a527f4a44.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

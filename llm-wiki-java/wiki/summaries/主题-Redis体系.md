@@ -11,7 +11,7 @@ concepts:
   - "[[机制-Redis分布式锁]]"
   - "[[机制-Redis集群与高可用]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Redis/"
+  - "../../raw/note/Hollis/Redis/"
 created: 2026-05-02
 updated: 2026-05-02
 ---

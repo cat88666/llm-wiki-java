@@ -8,9 +8,9 @@ related:
   - "[[机制-MVCC]]"
   - "[[机制-InnoDB锁机制]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/MySQL/✅binlog、redolog和undolog区别？ 30f3673e113881f1b63df19e50281990.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅MySQL事务ACID是如何实现的？ 30f3673e1138819ba612fa4e92bc4478.md"
-  - "../../raw/note/📚 Hollis Java/MySQL/✅什么是事务的2阶段提交？ 30f3673e113881faaad9d6bfc956ffb2.md"
+  - "../../raw/note/Hollis/MySQL/✅binlog、redolog和undolog区别？ 30f3673e113881f1b63df19e50281990.md"
+  - "../../raw/note/Hollis/MySQL/✅MySQL事务ACID是如何实现的？ 30f3673e1138819ba612fa4e92bc4478.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是事务的2阶段提交？ 30f3673e113881faaad9d6bfc956ffb2.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

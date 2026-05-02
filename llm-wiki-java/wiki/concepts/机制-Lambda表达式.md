@@ -8,9 +8,9 @@ related:
   - "[[机制-泛型类型擦除]]"
   - "[[概念-OOP三大特征]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java基础/✅Lambda表达式是如何实现的？ 30f3673e11388107b5d2d6a2b4bac2af.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅Stream的并行流一定比串行流更快吗？ 30f3673e113881e187cac19bf80b15b3.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅说几个常见的语法糖？ 30f3673e113881ad9679f220d9e3bb28.md"
+  - "../../raw/note/Hollis/Java基础/✅Lambda表达式是如何实现的？ 30f3673e11388107b5d2d6a2b4bac2af.md"
+  - "../../raw/note/Hollis/Java基础/✅Stream的并行流一定比串行流更快吗？ 30f3673e113881e187cac19bf80b15b3.md"
+  - "../../raw/note/Hollis/Java基础/✅说几个常见的语法糖？ 30f3673e113881ad9679f220d9e3bb28.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

@@ -8,10 +8,10 @@ related:
   - "[[机制-反射]]"
   - "[[概念-Java异常体系]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java基础/✅什么是序列化与反序列化 30f3673e1138816b9400e50e4e845d2c.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅Java序列化的原理是啥 30f3673e113881ba98d5dc41e68fa0fc.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅serialVersionUID 有何用途 如果没定义会有什么问题？ 30f3673e1138815b9405c65617ba5e97.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅你知道fastjson的反序列化漏洞吗 30f3673e113881aea0bafa9f1be819ae.md"
+  - "../../raw/note/Hollis/Java基础/✅什么是序列化与反序列化 30f3673e1138816b9400e50e4e845d2c.md"
+  - "../../raw/note/Hollis/Java基础/✅Java序列化的原理是啥 30f3673e113881ba98d5dc41e68fa0fc.md"
+  - "../../raw/note/Hollis/Java基础/✅serialVersionUID 有何用途 如果没定义会有什么问题？ 30f3673e1138815b9405c65617ba5e97.md"
+  - "../../raw/note/Hollis/Java基础/✅你知道fastjson的反序列化漏洞吗 30f3673e113881aea0bafa9f1be819ae.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

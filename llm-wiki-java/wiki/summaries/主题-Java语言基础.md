@@ -13,7 +13,7 @@ topics:
   - IO模型
   - 语言特性
 sources:
-  - "../../raw/note/📚 Hollis Java/Java基础/"
+  - "../../raw/note/Hollis/Java基础/"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""
@@ -143,4 +143,4 @@ SPI（forName + newInstance）
 
 ## 来源
 
-- `raw/note/📚 Hollis Java/Java基础/`（60+ 问答式笔记，2026-05-02 摄入）
+- `raw/note/Hollis/Java基础/`（60+ 问答式笔记，2026-05-02 摄入）

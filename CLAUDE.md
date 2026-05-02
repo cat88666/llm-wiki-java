@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 仓库用途
 
 受约束的 Karpathy LLM Wiki 工程，面向 **Java 后端工程师知识体系**。  
-把 `raw/` 中的 Hollis Java 问答式笔记**编译**为 `wiki/` 中以第一性原理组织的概念图谱。
+把 `raw/` 中的 Hollis 问答式笔记**编译**为 `wiki/` 中以第一性原理组织的概念图谱。
 
 活跃实例：`llm-wiki-java/`（Java 后端工程师知识体系）  
 规则母版：`llm-wiki-java/CLAUDE.md`（实例级执行规范）

@@ -9,9 +9,9 @@ related:
   - "[[机制-volatile]]"
   - "[[机制-synchronized]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java并发/✅如何理解AQS？ 30f3673e1138812780d5c0ca91551018.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅AQS的同步队列和条件队列原理？ 30f3673e113881fcb643e004f3a79d7d.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅AQS是如何实现线程的等待和唤醒的？ 30f3673e11388199b89cdaceb1769191.md"
+  - "../../raw/note/Hollis/Java并发/✅如何理解AQS？ 30f3673e1138812780d5c0ca91551018.md"
+  - "../../raw/note/Hollis/Java并发/✅AQS的同步队列和条件队列原理？ 30f3673e113881fcb643e004f3a79d7d.md"
+  - "../../raw/note/Hollis/Java并发/✅AQS是如何实现线程的等待和唤醒的？ 30f3673e11388199b89cdaceb1769191.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

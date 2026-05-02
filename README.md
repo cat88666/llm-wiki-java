@@ -83,7 +83,7 @@ Java 后端工程师知识体系
 llm-wiki-java/
 ├── llm-wiki-java/           ← Java 知识库实例（唯一活跃实例）
 │   ├── raw/
-│   │   ├── note/            ← Hollis Java 原始笔记（只读）
+│   │   ├── note/            ← Hollis 原始笔记（只读）
 │   │   └── articles/        ← 技术文章（只读）
 │   └── wiki/
 │       ├── index.md         ← 全局索引（每次操作后更新）

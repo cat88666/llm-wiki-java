@@ -8,11 +8,11 @@ related:
   - "[[机制-JVM内存模型]]"
   - "[[概念-引用类型]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/JVM/✅JVM有哪些垃圾回收算法？ 30f3673e113881e98430cd00bf3cbbe9.md"
-  - "../../raw/note/📚 Hollis Java/JVM/✅JVM如何判断对象是否存活？ 30f3673e113881f58f3dfd69cc4f0d5e.md"
-  - "../../raw/note/📚 Hollis Java/JVM/✅G1和CMS有什么区别？ 30f3673e11388112b213c3301c8eb72b.md"
-  - "../../raw/note/📚 Hollis Java/JVM/✅ZGC和CMS和G1的区别对比 30f3673e113881dd8539de985f778dd1.md"
-  - "../../raw/note/📚 Hollis Java/JVM/✅Java的堆是如何分代的？为什么分代？ 30f3673e113881a9bacfebc765c3328d.md"
+  - "../../raw/note/Hollis/JVM/✅JVM有哪些垃圾回收算法？ 30f3673e113881e98430cd00bf3cbbe9.md"
+  - "../../raw/note/Hollis/JVM/✅JVM如何判断对象是否存活？ 30f3673e113881f58f3dfd69cc4f0d5e.md"
+  - "../../raw/note/Hollis/JVM/✅G1和CMS有什么区别？ 30f3673e11388112b213c3301c8eb72b.md"
+  - "../../raw/note/Hollis/JVM/✅ZGC和CMS和G1的区别对比 30f3673e113881dd8539de985f778dd1.md"
+  - "../../raw/note/Hollis/JVM/✅Java的堆是如何分代的？为什么分代？ 30f3673e113881a9bacfebc765c3328d.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

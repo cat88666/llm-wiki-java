@@ -9,9 +9,9 @@ related:
   - "[[机制-CAS]]"
   - "[[机制-AQS]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java并发/✅synchronized是怎么实现的？ 30f3673e113881429633f2b840fc5545.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅synchronized的锁升级过程是怎样的？ 30f3673e113881eab466d3afcfefd46e.md"
-  - "../../raw/note/📚 Hollis Java/Java并发/✅synchronized是如何保证原子性、可见性、有序性的？ 30f3673e11388197acbed7dfc6175e00.md"
+  - "../../raw/note/Hollis/Java并发/✅synchronized是怎么实现的？ 30f3673e113881429633f2b840fc5545.md"
+  - "../../raw/note/Hollis/Java并发/✅synchronized的锁升级过程是怎样的？ 30f3673e113881eab466d3afcfefd46e.md"
+  - "../../raw/note/Hollis/Java并发/✅synchronized是如何保证原子性、可见性、有序性的？ 30f3673e11388197acbed7dfc6175e00.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

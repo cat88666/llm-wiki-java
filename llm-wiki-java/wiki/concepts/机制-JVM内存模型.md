@@ -9,9 +9,9 @@ related:
   - "[[机制-JIT编译]]"
   - "[[概念-IO模型]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/JVM/✅JVM的运行时内存区域是怎样的？ 30f3673e1138814b933bc0f6be9fd5b0.md"
-  - "../../raw/note/📚 Hollis Java/JVM/✅Java的堆是如何分代的？为什么分代？ 30f3673e113881a9bacfebc765c3328d.md"
-  - "../../raw/note/📚 Hollis Java/JVM/✅什么是方法区？是如何实现的？ 30f3673e1138810a8838f8b315a12342.md"
+  - "../../raw/note/Hollis/JVM/✅JVM的运行时内存区域是怎样的？ 30f3673e1138814b933bc0f6be9fd5b0.md"
+  - "../../raw/note/Hollis/JVM/✅Java的堆是如何分代的？为什么分代？ 30f3673e113881a9bacfebc765c3328d.md"
+  - "../../raw/note/Hollis/JVM/✅什么是方法区？是如何实现的？ 30f3673e1138810a8838f8b315a12342.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

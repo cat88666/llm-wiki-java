@@ -11,7 +11,7 @@ concepts:
   - "[[机制-InnoDB锁机制]]"
   - "[[概念-SQL查询优化]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/MySQL/"
+  - "../../raw/note/Hollis/MySQL/"
 created: 2026-05-02
 updated: 2026-05-02
 ---

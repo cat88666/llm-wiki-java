@@ -10,8 +10,8 @@ related:
   - "[[机制-CAS]]"
   - "[[机制-AQS]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Redis/✅如何用SETNX实现分布式锁？ 30f3673e1138811186fcf7a0c4339c05.md"
-  - "../../raw/note/📚 Hollis Java/Redis/✅Redisson的watchdog机制是怎么样的？ 30f3673e1138816796a4e20d0b24e576.md"
+  - "../../raw/note/Hollis/Redis/✅如何用SETNX实现分布式锁？ 30f3673e1138811186fcf7a0c4339c05.md"
+  - "../../raw/note/Hollis/Redis/✅Redisson的watchdog机制是怎么样的？ 30f3673e1138816796a4e20d0b24e576.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

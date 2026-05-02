@@ -7,7 +7,7 @@ aliases: ["BIO", "NIO", "AIO", "同步阻塞IO", "同步非阻塞IO", "异步IO"
 related:
   - "[[机制-反射]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java基础/✅什么是AIO、BIO和NIO？ 30f3673e1138819eb2b1def3ede68d6d.md"
+  - "../../raw/note/Hollis/Java基础/✅什么是AIO、BIO和NIO？ 30f3673e1138819eb2b1def3ede68d6d.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

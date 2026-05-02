@@ -7,12 +7,12 @@ aliases: ["String immutability", "String常量池", "String intern"]
 related:
   - "[[概念-包装类与自动拆装箱]]"
 sources:
-  - "../../raw/note/📚 Hollis Java/Java基础/✅String是如何实现不可变的？ 30f3673e1138812e8805f6e2d5cdba43.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅String为什么设计成不可变的？ 30f3673e113881709953c4e6b3b1870b.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅String、StringBuilder和StringBuffer的区别？ 30f3673e113881c8b9f0c4968a9a27e6.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅String中intern的原理是什么？ 30f3673e11388153aabdd7e79baec27a.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅JDK 9中对字符串的拼接做了什么优化？ 30f3673e113881a897e4d7ab3959a8ee.md"
-  - "../../raw/note/📚 Hollis Java/Java基础/✅为什么JDK 9中把String的char[]改成了byte[]？ 30f3673e1138811fab40e9175519b311.md"
+  - "../../raw/note/Hollis/Java基础/✅String是如何实现不可变的？ 30f3673e1138812e8805f6e2d5cdba43.md"
+  - "../../raw/note/Hollis/Java基础/✅String为什么设计成不可变的？ 30f3673e113881709953c4e6b3b1870b.md"
+  - "../../raw/note/Hollis/Java基础/✅String、StringBuilder和StringBuffer的区别？ 30f3673e113881c8b9f0c4968a9a27e6.md"
+  - "../../raw/note/Hollis/Java基础/✅String中intern的原理是什么？ 30f3673e11388153aabdd7e79baec27a.md"
+  - "../../raw/note/Hollis/Java基础/✅JDK 9中对字符串的拼接做了什么优化？ 30f3673e113881a897e4d7ab3959a8ee.md"
+  - "../../raw/note/Hollis/Java基础/✅为什么JDK 9中把String的char[]改成了byte[]？ 30f3673e1138811fab40e9175519b311.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""
