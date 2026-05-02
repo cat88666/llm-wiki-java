@@ -5,6 +5,18 @@
 格式：
 `## [YYYY-MM-DD] 操作类型 | 标题`
 
+## [2026-05-02] Ingest | JVM模块（L2 运行时）
+- 来源：`raw/note/📚 Hollis Java/JVM/`（57 个问答式笔记）
+- 注：`容器/` 目录是 Docker/k8s 内容（非 Java 集合框架），本次跳过
+- 新建 concept 页 × 5：
+  - `机制-JVM内存模型.md`（5大区域、堆分代、元空间演变）
+  - `机制-GC算法与垃圾收集器.md`（三算法、可达性分析、CMS/G1/ZGC对比）
+  - `机制-类加载机制.md`（类生命周期、双亲委派、三大破坏场景）
+  - `机制-JIT编译.md`（热点探测、逃逸分析、AOT对比、预热问题）
+  - `概念-引用类型.md`（强/软/弱/虚、ThreadLocal弱引用陷阱）
+- 新建 summary 页 × 1：`主题-JVM体系.md`（含知识地图 + 高频考点 + 与 L1/L3/L5 的联系）
+- 更新 `wiki/index.md`：L2 运行时分区填充 5 个 concept 链接；Summaries 分区新增 1 条
+
 ## [2026-05-02] Ingest | 数据结构模块（L4 数据结构）
 - 来源：`raw/note/📚 Hollis Java/数据结构/`（12 个问答式笔记）
 - 新建 concept 页 × 7：

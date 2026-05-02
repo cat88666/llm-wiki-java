@@ -11,10 +11,10 @@
             "id": "998306c6bd3d09f8",
             "type": "leaf",
             "state": {
-              "type": "empty",
+              "type": "graph",
               "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
             }
           }
         ]
@@ -176,8 +176,11 @@
       "bases:新建数据库": false
     }
   },
-  "active": "d170bbbea78c75c6",
+  "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/summaries/主题-JVM体系.md",
+    "llm-wiki-java/wiki/concepts/概念-引用类型.md",
+    "llm-wiki-java/wiki/concepts/机制-JIT编译.md",
     "llm-wiki-java/wiki/summaries/主题-数据结构体系.md"
   ]
 }

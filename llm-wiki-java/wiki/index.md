@@ -34,7 +34,11 @@
 - [[机制-Lambda表达式]](concepts/机制-Lambda表达式.md) — invokedynamic 实现，Stream API，并行流陷阱 `#java-lang`
 
 ### L2 运行时（JVM）
-<!-- 待摄入：JVM/ -->
+- [[机制-JVM内存模型]](concepts/机制-JVM内存模型.md) — 5大运行时区域、堆分代（Eden/Survivor/Old）、元空间演变 `#jvm`
+- [[机制-GC算法与垃圾收集器]](concepts/机制-GC算法与垃圾收集器.md) — 三大GC算法、可达性分析、CMS/G1/ZGC对比选型 `#jvm`
+- [[机制-类加载机制]](concepts/机制-类加载机制.md) — 类生命周期、双亲委派模型、破坏场景（SPI/Tomcat/OSGi）`#jvm`
+- [[机制-JIT编译]](concepts/机制-JIT编译.md) — 混合执行模式、热点检测、逃逸分析、预热问题 `#jvm`
+- [[概念-引用类型]](concepts/概念-引用类型.md) — 强/软/弱/虚四种引用、ThreadLocal弱引用陷阱 `#jvm`
 
 ### L3 并发编程
 <!-- 待摄入：Java并发/ -->
@@ -76,6 +80,7 @@
 
 - [[主题-Java语言基础]](summaries/主题-Java语言基础.md) — L1 概念地图 + 高频考点汇总，含 11 个 concept 页的依赖关系 `#java-lang`
 - [[主题-数据结构体系]](summaries/主题-数据结构体系.md) — L4 数据结构知识地图 + 高频考点，含与 L5 MySQL/Redis 的联系 `#data-structure`
+- [[主题-JVM体系]](summaries/主题-JVM体系.md) — L2 JVM 知识地图 + 高频考点，含 GC/类加载/JIT 的依赖关系 `#jvm`
 
 ---
 
