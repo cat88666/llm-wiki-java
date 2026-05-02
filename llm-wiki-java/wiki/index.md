@@ -64,6 +64,11 @@
 - [[机制-MySQL三种日志]](concepts/机制-MySQL三种日志.md) — undo/redo/binlog的角色、两阶段提交保证主备一致、WAL原理 `#storage`
 - [[机制-InnoDB锁机制]](concepts/机制-InnoDB锁机制.md) — S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR防幻读、死锁 `#storage`
 - [[概念-SQL查询优化]](concepts/概念-SQL查询优化.md) — EXPLAIN执行计划、索引失效场景、深分页、慢SQL排查流程 `#storage`
+- [[概念-Redis数据类型与底层结构]](concepts/概念-Redis数据类型与底层结构.md) — 5种类型、SDS、ZipList/ListPack/SkipList二态编码、Redis快的5个原因 `#storage`
+- [[机制-Redis持久化]](concepts/机制-Redis持久化.md) — RDB全量快照(BGSAVE+COW)、AOF三种写回策略、混合持久化(4.0+) `#storage`
+- [[概念-缓存三大问题]](concepts/概念-缓存三大问题.md) — 穿透/击穿/雪崩定义与解法、8种内存淘汰策略、缓存与DB一致性 `#storage`
+- [[机制-Redis分布式锁]](concepts/机制-Redis分布式锁.md) — SETNX+Lua防误删、Redisson watchdog续期、Hash可重入结构 `#storage`
+- [[机制-Redis集群与高可用]](concepts/机制-Redis集群与高可用.md) — 主从/哨兵/Cluster三种模式、16384槽分片、脑裂防护 `#storage`
 
 ### L6 应用框架
 <!-- 待摄入：Spring/、SpringBoot -->
@@ -88,6 +93,7 @@
 
 > 每页对应一个知识主题，聚合多个来源。不按源文件逐篇生成。
 
+- [[主题-Redis体系]](summaries/主题-Redis体系.md) — L5 Redis 知识地图 + 高频考点，含数据类型/持久化/缓存三大问题/分布式锁/集群 `#storage`
 - [[主题-MySQL体系]](summaries/主题-MySQL体系.md) — L5 MySQL 知识地图 + 高频考点，含索引/MVCC/三种日志/锁机制/SQL优化 `#storage`
 - [[主题-Java并发体系]](summaries/主题-Java并发体系.md) — L3 并发知识地图 + 高频考点，含 JMM/锁/CAS/AQS/线程池/ThreadLocal 依赖关系 `#concurrency`
 - [[主题-Java语言基础]](summaries/主题-Java语言基础.md) — L1 概念地图 + 高频考点汇总，含 11 个 concept 页的依赖关系 `#java-lang`

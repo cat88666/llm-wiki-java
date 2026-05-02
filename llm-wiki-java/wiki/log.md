@@ -1,5 +1,16 @@
 # Wiki Log
 
+## [2026-05-02] Ingest | Redis模块（L5 存储层）
+- 来源：`raw/note/📚 Hollis Java/Redis/`（11 个问答式笔记）
+- 新建 concept 页 × 5：
+  - `概念-Redis数据类型与底层结构.md`（5种类型、SDS、ZipList/ListPack/SkipList二态编码、Redis快的5个原因）
+  - `机制-Redis持久化.md`（RDB/AOF/混合持久化、fork+COW、AOF三种写回策略、重写机制）
+  - `概念-缓存三大问题.md`（穿透/击穿/雪崩定义与解法、布隆过滤器、8种淘汰策略、缓存与DB一致性）
+  - `机制-Redis分布式锁.md`（SETNX+Lua防误删、Redisson watchdog续期、Hash可重入、RedLock）
+  - `机制-Redis集群与高可用.md`（主从/哨兵/Cluster三种模式、16384槽、脑裂防护）
+- 新建 summary 页 × 1：`主题-Redis体系.md`（含知识地图 + 高频考点 + 与 L4/L3/MySQL/L6/L7 联系）
+- 更新 `wiki/index.md`：L5 存储层新增 5 个 Redis concept 链接；Summaries 分区新增 1 条
+
 本文件记录所有操作，append-only。
 
 格式：

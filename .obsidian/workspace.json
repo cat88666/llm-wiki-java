@@ -178,6 +178,12 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/concepts/概念-JMM.md",
+    "llm-wiki-java/wiki/concepts/概念-缓存三大问题.md",
+    "llm-wiki-java/wiki/concepts/概念-IO模型.md",
+    "llm-wiki-java/wiki/summaries/主题-数据结构体系.md",
+    "llm-wiki-java/wiki/concepts/机制-Redis持久化.md",
+    "llm-wiki-java/wiki/concepts/概念-Redis数据类型与底层结构.md",
     "llm-wiki-java/wiki/summaries/主题-MySQL体系.md",
     "llm-wiki-java/wiki/concepts/概念-SQL查询优化.md",
     "llm-wiki-java/wiki/concepts/机制-InnoDB锁机制.md",
@@ -191,10 +197,8 @@
     "llm-wiki-java/wiki/concepts/机制-AQS.md",
     "llm-wiki-java/wiki/concepts/机制-volatile.md",
     "llm-wiki-java/wiki/concepts/机制-synchronized.md",
-    "llm-wiki-java/wiki/concepts/概念-JMM.md",
     "llm-wiki-java/wiki/summaries/主题-JVM体系.md",
     "llm-wiki-java/wiki/concepts/概念-引用类型.md",
-    "llm-wiki-java/wiki/concepts/机制-JIT编译.md",
-    "llm-wiki-java/wiki/summaries/主题-数据结构体系.md"
+    "llm-wiki-java/wiki/concepts/机制-JIT编译.md"
   ]
 }
