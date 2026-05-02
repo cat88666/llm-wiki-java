@@ -5,6 +5,19 @@
 格式：
 `## [YYYY-MM-DD] 操作类型 | 标题`
 
+## [2026-05-02] Ingest | Java并发模块（L3 并发编程）
+- 来源：`raw/note/📚 Hollis Java/Java并发/`（68 个问答式笔记）
+- 新建 concept 页 × 7：
+  - `概念-JMM.md`（主内存/工作内存、三大并发问题、happens-before 8条规则、内存屏障）
+  - `机制-synchronized.md`（ObjectMonitor、偏向→轻量级→重量级锁升级、JDK15废弃偏向锁）
+  - `机制-volatile.md`（LOCK前缀、4种内存屏障、不保证原子性、DCL双重检验锁）
+  - `机制-AQS.md`（volatile state + CLH双向队列、同步队列/条件队列、独占/共享模式）
+  - `机制-CAS.md`（cmpxchg硬件指令、ABA问题+AtomicStampedReference、忙等待）
+  - `机制-线程池.md`（7参数、核心→队列→最大→拒绝执行流、4种拒绝策略、Worker机制）
+  - `概念-ThreadLocal.md`（ThreadLocalMap、弱引用key、value强引用泄漏、线程池必须remove）
+- 新建 summary 页 × 1：`主题-Java并发体系.md`（含知识地图 + 高频考点 + 与 L2/L5/L6 联系）
+- 更新 `wiki/index.md`：L3 并发编程分区填充 7 个 concept 链接；Summaries 分区新增 1 条
+
 ## [2026-05-02] Ingest | JVM模块（L2 运行时）
 - 来源：`raw/note/📚 Hollis Java/JVM/`（57 个问答式笔记）
 - 注：`容器/` 目录是 Docker/k8s 内容（非 Java 集合框架），本次跳过

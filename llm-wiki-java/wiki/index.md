@@ -41,7 +41,13 @@
 - [[概念-引用类型]](concepts/概念-引用类型.md) — 强/软/弱/虚四种引用、ThreadLocal弱引用陷阱 `#jvm`
 
 ### L3 并发编程
-<!-- 待摄入：Java并发/ -->
+- [[概念-JMM]](concepts/概念-JMM.md) — 主内存/工作内存模型，三大并发问题，happens-before 8条规则，内存屏障 `#concurrency`
+- [[机制-synchronized]](concepts/机制-synchronized.md) — ObjectMonitor，偏向→轻量级→重量级锁升级链，JDK15废弃偏向锁 `#concurrency`
+- [[机制-volatile]](concepts/机制-volatile.md) — LOCK前缀刷主内存，4种内存屏障，不保证原子性，DCL双重检验锁 `#concurrency`
+- [[机制-AQS]](concepts/机制-AQS.md) — volatile state + CLH双向队列，同步队列/条件队列，独占/共享模式 `#concurrency`
+- [[机制-CAS]](concepts/机制-CAS.md) — cmpxchg硬件原子指令，ABA问题+AtomicStampedReference，乐观锁vs悲观锁 `#concurrency`
+- [[机制-线程池]](concepts/机制-线程池.md) — 7参数ThreadPoolExecutor，核心→队列→最大→拒绝执行流，4种拒绝策略 `#concurrency`
+- [[概念-ThreadLocal]](concepts/概念-ThreadLocal.md) — Thread→ThreadLocalMap→弱引用key，线程池内存泄漏，必须remove `#concurrency`
 
 ### L4 数据结构
 - [[概念-线性数据结构]](concepts/概念-线性数据结构.md) — 数组/链表/栈/队列，访问模式决定选择 `#data-structure`
@@ -78,6 +84,7 @@
 
 > 每页对应一个知识主题，聚合多个来源。不按源文件逐篇生成。
 
+- [[主题-Java并发体系]](summaries/主题-Java并发体系.md) — L3 并发知识地图 + 高频考点，含 JMM/锁/CAS/AQS/线程池/ThreadLocal 依赖关系 `#concurrency`
 - [[主题-Java语言基础]](summaries/主题-Java语言基础.md) — L1 概念地图 + 高频考点汇总，含 11 个 concept 页的依赖关系 `#java-lang`
 - [[主题-数据结构体系]](summaries/主题-数据结构体系.md) — L4 数据结构知识地图 + 高频考点，含与 L5 MySQL/Redis 的联系 `#data-structure`
 - [[主题-JVM体系]](summaries/主题-JVM体系.md) — L2 JVM 知识地图 + 高频考点，含 GC/类加载/JIT 的依赖关系 `#jvm`
