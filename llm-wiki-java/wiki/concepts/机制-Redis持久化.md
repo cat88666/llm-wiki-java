@@ -9,8 +9,8 @@ related:
   - "[[机制-Redis集群与高可用]]"
   - "[[机制-MySQL三种日志]]"
 sources:
-  - "../../raw/note/Hollis/Redis/✅Redis的持久化机制是怎样的？ 30f3673e113881bea2ddef3af1f1f12b.md"
-  - "../../raw/note/Hollis/Redis/✅RDB和AOF的写回策略分别是什么？ 30f3673e11388154b6f0ccf7b8e66ddb.md"
+  - "../../raw/note/Hollis/Redis/✅Redis的持久化机制是怎样的？.md"
+  - "../../raw/note/Hollis/Redis/✅RDB和AOF的写回策略分别是什么？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

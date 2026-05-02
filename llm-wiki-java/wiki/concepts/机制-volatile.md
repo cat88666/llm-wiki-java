@@ -9,9 +9,9 @@ related:
   - "[[机制-synchronized]]"
   - "[[机制-CAS]]"
 sources:
-  - "../../raw/note/Hollis/Java并发/✅volatile是如何保证可见性和有序性的？ 30f3673e113881d38ab3e5d2ed983362.md"
-  - "../../raw/note/Hollis/Java并发/✅volatile能保证原子性吗？为什么？ 30f3673e113881628d6ced355c5a6a7e.md"
-  - "../../raw/note/Hollis/Java并发/✅有了synchronized为什么还需要volatile 30f3673e1138818f83b4ff3f9bd067d5.md"
+  - "../../raw/note/Hollis/Java并发/✅volatile是如何保证可见性和有序性的？.md"
+  - "../../raw/note/Hollis/Java并发/✅volatile能保证原子性吗？为什么？.md"
+  - "../../raw/note/Hollis/Java并发/✅有了synchronized为什么还需要volatile.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

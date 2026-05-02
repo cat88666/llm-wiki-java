@@ -9,9 +9,9 @@ related:
   - "[[机制-synchronized]]"
   - "[[机制-JVM内存模型]]"
 sources:
-  - "../../raw/note/Hollis/Java并发/✅什么是Java内存模型（JMM）？ 30f3673e113881f09c2af23d5f51d65b.md"
-  - "../../raw/note/Hollis/Java并发/✅什么是happens-before原则？ 30f3673e113881748a2ff4c6e861a464.md"
-  - "../../raw/note/Hollis/Java并发/✅到底啥是内存屏障？到底怎么加的？ 30f3673e113881a88c8dc3572b3a9785.md"
+  - "../../raw/note/Hollis/Java并发/✅什么是Java内存模型（JMM）？.md"
+  - "../../raw/note/Hollis/Java并发/✅什么是happens-before原则？.md"
+  - "../../raw/note/Hollis/Java并发/✅到底啥是内存屏障？到底怎么加的？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

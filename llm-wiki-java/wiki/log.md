@@ -93,3 +93,9 @@
 - 重命名来源目录：emoji 前缀的旧 Hollis 目录 → `raw/note/Hollis/`
 - 批量更新项目说明、实例规范、wiki concept/summary/log 中的来源路径引用
 - 验证旧目录名称已无文本残留
+
+## [2026-05-02] Update | 清理 Notion 导出文件名 ID
+- 清理 `raw/note/` 下 Notion 导出产生的 32 位十六进制文件名/目录名后缀
+- 同步更新 wiki 来源路径、raw 笔记目录页中的普通链接和 URL 编码链接
+- 修正 tuling 目录页中受本次路径变更影响的相对链接
+- 验证 raw 文件名 ID 残留为 0，wiki 来源路径缺失为 0，raw 本地 markdown 链接缺失为 0

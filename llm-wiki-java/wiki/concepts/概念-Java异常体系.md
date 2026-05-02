@@ -7,10 +7,10 @@ aliases: ["Exception", "异常", "Checked Exception", "RuntimeException"]
 related:
   - "[[机制-Java序列化]]"
 sources:
-  - "../../raw/note/Hollis/Java基础/✅Java中异常分哪两类，有什么区别？ 30f3673e1138812b9e40f1f6326a0f95.md"
-  - "../../raw/note/Hollis/Java基础/✅final、finally、finalize有什么区别 30f3673e113881ef8999c2260d02f8fb.md"
-  - "../../raw/note/Hollis/Java基础/✅finally中代码一定会执行吗？ 30f3673e113881ad8951f503a3c92810.md"
-  - "../../raw/note/Hollis/Java基础/✅为什么不建议使用异常控制业务流程 30f3673e11388195a181f515eacd0624.md"
+  - "../../raw/note/Hollis/Java基础/✅Java中异常分哪两类，有什么区别？.md"
+  - "../../raw/note/Hollis/Java基础/✅final、finally、finalize有什么区别.md"
+  - "../../raw/note/Hollis/Java基础/✅finally中代码一定会执行吗？.md"
+  - "../../raw/note/Hollis/Java基础/✅为什么不建议使用异常控制业务流程.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

@@ -10,10 +10,10 @@ related:
   - "[[机制-InnoDB索引模型]]"
   - "[[机制-CAS]]"
 sources:
-  - "../../raw/note/Hollis/MySQL/✅如何理解MVCC？ 30f3673e113881aca193c5642fe7ad5d.md"
-  - "../../raw/note/Hollis/MySQL/✅什么是ReadView，什么样的ReadView可见？ 30f3673e1138817a929ac16740b136e4.md"
-  - "../../raw/note/Hollis/MySQL/✅什么是脏读、幻读、不可重复读？ 30f3673e1138814f985ce7e54b00237e.md"
-  - "../../raw/note/Hollis/MySQL/✅MySQL如何实现不同隔离级别？ 30f3673e11388141b7c7c9dc8f8f041d.md"
+  - "../../raw/note/Hollis/MySQL/✅如何理解MVCC？.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是ReadView，什么样的ReadView可见？.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是脏读、幻读、不可重复读？.md"
+  - "../../raw/note/Hollis/MySQL/✅MySQL如何实现不同隔离级别？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

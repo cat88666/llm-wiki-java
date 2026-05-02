@@ -8,8 +8,8 @@ related:
   - "[[机制-红黑树]]"
   - "[[概念-线性数据结构]]"
 sources:
-  - "../../raw/note/Hollis/数据结构/✅什么是B+树，和B树有什么区别？ 30f3673e113881d79ad9fda19b5acf59.md"
-  - "../../raw/note/Hollis/数据结构/✅什么是树？了解哪些树结构？ 30f3673e11388132ba05fea8981eb065.md"
+  - "../../raw/note/Hollis/数据结构/✅什么是B+树，和B树有什么区别？.md"
+  - "../../raw/note/Hollis/数据结构/✅什么是树？了解哪些树结构？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

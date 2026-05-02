@@ -8,11 +8,11 @@ related:
   - "[[机制-动态代理]]"
   - "[[机制-泛型类型擦除]]"
 sources:
-  - "../../raw/note/Hollis/Java基础/✅如何理解面向对象和面向过程？ 30f3673e113881309194d50e1873d12e.md"
-  - "../../raw/note/Hollis/Java基础/✅如何理解Java中的多态？ 30f3673e11388145a983c1f06dc5a15a.md"
-  - "../../raw/note/Hollis/Java基础/✅接口和抽象类的区别，如何选择？ 30f3673e11388100ad3bf7fec2b3d4a7.md"
-  - "../../raw/note/Hollis/Java基础/✅为什么Java不支持多继承？ 30f3673e113881f69910e05bbe882a3e.md"
-  - "../../raw/note/Hollis/Java基础/✅为什么建议多用组合少用继承？ 30f3673e113881aba829d69d335f16dc.md"
+  - "../../raw/note/Hollis/Java基础/✅如何理解面向对象和面向过程？.md"
+  - "../../raw/note/Hollis/Java基础/✅如何理解Java中的多态？.md"
+  - "../../raw/note/Hollis/Java基础/✅接口和抽象类的区别，如何选择？.md"
+  - "../../raw/note/Hollis/Java基础/✅为什么Java不支持多继承？.md"
+  - "../../raw/note/Hollis/Java基础/✅为什么建议多用组合少用继承？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

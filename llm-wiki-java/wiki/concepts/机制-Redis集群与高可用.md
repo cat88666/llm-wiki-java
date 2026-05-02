@@ -9,7 +9,7 @@ related:
   - "[[概念-缓存三大问题]]"
   - "[[机制-Redis分布式锁]]"
 sources:
-  - "../../raw/note/Hollis/Redis/✅介绍一下Redis的集群模式？ 30f3673e113881619843c1f0fb3f81e0.md"
+  - "../../raw/note/Hollis/Redis/✅介绍一下Redis的集群模式？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

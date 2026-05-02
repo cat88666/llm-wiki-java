@@ -9,9 +9,9 @@ related:
   - "[[机制-InnoDB索引模型]]"
   - "[[机制-MySQL三种日志]]"
 sources:
-  - "../../raw/note/Hollis/MySQL/✅介绍下InnoDB的锁机制？ 30f3673e1138814995bbf873f9a86867.md"
-  - "../../raw/note/Hollis/MySQL/✅什么是意向锁？ 30f3673e1138810992a9feaa75e91d8a.md"
-  - "../../raw/note/Hollis/MySQL/✅MySQL的行级锁锁的到底是什么？ 30f3673e11388107993fc0d3c9366bb5.md"
+  - "../../raw/note/Hollis/MySQL/✅介绍下InnoDB的锁机制？.md"
+  - "../../raw/note/Hollis/MySQL/✅什么是意向锁？.md"
+  - "../../raw/note/Hollis/MySQL/✅MySQL的行级锁锁的到底是什么？.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""

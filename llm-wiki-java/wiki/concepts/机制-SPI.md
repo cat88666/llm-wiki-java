@@ -8,7 +8,7 @@ related:
   - "[[机制-反射]]"
   - "[[机制-动态代理]]"
 sources:
-  - "../../raw/note/Hollis/Java基础/✅什么是SPI，和API有啥区别 30f3673e113881cf8607cc7f1d251e73.md"
+  - "../../raw/note/Hollis/Java基础/✅什么是SPI，和API有啥区别.md"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""
