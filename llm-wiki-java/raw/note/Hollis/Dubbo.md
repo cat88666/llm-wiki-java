@@ -1,0 +1,57 @@
+# Dubbo
+
+所有者: junk01
+
+本分类共 **17** 篇文章。
+
+- ✅什么是RPC，和HTTP有什么区别？
+- ✅什么场景只能用HTTP，不能用RPC？
+- ✅什么是泛化调用？
+- ✅什么是Dubbo的优雅停机，怎么实现的？
+- ✅Dubbo支持哪些调用协议？
+- ✅Dubbo服务发现与路由的概念有什么不同？
+- ✅Dubbo的缓存机制了解吗？
+- ✅Dubbo如何实现像本地方法一样调用远程方法的？
+- ✅Dubbo的整体架构是怎么样的？
+- ✅为什么RPC要比HTTP更快一些？
+- ✅Dubbo支持哪些序列化方式？
+- ✅Dubbo的服务调用的过程是什么样的？
+- ✅有用过Dubbo的异步调用吗？
+- ✅Dubbo支持哪些负载均衡策略？
+- ✅Dubbo的SPI和JDK的SPI有什么区别？
+- ✅为什么Dubbo不用JDK的SPI？
+- ✅Dubbo 支持哪些服务治理？
+
+[✅什么是RPC，和HTTP有什么区别？](Dubbo/%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AFRPC%EF%BC%8C%E5%92%8CHTTP%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F.md)
+
+[✅什么场景只能用HTTP，不能用RPC？](Dubbo/%E2%9C%85%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%E5%8F%AA%E8%83%BD%E7%94%A8HTTP%EF%BC%8C%E4%B8%8D%E8%83%BD%E7%94%A8RPC%EF%BC%9F.md)
+
+[✅什么是泛化调用？](Dubbo/%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AF%E6%B3%9B%E5%8C%96%E8%B0%83%E7%94%A8%EF%BC%9F.md)
+
+[✅什么是Dubbo的优雅停机，怎么实现的？](Dubbo/%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AFDubbo%E7%9A%84%E4%BC%98%E9%9B%85%E5%81%9C%E6%9C%BA%EF%BC%8C%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F.md)
+
+[✅Dubbo支持哪些调用协议？](Dubbo/%E2%9C%85Dubbo%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E8%B0%83%E7%94%A8%E5%8D%8F%E8%AE%AE%EF%BC%9F.md)
+
+[✅Dubbo服务发现与路由的概念有什么不同？](Dubbo/%E2%9C%85Dubbo%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%B7%AF%E7%94%B1%E7%9A%84%E6%A6%82%E5%BF%B5%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F.md)
+
+[✅Dubbo的缓存机制了解吗？](Dubbo/%E2%9C%85Dubbo%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F.md)
+
+[✅Dubbo如何实现像本地方法一样调用远程方法的？](Dubbo/%E2%9C%85Dubbo%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%83%8F%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E4%B8%80%E6%A0%B7%E8%B0%83%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E6%B3%95%E7%9A%84%EF%BC%9F.md)
+
+[✅Dubbo的整体架构是怎么样的？](Dubbo/%E2%9C%85Dubbo%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F.md)
+
+[✅为什么RPC要比HTTP更快一些？](Dubbo/%E2%9C%85%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E8%A6%81%E6%AF%94HTTP%E6%9B%B4%E5%BF%AB%E4%B8%80%E4%BA%9B%EF%BC%9F.md)
+
+[✅Dubbo支持哪些序列化方式？](Dubbo/%E2%9C%85Dubbo%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%EF%BC%9F.md)
+
+[✅Dubbo的服务调用的过程是什么样的？](Dubbo/%E2%9C%85Dubbo%E7%9A%84%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F.md)
+
+[✅有用过Dubbo的异步调用吗？](Dubbo/%E2%9C%85%E6%9C%89%E7%94%A8%E8%BF%87Dubbo%E7%9A%84%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8%E5%90%97%EF%BC%9F.md)
+
+[✅Dubbo支持哪些负载均衡策略？](Dubbo/%E2%9C%85Dubbo%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5%EF%BC%9F.md)
+
+[✅Dubbo的SPI和JDK的SPI有什么区别？](Dubbo/%E2%9C%85Dubbo%E7%9A%84SPI%E5%92%8CJDK%E7%9A%84SPI%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F.md)
+
+[✅为什么Dubbo不用JDK的SPI？](Dubbo/%E2%9C%85%E4%B8%BA%E4%BB%80%E4%B9%88Dubbo%E4%B8%8D%E7%94%A8JDK%E7%9A%84SPI%EF%BC%9F.md)
+
+[✅Dubbo 支持哪些服务治理？](Dubbo/%E2%9C%85Dubbo%20%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%EF%BC%9F.md)
