@@ -40,7 +40,13 @@
 <!-- 待摄入：Java并发/ -->
 
 ### L4 数据结构
-<!-- 待摄入：数据结构/、容器/ -->
+- [[概念-线性数据结构]](concepts/概念-线性数据结构.md) — 数组/链表/栈/队列，访问模式决定选择 `#data-structure`
+- [[机制-红黑树]](concepts/机制-红黑树.md) — 5条规则近似平衡，O(log n) 增删查，HashMap/TreeMap 底层 `#data-structure`
+- [[机制-B树与B加树]](concepts/机制-B树与B加树.md) — 多路平衡树，低树高减少磁盘IO，MySQL InnoDB 索引底层 `#data-structure`
+- [[机制-堆与优先队列]](concepts/机制-堆与优先队列.md) — 完全二叉树 + 数组，Top K 用小顶堆，PriorityQueue `#data-structure`
+- [[概念-前缀树]](concepts/概念-前缀树.md) — 共享公共前缀，O(m) 字符串检索，搜索补全/AC自动机 `#data-structure`
+- [[概念-BitMap]](concepts/概念-BitMap.md) — 1 bit 标记整数存在性，极致空间压缩，布隆过滤器基础 `#data-structure`
+- [[概念-图论基础]](concepts/概念-图论基础.md) — 多对多关系，DFS/BFS 两种遍历，Dijkstra 依赖小顶堆 `#data-structure`
 
 ### L5 存储层
 <!-- 待摄入：MySQL/、Redis/、MyBatis/ -->
@@ -69,6 +75,7 @@
 > 每页对应一个知识主题，聚合多个来源。不按源文件逐篇生成。
 
 - [[主题-Java语言基础]](summaries/主题-Java语言基础.md) — L1 概念地图 + 高频考点汇总，含 11 个 concept 页的依赖关系 `#java-lang`
+- [[主题-数据结构体系]](summaries/主题-数据结构体系.md) — L4 数据结构知识地图 + 高频考点，含与 L5 MySQL/Redis 的联系 `#data-structure`
 
 ---
 

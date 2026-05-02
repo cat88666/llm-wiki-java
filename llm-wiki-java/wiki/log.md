@@ -5,6 +5,19 @@
 格式：
 `## [YYYY-MM-DD] 操作类型 | 标题`
 
+## [2026-05-02] Ingest | 数据结构模块（L4 数据结构）
+- 来源：`raw/note/📚 Hollis Java/数据结构/`（12 个问答式笔记）
+- 新建 concept 页 × 7：
+  - `概念-线性数据结构.md`（数组/链表/栈/队列）
+  - `机制-红黑树.md`（5条规则、旋转着色、HashMap/TreeMap 应用）
+  - `机制-B树与B加树.md`（多路平衡、B vs B+对比、InnoDB 选型）
+  - `机制-堆与优先队列.md`（数组实现、Top K 小顶堆、TP99）
+  - `概念-前缀树.md`（Trie、O(m)检索、搜索补全/AC自动机）
+  - `概念-BitMap.md`（位数组、空间压缩、布隆过滤器基础）
+  - `概念-图论基础.md`（有向/无向、邻接表、DFS/BFS、Dijkstra）
+- 新建 summary 页 × 1：`主题-数据结构体系.md`（含知识地图 + 高频考点 + 与 L4/L5 联系）
+- 更新 `wiki/index.md`：L4 数据结构分区填充 7 个 concept 链接；Summaries 分区新增 1 条
+
 ## [2026-05-02] Ingest | Java基础模块（L1 语言基础）
 - 来源：`raw/note/📚 Hollis Java/Java基础/`（60+ 问答式笔记）
 - 新建 concept 页 × 11：
