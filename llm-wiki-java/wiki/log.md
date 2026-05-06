@@ -1,5 +1,14 @@
 # Wiki Log
 
+## [2026-05-06] Lint | 健康检查
+- **失效链接**：修复 `主题-Redis体系.md` 第37行畸形 wikilink（管道符截断了 `[[机制-Redis持久化]]`）
+- **重复/孤立页面删除** ×4：`机制-HashMap.md`、`机制-ConcurrentHashMap.md`（均与 `底层实现`/`并发设计` canonical 页重复）、`机制-CopyOnWrite.md`、`概念-集合迭代一致性.md`（内容已覆盖于 `ConcurrentHashMap并发设计.md`）
+- **sources 路径**：全量验证 51+4 个页面，0 个缺失
+- **概念页六段结构**：全部 51 个 concept 页结构完整
+- **index.md 链接**：全部文件存在，0 失效
+- **遗留 Demo 文件**（未修改，待人工决定是否删除）：`entities/demo-*.md` ×4 + `synthesis/demo-AI时代...md` ×1
+- 知识库现状：concepts×51 / entities×1 / summaries×8 / synthesis×3
+
 ## [2026-05-06] Ingest | 面经实战模块（L8 工程实践）
 - 来源：`raw/note/Hollis/面经实战/`（55 个面经实战笔记，按高频考点组合提取）
 - 新建 synthesis 页 × 3：
