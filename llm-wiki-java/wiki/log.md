@@ -1,5 +1,69 @@
 # Wiki Log
 
+## [2026-05-06] Ingest | 面经实战模块（L8 工程实践）
+- 来源：`raw/note/Hollis/面经实战/`（55 个面经实战笔记，按高频考点组合提取）
+- 新建 synthesis 页 × 3：
+  - `设计-秒杀系统.md`（多层漏斗架构、Redis Lua原子扣减防超卖、MQ削峰填谷、热点行库存拆分、全链路幂等Token+唯一键+消息ID）
+  - `设计-分布式事务.md`（2PC同步阻塞对比TCC补偿最终一致、TCC空回滚/悬挂/幂等三大问题事务状态表解决、本地消息表vs事务消息RocketMQ半消息机制、Seata AT undo log原理、选型决策树）
+  - `设计-分库分表.md`（分片键选择原则、Hash取模为何先hash再取模、雪花算法64位结构与时钟回拨4种解法、基因法订单号携带分片信息、双写迁移扩容方案）
+- 更新 `wiki/index.md`：Synthesis 分区填充 L8 工程实践 3 个 synthesis 链接
+
+## [2026-05-06] Ingest | SpringCloud模块（L7 分布式体系）
+- 来源：`raw/note/Hollis/SpringCloud/`（27 个问答式笔记）
+- 新建 concept 页 × 1：
+  - `机制-微服务与SpringCloud.md`（现代组件选型全景、SpringCloud vs Dubbo对比、Eureka AP vs ZK CP注册中心选型、Nacos替代方案、OpenFeign声明式HTTP+动态代理原理、熔断器三态关闭/开启/半开、Hystrix vs Sentinel多维度限流、Gateway WebFlux非阻塞响应式 vs Zuul阻塞、Nginx vs Gateway定位对比与组合使用）
+- 更新 `wiki/index.md`：L7 分布式体系新增 1 个 concept 链接
+
+## [2026-05-06] Ingest | Dubbo模块（L7 分布式体系）
+- 来源：`raw/note/Hollis/Dubbo/`（17 个问答式笔记）
+- 新建 concept 页 × 1：
+  - `机制-RPC与Dubbo.md`（RPC vs HTTP维度对比、Dubbo架构三阶段服务注册/发现/调用、动态代理透明调用9层架构、5种负载均衡策略、dubbo协议+Hessian2序列化、Dubbo SPI懒加载+注入+Wrapper vs JDK SPI、服务治理Failover/Failfast/金丝雀/降级、优雅停机JVM shutdown hook+Spring事件链）
+- 更新 `wiki/index.md`：L7 分布式体系新增 1 个 concept 链接
+
+## [2026-05-06] Ingest | ElasticSearch模块（L7 分布式体系）
+- 来源：`raw/note/Hollis/ElasticSearch/`（13 个问答式笔记）
+- 新建 concept 页 × 1：
+  - `机制-倒排索引与ElasticSearch.md`（倒排索引建立过程、ES快的5维度、集群角色Master/Data/Coordinating、乐观锁seq_no+primary_term、不支持事务、深度分页from+size→scroll→search_after、ES与DB一致性binlog监听方案推荐、Hot-Warm-Cold架构）
+- 更新 `wiki/index.md`：L7 分布式体系新增 1 个 concept 链接
+
+## [2026-05-06] Ingest | RabbitMQ模块（L7 分布式体系）
+- 来源：`raw/note/Hollis/RabbitMQ/`（8 个问答式笔记）
+- 新建 concept 页 × 1：
+  - `机制-消息队列可靠性.md`（AMQP架构、Exchange四种类型、消息可靠性三段保证、持久化+Publisher Confirm+消费者手动ACK、死信队列、延迟消息DLQ+TTL vs 插件、幂等一锁二判三更新、镜像集群/Quorum Queue高可用）
+- 更新 `wiki/index.md`：L7 分布式体系新增 1 个 concept 链接
+
+## [2026-05-06] Ingest | Zookeeper模块（L7 分布式体系）
+- 来源：`raw/note/Hollis/Zookeeper/`（9 个问答式笔记）
+- 新建 concept 页 × 1：
+  - `机制-ZAB协议与Zookeeper.md`（ZNode四种类型、Watch一次性通知机制、ZAB原子广播协议、CP顺序一致性、集群角色Leader/Follower/Observer、选举遵强投强、临时顺序节点分布式锁避免惊群、脑裂与过半写防护）
+- 更新 `wiki/index.md`：L7 分布式体系新增 1 个 concept 链接
+
+## [2026-05-06] Ingest | Spring模块（L6 应用框架）
+- 来源：`raw/note/Hollis/Spring/`（55 个问答式笔记）
+- 新建 concept 页 × 4：
+  - `机制-IoC容器.md`（控制反转/DI原理、Bean生命周期11步、三级缓存解决循环依赖机制、为何需要三级缓存、Bean作用域）
+  - `机制-AOP织入.md`（AOP 5大术语、JDK/CGLIB代理选择策略、5种Advice类型、失效场景完整列表、解决自调用方案）
+  - `机制-Spring事务.md`（@Transactional=TransactionInterceptor Around Advice、7种传播机制及场景、失效10种场景、多线程下事务不传播的根因）
+  - `机制-SpringBoot自动装配.md`（@EnableAutoConfiguration链路、spring.factories→Boot3 .imports演变原因、@Conditional条件化装配、自定义starter三步法）
+- 新建 summary 页 × 1：`主题-Spring体系.md`（L6 Spring全景知识图 + 高频考点 + 常见误区）
+- 更新 `wiki/index.md`：L6 应用框架分区填充 4 个 concept 链接；Summaries 新增 1 条
+
+## [2026-05-06] Ingest | MyBatis模块（L5 存储层）
+- 来源：`raw/note/Hollis/MyBatis/`（16 个问答式笔记）
+- 新建 entity 页 × 1：
+  - `实体-MyBatis.md`（工作原理、# vs $占位符、一/二级缓存对比与不推荐二级缓存的原因、PageHelper/RowBounds/MyBatis-Plus分页原理、插件责任链、延迟加载代理机制）
+- 更新 `wiki/index.md`：Entities 分区 L5 新增 1 条
+
+## [2026-05-06] Ingest | 集合类模块（L4 数据结构补充）
+- 来源：`raw/note/Hollis/集合类/`（32 个问答式笔记）
+- 新建 concept 页 × 2：
+  - `机制-HashMap底层实现.md`（数组+链表+红黑树、扰动hash、0.75负载因子、JDK7头插/死循环、JDK8高低位拆分扩容）
+  - `机制-ConcurrentHashMap并发设计.md`（分段锁JDK7→CAS+节点锁JDK8、为何用synchronized非ReentrantLock、fail-safe弱一致性、不允许null的二义性、COW机制）
+- 更新 concept 页 × 1：
+  - `概念-线性数据结构.md`：补充 ArrayList/LinkedList/Vector 对比表、subList陷阱、遍历删除安全写法
+- 新建 summary 页 × 1：`主题-Java集合框架.md`（集合体系全图、高频考点、选型决策树、常见误区）
+- 更新 `wiki/index.md`：L4 新增 2 个 concept 链接；Summaries 新增 1 条
+
 ## [2026-05-02] Ingest | Redis模块（L5 存储层）
 - 来源：`raw/note/Hollis/Redis/`（11 个问答式笔记）
 - 新建 concept 页 × 5：

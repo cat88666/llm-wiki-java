@@ -50,13 +50,15 @@
 - [[概念-ThreadLocal]](concepts/概念-ThreadLocal.md) — Thread→ThreadLocalMap→弱引用key，线程池内存泄漏，必须remove `#concurrency`
 
 ### L4 数据结构
-- [[概念-线性数据结构]](concepts/概念-线性数据结构.md) — 数组/链表/栈/队列，访问模式决定选择 `#data-structure`
+- [[概念-线性数据结构]](concepts/概念-线性数据结构.md) — 数组/链表/栈/队列，ArrayList/LinkedList/Vector对比，fail-fast陷阱 `#data-structure`
 - [[机制-红黑树]](concepts/机制-红黑树.md) — 5条规则近似平衡，O(log n) 增删查，HashMap/TreeMap 底层 `#data-structure`
 - [[机制-B树与B加树]](concepts/机制-B树与B加树.md) — 多路平衡树，低树高减少磁盘IO，MySQL InnoDB 索引底层 `#data-structure`
 - [[机制-堆与优先队列]](concepts/机制-堆与优先队列.md) — 完全二叉树 + 数组，Top K 用小顶堆，PriorityQueue `#data-structure`
 - [[概念-前缀树]](concepts/概念-前缀树.md) — 共享公共前缀，O(m) 字符串检索，搜索补全/AC自动机 `#data-structure`
 - [[概念-BitMap]](concepts/概念-BitMap.md) — 1 bit 标记整数存在性，极致空间压缩，布隆过滤器基础 `#data-structure`
 - [[概念-图论基础]](concepts/概念-图论基础.md) — 多对多关系，DFS/BFS 两种遍历，Dijkstra 依赖小顶堆 `#data-structure`
+- [[机制-HashMap底层实现]](concepts/机制-HashMap底层实现.md) — 数组+链表+红黑树，扰动hash，0.75负载因子，JDK8高低位拆分扩容 `#data-structure`
+- [[机制-ConcurrentHashMap并发设计]](concepts/机制-ConcurrentHashMap并发设计.md) — 分段锁(JDK7)→CAS+节点锁(JDK8)，fail-safe，不允许null的原因 `#data-structure`
 
 ### L5 存储层
 - [[机制-InnoDB索引模型]](concepts/机制-InnoDB索引模型.md) — B+树索引、聚簇/二级索引、回表、覆盖索引、索引下推、最左前缀 `#storage`
@@ -71,13 +73,20 @@
 - [[机制-Redis集群与高可用]](concepts/机制-Redis集群与高可用.md) — 主从/哨兵/Cluster三种模式、16384槽分片、脑裂防护 `#storage`
 
 ### L6 应用框架
-<!-- 待摄入：Spring/、SpringBoot -->
+- [[机制-IoC容器]](concepts/机制-IoC容器.md) — 控制反转、Bean生命周期11步、三级缓存解决循环依赖 `#framework`
+- [[机制-AOP织入]](concepts/机制-AOP织入.md) — JDK/CGLIB代理、5种Advice、失效场景（this调用/private/static/final）`#framework`
+- [[机制-Spring事务]](concepts/机制-Spring事务.md) — @Transactional=AOP切面、7种传播机制、失效场景（代理失效/异常被吞/多线程）`#framework`
+- [[机制-SpringBoot自动装配]](concepts/机制-SpringBoot自动装配.md) — @EnableAutoConfiguration、spring.factories→.imports、@Conditional条件装配、自定义starter `#framework`
 
 ### L7 分布式体系
-<!-- 待摄入：SpringCloud/、Dubbo/、Zookeeper/、RabbitMQ/、ElasticSearch/ -->
+- [[机制-ZAB协议与Zookeeper]](concepts/机制-ZAB协议与Zookeeper.md) — ZAB原子广播协议、ZNode/Watch机制、Leader选举、临时顺序节点分布式锁、CP强一致 `#distributed`
+- [[机制-消息队列可靠性]](concepts/机制-消息队列可靠性.md) — Publisher Confirm+持久化+消费者手动ACK三段保证、死信队列、延迟消息、幂等消费 `#distributed`
+- [[机制-倒排索引与ElasticSearch]](concepts/机制-倒排索引与ElasticSearch.md) — 倒排索引原理、集群角色、深度分页(scroll/search_after)、ES与DB一致性同步方案 `#distributed`
+- [[机制-RPC与Dubbo]](concepts/机制-RPC与Dubbo.md) — RPC透明代理、Dubbo三阶段(注册/发现/调用)、5种负载均衡、Dubbo SPI增强、服务治理体系 `#distributed`
+- [[机制-微服务与SpringCloud]](concepts/机制-微服务与SpringCloud.md) — Eureka(AP) vs ZK(CP)、熔断器三态(Hystrix→Sentinel)、OpenFeign声明式调用、Gateway响应式网关 `#distributed`
 
 ### L8 工程实践
-<!-- 待摄入：面经实战/ -->
+<!-- 面经实战高频考点已提取到 Synthesis 分区 -->
 
 ---
 
@@ -85,7 +94,8 @@
 
 > 具体框架、工具、组件、规范。有明确身份边界的具体对象。
 
-<!-- 待摄入后填充 -->
+### L5 存储层
+- [[实体-MyBatis]](entities/实体-MyBatis.md) — 半自动ORM；#{}预编译防注入；一/二级缓存；PageHelper物理分页；插件责任链 `#storage`
 
 ---
 
@@ -93,6 +103,8 @@
 
 > 每页对应一个知识主题，聚合多个来源。不按源文件逐篇生成。
 
+- [[主题-Spring体系]](summaries/主题-Spring体系.md) — L6 Spring/SpringBoot 知识地图，含IoC/AOP/事务/自动装配四大机制 `#framework`
+- [[主题-Java集合框架]](summaries/主题-Java集合框架.md) — L4 集合框架知识地图 + 高频考点，含List/Set/Map/并发容器/Stream选型 `#data-structure`
 - [[主题-Redis体系]](summaries/主题-Redis体系.md) — L5 Redis 知识地图 + 高频考点，含数据类型/持久化/缓存三大问题/分布式锁/集群 `#storage`
 - [[主题-MySQL体系]](summaries/主题-MySQL体系.md) — L5 MySQL 知识地图 + 高频考点，含索引/MVCC/三种日志/锁机制/SQL优化 `#storage`
 - [[主题-Java并发体系]](summaries/主题-Java并发体系.md) — L3 并发知识地图 + 高频考点，含 JMM/锁/CAS/AQS/线程池/ThreadLocal 依赖关系 `#concurrency`
@@ -106,4 +118,7 @@
 
 > 围绕一个问题、比较或判断展开。涉及跨层或跨模块知识时使用。
 
-<!-- 待摄入后填充 -->
+### L8 工程实践
+- [[设计-秒杀系统]](synthesis/设计-秒杀系统.md) — 多层漏斗过滤模型、Redis Lua预扣减、MQ削峰、热点行库存拆分、全链路幂等 `#practice`
+- [[设计-分布式事务]](synthesis/设计-分布式事务.md) — 2PC/TCC/本地消息表/事务消息对比、TCC空回滚与悬挂、Seata AT vs 2PC区别、选型决策树 `#practice`
+- [[设计-分库分表]](synthesis/设计-分库分表.md) — 分片键选择原则、雪花算法时钟回拨、基因法跨维度查询、双写扩容迁移方案 `#practice`

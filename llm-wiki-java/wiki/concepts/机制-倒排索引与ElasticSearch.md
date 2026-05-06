@@ -1,0 +1,135 @@
+---
+type: concept
+status: active
+name: "倒排索引与ElasticSearch"
+layer: L7
+aliases: ["ElasticSearch", "ES", "倒排索引", "全文搜索", "深度分页", "scroll", "search_after", "ELK"]
+related:
+  - "[[机制-InnoDB索引模型]]"
+  - "[[机制-消息队列可靠性]]"
+  - "[[机制-MySQL三种日志]]"
+sources:
+  - "../../raw/note/Hollis/ElasticSearch/✅倒排索引是什么？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅ElasticSearch为什么快？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅Elasticsearch集群中的角色有哪些？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅ES 支持乐观锁吗？如何实现的？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅Elasticsearch支持事务吗？为什么？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅什么是ElasticSearch的深度分页问题？如何解决？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅如何保证ES和数据库的数据一致性？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅为什么要使用ElasticSearch？和传统关系数据库（如 MySQL）有什么不同？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅如何优化 ElasticSearch 搜索性能？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅介绍下ES的Hot-Warm-Cold架构.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅什么是ILM（索引生命周期管理）？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅ES支持哪些数据类型，和MySQL之间的映射关系是怎么样的？.md"
+  - "../../raw/note/Hollis/ElasticSearch/✅ES 不支持 decimal，如何避免丢失精度？.md"
+created: 2026-05-06
+updated: 2026-05-06
+lint_notes: ""
+---
+
+# 倒排索引与ElasticSearch
+
+> ElasticSearch 是基于倒排索引的分布式全文搜索引擎：将文本分词后建立"词条→文档列表"的映射，以亚秒级速度在海量文本中定位匹配文档；以牺牲 ACID 事务和实时一致性为代价，换取极致搜索性能。
+
+## 第一性原理
+
+关系数据库的 B+树索引（见 [[机制-InnoDB索引模型]]）解决的是"按字段精确/范围查找记录"。但全文搜索需要反过来问：**哪些文档包含这个词？** 传统 B+树无法高效回答这个问题。倒排索引（Inverted Index）正是为此而生——它以词条为键、以文档集合为值，把"正向"的文档→词条关系，翻转为"倒向"的词条→文档关系。
+
+## 核心机制
+
+### 倒排索引建立过程
+
+```
+原始文档（JSON）
+    ↓ 分词（Analyzer：standard/ik_max_word 等）
+词条列表（Terms）
+    ↓ 倒排表压缩（Variable Byte Encoding 等）
+倒排索引 = Term → [DocID, Position, Frequency, ...]
+```
+
+**示例**：
+
+| 词条 | 文档 ID |
+|------|---------|
+| Java | 1, 2, 3 |
+| 深入 | 1, 2 |
+| 虚拟机 | 2 |
+
+搜索"Java 虚拟机"→ 取两个倒排列表的交集 → 文档 2。
+
+### ES 为什么快（五个维度）
+
+| 维度 | 机制 |
+|------|------|
+| 倒排索引 | 词条直接定位文档，无需全表扫描 |
+| 分布式分片 | 索引拆成多个分片，查询并行执行 |
+| 内存缓存 | 热数据（Segment + FSCache）驻内存，减少磁盘 I/O |
+| 预处理 | 写入时预计算分词、评分因子，查询时不再重算 |
+| 异步处理 | 写入 translog → refresh 到内存 Segment（近实时，默认 1s） |
+
+### 集群角色
+
+| 角色 | 职责 | 注意 |
+|------|------|------|
+| **Master** | 管理集群状态、索引元数据、分片分配 | 一个集群只有一个活跃 Master，选举防脑裂 |
+| **Master-eligible** | 候选节点，配奇数（3/5）防脑裂 | 不承担数据节点职责 |
+| **Data** | 存储分片（主+副本），执行 CRUD/搜索/聚合 | 可细分 data_hot/data_warm/data_cold |
+| **Coordinating** | 接收客户端请求，路由到数据节点，合并结果返回 | 所有节点默认也是 Coordinating |
+| **Ingest** | 写入前对文档做预处理（pipeline） | 可选，替代部分 Logstash 功能 |
+
+### 乐观锁（并发控制）
+
+ES 只支持乐观锁，不支持悲观锁。
+
+```
+旧：_version（递增整数，6.7 后废弃）
+新：if_seq_no + if_primary_term（推荐）
+    - seq_no：文档每次变更自动递增的序列号
+    - primary_term：主分片切换时递增，配合 seq_no 防止脑裂后旧数据写入
+```
+
+更新时携带 `if_seq_no`/`if_primary_term`，若与当前值不匹配则返回 409 冲突错误，由业务重试。
+
+### 事务支持
+
+**ES 不支持跨文档 ACID 事务**。只保证单个文档操作（创建/更新/删除）的原子性。适合搜索、日志分析，不适合金融交易等强一致性场景。
+
+### 深度分页问题
+
+`from + size` 的总和默认不超过 10000（`index.max_result_window`）。深分页时 ES 需要在每个分片上扫描并排序 `from + size` 条记录后丢弃前 `from` 条，随页码增加性能急剧下降。
+
+| 方案 | 原理 | 适用场景 | 缺点 |
+|------|------|---------|------|
+| `from + size` | 跳过前 N 条记录 | 小数据集，浅分页 | 深分页性能崩溃，上限 10000 |
+| `scroll` | 初始化快照 + scroll_id 游标 | 数据导出/全量遍历 | 不适合实时请求；维护游标消耗内存 |
+| `search_after` | 基于上一页最后一条的排序值继续查询 | 生产环境深分页推荐 | 不支持随机跳页；需要稳定排序字段（含全局唯一值如 `_id`）|
+
+### ES 与数据库数据一致性
+
+| 方案 | 原理 | 优点 | 缺点 |
+|------|------|------|------|
+| 双写（同一事务） | 代码中同时写 DB 和 ES，纳入本地事务 | 简单，实时性高 | 外调拖长事务，超时场景不一致 |
+| MQ 异步 + 本地消息表 | 写 DB 后发消息，Consumer 更新 ES | 解耦，异步，最终一致 | 引入 MQ 中间件，存在延迟 |
+| 定时扫表 | 定时任务轮询 DB 变更，批量同步 ES | 无侵入 | 实时性差，给 DB 带来额外压力 |
+| **binlog 监听（推荐）** | Canal 等框架监听 MySQL binlog，变更推送 ES | 完全无侵入，业务解耦，毫秒级延迟可接受 | 需引入 Canal 等框架，延迟约毫秒级 |
+
+## 关键权衡
+
+1. **搜索 vs 事务**：ES 的倒排索引和分布式架构为搜索性能而生，但放弃了 ACID，不能替代 RDBMS 存储核心业务数据
+2. **近实时 vs 强实时**：写入 ES 后 1 秒（默认 refresh 间隔）才能被搜索到，不适合需要写后立即读的场景
+3. **分片数量 vs 查询性能**：分片越多写入吞吐越高，但查询需协调的分片越多反而更慢；经验法则：每 GB 堆内存不超过 20 个分片
+4. **scroll vs search_after**：scroll 保证快照一致性但消耗服务端内存；search_after 无状态但不支持随机跳页
+5. **text vs keyword**：text 分词后支持全文搜索但不能精确聚合/排序；keyword 不分词支持精确匹配/排序/聚合，两者经常对同一字段同时配置
+
+## 与其他概念的关系
+
+- **对比 [[机制-InnoDB索引模型]]**：InnoDB B+树是"文档→词条"的正向索引，适合精确/范围查询；ES 倒排索引是"词条→文档"，适合全文搜索；两者解决不同问题，生产中往往 MySQL 存源数据 + ES 搜索
+- **依赖 [[机制-消息队列可靠性]]**：ES 与 DB 数据同步的推荐方案（binlog + MQ）直接依赖消息队列的可靠投递机制
+- **依赖 [[机制-MySQL三种日志]]**：binlog 监听方案基于 MySQL binlog 变更事件，Canal 订阅 binlog 后推送到 ES
+- **Hot-Warm-Cold 架构**：利用 `data_hot`/`data_warm`/`data_cold`/`data_frozen` 节点角色 + ILM（索引生命周期管理），将热数据放 SSD 快速响应、冷数据迁移到大容量低速磁盘降低成本
+
+## 应用边界
+
+**适合 ES**：全文搜索（商品、文章、日志）；复杂多条件过滤+评分排序；日志分析（ELK Stack）；大数据量聚合统计；近实时监控。
+
+**不适合 ES**：需要 ACID 事务（用 MySQL）；需要写后立即强一致读（用 MySQL + 缓存）；频繁更新单条记录（ES 的更新实质是删旧建新，代价较高）；超大量级精确深分页随机跳页（search_after 不支持跳页）。
