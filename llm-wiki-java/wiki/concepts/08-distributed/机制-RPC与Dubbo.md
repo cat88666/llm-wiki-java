@@ -3,7 +3,7 @@ type: concept
 status: active
 name: "RPC与Dubbo"
 layer: L7
-aliases: ["Dubbo", "RPC", "远程过程调用", "服务治理", "负载均衡", "集群容错", "优雅停机", "Dubbo SPI"]
+aliases: ["Dubbo", "RPC", "远程过程调用", "服务治理", "负载均衡", "集群容错", "优雅停机", "Dubbo SPI", "gRPC", "Protobuf", "序列化协议", "HTTP/2"]
 related:
   - "[[机制-ZAB协议与Zookeeper]]"
   - "[[机制-动态代理]]"
@@ -159,6 +159,43 @@ Consumer: 不再发起新调用，等待响应中的请求返回
 ```
 
 核心：利用 JVM shutdown hook → Spring 事件机制 → Dubbo 有序收尾，避免强杀（kill -9）导致请求丢失。
+
+## gRPC 与序列化协议对比
+
+### gRPC
+
+Google 开源的高性能 RPC 框架，基于 **HTTP/2 + Protobuf**：
+
+| 特性 | gRPC | Dubbo |
+|------|------|-------|
+| 传输协议 | HTTP/2（多路复用/头部压缩）| TCP 长连接（dubbo 协议）|
+| 序列化 | Protobuf（二进制，强类型 IDL）| Hessian2（默认），可插拔 |
+| 跨语言 | 一流（Go/Python/C++/Java/...）| Java 为主，多语言弱 |
+| 服务治理 | 无（需自建或 Service Mesh）| 丰富（路由/降级/监控）|
+| 通信模式 | Unary/Server Streaming/Client Streaming/双向 Streaming | 请求-响应为主 |
+
+**gRPC 四种通信模式**：
+- **Unary**：一次请求 + 一次响应（普通 RPC）
+- **Server Streaming**：一次请求 + 多次响应（如实时推送）
+- **Client Streaming**：多次请求 + 一次响应（如文件上传）
+- **Bidirectional Streaming**：双向流式（如即时聊天）
+
+**适用场景**：微服务内部跨语言通信；对性能极致要求（Protobuf 比 JSON 小 3-10倍）；需要流式传输。
+
+### 序列化协议对比
+
+| 协议 | 性能 | 跨语言 | 可读性 | 典型场景 |
+|------|------|--------|--------|---------|
+| JSON | 低 | ✓ | 高 | HTTP API、配置文件 |
+| Hessian2 | 中 | 部分 | 低 | Dubbo 默认 |
+| **Protobuf** | 高 | ✓ | 低（需 IDL）| gRPC、Kafka Schema |
+| Kryo | 极高 | ✗（Java 专用）| 低 | Java 内部高性能缓存序列化 |
+| Fury | 极高 | ✓ | 低 | 蚂蚁开源，号称比 Hessian2 快 100 倍 |
+| Avro | 高 | ✓ | 低 | Kafka、Hadoop 大数据 |
+
+**选型原则**：对外接口用 JSON（可读、兼容性好）；内部 Java 服务用 Hessian2/Fury；跨语言高性能用 Protobuf；大数据管道用 Avro。
+
+---
 
 ## 关键权衡
 

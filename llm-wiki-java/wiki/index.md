@@ -36,6 +36,7 @@
 - [[概念-IO模型]](concepts/01-cs-base/概念-IO模型.md) — BIO/NIO/AIO，同步异步阻塞非阻塞 `#java-lang`
 - [[机制-SPI]](concepts/02-java-lang/机制-SPI.md) — 框架扩展点，ServiceLoader，Dubbo/SpringBoot 的变体 `#java-lang`
 - [[机制-Lambda表达式]](concepts/02-java-lang/机制-Lambda表达式.md) — invokedynamic 实现，Stream API，并行流陷阱 `#java-lang`
+- [[概念-JDK新特性]](concepts/02-java-lang/概念-JDK新特性.md) — JDK8(Lambda/Stream/Optional)、JDK16 Record、JDK17 Sealed Classes、JDK21 虚拟线程(Virtual Threads) `#java-lang`
 
 ### L2 运行时（JVM）
 - [[机制-JVM内存模型]](concepts/03-jvm/机制-JVM内存模型.md) — 5大运行时区域、堆分代（Eden/Survivor/Old）、元空间演变 `#jvm`
@@ -101,7 +102,8 @@
 - [[概念-网络安全]](concepts/08-distributed/概念-网络安全.md) — SQL注入(预编译)、XSS/CSRF防御、垂直/水平越权(RBAC/session)、中间人攻击(HTTPS/HSTS)、撞库/拖库/洗库、国密SM2/SM3/SM4/SM9 `#security`
 - [[机制-Kafka]](concepts/08-distributed/机制-Kafka.md) — Topic/Partition/Segment存储结构、顺序写+零拷贝高吞吐原因、ISR/HW/LeaderEpoch可靠性、CooperativeStickyAssignor渐进式重平衡、At-least-once/Exactly-once语义 `#distributed`
 - [[机制-Netty]](concepts/08-distributed/机制-Netty.md) — 主从Reactor多线程模型、epoll事件通知、EventLoop单线程无锁、ByteBuf读写双指针+池化、粘包拆包LengthField方案、IdleStateHandler心跳 `#distributed`
-- [[概念-DDD]](concepts/09-practice/概念-DDD.md) — 领域驱动设计、实体/值对象/聚合根、充血模型vs贫血模型、四层架构(用户接口/应用/领域/基础设施)、限界上下文作为微服务拆分依据 `#practice`
+- [[概念-可观测性]](concepts/08-distributed/概念-可观测性.md) — Metrics/Tracing/Logging三大支柱、SkyWalking字节码Agent架构、Prometheus四种Metric类型、P99指标、三支柱协作排障流程 `#distributed`
+- [[概念-DDD]](concepts/09-practice/概念-DDD.md) — 领域驱动设计、实体/值对象/聚合根、充血模型vs贫血模型、四层架构(用户接口/应用/领域/基础设施)、限界上下文作为微服务拆分依据、CQRS、Event Sourcing `#practice`
 
 ### L8 工程实践
 <!-- 面经实战高频考点已提取到 Synthesis 分区 -->
@@ -144,3 +146,4 @@
 - [[设计-短链服务]](synthesis/设计-短链服务.md) — MurmurHash+Base62生成、302 vs 301跳转选型、Redis+MySQL双存储、防滥用机制 `#practice`
 - [[设计-订单超时关闭]](synthesis/设计-订单超时关闭.md) — 方案对比(定时扫表/DelayQueue/Redisson/MQ)、Redisson延迟队列分布式首选、关闭逻辑幂等设计 `#practice`
 - [[设计-线上问题排查]](synthesis/设计-线上问题排查.md) — CPU高/FullGC/OOM/慢SQL/死锁/连接池/MQ堆积实战案例，Arthas/jstack/MAT工具链，死循环vs死锁对CPU影响，数据倾斜规律 `#practice`
+- [[设计-算法高频题型]](synthesis/设计-算法高频题型.md) — LRU(HashMap+双向链表)、TopK(小顶堆/快速选择)、海量数据(哈希分片)、排序选型、二分模板、滑动窗口、DP转移方程、并查集、拓扑排序 `#practice`

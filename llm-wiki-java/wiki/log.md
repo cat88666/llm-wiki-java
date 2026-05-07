@@ -33,6 +33,37 @@
 - 源文件覆盖：tuling/08-mq/Kafka.md(+6子文件) / tuling/07-Netty.md / tuling/DDD架构.md / tuling/09-微服务/11-nacos.md
 - 知识库现状：concepts×67 / entities×1 / summaries×8 / synthesis×6
 
+## [2026-05-07] Ingest | 架构体系/ → 3新建 + 3更新
+- 新建 `concepts/02-java-lang/概念-JDK新特性.md`（L1 #java-lang）：覆盖 7个架构体系文件
+  - JDK8：Lambda(invokedynamic)/Stream(惰性求值)/Optional/LocalDateTime
+  - JDK16 Record：不可变数据类，自动生成构造器/getter/equals/hashCode
+  - JDK17 Sealed Classes：限制合法子类，配合 pattern matching switch 穷举类型
+  - JDK21 虚拟线程：JVM管理的轻量级线程，IO阻塞时自动卸载载体线程；synchronized 会 pin 载体线程，应改 ReentrantLock
+- 新建 `concepts/08-distributed/概念-可观测性.md`（L7 #distributed）
+  - 三大支柱：Metrics(是否有问题) / Tracing(问题在哪) / Logging(为什么)
+  - Prometheus：Counter/Gauge/Histogram/Summary 四种类型；P99/CPM/错误率
+  - SkyWalking：Agent无侵入字节码插桩 → OAP Server → ES存储；TraceId/Span/Segment
+  - 三支柱协作排障流程（Grafana发现 → SkyWalking定位 → Kibana根因）
+- 新建 `synthesis/设计-算法高频题型.md`（L8 #practice）
+  - LRU: HashMap+双向链表，O(1) get/put
+  - TopK: 小顶堆O(n log k) / 快速选择O(n)
+  - 海量数据: 哈希分片+局部处理+合并结果模式
+  - 排序: TimSort/双轴快排/快速排序优化(随机pivot/三路划分)
+  - 二分: 标准模板+变体(lower_bound/旋转有序)
+  - 双指针/滑动窗口: 对撞/快慢/窗口三种模式
+  - DP: 最大子数组/LIS/LCS/0-1背包四经典转移方程
+  - 图: 并查集路径压缩代码 + 拓扑排序Kahn算法
+- 更新 `concepts/08-distributed/概念-分布式系统理论.md`：补充 Paxos/Raft
+  - Raft三子问题：Leader选举(多数票+任期Term防脑裂) / 日志复制(多数确认后commit) / 安全性(新Leader必须有最新committed日志)
+  - Raft应用：etcd/TiKV/CockroachDB/Consul
+- 更新 `concepts/08-distributed/机制-RPC与Dubbo.md`：新增 gRPC + 序列化对比表
+  - gRPC: HTTP/2(多路复用/头部压缩) + Protobuf；4种通信模式(Unary/双向Streaming等)
+  - 序列化对比: JSON/Hessian2/Protobuf/Kryo/Fury/Avro 性能/跨语言/场景
+- 更新 `concepts/09-practice/概念-DDD.md`：新增 CQRS + Event Sourcing
+  - CQRS: 写路径走领域模型，读路径走专用查询模型(反范式)
+  - Event Sourcing: 存事件序列而非当前状态；审计/时间旅行优点；Snapshot缓解重放成本
+- 知识库现状：concepts×70 / entities×1 / summaries×8 / synthesis×8
+
 ## [2026-05-07] Ingest | 项目经验/ → synthesis/设计-线上问题排查
 - 新建 `synthesis/设计-线上问题排查.md`（L8 #practice）：覆盖 25 个实战案例文件
   - 诊断工具速查表：Arthas(thread/trace/watch/sc)/top/jstack/jmap/MAT/df/du/netstat/tcpdump
