@@ -33,6 +33,23 @@
 - 源文件覆盖：tuling/08-mq/Kafka.md(+6子文件) / tuling/07-Netty.md / tuling/DDD架构.md / tuling/09-微服务/11-nacos.md
 - 知识库现状：concepts×67 / entities×1 / summaries×8 / synthesis×6
 
+## [2026-05-07] Ingest | 项目经验/ → synthesis/设计-线上问题排查
+- 新建 `synthesis/设计-线上问题排查.md`（L8 #practice）：覆盖 25 个实战案例文件
+  - 诊断工具速查表：Arthas(thread/trace/watch/sc)/top/jstack/jmap/MAT/df/du/netstat/tcpdump
+  - CPU 飙高：BeanValidator重复初始化/Sequence单例丢失/logback AsyncAppender配置不当；死循环=CPU高，死锁=CPU不升高（WAITING让出CPU）
+  - Load 飙高：JIT预热期 → 解释执行导致，解法：小流量切流/JwarmUp/缓存预热
+  - FullGC 三类案例：AviatorEvaluator未缓存(MetaSpace耗尽)；数据倾斜(22开头用户量远超均值)；接口未做非空校验全量查询60万条
+  - OOM 两类案例：分治回溯算法空间复杂度爆炸；POI XSSFWorkbook全量加载→改SXSSFWorkbook
+  - 慢SQL四类：最左前缀未命中(type=index)；索引区分度低导致回表；缺覆盖索引；filesort用索引排序
+  - 数据库死锁根因：前缀索引截断相同 + 同一事务内两条UPDATE走不同索引→加锁顺序不一致→循环等待
+  - 数据库连接池满：热点行高并发UPDATE→InnoDB行锁排队耗尽连接→合并批量更新
+  - 数据库CPU打满：分布式任务并发修改同一审核单→预合案+批量更新(任务耗时2h→10min)
+  - RocketMQ消费堆积：Spring Cloud Stream + Native混用同一ConsumerId→订阅关系被覆盖→修改ConsumerId
+  - Java进程挂了：假死(死锁/活锁/IO阻塞/GC暂停) vs 真挂(OOM/资源满/kill -9)
+  - 服务器挖矿木马：kswapd0 CPU高 + netstat发现境外IP → 删文件/kill进程/清crontab
+- 更新 `index.md`：Synthesis新增 设计-线上问题排查
+- 知识库现状：concepts×67 / entities×1 / summaries×8 / synthesis×7
+
 ## [2026-05-07] Ingest | 网络安全/ + 微服务/ → 概念-网络安全 + 机制-微服务与SpringCloud 补充
 - 新建 `concepts/概念-网络安全.md`（L7 #security）：覆盖 13 个原始文件
   - 密码学基础（MD5 非加密/SHA-256/加密 vs 加签流程）

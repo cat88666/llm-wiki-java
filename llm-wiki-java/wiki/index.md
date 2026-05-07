@@ -143,3 +143,4 @@
 - [[设计-Redis实战场景]](synthesis/设计-Redis实战场景.md) — ZSet排行榜(分片+异步+分数编码)、GEO附近的人、点赞系统、抢红包(二倍均值法)、HyperLogLog UV统计、购物车Hash `#practice`
 - [[设计-短链服务]](synthesis/设计-短链服务.md) — MurmurHash+Base62生成、302 vs 301跳转选型、Redis+MySQL双存储、防滥用机制 `#practice`
 - [[设计-订单超时关闭]](synthesis/设计-订单超时关闭.md) — 方案对比(定时扫表/DelayQueue/Redisson/MQ)、Redisson延迟队列分布式首选、关闭逻辑幂等设计 `#practice`
+- [[设计-线上问题排查]](synthesis/设计-线上问题排查.md) — CPU高/FullGC/OOM/慢SQL/死锁/连接池/MQ堆积实战案例，Arthas/jstack/MAT工具链，死循环vs死锁对CPU影响，数据倾斜规律 `#practice`
