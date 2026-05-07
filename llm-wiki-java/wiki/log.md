@@ -1,5 +1,19 @@
 # Wiki Log
 
+## [2026-05-07] Lint | 全库健康检查 + 修复
+- **CHECK 1 (index.md路径)**：OK — 86条引用全部有效
+- **CHECK 2 (孤立页面)**：OK — 无孤立concepts页面
+- **CHECK 3 (内部链接)**：修复5处断链
+  - `synthesis/设计-线上问题排查.md`：`[[概念-JVM内存与GC]]`→`[[机制-JVM内存模型]]/[[机制-GC算法与垃圾收集器]]`，`[[概念-MySQL索引]]`→`[[机制-InnoDB索引模型]]`，`[[机制-锁与并发控制]]`→`[[机制-InnoDB锁机制]]`
+  - `summaries/主题-Java并发体系.md`：ASCII art箱图内链接跨行→修复为单行
+- **CHECK 4 (sources路径)**：修复4个concept文件的sources路径（文件名与实际不符）
+  - `机制-容器化与Docker.md`：补全✅前缀及正确文件名（6条）
+  - `概念-网络安全.md`：修正9条paths（文件名变化：CSRF+XSS合并为一文件等）
+  - `概念-限流与熔断.md`：补全✅前缀（7条）
+  - `概念-高可用设计.md`：补全✅前缀（8条）
+  - `synthesis/设计-算法高频题型.md`：层级错误 `../../../raw/` → `../../raw/`
+- 当前状态：concepts×69 / summaries×8 / synthesis×8 / entities×1
+
 ## [2026-05-07] Ingest | tuling/ → 机制-Kafka + 机制-Netty + 概念-DDD + Nacos补充
 - 新建 `concepts/机制-Kafka.md`（L7 #distributed）：覆盖 tuling/08-mq/Kafka.md + Kafka子目录6个文件
   - 核心架构：Topic→Partition→Segment(.log/.index/.timeindex)，Producer/Broker/ConsumerGroup

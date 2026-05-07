@@ -9,12 +9,12 @@ related:
   - "[[机制-微服务与SpringCloud]]"
   - "[[机制-RPC与Dubbo]]"
 sources:
-  - "../../../raw/note/Hollis/容器/容器和虚拟机的区别.md"
-  - "../../../raw/note/Hollis/容器/为什么要使用Docker.md"
-  - "../../../raw/note/Hollis/容器/Dockerfile指令.md"
-  - "../../../raw/note/Hollis/容器/Docker Compose.md"
-  - "../../../raw/note/Hollis/容器/Docker常用命令.md"
-  - "../../../raw/note/Hollis/容器/有了Docker为啥还需要K8s.md"
+  - "../../../raw/note/Hollis/容器/✅容器和虚拟机的区别是什么？.md"
+  - "../../../raw/note/Hollis/容器/✅为什么要使用Docker？.md"
+  - "../../../raw/note/Hollis/容器/✅Dockerfile 是什么？它通常包含哪些指令？.md"
+  - "../../../raw/note/Hollis/容器/✅什么是 Docker Compose？.md"
+  - "../../../raw/note/Hollis/容器/✅Docker 的常用命令有哪些？.md"
+  - "../../../raw/note/Hollis/容器/✅有了Docker为啥还需要k8s.md"
 created: 2026-05-06
 updated: 2026-05-06
 ---
