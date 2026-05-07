@@ -1,5 +1,47 @@
 # Wiki Log
 
+## [2026-05-07] Ingest | 高性能/ + 架构设计/ → 概念-布隆过滤器 + 概念-读写分离 + 微服务拆分原则
+- 新建 `concepts/概念-布隆过滤器.md`（L4 #data-structure）：布隆过滤器原理(bit数组+多哈希)、误判率控制、三种删除方案(定期重建/计数布隆/布谷鸟过滤器)、布谷鸟过滤器指纹+双候选桶+XOR索引+支持删除
+- 新建 `concepts/概念-读写分离.md`（L5 #storage）：主从复制基础、三种路由分流(代码/中间件/代理)、主从延迟处理(读请求分类/强制读主库/GTID等主库位点)
+- 更新 `concepts/机制-微服务与SpringCloud.md`：新增「微服务拆分原则」章节（职责单一/业务边界/中台化/系统保障/康威定律/单向依赖）
+- 源文件覆盖：`高性能/✅什么是布隆过滤器` / `布隆过滤器缺点` / `无法删除如何解决` / `布谷鸟过滤器` / `什么是读写分离` / `读写分离遇到主从延迟` / `架构设计/✅微服务的拆分有哪些原则`
+- 更新 `index.md`：L4新增 概念-布隆过滤器，L5新增 概念-读写分离
+- 知识库现状：concepts×63 / entities×1 / summaries×8 / synthesis×3
+
+## [2026-05-07] Ingest | 分布式/ → 概念-分布式系统理论 + 概念-幂等设计 + 机制-Canal数据同步
+- 新建 `concepts/概念-分布式系统理论.md`（L7 #distributed）：CAP三选二(P不可放弃故为CP vs AP)、一致性模型层次(线性/顺序/最终)、BASE基本可用+软状态+最终一致性、一致性哈希环+虚拟节点解决hash倾斜
+- 新建 `concepts/概念-幂等设计.md`（L7 #distributed）：业务幂等vs请求幂等、一锁(Redis tryLock)二判(流水表/状态机)三更新(持久化)、唯一性约束作最后兜底、MQ消费幂等
+- 新建 `concepts/机制-Canal数据同步.md`（L7 #distributed）：模拟MySQL slave拉取binlog、ROW格式要求、MySQL→ES/缓存/异构库场景、分库分表买卖家表维护
+- 源文件覆盖：`分布式/✅什么是CAP理论` / `BASE理论` / `一致性哈希` / `分布式系统的一致性` / `如何解决接口幂等` / `为什么不建议唯一约束幂等控制` / `什么是Canal`
+- 更新 `index.md`：L7新增 概念-分布式系统理论/概念-幂等设计/机制-Canal数据同步
+- 知识库现状：concepts×61 / entities×1 / summaries×8 / synthesis×3
+
+## [2026-05-07] Ingest | 设计模式/ → 机制-设计模式.md
+- 新建 `concepts/机制-设计模式.md`（L6 #framework）：覆盖 21 个原始文件
+- 重点：SOLID+迪米特+合成复用7大原则、单例5种实现(枚举最佳:线程安全+防反序列化)、三种工厂(简单→方法→抽象工厂OCP支持递增)、代理/享元结构型、观察者/模板方法/策略/责任链行为型及Spring具体应用(AOP/事件/Template/FilterChain)
+- 更新 `index.md`：L6 新增设计模式条目
+- 知识库现状：concepts×58 / entities×1 / summaries×8 / synthesis×3
+
+## [2026-05-07] Ingest | 操作系统/ → 概念-操作系统基础.md
+- 新建 `concepts/概念-操作系统基础.md`（#os）：覆盖 30 个原始文件核心知识
+- 重点：进程/线程/协程三级对比、用户态/内核态切换机制、零拷贝4种实现(普通→mmap→sendfile→DMA Scatter)、五种IO模型、select/poll/epoll对比(O(n)→O(1))、MESI缓存一致性协议与JMM关系、Page Cache延迟写与fsync、进程调度6种算法(CFS是Linux默认)
+- 更新 `index.md`：CS基础区新增操作系统基础
+- 知识库现状：concepts×57 / entities×1 / summaries×8 / synthesis×3
+
+## [2026-05-07] Ingest | 计算机网络/ → 概念-计算机网络.md
+- 新建 `concepts/概念-计算机网络.md`（#network）：覆盖 30 个原始文件核心知识
+- 重点：TCP三次握手/四次挥手原理、可靠传输5机制、拥塞控制4阶段、HTTP版本演进(1.0→1.1→2→3/QUIC)、HTTPS TLS握手(1.2 vs 1.3)、DNS解析链路、Cookie/Session/Token选型、正反向代理与CDN、跨域CORS解法
+- 更新 `index.md`：新增「基础知识（CS基础）」分区
+- 知识库现状：concepts×56 / entities×1 / summaries×8 / synthesis×3
+
+## [2026-05-07] Ingest | 容器/ + 高并发/ + 高可用/ → L7 概念页 ×3
+- 新建 `concepts/机制-容器化与Docker.md`（L7 #devops）：容器vs虚拟机原理(namespace+cgroup)、Dockerfile指令、Docker Compose、K8s核心对象（Pod/Deployment/Service/Ingress）
+- 新建 `concepts/概念-限流与熔断.md`（L7 #distributed）：漏桶/令牌桶/滑动窗口算法对比、熔断器三态(Closed→Open→Half-Open)、Sentinel自适应限流、预热策略
+- 新建 `concepts/概念-高可用设计.md`（L7 #distributed）：SLA四个九(99.99%=52.56min/year)、冷/热/暖备、异地多活架构要素、全链路压测(流量染色+影子表)
+- 修复 `concepts/概念-Java集合框架.md`（远程拉取）两处失效链接：`[[机制-HashMap]]`→`[[机制-HashMap底层实现]]`、`[[概念-集合迭代一致性]]`→`[[机制-ConcurrentHashMap并发设计]]`
+- 更新 `index.md`：L4新增 概念-Java集合框架，L7新增 容器化与Docker/限流与熔断/高可用设计
+- 知识库现状：concepts×55 / entities×1 / summaries×8 / synthesis×3
+
 ## [2026-05-06] Lint | 健康检查
 - **失效链接**：修复 `主题-Redis体系.md` 第37行畸形 wikilink（管道符截断了 `[[机制-Redis持久化]]`）
 - **重复/孤立页面删除** ×4：`机制-HashMap.md`、`机制-ConcurrentHashMap.md`（均与 `底层实现`/`并发设计` canonical 页重复）、`机制-CopyOnWrite.md`、`概念-集合迭代一致性.md`（内容已覆盖于 `ConcurrentHashMap并发设计.md`）

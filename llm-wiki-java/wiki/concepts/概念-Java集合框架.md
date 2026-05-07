@@ -6,8 +6,8 @@ layer: L4
 aliases: ["Collection", "Collections", "List", "Set", "Queue", "Map"]
 related:
   - "[[概念-线性数据结构]]"
-  - "[[机制-HashMap]]"
-  - "[[概念-集合迭代一致性]]"
+  - "[[机制-HashMap底层实现]]"
+  - "[[机制-ConcurrentHashMap并发设计]]"
 sources:
   - "../../raw/note/Hollis/集合类/✅Java中的集合类有哪些？如何分类的？.md"
   - "../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
@@ -45,8 +45,8 @@ lint_notes: ""
 
 - 依赖 [[概念-线性数据结构]]：`ArrayList` 和 `LinkedList` 分别对应数组与链表。
 - 依赖 [[机制-红黑树]]：`TreeMap`、`TreeSet` 和 JDK 8+ `HashMap` 桶树化都使用红黑树。
-- 支撑 [[机制-HashMap]]：`HashSet` 本质上复用 `HashMap` 的 key 唯一性。
-- 关联 [[概念-集合迭代一致性]]：集合遍历时是否允许结构变化，决定 fail-fast 或 fail-safe 行为。
+- 支撑 [[机制-HashMap底层实现]]：`HashSet` 本质上复用 `HashMap` 的 key 唯一性。
+- 关联 [[机制-ConcurrentHashMap并发设计]]：集合遍历时是否允许结构变化，决定 fail-fast 或 fail-safe 行为。
 
 ## 应用边界
 

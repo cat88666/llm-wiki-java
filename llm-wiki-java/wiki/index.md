@@ -20,6 +20,10 @@
 
 > 抽象机制、原理、模型、算法。脱离具体工具后仍成立的知识对象。
 
+### 基础知识（CS 基础）
+- [[概念-计算机网络]](concepts/概念-计算机网络.md) — TCP三次握手/拥塞控制、HTTP版本演进(HTTP/3 QUIC)、HTTPS握手、Cookie/Session/Token、跨域CORS `#network`
+- [[概念-操作系统基础]](concepts/概念-操作系统基础.md) — 进程/线程/协程、用户态/内核态、零拷贝(sendfile)、epoll/IO多路复用、MESI缓存一致性、Page Cache `#os`
+
 ### L1 语言基础
 - [[概念-OOP三大特征]](concepts/概念-OOP三大特征.md) — 封装/继承/多态，接口 vs 抽象类，组合优于继承 `#java-lang`
 - [[机制-反射]](concepts/机制-反射.md) — 运行期读取类结构并调用，慢的根本原因 `#java-lang`
@@ -50,6 +54,7 @@
 - [[概念-ThreadLocal]](concepts/概念-ThreadLocal.md) — Thread→ThreadLocalMap→弱引用key，线程池内存泄漏，必须remove `#concurrency`
 
 ### L4 数据结构
+- [[概念-布隆过滤器]](concepts/概念-布隆过滤器.md) — BitMap+多哈希概率过滤、缓存穿透防护、无法删除缺陷、布谷鸟过滤器指纹+双桶支持删除 `#data-structure`
 - [[概念-线性数据结构]](concepts/概念-线性数据结构.md) — 数组/链表/栈/队列，ArrayList/LinkedList/Vector对比，fail-fast陷阱 `#data-structure`
 - [[机制-红黑树]](concepts/机制-红黑树.md) — 5条规则近似平衡，O(log n) 增删查，HashMap/TreeMap 底层 `#data-structure`
 - [[机制-B树与B加树]](concepts/机制-B树与B加树.md) — 多路平衡树，低树高减少磁盘IO，MySQL InnoDB 索引底层 `#data-structure`
@@ -59,8 +64,10 @@
 - [[概念-图论基础]](concepts/概念-图论基础.md) — 多对多关系，DFS/BFS 两种遍历，Dijkstra 依赖小顶堆 `#data-structure`
 - [[机制-HashMap底层实现]](concepts/机制-HashMap底层实现.md) — 数组+链表+红黑树，扰动hash，0.75负载因子，JDK8高低位拆分扩容 `#data-structure`
 - [[机制-ConcurrentHashMap并发设计]](concepts/机制-ConcurrentHashMap并发设计.md) — 分段锁(JDK7)→CAS+节点锁(JDK8)，fail-safe，不允许null的原因 `#data-structure`
+- [[概念-Java集合框架]](concepts/概念-Java集合框架.md) — Collection/Map体系、List/Set/Queue接口语义、排序与线程安全选型 `#data-structure`
 
 ### L5 存储层
+- [[概念-读写分离]](concepts/概念-读写分离.md) — 主从复制路由写主读从、ShardingSphere中间件分流、主从延迟处理策略(强制读主库/读请求分类) `#storage`
 - [[机制-InnoDB索引模型]](concepts/机制-InnoDB索引模型.md) — B+树索引、聚簇/二级索引、回表、覆盖索引、索引下推、最左前缀 `#storage`
 - [[机制-MVCC]](concepts/机制-MVCC.md) — 快照读/当前读、undo log版本链、ReadView可见性、RC vs RR差异 `#storage`
 - [[机制-MySQL三种日志]](concepts/机制-MySQL三种日志.md) — undo/redo/binlog的角色、两阶段提交保证主备一致、WAL原理 `#storage`
@@ -73,6 +80,7 @@
 - [[机制-Redis集群与高可用]](concepts/机制-Redis集群与高可用.md) — 主从/哨兵/Cluster三种模式、16384槽分片、脑裂防护 `#storage`
 
 ### L6 应用框架
+- [[机制-设计模式]](concepts/机制-设计模式.md) — SOLID七原则、单例(枚举最佳)、三种工厂、代理/享元、观察者/模板方法/策略/责任链及Spring应用 `#framework`
 - [[机制-IoC容器]](concepts/机制-IoC容器.md) — 控制反转、Bean生命周期11步、三级缓存解决循环依赖 `#framework`
 - [[机制-AOP织入]](concepts/机制-AOP织入.md) — JDK/CGLIB代理、5种Advice、失效场景（this调用/private/static/final）`#framework`
 - [[机制-Spring事务]](concepts/机制-Spring事务.md) — @Transactional=AOP切面、7种传播机制、失效场景（代理失效/异常被吞/多线程）`#framework`
@@ -84,6 +92,12 @@
 - [[机制-倒排索引与ElasticSearch]](concepts/机制-倒排索引与ElasticSearch.md) — 倒排索引原理、集群角色、深度分页(scroll/search_after)、ES与DB一致性同步方案 `#distributed`
 - [[机制-RPC与Dubbo]](concepts/机制-RPC与Dubbo.md) — RPC透明代理、Dubbo三阶段(注册/发现/调用)、5种负载均衡、Dubbo SPI增强、服务治理体系 `#distributed`
 - [[机制-微服务与SpringCloud]](concepts/机制-微服务与SpringCloud.md) — Eureka(AP) vs ZK(CP)、熔断器三态(Hystrix→Sentinel)、OpenFeign声明式调用、Gateway响应式网关 `#distributed`
+- [[机制-容器化与Docker]](concepts/机制-容器化与Docker.md) — 容器vs虚拟机(namespace+cgroup共享内核)、Dockerfile、Docker Compose、K8s编排核心对象 `#devops`
+- [[概念-限流与熔断]](concepts/概念-限流与熔断.md) — 漏桶/令牌桶/滑动窗口对比、Guava RateLimiter、熔断器三态、Sentinel自适应限流 `#distributed`
+- [[概念-高可用设计]](concepts/概念-高可用设计.md) — SLA四个九(99.99%)、冷热暖备、异地多活、全链路压测(流量染色+影子表) `#distributed`
+- [[概念-分布式系统理论]](concepts/概念-分布式系统理论.md) — CAP三选二(CP/AP)、BASE基本可用+软状态+最终一致性、一致性哈希环+虚拟节点减少迁移 `#distributed`
+- [[概念-幂等设计]](concepts/概念-幂等设计.md) — 业务幂等vs请求幂等、一锁二判三更新(分布式锁+流水表+DB约束兜底)、MQ消费幂等 `#distributed`
+- [[机制-Canal数据同步]](concepts/机制-Canal数据同步.md) — 模拟MySQL slave拉取binlog、CDC变更捕获、MySQL→ES/缓存/异构库同步、分库分表买卖家表维护 `#distributed`
 
 ### L8 工程实践
 <!-- 面经实战高频考点已提取到 Synthesis 分区 -->
