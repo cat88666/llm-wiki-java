@@ -1,5 +1,12 @@
 # Wiki Log
 
+## [2026-05-07] Ingest | 场景题/ + 面经实战/ → L8 synthesis ×3
+- 新建 `synthesis/设计-Redis实战场景.md`（L8 #practice）：ZSet排行榜(分片/异步/分数编码三大挑战)、GEO查找附近的人、ZSet点赞(按时间顺序)、二倍均值法抢红包、HyperLogLog UV统计、Hash购物车
+- 新建 `synthesis/设计-短链服务.md`（L8 #practice）：MurmurHash+Base62生成、302 vs 301取舍(可统计选302)、Redis+MySQL双存储查找流程、防滥用(黑名单/限流/鉴权)
+- 新建 `synthesis/设计-订单超时关闭.md`（L8 #practice）：11种方案对比表、定时扫表(小业务)/Redisson延迟队列(分布式首选)/MQ延迟消息对比、关闭逻辑幂等设计
+- 更新 `index.md`：Synthesis区新增 Redis实战场景/短链服务/订单超时关闭
+- 知识库现状：concepts×63 / entities×1 / summaries×8 / synthesis×6
+
 ## [2026-05-07] Ingest | 高性能/ + 架构设计/ → 概念-布隆过滤器 + 概念-读写分离 + 微服务拆分原则
 - 新建 `concepts/概念-布隆过滤器.md`（L4 #data-structure）：布隆过滤器原理(bit数组+多哈希)、误判率控制、三种删除方案(定期重建/计数布隆/布谷鸟过滤器)、布谷鸟过滤器指纹+双候选桶+XOR索引+支持删除
 - 新建 `concepts/概念-读写分离.md`（L5 #storage）：主从复制基础、三种路由分流(代码/中间件/代理)、主从延迟处理(读请求分类/强制读主库/GTID等主库位点)

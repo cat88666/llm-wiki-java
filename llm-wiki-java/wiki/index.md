@@ -136,3 +136,6 @@
 - [[设计-秒杀系统]](synthesis/设计-秒杀系统.md) — 多层漏斗过滤模型、Redis Lua预扣减、MQ削峰、热点行库存拆分、全链路幂等 `#practice`
 - [[设计-分布式事务]](synthesis/设计-分布式事务.md) — 2PC/TCC/本地消息表/事务消息对比、TCC空回滚与悬挂、Seata AT vs 2PC区别、选型决策树 `#practice`
 - [[设计-分库分表]](synthesis/设计-分库分表.md) — 分片键选择原则、雪花算法时钟回拨、基因法跨维度查询、双写扩容迁移方案 `#practice`
+- [[设计-Redis实战场景]](synthesis/设计-Redis实战场景.md) — ZSet排行榜(分片+异步+分数编码)、GEO附近的人、点赞系统、抢红包(二倍均值法)、HyperLogLog UV统计、购物车Hash `#practice`
+- [[设计-短链服务]](synthesis/设计-短链服务.md) — MurmurHash+Base62生成、302 vs 301跳转选型、Redis+MySQL双存储、防滥用机制 `#practice`
+- [[设计-订单超时关闭]](synthesis/设计-订单超时关闭.md) — 方案对比(定时扫表/DelayQueue/Redisson/MQ)、Redisson延迟队列分布式首选、关闭逻辑幂等设计 `#practice`
