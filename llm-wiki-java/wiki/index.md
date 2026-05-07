@@ -91,13 +91,14 @@
 - [[机制-消息队列可靠性]](concepts/机制-消息队列可靠性.md) — Publisher Confirm+持久化+消费者手动ACK三段保证、死信队列、延迟消息、幂等消费 `#distributed`
 - [[机制-倒排索引与ElasticSearch]](concepts/机制-倒排索引与ElasticSearch.md) — 倒排索引原理、集群角色、深度分页(scroll/search_after)、ES与DB一致性同步方案 `#distributed`
 - [[机制-RPC与Dubbo]](concepts/机制-RPC与Dubbo.md) — RPC透明代理、Dubbo三阶段(注册/发现/调用)、5种负载均衡、Dubbo SPI增强、服务治理体系 `#distributed`
-- [[机制-微服务与SpringCloud]](concepts/机制-微服务与SpringCloud.md) — Eureka(AP) vs ZK(CP)、熔断器三态(Hystrix→Sentinel)、OpenFeign声明式调用、Gateway响应式网关 `#distributed`
+- [[机制-微服务与SpringCloud]](concepts/机制-微服务与SpringCloud.md) — Eureka(AP) vs ZK(CP)、熔断器三态(Hystrix→Sentinel)、OpenFeign声明式调用、Gateway响应式网关、蓝绿/灰度部署、Service Mesh、限流/降级/熔断区别、CI/CD `#distributed`
 - [[机制-容器化与Docker]](concepts/机制-容器化与Docker.md) — 容器vs虚拟机(namespace+cgroup共享内核)、Dockerfile、Docker Compose、K8s编排核心对象 `#devops`
 - [[概念-限流与熔断]](concepts/概念-限流与熔断.md) — 漏桶/令牌桶/滑动窗口对比、Guava RateLimiter、熔断器三态、Sentinel自适应限流 `#distributed`
 - [[概念-高可用设计]](concepts/概念-高可用设计.md) — SLA四个九(99.99%)、冷热暖备、异地多活、全链路压测(流量染色+影子表) `#distributed`
 - [[概念-分布式系统理论]](concepts/概念-分布式系统理论.md) — CAP三选二(CP/AP)、BASE基本可用+软状态+最终一致性、一致性哈希环+虚拟节点减少迁移 `#distributed`
 - [[概念-幂等设计]](concepts/概念-幂等设计.md) — 业务幂等vs请求幂等、一锁二判三更新(分布式锁+流水表+DB约束兜底)、MQ消费幂等 `#distributed`
 - [[机制-Canal数据同步]](concepts/机制-Canal数据同步.md) — 模拟MySQL slave拉取binlog、CDC变更捕获、MySQL→ES/缓存/异构库同步、分库分表买卖家表维护 `#distributed`
+- [[概念-网络安全]](concepts/概念-网络安全.md) — SQL注入(预编译)、XSS/CSRF防御、垂直/水平越权(RBAC/session)、中间人攻击(HTTPS/HSTS)、撞库/拖库/洗库、国密SM2/SM3/SM4/SM9 `#security`
 
 ### L8 工程实践
 <!-- 面经实战高频考点已提取到 Synthesis 分区 -->

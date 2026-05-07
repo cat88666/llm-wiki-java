@@ -1,5 +1,25 @@
 # Wiki Log
 
+## [2026-05-07] Ingest | 网络安全/ + 微服务/ → 概念-网络安全 + 机制-微服务与SpringCloud 补充
+- 新建 `concepts/概念-网络安全.md`（L7 #security）：覆盖 13 个原始文件
+  - 密码学基础（MD5 非加密/SHA-256/加密 vs 加签流程）
+  - SQL 注入与预编译防御（PreparedStatement/MyBatis #{}/最小权限）
+  - XSS（输出编码/CSP/HttpOnly）vs CSRF（CSRF Token/SameSite Cookie）对比表
+  - 垂直越权（RBAC+接口鉴权）vs 水平越权（Session取userId/Sqids混淆ID）
+  - 中间人攻击（HTTPS/HSTS/证书固定/DNSSEC）
+  - 撞库/拖库/洗库三阶段防御
+  - DDoS 多层防御（网络/传输/应用/调度）
+  - 国密算法对比表（SM4对称/SM2非对称ECC/SM3哈希/SM9 IBE）
+- 更新 `concepts/机制-微服务与SpringCloud.md`：新增 5 个章节
+  - 限流/降级/熔断本质区别（触发时机 + 作用对象 + 目的对比表）
+  - 部署策略（蓝绿 vs 灰度/金丝雀）对比及快速回滚
+  - Service Mesh（Sidecar 模式/Istio 控制平面/异构系统统一治理）
+  - 循环依赖危害与解法（重设计/MQ解耦/共享服务）
+  - CI/CD & DevOps 简要说明
+  - 更新 frontmatter：新增 aliases 9 个 + sources 11 个
+- 更新 `index.md`：L7新增 概念-网络安全，更新 机制-微服务与SpringCloud 描述
+- 知识库现状：concepts×64 / entities×1 / summaries×8 / synthesis×6
+
 ## [2026-05-07] Ingest | 场景题/ + 面经实战/ → L8 synthesis ×3
 - 新建 `synthesis/设计-Redis实战场景.md`（L8 #practice）：ZSet排行榜(分片/异步/分数编码三大挑战)、GEO查找附近的人、ZSet点赞(按时间顺序)、二倍均值法抢红包、HyperLogLog UV统计、Hash购物车
 - 新建 `synthesis/设计-短链服务.md`（L8 #practice）：MurmurHash+Base62生成、302 vs 301取舍(可统计选302)、Redis+MySQL双存储查找流程、防滥用(黑名单/限流/鉴权)
