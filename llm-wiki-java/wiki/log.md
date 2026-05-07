@@ -1,5 +1,38 @@
 # Wiki Log
 
+## [2026-05-07] Ingest | tuling/ → 机制-Kafka + 机制-Netty + 概念-DDD + Nacos补充
+- 新建 `concepts/机制-Kafka.md`（L7 #distributed）：覆盖 tuling/08-mq/Kafka.md + Kafka子目录6个文件
+  - 核心架构：Topic→Partition→Segment(.log/.index/.timeindex)，Producer/Broker/ConsumerGroup
+  - 为什么快：顺序写+零拷贝(sendfile)+批处理+页缓存+稀疏索引
+  - 可靠性：acks(0/1/-1)、ISR机制、HW高水位/LEO/Leader Epoch防数据回滚
+  - 重平衡：3个触发条件、5种状态、CooperativeStickyAssignor渐进式重平衡(2.4+/4.0升级)
+  - 顺序消费：单分区有序、3种指定分区方式
+  - 消费语义：At-least-once(默认)/Exactly-once(事务)
+  - vs RocketMQ vs RabbitMQ功能对比表
+- 新建 `concepts/机制-Netty.md`（L7 #distributed）：覆盖 tuling/07-Netty.md
+  - IO模型对比表(BIO/NIO/AIO/select/poll/epoll)
+  - 主从Reactor多线程模型（BossGroup+WorkerGroup）
+  - 核心组件：EventLoop单线程无锁、ChannelPipeline责任链双向链表
+  - ByteBuf：读写双指针/池化4种类型/零拷贝(DirectBuf/CompositeBuf/FileRegion)
+  - 粘包拆包3种解码器（FixedLength/Delimiter/LengthField）
+  - IdleStateHandler心跳机制、完整链路图
+  - 高性能5点：无锁串行/内存池/零拷贝/MPSC队列/epoll边缘触发
+- 新建 `concepts/概念-DDD.md`（L8 #practice）：覆盖 tuling/DDD架构.md
+  - 实体/值对象/聚合/聚合根/领域服务/领域事件核心概念及Java代码示例
+  - 充血模型vs贫血模型对比表（行为归属/代码维护/测试/适用场景）
+  - 四层架构（用户接口→应用→领域→基础设施，严格单向依赖）
+  - 洋葱架构/六边形架构变体
+  - 统一语言（Ubiquitous Language）
+  - 限界上下文→微服务边界理论依据
+- 更新 `concepts/机制-微服务与SpringCloud.md`：新增「Nacos注册中心与配置中心机制」章节
+  - 注册生命周期(5s心跳/15s unhealthy/30s剔除)
+  - 雪崩保护阈值
+  - Namespace/Group/DataId三元组及优先级
+  - @RefreshScope长轮询动态配置
+- 更新 `index.md`：L7新增 机制-Kafka/机制-Netty/概念-DDD
+- 源文件覆盖：tuling/08-mq/Kafka.md(+6子文件) / tuling/07-Netty.md / tuling/DDD架构.md / tuling/09-微服务/11-nacos.md
+- 知识库现状：concepts×67 / entities×1 / summaries×8 / synthesis×6
+
 ## [2026-05-07] Ingest | 网络安全/ + 微服务/ → 概念-网络安全 + 机制-微服务与SpringCloud 补充
 - 新建 `concepts/概念-网络安全.md`（L7 #security）：覆盖 13 个原始文件
   - 密码学基础（MD5 非加密/SHA-256/加密 vs 加签流程）

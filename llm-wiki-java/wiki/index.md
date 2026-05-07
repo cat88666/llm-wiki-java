@@ -99,6 +99,9 @@
 - [[概念-幂等设计]](concepts/概念-幂等设计.md) — 业务幂等vs请求幂等、一锁二判三更新(分布式锁+流水表+DB约束兜底)、MQ消费幂等 `#distributed`
 - [[机制-Canal数据同步]](concepts/机制-Canal数据同步.md) — 模拟MySQL slave拉取binlog、CDC变更捕获、MySQL→ES/缓存/异构库同步、分库分表买卖家表维护 `#distributed`
 - [[概念-网络安全]](concepts/概念-网络安全.md) — SQL注入(预编译)、XSS/CSRF防御、垂直/水平越权(RBAC/session)、中间人攻击(HTTPS/HSTS)、撞库/拖库/洗库、国密SM2/SM3/SM4/SM9 `#security`
+- [[机制-Kafka]](concepts/机制-Kafka.md) — Topic/Partition/Segment存储结构、顺序写+零拷贝高吞吐原因、ISR/HW/LeaderEpoch可靠性、CooperativeStickyAssignor渐进式重平衡、At-least-once/Exactly-once语义 `#distributed`
+- [[机制-Netty]](concepts/机制-Netty.md) — 主从Reactor多线程模型、epoll事件通知、EventLoop单线程无锁、ByteBuf读写双指针+池化、粘包拆包LengthField方案、IdleStateHandler心跳 `#distributed`
+- [[概念-DDD]](concepts/概念-DDD.md) — 领域驱动设计、实体/值对象/聚合根、充血模型vs贫血模型、四层架构(用户接口/应用/领域/基础设施)、限界上下文作为微服务拆分依据 `#practice`
 
 ### L8 工程实践
 <!-- 面经实战高频考点已提取到 Synthesis 分区 -->

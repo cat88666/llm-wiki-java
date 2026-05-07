@@ -147,6 +147,22 @@ public interface OrderServiceClient {
 
 **生产实践**：Nginx 做外层反向代理 + 静态资源，Gateway 做内层业务路由 + 鉴权，分工明确。
 
+### Nacos 注册中心与配置中心机制
+
+**注册中心生命周期**：
+1. Provider 启动 → REST 请求注册到 Nacos Server，元数据存入**双层内存 Map**
+2. 心跳维持：Provider 每 **5s** 发一次心跳
+3. 健康检查：Server 超 **15s** 未收到心跳 → `healthy=false`（消费者不发现该实例）；超 **30s** → 剔除（恢复后重新注册）
+4. Consumer 本地缓存 + 定时轮询更新注册表
+
+**雪崩保护阈值**：设 0~1 之间（如 0.6）。当 `健康实例数/总实例数 < 阈值` 时，Nacos 允许返回不健康实例（防止全流量打挂仅剩的健康节点）。
+
+**配置中心三元组**：Namespace（环境：dev/test/prod）→ Group（项目分组）→ DataId（具体配置文件）。
+
+优先级：精准配置（service-dev.yaml）> 同工程通用 > 扩展配置 > 共享配置。
+
+**动态配置刷新**：`@Value` 不感知变更；加 `@RefreshScope` 后 Bean 在配置变更时重新初始化。Nacos 用**长轮询**推送变更，比 Spring Cloud Config + Bus 快，且内置可视化控制台。
+
 ## 微服务拆分原则
 
 微服务的核心是"如何划定服务边界"，没有唯一标准，但有以下指导原则：
