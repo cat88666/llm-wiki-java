@@ -1,5 +1,20 @@
 # Wiki Log
 
+## [2026-05-08] Ingest | 实际项目代码：5个微服务 → 1个synthesis页
+- 来源：dx-net-bolt / dx-net-gateway / dx-game-hall / dx-game-texas / dx-game-race-hall（5个项目代码库）
+- 策略：深度探索代码结构和核心类，提取架构亮点，聚合为一个综合synthesis页
+- **新建** `synthesis/设计-在线游戏平台架构.md`（#practice #distributed）
+  - 覆盖：整体架构图（5个服务依赖关系、通信路径）
+  - 亮点1：用户级线程隔离（userId → SingleThreadExecutor，心跳独立线程池）
+  - 亮点2：工厂模式服务路由（InitializingBean扫描+ServiceTypeEnum O(1)路由，开闭原则）
+  - 亮点3：协议智能转换（同一接口按参数动态路由不同后端+RaceForwardCache记录转换）
+  - 亮点4：游戏状态机+分布式任务调度（任务链+Redis eventKey，多桌并发+超时自动推进）
+  - 亮点5：保险赔率实时计算（组合数学枚举C(47,2)=1081种排列，手牌级缓存，<10ms）
+  - 亮点6：三级缓存（Guava L1 + Redis L2 + MySQL L3）
+  - 亮点7：Netty高性能配置（内存池、TCP_NODELAY、主从Reactor、IdleStateHandler）
+  - 技术栈全景表 + 关键权衡 + 面试STAR法则回答模板
+- **更新** `wiki/index.md`：Synthesis区新增 设计-在线游戏平台架构 条目
+
 ## [2026-05-08] Ingest | 架构设计目录：13个文件 → 1个synthesis页
 - 来源：raw/note/Hollis/架构设计/（13个文件，全部读取）
 - 策略：13个问答聚合为一个P7架构思维综合页

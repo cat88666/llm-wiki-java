@@ -167,3 +167,4 @@
 - [[设计-容量规划与性能基准]](synthesis/设计-容量规划与性能基准.md) — 4C8G正常指标基准表、机器数预估公式、压测线上差异8大原因、堆外内存泄漏诊断、银行系统ZGC选型 `#practice #jvm`
 - [[设计-分布式场景综合]](synthesis/设计-分布式场景综合.md) — 三种锁选型表、Redis预扣库存、分布式Session演进、SSO全流程、订单号生成、跨库JOIN、平滑迁移双写策略 `#distributed #practice`
 - [[设计-架构设计思维]](synthesis/设计-架构设计思维.md) — 架构本质是权衡、没有银弹、技术债管理、微服务拆分7原则、单元化架构、技术选型框架、亿级商品存储 `#practice #distributed`
+- [[设计-在线游戏平台架构]](synthesis/设计-在线游戏平台架构.md) — SOFA-Bolt+Netty+Dubbo 5服务协作：用户级线程隔离、工厂路由、游戏状态机、保险赔率实时计算、多级缓存 `#practice #distributed`
