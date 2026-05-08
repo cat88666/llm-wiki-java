@@ -54,6 +54,7 @@
 - [[机制-CAS]](concepts/04-concurrency/机制-CAS.md) — cmpxchg硬件原子指令，ABA问题+AtomicStampedReference，乐观锁vs悲观锁 `#concurrency`
 - [[机制-线程池]](concepts/04-concurrency/机制-线程池.md) — 7参数ThreadPoolExecutor，核心→队列→最大→拒绝执行流，4种拒绝策略 `#concurrency`
 - [[概念-ThreadLocal]](concepts/04-concurrency/概念-ThreadLocal.md) — Thread→ThreadLocalMap→弱引用key，线程池内存泄漏，必须remove `#concurrency`
+- [[机制-CompletableFuture与异步编程]](concepts/04-concurrency/机制-CompletableFuture与异步编程.md) — 链式Completion阶段事件驱动、ForkJoinPool默认线程池、thenApply/thenCompose/allOf任务编排、I/O密集型必须自定义线程池 `#concurrency`
 
 ### L4 数据结构
 - [[概念-布隆过滤器]](concepts/05-data-structure/概念-布隆过滤器.md) — BitMap+多哈希概率过滤、缓存穿透防护、无法删除缺陷、布谷鸟过滤器指纹+双桶支持删除 `#data-structure`
@@ -105,6 +106,9 @@
 - [[机制-Kafka]](concepts/08-distributed/机制-Kafka.md) — Topic/Partition/Segment存储结构、顺序写+零拷贝高吞吐原因、ISR/HW/LeaderEpoch可靠性、CooperativeStickyAssignor渐进式重平衡、At-least-once/Exactly-once语义 `#distributed`
 - [[机制-Netty]](concepts/08-distributed/机制-Netty.md) — 主从Reactor多线程模型、epoll事件通知、EventLoop单线程无锁、ByteBuf读写双指针+池化、粘包拆包LengthField方案、IdleStateHandler心跳 `#distributed`
 - [[概念-可观测性]](concepts/08-distributed/概念-可观测性.md) — Metrics/Tracing/Logging三大支柱、SkyWalking字节码Agent架构、Prometheus四种Metric类型、P99指标、三支柱协作排障流程 `#distributed`
+- [[机制-RabbitMQ]](concepts/08-distributed/机制-RabbitMQ.md) — AMQP三层路由(Exchange/Binding/Queue)、6种工作模式、Publisher Confirm+持久化+ACK三道防线、死信队列+延迟消息、镜像集群高可用 `#distributed`
+- [[机制-配置中心与Nacos]](concepts/08-distributed/机制-配置中心与Nacos.md) — 配置中心解耦动态配置、Nacos CP(JRaft)+AP(Distro)双模式、长轮询→gRPC长连接感知变更、服务注册发现推拉结合、注册中心选型对比 `#distributed`
+- [[机制-分布式任务调度]](concepts/08-distributed/机制-分布式任务调度.md) — XXL-Job DB悲观锁唯一触发、分片任务(ShardIndex+Total)、时间轮O(1)调度、定时扫表三缺陷与解法、退避策略、PowerJob动态分片 `#distributed`
 - [[概念-DDD]](concepts/09-practice/概念-DDD.md) — 领域驱动设计、实体/值对象/聚合根、充血模型vs贫血模型、四层架构(用户接口/应用/领域/基础设施)、限界上下文作为微服务拆分依据、CQRS、Event Sourcing `#practice`
 
 ### L8 工程实践
@@ -133,6 +137,7 @@
 - [[主题-Java语言基础]](summaries/主题-Java语言基础.md) — L1 概念地图 + 高频考点汇总，含 11 个 concept 页的依赖关系 `#java-lang`
 - [[主题-数据结构体系]](summaries/主题-数据结构体系.md) — L4 数据结构知识地图 + 高频考点，含与 L5 MySQL/Redis 的联系 `#data-structure`
 - [[主题-JVM体系]](summaries/主题-JVM体系.md) — L2 JVM 知识地图 + 高频考点，含 GC/类加载/JIT 的依赖关系 `#jvm`
+- [[主题-消息队列体系]](summaries/主题-消息队列体系.md) — Kafka/RabbitMQ/RocketMQ全景对比、三道防线可靠性、幂等消费、选型决策树 `#distributed`
 
 ---
 
@@ -151,3 +156,4 @@
 - [[设计-算法高频题型]](synthesis/设计-算法高频题型.md) — LRU(HashMap+双向链表)、TopK(小顶堆/快速选择)、海量数据(哈希分片)、排序选型、二分模板、滑动窗口、DP转移方程、并查集、拓扑排序 `#practice`
 - [[设计-多级缓存架构]](synthesis/设计-多级缓存架构.md) — 本地Caffeine(W-TinyLFU)+Redis两级缓存、TTL/MQ广播/Canal三种一致性策略、双重检测防雪崩代码模式、缓存预热方案 `#practice`
 - [[设计-支付系统设计]](synthesis/设计-支付系统设计.md) — 聚合支付架构/渠道路由、TCC空回滚+悬挂处理、双记账流水表设计、T+1对账+实时对账双兜底、OTC撮合引擎+冷热钱包分离、资损防控三道防线 `#practice`
+- [[设计-JVM调优实战]](synthesis/设计-JVM调优实战.md) — 正常GC基线指标、频繁FullGC/OOM排查步骤、Arthas/jmap工具链、G1/ZGC参数速查、OOM不一定导致JVM退出 `#jvm #practice`

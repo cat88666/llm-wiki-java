@@ -15,8 +15,11 @@ sources:
   - "../../../raw/note/Hollis/Spring/✅什么是Spring的三级缓存.md"
   - "../../../raw/note/Hollis/Spring/✅三级缓存是如何解决循环依赖的问题的？.md"
   - "../../../raw/note/Hollis/Spring/✅Spring 中的 Bean 作用域有哪些？.md"
+  - "../../../raw/note/Hollis/Spring/✅Spring默认支持循环依赖吗？如果发生如何解决？.md"
+  - "../../../raw/note/Hollis/Spring/✅Spring解决循环依赖一定需要三级缓存吗？.md"
+  - "../../../raw/note/Hollis/Spring/✅@Lazy注解能解决循环依赖吗？.md"
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-08
 lint_notes: ""
 ---
 
@@ -96,6 +99,12 @@ Spring 在 `DefaultSingletonBeanRegistry` 中维护三级缓存：
 - 只支持**单例** Bean（prototype 无法缓存半成品）
 - **构造器注入**无法解决（实例化时就需要依赖，根本无法先放入三级缓存）
 - 解法：改为 setter 注入 / `@Lazy` 注解 / 重新设计消除循环
+
+**@Lazy 解决构造器注入循环依赖**：`@Lazy` 使 Bean 在首次被使用时才初始化，打破构造器注入的实例化时依赖要求。但 `@Lazy` 只是推迟问题，循环依赖本身是设计缺陷，应从根源消除。
+
+**SpringBoot 2.6 默认关闭循环依赖支持**：2.6 之前默认允许循环依赖；2.6 开始启动时会直接报错（`spring.main.allow-circular-references=true` 可手动开启）。Spring 的设计哲学：三级缓存是"兜底"机制，不鼓励循环依赖存在。
+
+**为什么需要三级缓存而非二级**：二级缓存能解决普通对象的循环依赖，但若 Bean 需要 AOP 代理，二级缓存暴露的是原始对象，导致其他 Bean 持有的是原始引用而非代理引用。三级缓存存 `ObjectFactory`，调用时才决定返回代理对象还是原始对象，保证同一 Bean 引用的一致性。
 
 ## 关键权衡
 

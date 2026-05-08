@@ -1,5 +1,34 @@
 # Wiki Log
 
+## [2026-05-08] Ingest | P7 优先级第一轮：消息队列/配置中心/任务调度/异步编程/JVM调优
+- 触发：用户请求按 P7 缺口分析优先级摄入 raw/ 中高优先级目录
+- **新建** `concepts/08-distributed/机制-RabbitMQ.md`（L7 #distributed）
+  - 来源：raw/note/Hollis/RabbitMQ/ 全部10个文件
+  - AMQP 三层路由、6种工作模式、三道防线（Confirm+持久化+ACK）
+  - 死信队列两种延迟消息方案（TTL vs 插件）、镜像集群高可用
+- **新建** `concepts/08-distributed/机制-配置中心与Nacos.md`（L7 #distributed）
+  - 来源：raw/note/Hollis/配置中心/ 全部8个文件
+  - 配置中心作用与选型表（Nacos/Apollo/Consul/ZK）
+  - Nacos 双协议（JRaft CP + Distro AP）、长轮询→gRPC演进、推拉结合服务发现
+- **新建** `concepts/08-distributed/机制-分布式任务调度.md`（L7 #distributed）
+  - 来源：raw/note/Hollis/定时任务/ 全部11个文件
+  - 小顶堆 vs 时间轮数据结构对比、XXL-Job DB悲观锁唯一触发
+  - 分片任务原理（ShardIndex/ShardTotal）、定时扫表三缺陷与解法、退避策略
+- **新建** `concepts/04-concurrency/机制-CompletableFuture与异步编程.md`（L3 #concurrency）
+  - 来源：raw/note/Hollis/Java并发/ CompletableFuture 文件
+  - Completion 链事件驱动底层、thenApply/thenCompose/allOf/anyOf API 分类
+  - I/O 密集型必须自定义线程池（ForkJoinPool 陷阱）
+- **新建** `synthesis/设计-JVM调优实战.md`（#jvm #practice）
+  - 来源：raw/note/Hollis/JVM/ GC调优相关文件
+  - GC 正常基线指标（经验值）、频繁FullGC/OOM分类排查流程
+  - Arthas/jmap/jstack 工具链、G1/ZGC 参数速查、OOM 不导致 JVM 退出机制
+- **更新** `concepts/07-framework/机制-IoC容器.md`
+  - 补充：SpringBoot 2.6 默认禁止循环依赖、@Lazy 解决构造器注入循环依赖、三级缓存 vs 二级缓存的根本原因
+  - 新增3个 sources 引用
+- **新建** `summaries/主题-消息队列体系.md`
+  - Kafka/RabbitMQ/RocketMQ 全景对比表、三道防线通用模式、消息幂等方案、选型决策树
+- **更新** `wiki/index.md`：新增3个 concepts、1个 synthesis、1个 summary 的索引条目
+
 ## [2026-05-07] Ingest | Interview/Eson.md → 4个缺失知识点补充
 - 触发：检查简历核心知识点与 wiki 的差距，发现 4 处完全缺失
 - 新建 `concepts/03-jvm/机制-对象池技术.md`（L2 #jvm）
