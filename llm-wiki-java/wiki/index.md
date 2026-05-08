@@ -44,6 +44,7 @@
 - [[机制-类加载机制]](concepts/03-jvm/机制-类加载机制.md) — 类生命周期、双亲委派模型、破坏场景（SPI/Tomcat/OSGi）`#jvm`
 - [[机制-JIT编译]](concepts/03-jvm/机制-JIT编译.md) — 混合执行模式、热点检测、逃逸分析、预热问题 `#jvm`
 - [[概念-引用类型]](concepts/03-jvm/概念-引用类型.md) — 强/软/弱/虚四种引用、ThreadLocal弱引用陷阱 `#jvm`
+- [[机制-对象池技术]](concepts/03-jvm/机制-对象池技术.md) — 预创建对象复用降低GC压力、HikariCP连接池ConcurrentBag无锁设计、Netty PooledByteBufAllocator堆外内存池化、0 FGC实现路径 `#jvm`
 
 ### L3 并发编程
 - [[概念-JMM]](concepts/04-concurrency/概念-JMM.md) — 主内存/工作内存模型，三大并发问题，happens-before 8条规则，内存屏障 `#concurrency`
@@ -79,6 +80,7 @@
 - [[概念-缓存三大问题]](concepts/06-storage/概念-缓存三大问题.md) — 穿透/击穿/雪崩定义与解法、8种内存淘汰策略、缓存与DB一致性 `#storage`
 - [[机制-Redis分布式锁]](concepts/06-storage/机制-Redis分布式锁.md) — SETNX+Lua防误删、Redisson watchdog续期、Hash可重入结构 `#storage`
 - [[机制-Redis集群与高可用]](concepts/06-storage/机制-Redis集群与高可用.md) — 主从/哨兵/Cluster三种模式、16384槽分片、脑裂防护 `#storage`
+- [[机制-LSM树与RocksDB]](concepts/06-storage/机制-LSM树与RocksDB.md) — LSM-Tree顺序写原理、WAL+Memtable+SSTable三层结构、Compaction写放大权衡、RocksDB列族/事务特性、与B+树的对立选型 `#storage`
 
 ### L6 应用框架
 - [[机制-设计模式]](concepts/07-framework/机制-设计模式.md) — SOLID七原则、单例(枚举最佳)、三种工厂、代理/享元、观察者/模板方法/策略/责任链及Spring应用 `#framework`
@@ -147,3 +149,5 @@
 - [[设计-订单超时关闭]](synthesis/设计-订单超时关闭.md) — 方案对比(定时扫表/DelayQueue/Redisson/MQ)、Redisson延迟队列分布式首选、关闭逻辑幂等设计 `#practice`
 - [[设计-线上问题排查]](synthesis/设计-线上问题排查.md) — CPU高/FullGC/OOM/慢SQL/死锁/连接池/MQ堆积实战案例，Arthas/jstack/MAT工具链，死循环vs死锁对CPU影响，数据倾斜规律 `#practice`
 - [[设计-算法高频题型]](synthesis/设计-算法高频题型.md) — LRU(HashMap+双向链表)、TopK(小顶堆/快速选择)、海量数据(哈希分片)、排序选型、二分模板、滑动窗口、DP转移方程、并查集、拓扑排序 `#practice`
+- [[设计-多级缓存架构]](synthesis/设计-多级缓存架构.md) — 本地Caffeine(W-TinyLFU)+Redis两级缓存、TTL/MQ广播/Canal三种一致性策略、双重检测防雪崩代码模式、缓存预热方案 `#practice`
+- [[设计-支付系统设计]](synthesis/设计-支付系统设计.md) — 聚合支付架构/渠道路由、TCC空回滚+悬挂处理、双记账流水表设计、T+1对账+实时对账双兜底、OTC撮合引擎+冷热钱包分离、资损防控三道防线 `#practice`

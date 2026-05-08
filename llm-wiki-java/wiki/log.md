@@ -1,5 +1,28 @@
 # Wiki Log
 
+## [2026-05-07] Ingest | Interview/Eson.md → 4个缺失知识点补充
+- 触发：检查简历核心知识点与 wiki 的差距，发现 4 处完全缺失
+- 新建 `concepts/03-jvm/机制-对象池技术.md`（L2 #jvm）
+  - HikariCP ConcurrentBag 无锁设计、Netty PooledByteBufAllocator jemalloc 分层内存
+  - 对象池与 G1 GC 协同实现 0 FGC 的完整路径
+  - 关键权衡：状态重置、池满策略、minIdle 保活代价
+- 新建 `concepts/06-storage/机制-LSM树与RocksDB.md`（L5 #storage）
+  - WAL + Memtable + SSTable + Compaction 四层结构
+  - 写放大/读放大/空间放大三大权衡因子对比表（LSM vs B+树）
+  - Leveled/Size-Tiered/FIFO 三种 Compaction 策略选型
+  - RocksDB 在 TiKV/Flink State Backend/游戏兜底存储的应用场景
+- 新建 `synthesis/设计-多级缓存架构.md`（L8 #practice）
+  - Caffeine W-TinyLFU vs expireAfterWrite vs refreshAfterWrite 对比
+  - TTL/MQ广播/Canal+binlog 三种一致性策略的适用边界
+  - 双重检测防雪崩：JVM本地锁→Redis分布式锁→三次重检查完整代码
+- 新建 `synthesis/设计-支付系统设计.md`（L8 #practice）
+  - 聚合支付架构：统一下单幂等、渠道路由（金额/类型/成功率/成本）
+  - TCC 在支付的完整落地：空回滚/悬挂的防护实现
+  - 双记账流水表：不可变流水、balance_after 快照、余额可重算验证
+  - T+1全量对账 + 实时MQ对账双兜底，差异处理（长款/短款）
+  - OTC撮合引擎：Disruptor单线程无锁撮合、冷热钱包分离架构
+  - 资损防控三道防线：代码层幂等→DB层约束→监控对账层告警
+
 ## [2026-05-07] Lint | 全库健康检查 + 修复
 - **CHECK 1 (index.md路径)**：OK — 86条引用全部有效
 - **CHECK 2 (孤立页面)**：OK — 无孤立concepts页面
