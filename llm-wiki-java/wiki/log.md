@@ -1,5 +1,48 @@
 # Wiki Log
 
+## [2026-05-08] Ingest | P7 场景题批次：6个synthesis综合页
+- 触发：用户要求直接处理 raw/note/Hollis/场景题/ 目录（134个文件）
+- 策略：按主题聚合，不单独为每题建页，覆盖 ~70 个场景题文件
+- **新建** `synthesis/设计-MySQL大表与查询优化.md`（#storage #practice）
+  - 来源：场景题/ 大表DDL、深分页、热点行、长事务、逻辑删除唯一约束等
+  - B+树视角2000w分表阈值（树高3层，填充率2/3）
+  - 深分页3种优化（游标/子查询覆盖索引/倒序）
+  - OnlineDDL vs pt-osc vs gh-ost 三方案对比
+  - 热点行更新六大危害 + 长事务锁包事务编程模式
+- **新建** `synthesis/设计-海量数据处理.md`（#data-structure #practice）
+  - 来源：场景题/ 40亿QQ号、布隆过滤器、1TB排序、TopK关键词、黑名单URL、骚扰电话等
+  - BitMap选型速查表 + 40亿QQ内存计算（476M vs 1192M两种场景）
+  - Bloom filter公式推导 + 5亿数据误判率1%=571MB估算
+  - 外部归并排序：分块→块内排序→多路归并（小顶堆）全流程
+  - AC自动机原理 + 黑名单URL多方案对比
+- **新建** `synthesis/设计-接口设计与防护.md`（#distributed #practice）
+  - 来源：场景题/ 频率限制、防重复点击、防刷流量、三方超时、支付超时、Token窃取、拉黑等
+  - Redis ZSet滑动窗口 + Lua原子锁定（登录5分钟3次限制）
+  - Token机制 vs 幂等Key两种防重方案
+  - 三方接口3种隔离（异步收单/超时降级/熔断隔离）
+  - 支付超时处理：查单优先不直接认为失败
+- **新建** `synthesis/设计-消息队列场景综合.md`（#distributed #practice）
+  - 来源：场景题/ 乱序、Kafka吞吐、SpringEvent、推拉模式、订单超时、BlockingQueue、本地消息表等
+  - Spring Event vs MQ对比表（作用范围/事务/可靠性）
+  - 消息乱序4种解法：顺序消息/前置状态/序列号/事件表+定时重试
+  - 本地消息表：上游不回滚，下游指数退避重试至最终一致
+  - 消息表完整SQL schema（含唯一索引+state+retry_count）
+- **新建** `synthesis/设计-容量规划与性能基准.md`（#practice #jvm）
+  - 来源：场景题/ 4C8G指标、机器选型、QPS预估、压测vs线上、启动飙高、内存增长、频繁FGC等
+  - 4C8G正常指标基准表（CPU/Load/内存/YoungGC/FullGC 9指标×3档）
+  - 机器数公式：单机QPS=线程数×1000/RT，例题3000QPS/200ms=6~9台
+  - 压测600线上300扛不住：8大原因排查清单（数据倾斜/定时任务/缓存未预热/JIT未预热等）
+  - 堆外内存泄漏：NMT追踪工具链（DirectBuffer/JNI/Metaspace）
+  - 银行系统GC：ZGC(JDK15+) STW<1ms
+- **新建** `synthesis/设计-分布式场景综合.md`（#distributed #practice）
+  - 来源：场景题/ 三种锁对比、库存扣减、分布式锁并发、Session共享、SSO、订单号生成、跨库JOIN、数据迁移、定时任务、Excel导入等
+  - 三种锁选型对比表（乐观/悲观/分布式）+ 选型决策流程
+  - 高并发库存3方案：DB乐观锁/Redis预扣异步落盘/库存拆分
+  - Session演进：粘性→Redis集中→JWT无状态
+  - 两网站SSO：CAS/OAuth2+OIDC全流程（Ticket一次性令牌）
+  - 平滑数据迁移：双写→追平→灰度切流→停老库 + 回滚策略
+- **更新** `wiki/index.md`：Synthesis区新增上述6个页面条目
+
 ## [2026-05-08] Ingest | P7 优先级第二轮：Seata/SpringMVC/SpringBoot启动流程/OAuth2
 - 触发：用户请求继续处理第二优先级模块
 - **新建** `concepts/08-distributed/机制-Seata框架机制.md`（L7 #distributed）

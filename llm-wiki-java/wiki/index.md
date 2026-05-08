@@ -160,3 +160,9 @@
 - [[设计-多级缓存架构]](synthesis/设计-多级缓存架构.md) — 本地Caffeine(W-TinyLFU)+Redis两级缓存、TTL/MQ广播/Canal三种一致性策略、双重检测防雪崩代码模式、缓存预热方案 `#practice`
 - [[设计-支付系统设计]](synthesis/设计-支付系统设计.md) — 聚合支付架构/渠道路由、TCC空回滚+悬挂处理、双记账流水表设计、T+1对账+实时对账双兜底、OTC撮合引擎+冷热钱包分离、资损防控三道防线 `#practice`
 - [[设计-JVM调优实战]](synthesis/设计-JVM调优实战.md) — 正常GC基线指标、频繁FullGC/OOM排查步骤、Arthas/jmap工具链、G1/ZGC参数速查、OOM不一定导致JVM退出 `#jvm #practice`
+- [[设计-MySQL大表与查询优化]](synthesis/设计-MySQL大表与查询优化.md) — B+树视角2000w分表阈值、深分页3种优化、大表DDL三方案(OnlineDDL/pt-osc/gh-ost)、热点行危害、长事务锁包事务 `#storage #practice`
+- [[设计-海量数据处理]](synthesis/设计-海量数据处理.md) — BitMap去重、Bloom filter内存估算、外部归并排序(分块+多路归并)、TopK哈希分片+堆、AC自动机敏感词过滤 `#data-structure #practice`
+- [[设计-接口设计与防护]](synthesis/设计-接口设计与防护.md) — 滑动窗口频率限制、Token防重复点击、6层纵深防刷、三方接口超时隔离、支付查单对账、Token踢下线 `#distributed #practice`
+- [[设计-消息队列场景综合]](synthesis/设计-消息队列场景综合.md) — SpringEvent vs MQ、拉推模式对比、消息乱序4种解法、Kafka单分区提吞吐、本地消息表最终一致、消息表SQL设计 `#distributed #practice`
+- [[设计-容量规划与性能基准]](synthesis/设计-容量规划与性能基准.md) — 4C8G正常指标基准表、机器数预估公式、压测线上差异8大原因、堆外内存泄漏诊断、银行系统ZGC选型 `#practice #jvm`
+- [[设计-分布式场景综合]](synthesis/设计-分布式场景综合.md) — 三种锁选型表、Redis预扣库存、分布式Session演进、SSO全流程、订单号生成、跨库JOIN、平滑迁移双写策略 `#distributed #practice`
