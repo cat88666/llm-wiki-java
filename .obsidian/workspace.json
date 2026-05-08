@@ -202,6 +202,7 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/synthesis/设计-德州扑克核心算法.md",
     "llm-wiki-java/wiki/synthesis/设计-在线游戏平台架构.md",
     "llm-wiki-java/wiki/synthesis/设计-MySQL大表与查询优化.md",
     "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
@@ -226,7 +227,6 @@
     "llm-wiki-java/wiki/concepts/概念-ThreadLocal.md",
     "llm-wiki-java/wiki/concepts/机制-CAS.md",
     "llm-wiki-java/wiki/concepts/机制-线程池.md",
-    "llm-wiki-java/wiki/concepts/机制-AQS.md",
-    "llm-wiki-java/wiki/concepts/机制-volatile.md"
+    "llm-wiki-java/wiki/concepts/机制-AQS.md"
   ]
 }

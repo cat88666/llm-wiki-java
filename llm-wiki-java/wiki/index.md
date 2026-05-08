@@ -168,3 +168,4 @@
 - [[设计-分布式场景综合]](synthesis/设计-分布式场景综合.md) — 三种锁选型表、Redis预扣库存、分布式Session演进、SSO全流程、订单号生成、跨库JOIN、平滑迁移双写策略 `#distributed #practice`
 - [[设计-架构设计思维]](synthesis/设计-架构设计思维.md) — 架构本质是权衡、没有银弹、技术债管理、微服务拆分7原则、单元化架构、技术选型框架、亿级商品存储 `#practice #distributed`
 - [[设计-在线游戏平台架构]](synthesis/设计-在线游戏平台架构.md) — SOFA-Bolt+Netty+Dubbo 5服务协作：用户级线程隔离、工厂路由、游戏状态机、保险赔率实时计算、多级缓存 `#practice #distributed`
+- [[设计-德州扑克核心算法]](synthesis/设计-德州扑克核心算法.md) — 牌型多项式编码O(1)比较、三变体工厂评估器、智能保险方程组迭代求解、边池尾差处理、抽水两种模式 `#practice`

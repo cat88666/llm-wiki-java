@@ -1,5 +1,17 @@
 # Wiki Log
 
+## [2026-05-08] Ingest | 德州扑克核心算法：深度代码分析 → 1个synthesis页
+- 来源：dx-game-texas 项目（card/、CardInsureSmartOutsService.java、ProvisionalSettlementService.java）
+- 策略：深度读取核心算法代码（~3000行），按四层结构编译
+- **新建** `synthesis/设计-德州扑克核心算法.md`（#practice）
+  - 层1 牌型评估：工厂模式三变体评估器、10级牌型层级、多项式系数编码O(1)比较
+  - 层2 胜率/Outs：分阶段策略（Pre-Flop查表/Flop枚举C(47,2)=1081/River精确）、反超Outs vs 平分Outs
+  - 层3 智能保险：SmartInsureOuts数据结构、四种投保方案、方程组建立与迭代求解（最多20次）、背回逻辑
+  - 层4 底池结算：边池生成公式、比牌赢家算法、平分余数处理、按底池/盈利两种抽水模式、三种保险模式结算差异
+  - 游戏变体差异对比表（标准德州/短牌6+/奥马哈）
+  - 面试4大问答模板
+- **更新** `wiki/index.md`：Synthesis区新增 设计-德州扑克核心算法 条目
+
 ## [2026-05-08] Ingest | 实际项目代码：5个微服务 → 1个synthesis页
 - 来源：dx-net-bolt / dx-net-gateway / dx-game-hall / dx-game-texas / dx-game-race-hall（5个项目代码库）
 - 策略：深度探索代码结构和核心类，提取架构亮点，聚合为一个综合synthesis页
