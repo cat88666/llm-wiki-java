@@ -1,5 +1,29 @@
 # Wiki Log
 
+## [2026-05-08] Ingest | P7 优先级第二轮：Seata/SpringMVC/SpringBoot启动流程/OAuth2
+- 触发：用户请求继续处理第二优先级模块
+- **新建** `concepts/08-distributed/机制-Seata框架机制.md`（L7 #distributed）
+  - 来源：raw/note/Hollis/分布式/ Seata 相关5个文件
+  - TC/TM/RM 三组件架构及全局事务5步流程
+  - AT 模式：代理数据源 + UNDO_LOG(before/after image)一阶段本地提交 + 二阶段清理/回滚
+  - TCC 空回滚/悬挂问题与分布式事务记录表统一解法
+  - 四种模式对比表（AT/TCC/Saga/XA）及 AT vs XA 核心区别
+- **新建** `concepts/07-framework/机制-SpringMVC请求处理链.md`（L6 #framework）
+  - 来源：raw/note/Hollis/Spring/ SpringMVC 路由文件
+  - 路由注册：@RequestMapping → RequestMappingInfo → MappingRegistry
+  - 请求处理5步：HandlerMapping → preHandle → HandlerAdapter(参数解析+反射+返回值) → postHandle → ViewResolver
+  - ExceptionResolver 责任链 + 设计模式全景（适配器/组合/策略/责任链/门面）
+- **新建** `concepts/08-distributed/概念-OAuth2授权协议.md`（L7 #distributed）
+  - 来源：raw/note/Hollis/分布式/ OAuth2 文件
+  - Client/ResourceServer/AuthorizationServer 三角色、Access Token 授权流程
+  - 四种授权类型（授权码/隐式/密码/客户端凭证）及安全边界
+  - OAuth2 vs OIDC 区别（授权 vs 认证）
+- **更新** `concepts/07-framework/机制-SpringBoot自动装配.md`
+  - 启动流程从"精简版"扩展为"完整版"：new SpringApplication 5步 + run 完整阶段（含 Tomcat 启动位置）
+  - 新增"优雅停机"：server.shutdown=graceful + timeout-per-shutdown-phase 配置
+  - 新增 source：SpringBoot如何做优雅停机
+- **更新** `wiki/index.md`：新增 Seata、OAuth2、SpringMVC 条目；更新 SpringBoot 自动装配描述
+
 ## [2026-05-08] Ingest | P7 优先级第一轮：消息队列/配置中心/任务调度/异步编程/JVM调优
 - 触发：用户请求按 P7 缺口分析优先级摄入 raw/ 中高优先级目录
 - **新建** `concepts/08-distributed/机制-RabbitMQ.md`（L7 #distributed）

@@ -13,8 +13,9 @@ sources:
   - "../../../raw/note/Hollis/Spring/✅SpringBoot和Spring的区别是什么？.md"
   - "../../../raw/note/Hollis/Spring/✅如何自定义一个starter？.md"
   - "../../../raw/note/Hollis/Spring/✅为什么SpringBoot 3中移除了spring factories.md"
+  - "../../../raw/note/Hollis/Spring/✅SpringBoot如何做优雅停机？.md"
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-08
 lint_notes: ""
 ---
 
@@ -30,21 +31,68 @@ Spring 本身已经能管理 Bean，但需要开发者显式写大量 XML 或 @C
 
 ## 核心机制
 
-### 启动流程（精简版）
+### 启动流程（完整版）
+
+**阶段一：new SpringApplication()**
 
 ```
-SpringApplication.run(App.class, args)
-  ↓
-new SpringApplication()
-  ├── 加载 ApplicationContextInitializer（spring.factories）
-  └── 加载 ApplicationListener（spring.factories）
-  ↓
-SpringApplication.run()
-  ├── 创建并准备 Environment（加载 application.properties）
-  ├── 创建 ApplicationContext
-  ├── 刷新 Context（核心：Bean 注册 + 自动配置）
-  └── 调用 CommandLineRunner / ApplicationRunner
+1. 添加源（主配置类）
+2. 推断 Web 环境类型（SERVLET / REACTIVE / NONE）
+3. 从 spring.factories 加载 ApplicationContextInitializer 列表
+4. 从 spring.factories 加载 ApplicationListener 列表
+5. 确定主应用类（通过调用栈推断 main() 所在类）
 ```
+
+**阶段二：SpringApplication.run()**
+
+```
+启动计时器（StopWatch）
+  ↓
+获取 SpringApplicationRunListeners（从 spring.factories 加载）
+  → listeners.starting()
+  ↓
+prepareEnvironment（装配环境参数）
+  → 加载 application.properties / application.yml / 环境变量 / 系统属性
+  → listeners.environmentPrepared()
+  ↓
+printBanner（打印启动横幅）
+  ↓
+createApplicationContext（创建 Spring 上下文）
+  → Web 场景用 AnnotationConfigServletWebServerApplicationContext
+  ↓
+prepareContext（准备上下文）
+  → 执行 ApplicationContextInitializer.initialize()
+  → 加载主配置类的 BeanDefinition
+  → listeners.contextPrepared() / contextLoaded()
+  ↓
+refreshContext（刷新上下文，核心步骤）
+  → 创建 BeanFactory + 注册所有 BeanDefinition（含自动配置）
+  → 实例化所有单例 Bean（含依赖注入、AOP 代理）
+  → onRefresh() → createWebServer() → 启动内嵌 Tomcat ★
+  ↓
+afterRefresh（空扩展点）
+  ↓
+停止计时器，打印启动耗时
+  → listeners.started()
+  ↓
+调用 CommandLineRunner / ApplicationRunner
+  → listeners.running()
+```
+
+**内嵌 Tomcat 启动位置**：`refreshContext → onRefresh → ServletWebServerApplicationContext.createWebServer() → TomcatServletWebServerFactory.getWebServer()` → 创建并启动 Tomcat 实例。
+
+### 优雅停机
+
+```yaml
+# application.yml
+server:
+  shutdown: graceful                            # 开启优雅停机
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 2m             # 等待最长时间
+```
+
+收到 SIGTERM 信号后，SpringBoot 停止接收新请求，等待已有请求处理完毕（最长 2 分钟），再关闭容器、销毁 Bean（`DisposableBean.destroy()` / `@PreDestroy`）。
 
 ### 自动配置核心链路
 

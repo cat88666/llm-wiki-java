@@ -88,7 +88,8 @@
 - [[机制-IoC容器]](concepts/07-framework/机制-IoC容器.md) — 控制反转、Bean生命周期11步、三级缓存解决循环依赖 `#framework`
 - [[机制-AOP织入]](concepts/07-framework/机制-AOP织入.md) — JDK/CGLIB代理、5种Advice、失效场景（this调用/private/static/final）`#framework`
 - [[机制-Spring事务]](concepts/07-framework/机制-Spring事务.md) — @Transactional=AOP切面、7种传播机制、失效场景（代理失效/异常被吞/多线程）`#framework`
-- [[机制-SpringBoot自动装配]](concepts/07-framework/机制-SpringBoot自动装配.md) — @EnableAutoConfiguration、spring.factories→.imports、@Conditional条件装配、自定义starter `#framework`
+- [[机制-SpringBoot自动装配]](concepts/07-framework/机制-SpringBoot自动装配.md) — @EnableAutoConfiguration、spring.factories→.imports、@Conditional条件装配、自定义starter、完整启动流程、优雅停机 `#framework`
+- [[机制-SpringMVC请求处理链]](concepts/07-framework/机制-SpringMVC请求处理链.md) — DispatcherServlet前端控制器、MappingRegistry路由注册、HandlerAdapter适配、Interceptor责任链、ExceptionResolver异常处理 `#framework`
 
 ### L7 分布式体系
 - [[机制-ZAB协议与Zookeeper]](concepts/08-distributed/机制-ZAB协议与Zookeeper.md) — ZAB原子广播协议、ZNode/Watch机制、Leader选举、临时顺序节点分布式锁、CP强一致 `#distributed`
@@ -109,6 +110,8 @@
 - [[机制-RabbitMQ]](concepts/08-distributed/机制-RabbitMQ.md) — AMQP三层路由(Exchange/Binding/Queue)、6种工作模式、Publisher Confirm+持久化+ACK三道防线、死信队列+延迟消息、镜像集群高可用 `#distributed`
 - [[机制-配置中心与Nacos]](concepts/08-distributed/机制-配置中心与Nacos.md) — 配置中心解耦动态配置、Nacos CP(JRaft)+AP(Distro)双模式、长轮询→gRPC长连接感知变更、服务注册发现推拉结合、注册中心选型对比 `#distributed`
 - [[机制-分布式任务调度]](concepts/08-distributed/机制-分布式任务调度.md) — XXL-Job DB悲观锁唯一触发、分片任务(ShardIndex+Total)、时间轮O(1)调度、定时扫表三缺陷与解法、退避策略、PowerJob动态分片 `#distributed`
+- [[机制-Seata框架机制]](concepts/08-distributed/机制-Seata框架机制.md) — TC/TM/RM三组件全局事务协调、AT(代理数据源+UNDO_LOG)、TCC(空回滚/悬挂+分布式事务记录表)、四种模式选型 `#distributed`
+- [[概念-OAuth2授权协议]](concepts/08-distributed/概念-OAuth2授权协议.md) — 开放授权、Client/ResourceServer/OAuthServer三角色、Access Token授权流程、四种授权类型、OAuth2 vs OIDC `#distributed`
 - [[概念-DDD]](concepts/09-practice/概念-DDD.md) — 领域驱动设计、实体/值对象/聚合根、充血模型vs贫血模型、四层架构(用户接口/应用/领域/基础设施)、限界上下文作为微服务拆分依据、CQRS、Event Sourcing `#practice`
 
 ### L8 工程实践
