@@ -175,3 +175,5 @@
 - [[设计-DDD落地实战]](synthesis/设计-DDD落地实战.md) — 限界上下文→微服务拆分决策、聚合根粒度权衡(太细→分布式事务/太粗→锁竞争)、四层架构各层职责、领域事件Spring Event实战、CQRS适用边界 `#practice #framework`
 - [[设计-P8高频边界问题]](synthesis/设计-P8高频边界问题.md) — 系统边界职责/造轮子五问/库存三态与旁路验证/雪花算法边界(32台/时钟回拨)/MQ异步刷盘能不丢吗/OPS突增10倍框架/选型追问四维度 `#practice`
 - [[设计-云原生选型]](synthesis/设计-云原生选型.md) — IaaS/PaaS/SaaS/Serverless交付模型、公有云/私有云/混合云选型、Java冷启动问题(GraalVM AOT)、无状态设计原则、云原生改造要点 `#practice #distributed`
+- [[设计-彩票系统核心设计]](synthesis/设计-彩票系统核心设计.md) — 投注系统(乐观锁余额冻结/幂等下单)、开奖系统(VRF可验证随机/状态机/防篡改)、结算系统(固定赔率vs彩池/Kafka批量驱动百万注单)、风控防作弊 `#practice #distributed`
+- [[设计-账户钱包系统]](synthesis/设计-账户钱包系统.md) — 余额三态模型(可用/冻结/总额)、乐观锁扣减并发安全、append-only流水表(balance_after快照)、充值/提现链路幂等、T+1对账+实时监控 `#practice #storage`

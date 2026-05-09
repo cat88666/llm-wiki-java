@@ -1,5 +1,27 @@
 # Wiki Log
 
+## [2026-05-09] Ingest | 彩票系统岗位专项：彩票核心设计/账户钱包/Kafka大流量调优
+- 触发：用户提供高级Java/架构师（彩票系统）岗位 JD，分析 wiki 缺口后摄入
+- **新建** `synthesis/设计-彩票系统核心设计.md`（#practice #distributed）
+  - 投注系统：幂等下单5步、乐观锁余额冻结（vs分布式锁选型分析）、限号玩法Redis Lua预扣减
+  - 开奖系统：ACCEPTING→CLOSED→DRAWING→DRAWN→SETTLED状态机、承诺-揭示VRF公平性、第三方开奖源、开奖结果防篡改（链上存证）
+  - 结算系统：固定赔率 vs 彩池模型对比表、Kafka分区驱动批量结算（100万注单~1-2分钟）、结算幂等唯一索引
+  - 风控：5类异常投注检测规则、设备指纹、套利行为识别
+- **新建** `synthesis/设计-账户钱包系统.md`（#practice #storage）
+  - 余额三态模型（available/frozen/total）+ 彩票场景完整流转（投注/结算/充值/提现）
+  - 并发扣减三方案对比（行锁/乐观锁/分布式锁）+ 彩票场景推荐乐观锁理由
+  - append-only流水表设计（SQL含balance_after快照+txn_id唯一索引）+ 余额一致性校验SQL
+  - 充值链路：异步回调二次确认 + 幂等防重复入账
+  - 提现链路：先冻结后审核后出款 + 出款幂等（withdraw_id）
+  - 日终T+1对账 + 实时监控 + 超时扫单兜底
+- **更新** `concepts/08-distributed/机制-Kafka.md`：新增「大流量实战补充」章节
+  - 生产者调优参数表（linger.ms/batch.size/compression.type/buffer.memory）+ 吞吐公式
+  - 消费者调优参数表（fetch.min.bytes/max.poll.records/max.poll.interval.ms）
+  - 消息积压处理策略（扩Consumer/扩Partition/并行消费+按key分桶保序）
+  - 开奖广播Fanout模式（1 Topic → N Consumer Group各自独立消费）
+  - 重平衡期不丢消息：onPartitionsRevoked回调中commitSync
+- **更新** `wiki/index.md`：Synthesis新增2个条目
+
 ## [2026-05-09] Ingest | P2+P3批次：DDD落地/P8边界问题/云原生选型
 - 来源：raw/note/tuling/DDD架构.md + raw/note/Hollis/面经实战/（55文件，抽样10个高经验面经）+ raw/note/Hollis/云计算/（6文件全量）
 - **新建** `synthesis/设计-DDD落地实战.md`（#practice #framework）

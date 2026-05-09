@@ -202,6 +202,8 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/synthesis/设计-账户钱包系统.md",
+    "llm-wiki-java/wiki/synthesis/设计-彩票系统核心设计.md",
     "llm-wiki-java/wiki/synthesis/设计-云原生选型.md",
     "llm-wiki-java/wiki/synthesis/设计-P8高频边界问题.md",
     "llm-wiki-java/wiki/synthesis/设计-DDD落地实战.md",
@@ -225,8 +227,6 @@
     "llm-wiki-java/wiki/concepts/概念-Redis数据类型与底层结构.md",
     "llm-wiki-java/wiki/summaries/主题-MySQL体系.md",
     "llm-wiki-java/wiki/concepts/概念-SQL查询优化.md",
-    "llm-wiki-java/wiki/concepts/机制-InnoDB锁机制.md",
-    "llm-wiki-java/wiki/concepts/机制-MySQL三种日志.md",
-    "llm-wiki-java/wiki/concepts/机制-MVCC.md"
+    "llm-wiki-java/wiki/concepts/机制-InnoDB锁机制.md"
   ]
 }
