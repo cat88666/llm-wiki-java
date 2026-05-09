@@ -1,5 +1,48 @@
 # Wiki Log
 
+## [2026-05-09] Ingest | P2+P3批次：DDD落地/P8边界问题/云原生选型
+- 来源：raw/note/tuling/DDD架构.md + raw/note/Hollis/面经实战/（55文件，抽样10个高经验面经）+ raw/note/Hollis/云计算/（6文件全量）
+- **新建** `synthesis/设计-DDD落地实战.md`（#practice #framework）
+  - 限界上下文→微服务拆分：5种上下文映射关系（防腐层是关键）
+  - 聚合根粒度权衡表：太小（分布式事务）vs 太大（热点并发）
+  - 四层架构职责清单：仓储接口在领域层，实现在基础设施层（依赖倒置）
+  - 领域事件两种传播：Spring Event（同进程）→ MQ（跨服务）
+  - CQRS 适用场景：读写比极不对称、跨聚合查询
+  - 常见落地坑：贫血模型惯性/领域层框架污染/聚合过重
+- **新建** `synthesis/设计-P8高频边界问题.md`（#practice）
+  - 9大追问模式：系统边界职责/造轮子五问/库存三态旁路验证/雪花算法边界/MQ可靠性深追/设计追问/方案质疑/技术选型四维/GC追问
+  - 雪花算法边界：Hutool workerid上限31，超32台机器解法，无时钟回拨仍可重复
+  - 库存三态：可售/冻结/已扣减；TCC各阶段映射；Confirm后Cancel→反向补偿
+  - MQ核心：异步刷盘无法100%不丢；设计MQ需覆盖存储/可靠性/语义/推拉/顺序5维度
+- **新建** `synthesis/设计-云原生选型.md`（#practice #distributed）
+  - IaaS/PaaS/SaaS/Serverless交付模型对比表（厨房类比）
+  - 公有云/私有云/混合云适用场景、云爆发机制
+  - Java冷启动问题：JVM 3-10s vs GraalVM AOT < 100ms
+  - 无状态设计原则：本地缓存→Redis/本地文件→OSS/Session→JWT
+  - 云原生改造6要点（配置/日志/健康检查/链路追踪/优雅停机/服务发现）
+- **更新** `wiki/index.md`：Synthesis新增3个条目
+
+## [2026-05-08] Ingest | P0+P1批次：项目难点/大厂实践/三高体系/分布式深水区
+- 来源：raw/note/Hollis/项目难点&亮点/（19文件）/ 大厂实践/（3文件）/ 高并发&高可用&高性能目录（25+文件）/ 分布式/（3PC/拜占庭/NewSQL/Leaf 4文件）
+- 策略：P0优先，synthesis聚合项目亮点和大厂实践；P1聚合三高体系；更新已有分布式理论页面
+- **新建** `synthesis/设计-项目难点表达.md`（#practice）
+  - STAR框架核心用法 + 亮点挖掘维度表（并发/缓存/IO/架构/数据库）
+  - 10个量化STAR模板：CompletableFuture(10s→1s)/状态机+乐观锁(0超卖)/BitSet预约(400x压缩)/ZSet排行榜(float分数编码)/本地消息表(最终一致)/XXL-JOB分片+userId反转/TTL上下文传播/Spring Event(200k→1k扫描)/Seata TCC/CompletableFuture+Semaphore
+- **新建** `synthesis/设计-大厂秒杀实践.md`（#practice #storage #distributed）
+  - 阿里Inventory Hint：Leader/Follower分组、Row Cache、组提交三大优化
+  - 小红书合并秒杀：全局缓存+Leader-Follower状态机，TPS ~200→4276→23543（5.5x）
+  - 决策树：并发量梯度方案（普通MySQL/Inventory Hint/分桶/近端缓存）
+- **新建** `summaries/主题-三高体系.md`（#practice #distributed #concurrency）
+  - 三高制约矩阵、4种限流算法对比（漏桶/令牌桶/固定窗口/滑动窗口/自适应）
+  - 熔断器三态、SLA表（2~5个九）、全链路压测方法论、读写分离主从延迟处理
+  - 布隆vs布谷鸟过滤器、线程池调优公式、三高联动场景分析
+- **更新** `concepts/08-distributed/概念-分布式系统理论.md`（4个新章节）
+  - 3PC：三阶段+超时机制，致命缺陷（网络分区超时自提交导致不一致）
+  - 拜占庭将军问题：n≥3f+1，PoW/PBFT/Raft对比，区块链应用
+  - NewSQL选型：MySQL+分库 vs TiDB(LSM/Raft/HTAP) vs OceanBase(Paxos/金融级)
+  - Leaf ID生成器：号段模式(双Buffer预取) + Snowflake模式(ZK解决时钟漂移)
+- **更新** `wiki/index.md`：Summaries新增 主题-三高体系；Synthesis新增 设计-项目难点表达/设计-大厂秒杀实践
+
 ## [2026-05-08] Ingest | 德州扑克核心算法：深度代码分析 → 1个synthesis页
 - 来源：dx-game-texas 项目（card/、CardInsureSmartOutsService.java、ProvisionalSettlementService.java）
 - 策略：深度读取核心算法代码（~3000行），按四层结构编译

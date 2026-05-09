@@ -141,6 +141,7 @@
 - [[主题-数据结构体系]](summaries/主题-数据结构体系.md) — L4 数据结构知识地图 + 高频考点，含与 L5 MySQL/Redis 的联系 `#data-structure`
 - [[主题-JVM体系]](summaries/主题-JVM体系.md) — L2 JVM 知识地图 + 高频考点，含 GC/类加载/JIT 的依赖关系 `#jvm`
 - [[主题-消息队列体系]](summaries/主题-消息队列体系.md) — Kafka/RabbitMQ/RocketMQ全景对比、三道防线可靠性、幂等消费、选型决策树 `#distributed`
+- [[主题-三高体系]](summaries/主题-三高体系.md) — 高并发/高可用/高性能三者制约关系：限流算法/熔断/SLA/压测/读写分离/布隆过滤器/线程池调优 `#practice #distributed #concurrency`
 
 ---
 
@@ -169,3 +170,8 @@
 - [[设计-架构设计思维]](synthesis/设计-架构设计思维.md) — 架构本质是权衡、没有银弹、技术债管理、微服务拆分7原则、单元化架构、技术选型框架、亿级商品存储 `#practice #distributed`
 - [[设计-在线游戏平台架构]](synthesis/设计-在线游戏平台架构.md) — SOFA-Bolt+Netty+Dubbo 5服务协作：用户级线程隔离、工厂路由、游戏状态机、保险赔率实时计算、多级缓存 `#practice #distributed`
 - [[设计-德州扑克核心算法]](synthesis/设计-德州扑克核心算法.md) — 牌型多项式编码O(1)比较、三变体工厂评估器、智能保险方程组迭代求解、边池尾差处理、抽水两种模式 `#practice`
+- [[设计-项目难点表达]](synthesis/设计-项目难点表达.md) — STAR框架亮点模板库：CompletableFuture(10s→1s)/状态机+乐观锁/BitSet预约(400x压缩)/ZSet排行榜/本地消息表/XXL-JOB分片/TTL/Spring Event等10个量化模板 `#practice`
+- [[设计-大厂秒杀实践]](synthesis/设计-大厂秒杀实践.md) — 阿里Inventory Hint(行锁合并/Row Cache/组提交)+小红书合并秒杀(Leader-Follower 5.5x提升)对比教科书Redis预扣方案 `#practice #storage #distributed`
+- [[设计-DDD落地实战]](synthesis/设计-DDD落地实战.md) — 限界上下文→微服务拆分决策、聚合根粒度权衡(太细→分布式事务/太粗→锁竞争)、四层架构各层职责、领域事件Spring Event实战、CQRS适用边界 `#practice #framework`
+- [[设计-P8高频边界问题]](synthesis/设计-P8高频边界问题.md) — 系统边界职责/造轮子五问/库存三态与旁路验证/雪花算法边界(32台/时钟回拨)/MQ异步刷盘能不丢吗/OPS突增10倍框架/选型追问四维度 `#practice`
+- [[设计-云原生选型]](synthesis/设计-云原生选型.md) — IaaS/PaaS/SaaS/Serverless交付模型、公有云/私有云/混合云选型、Java冷启动问题(GraalVM AOT)、无状态设计原则、云原生改造要点 `#practice #distributed`
