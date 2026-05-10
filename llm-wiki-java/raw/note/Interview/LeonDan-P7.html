@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeonDan - 资深 Java 工程师</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #1a1a1a;
+    background: #fff;
+    padding: 28px 36px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    border-bottom: 2.5px solid #1d3461;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1d3461;
+    letter-spacing: 1px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: #444;
+    margin-top: 4px;
+  }
+  .header .contact {
+    font-size: 12px;
+    color: #555;
+    margin-top: 3px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1d3461;
+    border-left: 4px solid #1d3461;
+    padding-left: 8px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── 求职意向 table ── */
+  .intent-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  .intent-table td {
+    padding: 4px 10px;
+    border: 1px solid #d8dde6;
+  }
+  .intent-table td:first-child {
+    background: #f0f4fa;
+    font-weight: 600;
+    color: #1d3461;
+    width: 90px;
+    white-space: nowrap;
+  }
+
+  /* ── 核心竞争力 ── */
+  .competency ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  .competency li {
+    padding: 4px 0 4px 16px;
+    position: relative;
+    font-size: 12.5px;
+    color: #222;
+    border-bottom: 1px dashed #eee;
+  }
+  .competency li:last-child { border-bottom: none; }
+  .competency li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    color: #1d3461;
+    font-size: 9px;
+    top: 7px;
+  }
+  .competency li strong { color: #1d3461; }
+
+  /* ── 核心成就速览 ── */
+  .achievements {
+    background: #f5f8ff;
+    border-left: 4px solid #4a90d9;
+    border-radius: 0 4px 4px 0;
+    padding: 10px 14px;
+  }
+  .achievements ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  .achievements li {
+    font-size: 12.5px;
+    padding: 3px 0 3px 18px;
+    position: relative;
+    color: #222;
+  }
+  .achievements li::before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    color: #4a90d9;
+    font-size: 9px;
+    top: 6px;
+  }
+  .achievements li strong { color: #c0392b; }
+
+  /* ── 专业技能 table ── */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .skills-table td {
+    padding: 5px 10px;
+    border: 1px solid #dde3ed;
+    vertical-align: top;
+  }
+  .skills-table tr:nth-child(odd) td { background: #f8fafd; }
+  .skills-table td:first-child {
+    font-weight: 700;
+    color: #1d3461;
+    width: 130px;
+    white-space: nowrap;
+  }
+
+  /* ── 工作经验 ── */
+  .job {
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+  }
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    background: #1d3461;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 3px 3px 0 0;
+  }
+  .job-header .company {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .job-header .title {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-left: 10px;
+  }
+  .job-header .period {
+    font-size: 12px;
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+  .job-meta {
+    background: #eef2fb;
+    padding: 4px 12px;
+    font-size: 11.5px;
+    color: #555;
+    border-left: 1px solid #c8d6ef;
+    border-right: 1px solid #c8d6ef;
+  }
+  .job-body {
+    border: 1px solid #c8d6ef;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    padding: 10px 14px;
+  }
+
+  /* ── 项目标题 ── */
+  .proj-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1d3461;
+    margin: 10px 0 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #c8d6ef;
+  }
+  .proj-title:first-child { margin-top: 0; }
+  .proj-scale {
+    font-size: 12px;
+    color: #333;
+    background: #f5f8ff;
+    border-left: 3px solid #4a90d9;
+    padding: 4px 10px;
+    margin: 5px 0 8px;
+    border-radius: 0 3px 3px 0;
+  }
+  .proj-tech {
+    font-size: 11.5px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  .proj-tech span {
+    display: inline-block;
+    background: #e8f0fe;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin: 1px 2px;
+    color: #1d3461;
+  }
+
+  /* ── 贡献小节 ── */
+  .contrib-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #2c5282;
+    margin: 8px 0 3px;
+  }
+  ul.bullets {
+    padding-left: 0;
+    list-style: none;
+    margin: 0 0 4px;
+  }
+  ul.bullets li {
+    font-size: 12px;
+    padding: 2px 0 2px 16px;
+    position: relative;
+    color: #222;
+  }
+  ul.bullets li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    color: #4a90d9;
+    font-weight: 900;
+    font-size: 16px;
+    top: -2px;
+  }
+  ul.bullets li strong { color: #c0392b; font-weight: 700; }
+  ul.bullets li em { color: #555; font-style: normal; }
+
+  /* ── 旧工作经历简洁版 ── */
+  .job-simple {
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+  }
+  .job-simple-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #c8d6ef;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+  }
+  .job-simple-header .left { font-size: 13px; font-weight: 700; color: #1d3461; }
+  .job-simple-header .right { font-size: 12px; color: #666; }
+  .job-simple-meta { font-size: 11.5px; color: #666; margin-bottom: 4px; }
+
+  /* ── 教育经历 ── */
+  .edu {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12.5px;
+  }
+  .edu .school { font-weight: 700; color: #1d3461; }
+  .edu .degree { color: #444; margin-left: 10px; }
+  .edu .period { color: #666; }
+
+  /* ── Print ── */
+  @media print {
+    body { padding: 18px 24px; }
+    .job, .job-simple { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <h1>LeonDan</h1>
+  <div class="subtitle">资深 Java 工程师 &nbsp;|&nbsp; 男 &nbsp;|&nbsp; 33 岁 &nbsp;|&nbsp; 12 年工作经验 &nbsp;|&nbsp; 广东·深圳</div>
+  <div class="contact">📧 leonanyue@outlook.com</div>
+</div>
+
+<!-- ═══ 求职意向 ═══ -->
+<div class="section">
+  <div class="section-title">求职意向</div>
+  <table class="intent-table">
+    <tr>
+      <td>期望职位</td><td>高级 Java 工程师 / 资深技术专家</td>
+      <td>期望城市</td><td>深圳（可远程）</td>
+    </tr>
+    <tr>
+      <td>期望行业</td><td>互联网 / 计算机软件</td>
+      <td>到岗时间</td><td>随时</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══ 核心竞争力 ═══ -->
+<div class="section competency">
+  <div class="section-title">核心竞争力</div>
+  <ul>
+    <li><strong>高并发核心链路设计：</strong>主导电商库存 + 价格双中台建设，独立攻关热 Key / 跨系统一致性 / 多渠道并行等分布式核心难题，单机 QPS 5000+，核心接口 RT &lt;5ms；具备大促峰值容量规划与全链路保障经验。</li>
+    <li><strong>系统架构演进主导：</strong>两段从 0 到 1 完整主导经验——电商云原生交易链路（GCP + K8s + 微服务）及工业互联网平台（Spring Cloud Alibaba，日均百万 API 调用）；主导存量系统大版本升级（JDK 8→17，Spring Boot 2.7→3.2），均实现业务零中断落地。</li>
+    <li><strong>稳定性与质量治理：</strong>建立 Prometheus + Grafana + Skywalking + ELK 全链路可观测性体系，MTTD 从 30 分钟降至 5 分钟；建立安全漏洞扫描闭环与代码规范双卡点，核心业务 SLA 稳定在 99.9%+。</li>
+    <li><strong>技术攻坚与跨域视野：</strong>主导两次国产化数据库平滑迁移（达梦 DM8 / 大华数据库）；具备 GCP 云原生实战与信创生态（麒麟 OS + 国产数据库）双向能力，可在电商 / 支付 / 工业数字化等多业务域快速建立技术判断。</li>
+  </ul>
+</div>
+
+<!-- ═══ 核心成就速览 ═══ -->
+<div class="section">
+  <div class="section-title">核心成就速览</div>
+  <div class="achievements">
+    <ul>
+      <li><strong>库存扣减引擎：</strong>Redis + Lua 原子操作 + CompletableFuture 并行 OMS，单机 QPS 5000+，混单 P99 <strong>从 800ms 降至 200ms</strong>，三层一致性防护（事务消息 + 本地消息表 + 定时对账）保障 99.99%</li>
+      <li><strong>价格计算引擎：</strong>GCP Pub/Sub + Cloud Task + Spanner 异步生效 + Groovy 热加载，规则发布周期 <strong>从 2 天缩短至 1 小时</strong>，价格命中率 >99%，缓存生效 P99 &lt;100ms</li>
+      <li><strong>千万级数据治理：</strong>分表 + 复合索引重建，核心 SQL RT <strong>从 3s 优化至 50ms</strong>；JMeter 全链路压测驱动 3 处瓶颈修复，TP99 <strong>从 180ms 降至 80ms</strong>，吞吐量提升 50%</li>
+      <li><strong>可观测性 + 迁移：</strong>全链路监控体系落地，MTTD <strong>从 30 分钟降至 5 分钟</strong>；主导达梦 DM8 + 大华数据库双迁移，灰度切流 5%→100%，数据一致性 100%，<strong>业务零感知</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ 专业技能 ═══ -->
+<div class="section">
+  <div class="section-title">专业技能</div>
+  <table class="skills-table">
+    <tr><td>语言 / 框架</td><td>Java 17、Spring Boot 3.x、Spring Cloud Alibaba、Dubbo、MyBatis Plus、Netty</td></tr>
+    <tr><td>存储</td><td>MySQL（分库分表）、Redis Cluster、Elasticsearch、MongoDB、Google Spanner、TiDB、达梦 DM8</td></tr>
+    <tr><td>消息队列</td><td>RocketMQ（事务消息 / 死信队列）、Kafka、GCP Pub/Sub</td></tr>
+    <tr><td>微服务治理</td><td>Nacos（注册 + 配置热更新）、Sentinel（限流 / 熔断 / 降级）、Seata AT、Spring Cloud Gateway、OpenFeign</td></tr>
+    <tr><td>云原生 / 调度</td><td>Kubernetes（K8s）、Docker、GCP Cloud Task、XXL-JOB、MinIO、Canal</td></tr>
+    <tr><td>可观测性</td><td>Prometheus + Grafana + Skywalking + ELK（全链路监控 / 分布式追踪 / 智能告警）</td></tr>
+    <tr><td>架构设计</td><td>DDD 领域建模、多级缓存、事件驱动、CQRS、Saga 事务、灰度发布、容量规划</td></tr>
+    <tr><td>安全 / 认证</td><td>OAuth2.0、OIDC、CAS、LDAP、JWT、RBAC、OWASP Dependency Check</td></tr>
+  </table>
+</div>
+
+<!-- ═══ 工作经验 ═══ -->
+<div class="section">
+  <div class="section-title">工作经验</div>
+
+  <!-- ── 迈克尔斯 ── -->
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <span class="company">深圳迈克尔斯科技有限公司</span>
+        <span class="title">· 高级 Java 工程师</span>
+      </div>
+      <div class="period">2020/03 — 2023/02 · 3 年</div>
+    </div>
+    <div class="job-meta">互联网 / 电子商务 &nbsp;·&nbsp; 合资 &nbsp;·&nbsp; 150–500 人</div>
+    <div class="job-body">
+
+      <div class="proj-title">项目：Michaels 商城核心交易链路——库存中心 + 价格中心（B2C / B2B / 供应链）</div>
+      <div class="proj-tech">
+        <span>Spring Boot</span><span>K8s</span><span>GCP Pub/Sub</span><span>GCP Cloud Task</span>
+        <span>Google Spanner</span><span>Redis Cluster</span><span>MySQL</span><span>MongoDB</span>
+        <span>Elasticsearch</span><span>Prometheus+Grafana</span><span>ELK</span><span>Skywalking</span>
+      </div>
+      <div class="proj-scale">
+        核心工程师，独立负责库存中心与价格中心两大交易域，承载 B2C / B2B / SC 三端全量订单结算链路；系统运行于 K8s + GCP 云原生环境，单机 QPS 5000+，为全平台提供毫秒级库存扣减与价格服务。
+      </div>
+
+      <div class="contrib-title">① 高并发库存扣减引擎（从 0 到 1，独立设计）</div>
+      <ul class="bullets">
+        <li><strong>原子性保障：</strong>Redis + Lua 脚本确保并发扣减原子性，<strong>单机 QPS 5000+，RT &lt;5ms</strong></li>
+        <li><strong>异步解耦：</strong>OMS 调用与 Redis 扣减分离，CompletableFuture 并行调用多渠道 OMS，混单场景 <strong>P99 从 800ms 降至 200ms</strong></li>
+        <li><strong>策略隔离：</strong>策略模式封装 B2B / B2C / SC 差异化扣减逻辑，各渠道独立演进</li>
+      </ul>
+
+      <div class="contrib-title">② 跨系统最终一致性保障</div>
+      <ul class="bullets">
+        <li>Pub/Sub 事务消息 + 本地消息表 + 定时对账三层防护，订单与库存最终一致性达 <strong>99.99%</strong></li>
+        <li>所有扣减操作异步写入 MongoDB 操作日志，支撑审计与异常溯源</li>
+      </ul>
+
+      <div class="contrib-title">③ 爆款热 Key 治理</div>
+      <ul class="bullets">
+        <li>Caffeine 本地缓存 + Redis 读写分离 + 分段存储组合方案，热 key 场景 <strong>RT 降低 50%</strong>，彻底消除单点热点访问瓶颈</li>
+      </ul>
+
+      <div class="contrib-title">④ 实时可靠价格计算引擎（从 0 到 1，独立设计）</div>
+      <ul class="bullets">
+        <li>Pub/Sub + Cloud Task + Spanner 异步计算与精确生效方案，<strong>价格查询命中率 &gt;99%，缓存生效 P99 &lt;100ms</strong></li>
+        <li>Groovy 脚本 + Nacos 价格规则热加载，<strong>规则发布周期从 2 天缩短至 1 小时</strong></li>
+      </ul>
+
+      <div class="contrib-title">⑤ 系统稳定性保障</div>
+      <ul class="bullets">
+        <li>差异化配置 Redis 超时 + 拦截器 RT 监控，Prometheus + Grafana 核心接口告警规则（错误率 &gt;0.1% 或 RT &gt;200ms 触发）</li>
+        <li>K8s HPA 弹性伸缩，大促峰值服务平稳，<strong>业务 SLA 99.9%+</strong></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- ── 中海油信科 ── -->
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <span class="company">中海油信科深圳分公司</span>
+        <span class="title">· 资深 Java 工程师</span>
+      </div>
+      <div class="period">2023/02 — 2026/04 · 3 年</div>
+    </div>
+    <div class="job-meta">计算机软件 &nbsp;·&nbsp; 国企</div>
+    <div class="job-body">
+
+      <div class="proj-title">项目一：简阳工业互联网平台（日均百万级 API 调用）</div>
+      <div class="proj-tech">
+        <span>Spring Cloud Alibaba</span><span>Nacos</span><span>Sentinel</span><span>Seata</span>
+        <span>Gateway</span><span>RocketMQ</span><span>Kafka</span><span>Redis Cluster</span>
+        <span>MySQL</span><span>达梦 DM8</span><span>TiDB</span><span>Elasticsearch</span><span>Canal</span><span>Skywalking</span>
+      </div>
+      <div class="proj-scale">
+        核心工程师，主导政府侧与企业侧双端业务模块设计与交付，平台日均 API 调用量 100 万+，系统划分为 8 个核心微服务，支撑区域产业数字化治理全业务链路。
+      </div>
+
+      <div class="contrib-title">① 微服务领域拆分与架构落地（主导）</div>
+      <ul class="bullets">
+        <li>基于 DDD 完成领域建模，拆分为 8 个边界清晰的微服务，独立部署、独立扩缩容</li>
+        <li>Nacos 多环境配置隔离 + 热更新，Sentinel 限流（QPS 阈值 1000）+ 熔断降级，Gateway JWT 鉴权 + 黑白名单</li>
+        <li>基于权重路由的灰度发布，新版本零停机上线，<strong>SLA 99.9%+</strong></li>
+      </ul>
+
+      <div class="contrib-title">② 政策智能匹配引擎</div>
+      <ul class="bullets">
+        <li>Drools 规则引擎 + 企业画像标签精准推送，推送精准率<strong>提升 40%</strong></li>
+        <li>Redis Cluster 缓存热点数据，QPS 支撑<strong>提升 10 倍</strong>；Canal binlog 异步刷新缓存，一致性延迟 <strong>&lt;100ms</strong></li>
+      </ul>
+
+      <div class="contrib-title">③ 高并发资源预约 + 分布式事务</div>
+      <ul class="bullets">
+        <li>Redisson 分布式锁防超卖 + RocketMQ 事务消息跨服务最终一致性，<strong>单机 QPS 2000+</strong></li>
+        <li>产融申请三服务联动采用 Seata AT 自动补偿，<strong>事务成功率 99.99%</strong></li>
+      </ul>
+
+      <div class="contrib-title">④ 多级缓存 + 多协议认证融合 + 全链路可观测性</div>
+      <ul class="bullets">
+        <li>Caffeine + Redis Cluster 两级缓存，本地命中率 <strong>85%+</strong>；布隆过滤器 + 异步刷新 + 集群兜底三防体系</li>
+        <li>适配器模式统一接入 CAS / OAuth2.0 / LDAP，平滑对接集团认证，覆盖 5 个子系统</li>
+        <li>Prometheus + Grafana + Skywalking + ELK 监控告警闭环，<strong>MTTD 从 30 分钟降至 5 分钟</strong></li>
+      </ul>
+
+      <div class="proj-title">项目二：槽车运输管理系统（工业数字化）</div>
+      <div class="proj-tech">
+        <span>Spring Boot 3.2</span><span>Java 17</span><span>RocketMQ</span><span>Redis Cluster</span>
+        <span>MySQL</span><span>大华数据库</span><span>Canal</span><span>XXL-JOB</span>
+      </div>
+
+      <div class="contrib-title">① 千万级数据治理 + 全链路压测</div>
+      <ul class="bullets">
+        <li>按月分表 + 复合索引重建，核心查询 RT <strong>从 3s 优化至 50ms</strong>；RocketMQ 异步削峰，高峰支撑 500 条/s 写入</li>
+        <li>JMeter 全链路压测修复 3 处瓶颈，TP99 <strong>从 180ms 降至 80ms</strong>，吞吐量提升 50%；二级缓存命中率<strong>从 60% 提升至 95%</strong></li>
+      </ul>
+
+      <div class="contrib-title">② 国产化迁移 + 大版本升级</div>
+      <ul class="bullets">
+        <li>主导 MySQL → 大华数据库迁移，解决 40+ 处兼容差异，灰度切流（5%→100%），<strong>数据一致性 100%，业务零感知</strong></li>
+        <li>主导 JDK 8→17 + Spring Boot 2.7→3.2 升级：修复 28 处循环依赖，适配 Jakarta EE + Security 6.x；启动时间 <strong>-18%</strong>，GC 暂停 <strong>-25%</strong>，内存占用 <strong>-12%</strong></li>
+      </ul>
+
+      <div class="contrib-title">③ 安全合规体系</div>
+      <ul class="bullets">
+        <li>OWASP Dependency Check 月度漏洞扫描闭环；代码提交前 SQL 注入 / XSS / 越权检查规范落地</li>
+        <li>麒麟 OS 环境完成 Prometheus + Grafana + Skywalking 全栈适配</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- ── 聚易科技 ── -->
+  <div class="job-simple">
+    <div class="job-simple-header">
+      <div class="left">深圳聚易科技有限公司 · Java 开发工程师</div>
+      <div class="right">2018/06 — 2020/03 · 1 年 9 个月 | 计算机软件 · 民营</div>
+    </div>
+    <div class="job-simple-meta">项目：聚合支付系统安全加固与重构 &nbsp;·&nbsp; Spring Boot · Dubbo · Zookeeper · MySQL · Redis · Netty</div>
+    <ul class="bullets">
+      <li>引入堡垒机跳板机制，全面升级 HTTPS，重构登录态会话安全管理，通过金融级安全评审</li>
+      <li>制定可疑请求实时拦截风控规则，加密模块合理化适配（RSA / DES / MD5），覆盖支付核心链路</li>
+      <li>参与核心支付链路重构，完成新功能设计、开发与安全评审，<strong>保障上线零故障</strong></li>
+    </ul>
+  </div>
+
+  <!-- ── 慧智 ── -->
+  <div class="job-simple">
+    <div class="job-simple-header">
+      <div class="left">杭州慧智电子科技有限公司 · Java 开发工程师</div>
+      <div class="right">2014/12 — 2018/05 · 3 年 6 个月 | 计算机软件 · 民营</div>
+    </div>
+    <div class="job-simple-meta">项目：同济大学协同设计系统 &nbsp;·&nbsp; JSP · Spring · iBatis · Oracle 11g</div>
+    <ul class="bullets">
+      <li>独立设计与开发成品档案树模块，实现基于 RBAC 的动态权限菜单与树节点操作（新建 / 授权 / 归档）</li>
+      <li>负责归档授权管理等核心业务流程的后台逻辑与前端交互实现</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ═══ 教育经历 ═══ -->
+<div class="section">
+  <div class="section-title">教育经历</div>
+  <div class="edu">
+    <div>
+      <span class="school">湖南科技大学潇湘学院</span>
+      <span class="degree">本科 &nbsp;|&nbsp; 计算机科学与技术</span>
+    </div>
+    <div class="period">2008/09 — 2012/06</div>
+  </div>
+</div>
+
+</body>
+</html>
