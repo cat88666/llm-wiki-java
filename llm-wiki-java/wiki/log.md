@@ -1,5 +1,17 @@
 # Wiki Log
 
+## [2026-05-11] Ingest | 模拟面试 — Eson 简历 → synthesis/mock-interview-eson.md
+- 触发：用户基于 `raw/note/Interview/Eson.md` 生成约 1 小时结构化模拟面试
+- **新建** `synthesis/mock-interview-eson.md`（#practice）
+  - 7 阶段 60 分钟面试脚本：暖场/项目深挖 A+B+C/基础问答/系统设计/行为
+  - 项目深挖 A（Seata TCC）：TCC vs AT vs Saga 选型理由、try 阶段 SQL 原子更新、幂等唯一索引、悬挂/空回滚防护
+  - 项目深挖 B（JVM 0 FGC）：MAT Heap Dump 分析 → 对象池 → G1 调参（IHOP 35%）→ P99 结算 800ms→100ms RocksDB 兜底
+  - 项目深挖 C（CoinsOTC）：冷热钱包 PSBT 架构、RedLock + DB 幂等双兜底、充提款异步对账
+  - 基础问答：AQS CLH 队列 + 公/非公平锁差异、volatile 复合操作不原子、MVCC 快照读/当前读幻读边界、分片键选择 + 跨分片聚合、Nacos AP/CP 分场景选型、RocketMQ vs Kafka 对比表
+  - 系统设计（Gacha）：Redis Lua 原子扣减 + 本地消息表 + 幂等兜底 + Redis 宕机处理
+  - 附：面试官评分参考表（6 维度权重）
+- **更新** `wiki/index.md`：Synthesis 新增模拟面试条目
+
 ## [2026-05-09] Ingest | 彩票系统岗位专项：彩票核心设计/账户钱包/Kafka大流量调优
 - 触发：用户提供高级Java/架构师（彩票系统）岗位 JD，分析 wiki 缺口后摄入
 - **新建** `synthesis/设计-彩票系统核心设计.md`（#practice #distributed）
