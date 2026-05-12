@@ -1,5 +1,23 @@
 # Wiki Log
 
+## [2026-05-12] Update | 模拟面试加强版 — synthesis/mock-interview-eson.md
+- 触发：用户要求丰富模拟面试内容以提高面试通过率
+- **更新** `synthesis/mock-interview-eson.md`（60min → 90min 加强版）
+  - 时长从 60 分钟扩展为 90 分钟，阶段从 7 个增加到 9 个
+  - 新增项目深挖 D（Netty 自研网关 & 游戏架构）：批量解码原理、优雅下线三步、用户级线程隔离
+  - 项目深挖 A 新增 3 道追问：双重余额校验/confirm 失败处理/数据倾斜/盒盾加密方案
+  - 项目深挖 B 新增 2 道追问：对象池大小依据/RocksDB 异步失败处理/RocksDB vs MQ 选型
+  - 项目深挖 C 新增 2 道追问：DEK/KEK 密钥分层管理/Kleppmann 对 RedLock 的批评/BTC 6 确认原理
+  - 基础问答扩展：新增 synchronized vs ReentrantLock（含虚拟线程 pinning）、线程池踩坑、慢 SQL 排查、Redis 为什么快、缓存三大问题实战、缓存一致性方案、@Transactional 失效、Spring 三级缓存、MQ 堆积处理、本地消息表 vs TCC
+  - 系统设计新增 3 道追问：热点 key 分桶/概率公平性+保底机制/全球部署架构
+  - 新增算法编码环节：LRU 实现 + 线程安全 LRU 方案
+  - 行为面试新增：培养下属/线上事故处理(STAR)/反问技巧
+  - 新增附录 B（薄弱环节预警 & 备考清单）：学历/稳定性/微服务广度/Spring源码/算法/K8s 六大风险点 + 面试前一天速查清单
+  - 新增附录 C（高频追问陷阱题集）：Seata TC 挂了/ZGC vs G1/对象池状态重置/bigkey/hash slot 迁移/性能瓶颈分层排查/0-1 搭建优先级
+  - 全文新增 ⚠️ 陷阱预警 和 💡 加分技巧标注
+  - 评分参考表从 6 维度扩展为 8 维度，增加低分表现列
+- **更新** `wiki/index.md`：更新模拟面试条目描述
+
 ## [2026-05-11] Ingest | 模拟面试 — Eson 简历 → synthesis/mock-interview-eson.md
 - 触发：用户基于 `raw/note/Interview/Eson.md` 生成约 1 小时结构化模拟面试
 - **新建** `synthesis/mock-interview-eson.md`（#practice）

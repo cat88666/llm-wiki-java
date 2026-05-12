@@ -177,4 +177,4 @@
 - [[设计-云原生选型]](synthesis/设计-云原生选型.md) — IaaS/PaaS/SaaS/Serverless交付模型、公有云/私有云/混合云选型、Java冷启动问题(GraalVM AOT)、无状态设计原则、云原生改造要点 `#practice #distributed`
 - [[设计-彩票系统核心设计]](synthesis/设计-彩票系统核心设计.md) — 投注系统(乐观锁余额冻结/幂等下单)、开奖系统(VRF可验证随机/状态机/防篡改)、结算系统(固定赔率vs彩池/Kafka批量驱动百万注单)、风控防作弊 `#practice #distributed`
 - [[设计-账户钱包系统]](synthesis/设计-账户钱包系统.md) — 余额三态模型(可用/冻结/总额)、乐观锁扣减并发安全、append-only流水表(balance_after快照)、充值/提现链路幂等、T+1对账+实时监控 `#practice #storage`
-- [[模拟面试-Eson]](synthesis/mock-interview-eson.md) — 资深Java架构师60分钟结构化模拟面试：Seata TCC/JVM 0FGC/CoinsOTC区块链/Gacha系统设计 `#practice`
+- [[模拟面试-Eson]](synthesis/mock-interview-eson.md) — 资深Java架构师90分钟加强版模拟面试：9阶段全覆盖(项目深挖×4/基础×5/系统设计/算法/行为)+薄弱环节预警+追问陷阱题集 `#practice`
