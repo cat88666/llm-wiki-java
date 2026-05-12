@@ -6,6 +6,7 @@
       {
         "id": "c11af3df672bcc7a",
         "type": "tabs",
+        "dimension": 99.99999999999999,
         "children": [
           {
             "id": "998306c6bd3d09f8",
@@ -13,32 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
+                "file": "llm-wiki-java/wiki/concepts/08-distributed/机制-配置中心与Nacos.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "设计-Redis实战场景"
-            }
-          }
-        ]
-      },
-      {
-        "id": "65269c6d634462a1",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "d34a8630b7956758",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "llm-wiki-java/wiki/synthesis/设计-MySQL大表与查询优化.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "设计-MySQL大表与查询优化"
+              "title": "机制-配置中心与Nacos"
             }
           }
         ]
@@ -200,35 +181,46 @@
       "bases:新建数据库": false
     }
   },
-  "active": "998306c6bd3d09f8",
+  "active": "d170bbbea78c75c6",
   "lastOpenFiles": [
-    "llm-wiki-java/raw/note/Interview/JAVA工程师应聘简历-P7.pdf",
-    "llm-wiki-java/raw/note/Interview/JAVA工程师应聘简历-P7.md",
-    "llm-wiki-java/JAVA工程师应聘简历-P7.pdf",
-    "llm-wiki-java/JAVA工程师应聘简历-P7.md",
-    "llm-wiki-java/raw/note/Interview/JAVA工程师应聘简历.pdf",
-    "llm-wiki-java/wiki/synthesis/设计-账户钱包系统.md",
-    "llm-wiki-java/wiki/synthesis/设计-彩票系统核心设计.md",
-    "llm-wiki-java/wiki/synthesis/设计-云原生选型.md",
-    "llm-wiki-java/wiki/synthesis/设计-P8高频边界问题.md",
-    "llm-wiki-java/wiki/synthesis/设计-DDD落地实战.md",
-    "llm-wiki-java/wiki/summaries/主题-三高体系.md",
-    "llm-wiki-java/wiki/synthesis/设计-大厂秒杀实践.md",
-    "llm-wiki-java/wiki/synthesis/设计-项目难点表达.md",
-    "llm-wiki-java/wiki/synthesis/设计-德州扑克核心算法.md",
-    "llm-wiki-java/wiki/synthesis/设计-在线游戏平台架构.md",
-    "llm-wiki-java/wiki/synthesis/设计-MySQL大表与查询优化.md",
-    "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
-    "llm-wiki-java/wiki/synthesis/设计-订单超时关闭.md",
-    "llm-wiki-java/wiki/concepts/机制-泛型类型擦除.md",
-    "llm-wiki-java/wiki/concepts/机制-反射.md",
-    "llm-wiki-java/wiki/concepts/概念-布隆过滤器.md",
-    "llm-wiki-java/wiki/concepts/概念-包装类与自动拆装箱.md",
-    "llm-wiki-java/wiki/concepts/概念-JMM.md",
-    "llm-wiki-java/wiki/concepts/概念-缓存三大问题.md",
-    "llm-wiki-java/wiki/concepts/概念-IO模型.md",
-    "llm-wiki-java/wiki/summaries/主题-数据结构体系.md",
-    "llm-wiki-java/wiki/concepts/机制-Redis持久化.md",
-    "llm-wiki-java/wiki/concepts/概念-Redis数据类型与底层结构.md"
+    "2026-05-12.md",
+    "llm-wiki-java/wiki/summaries/主题-锁体系.md",
+    "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查(2).md",
+    "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/问题总结.md",
+    "llm-wiki-java/raw/note/项目经验/线上服务器如果磁盘满了，你会如何处理？.md",
+    "llm-wiki-java/raw/note/项目经验/死锁会导致CPU使用率升高吗？为什么？.md",
+    "llm-wiki-java/raw/note/项目经验/死循环会导致CPU使用率升高吗？为什么？.md",
+    "llm-wiki-java/raw/note/项目经验/服务器被注入挖矿木马问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/服务发布分10批，第一批发完后负载很高后面恢复正常，如何处理？.md",
+    "llm-wiki-java/raw/note/项目经验/日志打印导致CPU飙高问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/数据库连接池满排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/数据库死锁问题排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/数据库CPU被打满排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/数据倾斜导致的频繁FullGC问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/慢SQL问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/如何排查网络问题？.md",
+    "llm-wiki-java/raw/note/项目经验/如何使用jstack分析死锁.md",
+    "llm-wiki-java/raw/note/项目经验/回表导致慢 SQL 问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/Sort aborted问题排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/RocketMQ消费堆积.md",
+    "llm-wiki-java/raw/note/项目经验/RT飙高问题排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/POI导致内存溢出排查.md",
+    "llm-wiki-java/raw/note/项目经验/OOM问题排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/Load飙高问题排查过程.md",
+    "llm-wiki-java/raw/note/项目经验/Java进程突然挂了，可能是什么原因？.md",
+    "llm-wiki-java/raw/note/项目经验",
+    "llm-wiki-java/raw/note/架构体系",
+    "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",
+    "llm-wiki-java/raw/note/tuling/08-mq/Kafka",
+    "llm-wiki-java/raw/note/tuling/15-zookeeper",
+    "llm-wiki-java/raw/note/tuling/12-分布式",
+    "llm-wiki-java/raw/note/tuling/11-大数据",
+    "llm-wiki-java/raw/note/tuling/10-k8s",
+    "llm-wiki-java/raw/note/tuling/09-微服务",
+    "llm-wiki-java/raw/note/tuling/08-mq",
+    "未命名 2.canvas",
+    "未命名 1.canvas",
+    "未命名.canvas"
   ]
 }

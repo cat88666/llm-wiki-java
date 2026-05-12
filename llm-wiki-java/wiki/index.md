@@ -146,6 +146,7 @@
 - [[主题-JVM体系]](summaries/主题-JVM体系.md) — L2 JVM 知识地图 + 高频考点，含 GC/类加载/JIT 的依赖关系 `#jvm`
 - [[主题-消息队列体系]](summaries/主题-消息队列体系.md) — Kafka/RabbitMQ/RocketMQ全景对比、三道防线可靠性、幂等消费、选型决策树 `#distributed`
 - [[主题-三高体系]](summaries/主题-三高体系.md) — 高并发/高可用/高性能三者制约关系：限流算法/熔断/SLA/压测/读写分离/布隆过滤器/线程池调优 `#practice #distributed #concurrency`
+- [[主题-锁体系]](summaries/主题-锁体系.md) — Java锁/MySQL锁/分布式锁全景：乐观悲观/读写/公平非公平/自旋阻塞/synchronized/AQS/InnoDB行锁/Redis+ZK分布式锁/选型决策树 `#concurrency #storage #distributed`
 
 ---
 

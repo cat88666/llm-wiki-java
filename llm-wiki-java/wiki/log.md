@@ -1,5 +1,15 @@
 # Wiki Log
 
+## [2026-05-12] Ingest | 锁体系全景主题页新建
+
+- 新建 `summaries/主题-锁体系.md`：覆盖 Java锁 / MySQL锁 / 分布式锁三大体系
+- 锁分类维度：乐观/悲观、公平/非公平、可重入/不可重入、读写锁、行/表/全局、JVM/OS/分布式六个维度
+- Java 锁：synchronized 升级链、ReentrantLock/AQS、ReadWriteLock、StampedLock、CAS/Atomic 全表对比
+- MySQL 锁：全局锁/MDL/意向锁/AUTO-INC/Record/Gap/Next-Key Lock 粒度全图，悲观锁与乐观锁对比
+- 分布式锁：Redis(Redisson watchdog+Hash重入) / ZooKeeper(临时顺序节点+Watch) / DB 三种实现对比
+- 附：乐观 vs 悲观深度对比、ReadWriteLock vs StampedLock 对比、选型决策树、高频面试速查表
+- 更新 `wiki/index.md` 新增主题-锁体系条目
+
 ## [2026-05-11] Ingest | 简历深度分析 — 补全 Eson 简历 7 个缺失知识点
 
 触发：用户要求深度分析简历，将 wiki 中尚未覆盖的核心技术点全部补充完整。
