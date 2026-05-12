@@ -1,5 +1,16 @@
 # Wiki Log
 
+## [2026-05-12] Ingest | 源码体系主题页新建
+
+- 新建 `summaries/主题-源码体系.md`：覆盖五大域源码地图
+- Java核心类库：String 内部存储(char[]/byte[] JDK9+)、Integer 缓存池源码、ArrayList 扩容 1.5x、LinkedHashMap LRU 原理、HashMap hash/put/resize 调用链
+- Java并发包：ObjectMonitor/Mark Word、AQS.acquire 完整路径、ThreadPoolExecutor.execute 四步流程、ThreadLocal 内存泄漏路径
+- Spring框架：refresh() 13步、Bean 生命周期三级缓存、AOP 代理选择 & MethodInterceptor 责任链、@Transactional TransactionInterceptor、SpringBoot AutoConfigurationImportSelector
+- MyBatis：全链路 SqlSession→Executor→StatementHandler、MapperProxy 动态代理、Plugin 四拦截点责任链、PageHelper 原理、一二级缓存失效条件
+- Tomcat：Connector/Container 架构、NIO 请求处理路径、WebappClassLoader 破坏双亲委派原因
+- 附：源码阅读方法论 + 10道高频面试考点速查
+- 更新 `wiki/index.md` 新增主题-源码体系条目
+
 ## [2026-05-12] Ingest | 锁体系全景主题页新建
 
 - 新建 `summaries/主题-锁体系.md`：覆盖 Java锁 / MySQL锁 / 分布式锁三大体系

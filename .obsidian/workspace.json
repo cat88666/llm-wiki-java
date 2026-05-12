@@ -183,6 +183,7 @@
   },
   "active": "d170bbbea78c75c6",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/summaries/主题-源码体系.md",
     "2026-05-12.md",
     "llm-wiki-java/wiki/summaries/主题-锁体系.md",
     "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查(2).md",
@@ -208,7 +209,6 @@
     "llm-wiki-java/raw/note/项目经验/POI导致内存溢出排查.md",
     "llm-wiki-java/raw/note/项目经验/OOM问题排查过程.md",
     "llm-wiki-java/raw/note/项目经验/Load飙高问题排查过程.md",
-    "llm-wiki-java/raw/note/项目经验/Java进程突然挂了，可能是什么原因？.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
     "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",
