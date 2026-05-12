@@ -3,11 +3,12 @@ type: concept
 status: active
 name: "GC算法与垃圾收集器"
 layer: L2
-aliases: ["垃圾回收", "GC", "CMS", "G1", "ZGC", "标记清除", "标记整理", "复制算法", "可达性分析", "三色标记", "STW"]
+aliases: ["垃圾回收", "GC", "CMS", "G1", "ZGC", "标记清除", "标记整理", "复制算法", "可达性分析", "三色标记", "STW", "强引用", "软引用", "弱引用", "虚引用", "SoftReference", "WeakReference", "PhantomReference"]
 related:
   - "[[机制-JVM内存模型]]"
-  - "[[概念-引用类型]]"
+  - "[[概念-ThreadLocal]]"
 sources:
+  - "../../../raw/note/Hollis/JVM/✅什么是强引用、软引用、弱引用和虚引用？.md"
   - "../../../raw/note/Hollis/JVM/✅JVM有哪些垃圾回收算法？.md"
   - "../../../raw/note/Hollis/JVM/✅JVM如何判断对象是否存活？.md"
   - "../../../raw/note/Hollis/JVM/✅G1和CMS有什么区别？.md"
@@ -72,6 +73,23 @@ GC Roots 包括：系统类加载器加载的类、活跃线程的栈变量、JN
 **漏标问题**：并发标记过程中，黑色对象新引用了白色对象，会导致白色被错误回收。  
 解决方案：CMS 用**增量更新**（新引用被记录，重新标记）；G1 用**原始快照（SATB）**（删除引用时记录快照）。
 
+### 四种引用类型与 GC 行为
+
+Java 提供四种强度递减的引用，让应用层参与 GC 决策：
+
+| 引用类型 | 创建方式 | GC 回收时机 | 获取对象 | 典型用途 |
+|---------|---------|------------|---------|---------|
+| **强引用** | `Object o = new Object()` | 永不（可达时） | 直接访问 | 所有普通对象 |
+| **软引用** | `new SoftReference<>(obj)` | **OOM 前** | `.get()`（可能 null） | 内存敏感缓存（Guava softValues）|
+| **弱引用** | `new WeakReference<>(obj)` | **每次 GC 必回收** | `.get()`（可能 null） | `WeakHashMap`；ThreadLocal key |
+| **虚引用** | `new PhantomReference<>(obj, queue)` | GC 时（不影响生命周期）| 始终 null | 堆外内存/资源清理通知 |
+
+**强度排序**：强 > 软 > 弱 > 虚
+
+**ThreadLocal 弱引用陷阱**：`ThreadLocalMap` 的 Entry key 是弱引用（ThreadLocal 对象 GC 后 key 变 null），但 value 是强引用。线程池中线程复用时，value 不会被回收 → **必须在 finally 中 `remove()`**。
+
+**ReferenceQueue**：软/弱/虚引用可配合 `ReferenceQueue` 使用——对象被 GC 后，Reference 对象入队，应用可轮询做后续清理（如 `DirectByteBuffer` 清理堆外内存）。
+
 ### GC 触发条件
 
 - **Young GC（Minor GC）**：Eden 区满触发，只回收新生代
@@ -88,7 +106,8 @@ GC Roots 包括：系统类加载器加载的类、活跃线程的栈变量、JN
 ## 与其他概念的关系
 
 - 依赖 [[机制-JVM内存模型]]：GC 主要作用在堆；分代 GC 对应 Young Gen + Old Gen
-- 依赖 [[概念-引用类型]]：软引用在 OOM 前回收，弱引用每次 GC 回收，影响 GC 行为
+- 四种引用类型是 GC 可达性分析规则的扩展：弱引用对象"弱可达"，GC 视为死亡
+- 与 [[概念-ThreadLocal]] 关联：ThreadLocalMap Entry 弱引用 key 设计，防止 ClassLoader 泄漏
 - 支撑了 L3 并发：GC 的 STW 会影响并发系统的响应时间和 SLA
 
 ## 应用边界
