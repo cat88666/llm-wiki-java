@@ -1,5 +1,20 @@
 # Wiki Log
 
+## [2026-05-12] Update | 源码体系 — 补充 Redis/Redisson 分布式锁源码章节
+
+- 在 `summaries/主题-源码体系.md` 插入第三章"Redis / Redisson 分布式锁源码"（共 9 小节）
+- 3.1 基础 SET NX EX + 解锁 Lua 逐行解析（含误删竞态说明）
+- 3.2 tryLockInnerAsync 加锁 Lua（三分支：新建/重入/等待）+ unlockInnerAsync 解锁 Lua（含 publish 触发点）
+- 3.3 等待机制：subscribe Pub/Sub + Semaphore 限时等待（非自旋）完整调用链
+- 3.4 watchdog scheduleExpirationRenewal Java 源码 + renewExpirationAsync Lua + EXPIRATION_RENEWAL_MAP 生命周期
+- 3.5 手动 TTL vs watchdog 对比表（何时启动/不启动 watchdog）
+- 3.6 RedissonFairLock：List+ZSet 实现 FIFO 队列，加解锁 Lua 逻辑
+- 3.7 RedissonReadWriteLock：Hash mode 字段区分读写，读升写死锁根因
+- 3.8 RedLock 算法步骤 + Martin Kleppmann 争议 + Fencing Token 解法
+- 3.9 源码关键类速查表（8个核心类职责）
+- 高频速查表新增 7 道 Redis/Redisson 考题
+- 关联页面新增 [[机制-Redis分布式锁]] 条目
+
 ## [2026-05-12] Ingest | 源码体系主题页新建
 
 - 新建 `summaries/主题-源码体系.md`：覆盖五大域源码地图
