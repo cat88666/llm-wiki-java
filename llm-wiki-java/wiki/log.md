@@ -1,5 +1,29 @@
 # Wiki Log
 
+## [2026-05-12] Update | Wiki 合并整理 — 删除 8 个碎片页，新建 3 个合并页
+
+**合并组 1：反射 + 动态代理 → 机制-反射与动态代理.md**
+- 删除：`concepts/02-java-lang/机制-反射.md`、`机制-动态代理.md`
+- 新建：`机制-反射与动态代理.md`（含 JDK代理 vs CGLIB 对比、Spring 选择策略）
+
+**合并组 2：String不可变性 + 包装类与自动拆装箱 → 概念-Java基础值类型.md**
+- 删除：`机制-String不可变性.md`、`概念-包装类与自动拆装箱.md`
+- 新建：`概念-Java基础值类型.md`（String/StringBuilder/包装类/Integer缓存/NPE陷阱/BigDecimal）
+
+**合并组 3：BitMap + 布隆过滤器 → 概念-BitMap与布隆过滤器.md**
+- 删除：`concepts/05-data-structure/概念-BitMap.md`、`概念-布隆过滤器.md`
+- 新建：`概念-BitMap与布隆过滤器.md`（含布谷鸟过滤器，布隆 vs 布谷鸟对比）
+
+**合并组 4：引用类型 → 并入 GC算法页**
+- 删除：`concepts/03-jvm/概念-引用类型.md`（70行）
+- 更新：`机制-GC算法与垃圾收集器.md`（新增"四种引用类型与GC行为"节）
+
+**合并组 5：Java集合框架 → 并入 线性数据结构页**
+- 删除：`concepts/05-data-structure/概念-Java集合框架.md`（63行）
+- 更新：`概念-线性数据结构.md`（新增 Collection/Map 体系概览、Set去重、线程安全选型节）
+
+共删除 8 个文件，新建 3 个，更新 2 个概念页，更新 index.md
+
 ## [2026-05-12] Update | 源码体系 — 补充 Redis/Redisson 分布式锁源码章节
 
 - 在 `summaries/主题-源码体系.md` 插入第三章"Redis / Redisson 分布式锁源码"（共 9 小节）

@@ -26,13 +26,11 @@
 
 ### L1 语言基础
 - [[概念-OOP三大特征]](concepts/02-java-lang/概念-OOP三大特征.md) — 封装/继承/多态，接口 vs 抽象类，组合优于继承 `#java-lang`
-- [[机制-反射]](concepts/02-java-lang/机制-反射.md) — 运行期读取类结构并调用，慢的根本原因 `#java-lang`
-- [[机制-动态代理]](concepts/02-java-lang/机制-动态代理.md) — JDK（接口）vs CGLIB（继承），Spring AOP 选择策略 `#java-lang`
+- [[机制-反射与动态代理]](concepts/02-java-lang/机制-反射与动态代理.md) — 运行期 Class 元数据读取/调用；JDK代理（接口）vs CGLIB（子类继承），Spring AOP 选择策略 `#java-lang`
 - [[机制-泛型类型擦除]](concepts/02-java-lang/机制-泛型类型擦除.md) — 编译期类型安全 + 运行期擦除，PECS 原则 `#java-lang`
 - [[概念-Java异常体系]](concepts/02-java-lang/概念-Java异常体系.md) — Checked vs Unchecked，勿用异常控流 `#java-lang`
 - [[机制-Java序列化]](concepts/02-java-lang/机制-Java序列化.md) — Serializable，serialVersionUID，反序列化安全风险 `#java-lang`
-- [[机制-String不可变性]](concepts/02-java-lang/机制-String不可变性.md) — final class + 常量池，StringBuilder 选择 `#java-lang`
-- [[概念-包装类与自动拆装箱]](concepts/02-java-lang/概念-包装类与自动拆装箱.md) — Integer 缓存陷阱，NPE 风险，金额用 BigDecimal `#java-lang`
+- [[概念-Java基础值类型]](concepts/02-java-lang/概念-Java基础值类型.md) — String不可变/常量池/StringBuilder选择；Integer缓存[-128,127]陷阱/NPE/RPC选型；BigDecimal金额精确计算 `#java-lang`
 - [[概念-IO模型]](concepts/01-cs-base/概念-IO模型.md) — BIO/NIO/AIO，同步异步阻塞非阻塞 `#java-lang`
 - [[机制-SPI]](concepts/02-java-lang/机制-SPI.md) — 框架扩展点，ServiceLoader，Dubbo/SpringBoot 的变体 `#java-lang`
 - [[机制-Lambda表达式]](concepts/02-java-lang/机制-Lambda表达式.md) — invokedynamic 实现，Stream API，并行流陷阱 `#java-lang`
@@ -40,10 +38,9 @@
 
 ### L2 运行时（JVM）
 - [[机制-JVM内存模型]](concepts/03-jvm/机制-JVM内存模型.md) — 5大运行时区域、堆分代（Eden/Survivor/Old）、元空间演变 `#jvm`
-- [[机制-GC算法与垃圾收集器]](concepts/03-jvm/机制-GC算法与垃圾收集器.md) — 三大GC算法、可达性分析、CMS/G1/ZGC对比选型 `#jvm`
+- [[机制-GC算法与垃圾收集器]](concepts/03-jvm/机制-GC算法与垃圾收集器.md) — 三大GC算法、可达性分析、CMS/G1/ZGC对比选型；强/软/弱/虚四种引用类型与GC行为 `#jvm`
 - [[机制-类加载机制]](concepts/03-jvm/机制-类加载机制.md) — 类生命周期、双亲委派模型、破坏场景（SPI/Tomcat/OSGi）`#jvm`
 - [[机制-JIT编译]](concepts/03-jvm/机制-JIT编译.md) — 混合执行模式、热点检测、逃逸分析、预热问题 `#jvm`
-- [[概念-引用类型]](concepts/03-jvm/概念-引用类型.md) — 强/软/弱/虚四种引用、ThreadLocal弱引用陷阱 `#jvm`
 - [[机制-对象池技术]](concepts/03-jvm/机制-对象池技术.md) — 预创建对象复用降低GC压力、HikariCP连接池ConcurrentBag无锁设计、Netty PooledByteBufAllocator堆外内存池化、0 FGC实现路径 `#jvm`
 
 ### L3 并发编程
@@ -57,17 +54,15 @@
 - [[机制-CompletableFuture与异步编程]](concepts/04-concurrency/机制-CompletableFuture与异步编程.md) — 链式Completion阶段事件驱动、ForkJoinPool默认线程池、thenApply/thenCompose/allOf任务编排、I/O密集型必须自定义线程池 `#concurrency`
 
 ### L4 数据结构
-- [[概念-布隆过滤器]](concepts/05-data-structure/概念-布隆过滤器.md) — BitMap+多哈希概率过滤、缓存穿透防护、无法删除缺陷、布谷鸟过滤器指纹+双桶支持删除 `#data-structure`
-- [[概念-线性数据结构]](concepts/05-data-structure/概念-线性数据结构.md) — 数组/链表/栈/队列，ArrayList/LinkedList/Vector对比，fail-fast陷阱 `#data-structure`
+- [[概念-BitMap与布隆过滤器]](concepts/05-data-structure/概念-BitMap与布隆过滤器.md) — BitMap 32x压缩；布隆过滤器（BitMap+多哈希，缓存穿透防护，无法删除）；布谷鸟过滤器（指纹+双桶，支持删除）`#data-structure`
+- [[概念-线性数据结构]](concepts/05-data-structure/概念-线性数据结构.md) — 数组/链表/栈/队列；Collection/Map体系概览；ArrayList/LinkedList/Vector对比；Set去重/Map选型/线程安全容器 `#data-structure`
 - [[机制-红黑树]](concepts/05-data-structure/机制-红黑树.md) — 5条规则近似平衡，O(log n) 增删查，HashMap/TreeMap 底层 `#data-structure`
 - [[机制-B树与B加树]](concepts/05-data-structure/机制-B树与B加树.md) — 多路平衡树，低树高减少磁盘IO，MySQL InnoDB 索引底层 `#data-structure`
 - [[机制-堆与优先队列]](concepts/05-data-structure/机制-堆与优先队列.md) — 完全二叉树 + 数组，Top K 用小顶堆，PriorityQueue `#data-structure`
 - [[概念-前缀树]](concepts/05-data-structure/概念-前缀树.md) — 共享公共前缀，O(m) 字符串检索，搜索补全/AC自动机 `#data-structure`
-- [[概念-BitMap]](concepts/05-data-structure/概念-BitMap.md) — 1 bit 标记整数存在性，极致空间压缩，布隆过滤器基础 `#data-structure`
 - [[概念-图论基础]](concepts/05-data-structure/概念-图论基础.md) — 多对多关系，DFS/BFS 两种遍历，Dijkstra 依赖小顶堆 `#data-structure`
 - [[机制-HashMap底层实现]](concepts/05-data-structure/机制-HashMap底层实现.md) — 数组+链表+红黑树，扰动hash，0.75负载因子，JDK8高低位拆分扩容 `#data-structure`
 - [[机制-ConcurrentHashMap并发设计]](concepts/05-data-structure/机制-ConcurrentHashMap并发设计.md) — 分段锁(JDK7)→CAS+节点锁(JDK8)，fail-safe，不允许null的原因 `#data-structure`
-- [[概念-Java集合框架]](concepts/05-data-structure/概念-Java集合框架.md) — Collection/Map体系、List/Set/Queue接口语义、排序与线程安全选型 `#data-structure`
 
 ### L5 存储层
 - [[概念-读写分离]](concepts/06-storage/概念-读写分离.md) — 主从复制路由写主读从、ShardingSphere中间件分流、主从延迟处理策略(强制读主库/读请求分类) `#storage`
