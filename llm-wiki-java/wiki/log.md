@@ -1,5 +1,69 @@
 # Wiki Log
 
+## [2026-05-11] Ingest | 简历深度分析 — 补全 Eson 简历 7 个缺失知识点
+
+触发：用户要求深度分析简历，将 wiki 中尚未覆盖的核心技术点全部补充完整。
+
+**差距分析结论（共 7 个缺口）：**
+- ❌ gRPC/Protobuf 无专页（RPC/Dubbo 页仅提及）
+- ❌ WebSocket 协议无专页（IM/游戏核心接入协议）
+- ❌ 数据加密与脱敏无专页（盒盾安全系统核心）
+- ❌ RocketMQ 无专页（Kafka/RabbitMQ 有专页，RocketMQ 无）
+- ❌ 区块链OTC平台无综合页（CoinsOTC 项目）
+- ❌ IM即时通信系统设计无综合页（谁信科技项目）
+- ❌ Gacha与游戏高并发无综合页（当前东京游戏公司）
+- ⚠️ Netty 页缺 TCP 参数调优（简历明确提及）
+
+**新建 Concept 页 × 4：**
+- `concepts/08-distributed/机制-gRPC与Protobuf.md`（L7 #distributed）
+  - HTTP/2多路复用+Protobuf二进制编码原理、4种通信模式、Interceptor、Deadline传播
+  - vs REST（可读性 vs 性能）、vs Dubbo（协议 vs 治理框架）选型对比表
+- `concepts/08-distributed/机制-WebSocket协议.md`（L7 #distributed）
+  - HTTP Upgrade握手、帧结构（FIN/Opcode/MASK）、心跳机制
+  - WSS认证（连接后第一帧传Token）、水平扩展（Redis注册表+MQ跨节点路由）、断线重连指数退避
+- `concepts/08-distributed/机制-数据加密与脱敏.md`（L7 #security）
+  - AES-256-GCM（认证加密，vs CBC Padding Oracle）、RSA混合加密、IV铁律
+  - HMAC-SHA256请求签名 + Redis Nonce防重放、脱敏策略表（手机/身份证/卡号）
+  - 字段级加密+Hash索引、私钥内存清零（Arrays.fill）
+- `concepts/08-distributed/机制-RocketMQ.md`（L7 #distributed）
+  - 架构：NameServer(AP)+CommitLog顺序写+ConsumeQueue索引
+  - 事务消息全流程：半消息→本地事务→Commit/Rollback→Broker回查
+  - 延迟消息（固定Level 4.x / 任意精度 5.x）、集群vs广播消费、死信队列16次重试
+  - vs Kafka/RabbitMQ 三维对比选型表
+
+**新建 Synthesis 页 × 3：**
+- `synthesis/设计-区块链OTC平台.md`（#practice）
+  - BTC UTXO模型 vs ETH账户模型、bitcoinj/web3j核心API
+  - 冷热钱包架构（私钥AES加密+PSBT离线签名+Arrays.fill清零）
+  - P2P撮合引擎（Disruptor单线程无锁）、Escrow托管流程
+  - 充值异步对账（监听→待确认→定时扫描→MQ入账→幂等唯一索引）
+  - 提现流程（冻结→审批→广播→确认→Fee Bump超时处理）
+  - 资金安全三道防线（代码层Redisson锁/DB层唯一索引/监控层告警）
+- `synthesis/设计-IM即时通信系统.md`（#practice #distributed）
+  - 接入层（Netty+WebSocket）+业务层+存储层 三层架构
+  - 消息可靠投递：clientMsgId幂等+seqId排序+超时重传+空洞补全
+  - 在线状态管理（Redis HSET + TTL心跳，90s=3倍心跳周期）
+  - 跨节点路由：一致性Hash+Redis注册表+MQ（topic=nodeId）
+  - 群消息扇出：≤500人写扩散 / >500人读扩散策略边界
+  - Redisson锁保障seqId分配原子性、消息表SQL设计（clientMsgId唯一索引）
+- `synthesis/设计-Gacha与游戏高并发.md`（#practice #distributed）
+  - Redis Lua原子扣减+本地消息表+MQ异步落盘+幂等消费全链路
+  - 概率算法内存权重表（无DB IO，μs级）、保底系统Redis计数
+  - 对象池+G1调参（MaxGCPauseMillis=5ms）消除Gacha高峰GC抖动
+  - 多级缓存（Caffeine L1+Redis L2）+双重检测防雪崩
+  - 实时对战状态机（乐观锁防并发推进）+EventLoop按roomId单线程路由
+  - 跨地域延迟优化：TCP_NODELAY+SO_RCVBUF(4MB)+gRPC替换REST（降延迟15%）
+  - RocksDB结算兜底（μs写本地→批量写MySQL→P99降至100ms）
+  - 防作弊机制（服务端权威概率+orderId幂等+设备指纹频控）
+
+**更新 Concept 页 × 1：**
+- `机制-Netty.md`：新增「TCP参数调优」章节
+  - TCP_NODELAY/SO_RCVBUF/SO_SNDBUF/WriteBufferWaterMark参数表
+  - Nagle算法原理及关闭必要性（游戏/IM小包场景降延迟20-30%）
+  - 写缓冲水位背压实现代码
+
+**更新** `wiki/index.md`：L7 concepts新增4条；Synthesis新增3条
+
 ## [2026-05-11] Ingest | 模拟面试 — Eson 简历 → synthesis/mock-interview-eson.md
 - 触发：用户基于 `raw/note/Interview/Eson.md` 生成约 1 小时结构化模拟面试
 - **新建** `synthesis/mock-interview-eson.md`（#practice）

@@ -105,7 +105,11 @@
 - [[机制-Canal数据同步]](concepts/08-distributed/机制-Canal数据同步.md) — 模拟MySQL slave拉取binlog、CDC变更捕获、MySQL→ES/缓存/异构库同步、分库分表买卖家表维护 `#distributed`
 - [[概念-网络安全]](concepts/08-distributed/概念-网络安全.md) — SQL注入(预编译)、XSS/CSRF防御、垂直/水平越权(RBAC/session)、中间人攻击(HTTPS/HSTS)、撞库/拖库/洗库、国密SM2/SM3/SM4/SM9 `#security`
 - [[机制-Kafka]](concepts/08-distributed/机制-Kafka.md) — Topic/Partition/Segment存储结构、顺序写+零拷贝高吞吐原因、ISR/HW/LeaderEpoch可靠性、CooperativeStickyAssignor渐进式重平衡、At-least-once/Exactly-once语义 `#distributed`
-- [[机制-Netty]](concepts/08-distributed/机制-Netty.md) — 主从Reactor多线程模型、epoll事件通知、EventLoop单线程无锁、ByteBuf读写双指针+池化、粘包拆包LengthField方案、IdleStateHandler心跳 `#distributed`
+- [[机制-Netty]](concepts/08-distributed/机制-Netty.md) — 主从Reactor多线程模型、epoll事件通知、EventLoop单线程无锁、ByteBuf读写双指针+池化、粘包拆包LengthField方案、IdleStateHandler心跳、TCP参数调优(TCP_NODELAY/SO_RCVBUF/写缓冲水位) `#distributed`
+- [[机制-gRPC与Protobuf]](concepts/08-distributed/机制-gRPC与Protobuf.md) — HTTP/2多路复用+Protobuf二进制、4种通信模式(Unary/双向流)、Interceptor、Deadline传播、vs REST/Dubbo选型 `#distributed`
+- [[机制-WebSocket协议]](concepts/08-distributed/机制-WebSocket协议.md) — HTTP Upgrade全双工握手、帧结构、心跳、WSS安全认证、跨节点路由(Redis注册表+MQ)、vs SSE/长轮询 `#distributed`
+- [[机制-数据加密与脱敏]](concepts/08-distributed/机制-数据加密与脱敏.md) — AES-256-GCM认证加密、RSA混合加密模式、HMAC-SHA256请求签名防重放、数据脱敏策略、字段级加密+Hash索引 `#security`
+- [[机制-RocketMQ]](concepts/08-distributed/机制-RocketMQ.md) — CommitLog顺序写、事务消息半消息+回查机制、延迟消息固定Level、集群vs广播消费、死信队列、vs Kafka选型 `#distributed`
 - [[概念-可观测性]](concepts/08-distributed/概念-可观测性.md) — Metrics/Tracing/Logging三大支柱、SkyWalking字节码Agent架构、Prometheus四种Metric类型、P99指标、三支柱协作排障流程 `#distributed`
 - [[机制-RabbitMQ]](concepts/08-distributed/机制-RabbitMQ.md) — AMQP三层路由(Exchange/Binding/Queue)、6种工作模式、Publisher Confirm+持久化+ACK三道防线、死信队列+延迟消息、镜像集群高可用 `#distributed`
 - [[机制-配置中心与Nacos]](concepts/08-distributed/机制-配置中心与Nacos.md) — 配置中心解耦动态配置、Nacos CP(JRaft)+AP(Distro)双模式、长轮询→gRPC长连接感知变更、服务注册发现推拉结合、注册中心选型对比 `#distributed`
@@ -178,3 +182,6 @@
 - [[设计-彩票系统核心设计]](synthesis/设计-彩票系统核心设计.md) — 投注系统(乐观锁余额冻结/幂等下单)、开奖系统(VRF可验证随机/状态机/防篡改)、结算系统(固定赔率vs彩池/Kafka批量驱动百万注单)、风控防作弊 `#practice #distributed`
 - [[设计-账户钱包系统]](synthesis/设计-账户钱包系统.md) — 余额三态模型(可用/冻结/总额)、乐观锁扣减并发安全、append-only流水表(balance_after快照)、充值/提现链路幂等、T+1对账+实时监控 `#practice #storage`
 - [[模拟面试-Eson]](synthesis/mock-interview-eson.md) — 资深Java架构师60分钟结构化模拟面试：Seata TCC/JVM 0FGC/CoinsOTC区块链/Gacha系统设计 `#practice`
+- [[设计-区块链OTC平台]](synthesis/设计-区块链OTC平台.md) — bitcoinj/web3j集成、UTXO vs账户模型、冷热钱包架构(PSBT离线签名)、P2P撮合引擎、充提款异步对账、资金安全三道防线 `#practice`
+- [[设计-IM即时通信系统]](synthesis/设计-IM即时通信系统.md) — WebSocket接入层、消息可靠投递(seqId+ACK)、跨节点路由(Redis注册+MQ)、群消息扇出策略、离线推送、消息存储冷热分层 `#practice #distributed`
+- [[设计-Gacha与游戏高并发]](synthesis/设计-Gacha与游戏高并发.md) — Redis Lua原子扣减+本地消息表零超卖、对象池+G1消除GC抖动、多级缓存防雪崩、实时对战状态机、跨地域延迟优化(TCP_NODELAY/gRPC) `#practice #distributed`
