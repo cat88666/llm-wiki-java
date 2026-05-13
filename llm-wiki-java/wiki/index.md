@@ -143,11 +143,11 @@
 > 围绕一个问题、比较或判断展开。涉及跨层或跨模块知识时使用。
 
 ### L8 工程实践
-- [[设计-秒杀系统]](synthesis/设计-秒杀系统.md) — 多层漏斗过滤模型、Redis Lua预扣减、MQ削峰、热点行库存拆分、全链路幂等 `#practice`
+- [[系统设计-秒杀系统]](synthesis/系统设计-秒杀系统.md) — 多层漏斗过滤模型、Redis Lua预扣减、MQ削峰、热点行库存拆分、全链路幂等 `#practice`
 - [[设计-分布式事务]](synthesis/设计-分布式事务.md) — 2PC/TCC/本地消息表/事务消息对比、TCC空回滚与悬挂、Seata AT vs 2PC区别、选型决策树 `#practice`
 - [[设计-分库分表]](synthesis/设计-分库分表.md) — 分片键选择原则、雪花算法时钟回拨、基因法跨维度查询、双写扩容迁移方案 `#practice`
 - [[设计-Redis实战场景]](synthesis/设计-Redis实战场景.md) — ZSet排行榜(分片+异步+分数编码)、GEO附近的人、点赞系统、抢红包(二倍均值法)、HyperLogLog UV统计、购物车Hash `#practice`
-- [[设计-短链服务]](synthesis/设计-短链服务.md) — MurmurHash+Base62生成、302 vs 301跳转选型、Redis+MySQL双存储、防滥用机制 `#practice`
+- [[系统设计-短链服务]](synthesis/系统设计-短链服务.md) — MurmurHash+Base62生成、302 vs 301跳转选型、Redis+MySQL双存储、防滥用机制 `#practice`
 - [[设计-订单超时关闭]](synthesis/设计-订单超时关闭.md) — 方案对比(定时扫表/DelayQueue/Redisson/MQ)、Redisson延迟队列分布式首选、关闭逻辑幂等设计 `#practice`
 - [[设计-算法高频题型]](synthesis/设计-算法高频题型.md) — LRU(HashMap+双向链表)、TopK(小顶堆/快速选择)、海量数据(哈希分片)、排序选型、二分模板、滑动窗口、DP转移方程、并查集、拓扑排序 `#practice`
 - [[设计-多级缓存架构]](synthesis/设计-多级缓存架构.md) — 本地Caffeine(W-TinyLFU)+Redis两级缓存、TTL/MQ广播/Canal三种一致性策略、双重检测防雪崩代码模式、缓存预热方案 `#practice`
@@ -156,12 +156,12 @@
 - [[设计-容量规划与性能基准]](synthesis/设计-容量规划与性能基准.md) — 4C8G正常指标基准表、机器数预估公式、压测线上差异8大原因、堆外内存泄漏诊断、银行系统ZGC选型 `#practice #jvm`
 - [[设计-分布式场景综合]](synthesis/设计-分布式场景综合.md) — 三种锁选型表、Redis预扣库存、分布式Session演进、SSO全流程、订单号生成、跨库JOIN、平滑迁移双写策略 `#distributed #practice`
 - [[设计-架构设计思维]](synthesis/设计-架构设计思维.md) — 架构本质是权衡、没有银弹、技术债管理、微服务拆分7原则、单元化架构、技术选型框架、亿级商品存储 `#practice #distributed`
-- [[设计-在线游戏平台架构]](synthesis/设计-在线游戏平台架构.md) — SOFA-Bolt+Netty+Dubbo 5服务协作：用户级线程隔离、工厂路由、游戏状态机、保险赔率实时计算、多级缓存 `#practice #distributed`
+- [[系统设计-游戏架构系统]](synthesis/系统设计-游戏架构系统.md) — SOFA-Bolt+Netty+Dubbo 5服务协作：用户级线程隔离、工厂路由、游戏状态机、保险赔率实时计算、多级缓存 `#practice #distributed`
 - [[设计-德州扑克核心算法]](synthesis/设计-德州扑克核心算法.md) — 牌型多项式编码O(1)比较、三变体工厂评估器、智能保险方程组迭代求解、边池尾差处理、抽水两种模式 `#practice`
 - [[设计-项目难点表达]](synthesis/设计-项目难点表达.md) — STAR框架亮点模板库：CompletableFuture(10s→1s)/状态机+乐观锁/BitSet预约(400x压缩)/ZSet排行榜/本地消息表/XXL-JOB分片/TTL/Spring Event等10个量化模板 `#practice`
 - [[设计-P8高频边界问题]](synthesis/设计-P8高频边界问题.md) — 系统边界职责/造轮子五问/库存三态与旁路验证/雪花算法边界(32台/时钟回拨)/MQ异步刷盘能不丢吗/OPS突增10倍框架/选型追问四维度 `#practice`
-- [[设计-彩票系统核心设计]](synthesis/设计-彩票系统核心设计.md) — 投注系统(乐观锁余额冻结/幂等下单)、开奖系统(VRF可验证随机/状态机/防篡改)、结算系统(固定赔率vs彩池/Kafka批量驱动百万注单)、风控防作弊 `#practice #distributed`
+- [[系统设计-彩票系统]](synthesis/系统设计-彩票系统.md) — 投注系统(乐观锁余额冻结/幂等下单)、开奖系统(VRF可验证随机/状态机/防篡改)、结算系统(固定赔率vs彩池/Kafka批量驱动百万注单)、风控防作弊 `#practice #distributed`
 - [[模拟面试-Eson]](synthesis/mock-interview-eson.md) — 支付系统/账户钱包/Seata TCC/JVM 0FGC/CoinsOTC/Gacha 的集中式模拟面试主稿，兼作支付专题入口 `#practice`
-- [[设计-区块链OTC平台]](synthesis/设计-区块链OTC平台.md) — bitcoinj/web3j集成、UTXO vs账户模型、冷热钱包架构(PSBT离线签名)、P2P撮合引擎、充提款异步对账、资金安全三道防线 `#practice`
-- [[设计-IM即时通信系统]](synthesis/设计-IM即时通信系统.md) — WebSocket接入层、消息可靠投递(seqId+ACK)、跨节点路由(Redis注册+MQ)、群消息扇出策略、离线推送、消息存储冷热分层 `#practice #distributed`
+- [[系统设计-区块链OTC平台]](synthesis/系统设计-区块链OTC平台.md) — bitcoinj/web3j集成、UTXO vs账户模型、冷热钱包架构(PSBT离线签名)、P2P撮合引擎、充提款异步对账、资金安全三道防线 `#practice`
+- [[系统设计-IM通信系统]](synthesis/系统设计-IM通信系统.md) — WebSocket接入层、消息可靠投递(seqId+ACK)、跨节点路由(Redis注册+MQ)、群消息扇出策略、离线推送、消息存储冷热分层 `#practice #distributed`
 - [[设计-Gacha与游戏高并发]](synthesis/设计-Gacha与游戏高并发.md) — Redis Lua原子扣减+本地消息表零超卖、对象池+G1消除GC抖动、多级缓存防雪崩、实时对战状态机、跨地域延迟优化(TCP_NODELAY/gRPC) `#practice #distributed`

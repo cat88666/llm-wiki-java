@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm-wiki-java/wiki/synthesis/设计-短链服务.md",
+                "file": "llm-wiki-java/wiki/synthesis/设计-分库分表.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "设计-短链服务"
+              "title": "设计-分库分表"
             }
           }
         ]
@@ -183,6 +183,17 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/synthesis/系统设计-游戏架构系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-IM通信系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-彩票系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-彩票系统核心设计.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-在线游戏平台架构.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-区块链OTC平台.md",
+    "llm-wiki-java/wiki/synthesis/设计-短链服务.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-短链服务.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-秒杀系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-IM即时通信系统.md",
+    "llm-wiki-java/wiki/synthesis/设计-JVM调优实战.md",
     "llm-wiki-java/wiki/synthesis/设计-账户钱包系统.md",
     "llm-wiki-java/wiki/synthesis/设计-支付系统设计.md",
     "llm-wiki-java/wiki/synthesis/设计-分库分表.md",
@@ -202,17 +213,6 @@
     "llm-wiki-java/wiki/concepts/01-cs-base/概念-IO模型.md",
     "llm-wiki-java/raw/note/Hollis/分布式.md",
     "llm-wiki-java/wiki/concepts/02-java-lang/概念-Java基础值类型.md",
-    "llm-wiki-java/wiki/concepts/05-data-structure/概念-BitMap与布隆过滤器.md",
-    "llm-wiki-java/wiki/concepts/02-java-lang/机制-反射与动态代理.md",
-    "llm-wiki-java/raw/note/Hollis/分布式/✅什么是拜占庭将军问题.md",
-    "llm-wiki-java/wiki/concepts/08-distributed/机制-配置中心与Nacos.md",
-    "llm-wiki-java/wiki/summaries/主题-源码体系.md",
-    "2026-05-12.md",
-    "llm-wiki-java/wiki/summaries/主题-锁体系.md",
-    "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查(2).md",
-    "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查.md",
-    "llm-wiki-java/raw/note/项目经验/问题总结.md",
-    "llm-wiki-java/raw/note/项目经验/线上服务器如果磁盘满了，你会如何处理？.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
     "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",

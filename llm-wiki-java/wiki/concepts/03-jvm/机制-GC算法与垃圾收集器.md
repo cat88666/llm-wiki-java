@@ -142,9 +142,17 @@ GC Roots 包括：系统类加载器加载的类、活跃线程的栈变量、JN
 #### 频繁 FullGC
 
 ```bash
+# 1. 确认 GC 频率
 jstat -gcutil <pid> 1000 10
+# 看 FGC 列计数和 FGCT 耗时
+
+# 2. 查堆内存分配
 jmap -histo:live <pid> | head -30
+# 找占用内存最多的对象类型
+
+# 3. 生成 Heap Dump（内存快照）
 jmap -dump:format=b,file=/tmp/heap.bin <pid>
+# 用 VisualVM 或 MAT 分析 GC Roots 引用链
 ```
 
 常见根因：
@@ -157,11 +165,11 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 
 | OOM 类型 | 原因 | 处理 |
 |---------|------|------|
-| `Java heap space` | 堆耗尽 | Heap Dump 分析 |
-| `GC overhead limit exceeded` | GC 时间过长且回收过少 | 堆不足或泄漏 |
-| `Metaspace` | 类加载过多 | 调整元空间或减少动态代理 |
-| `Direct buffer memory` | 堆外内存泄漏 | 检查 `ByteBuf.release()` |
-| `unable to create new native thread` | 线程数超限 | 减少线程，排查泄漏 |
+| `Java heap space` | 堆内存耗尽 | Heap Dump 分析 + 修复内存泄漏 |
+| `GC overhead limit exceeded` | GC 时间 > 98% 但回收 < 2% | 堆内存不足或内存泄漏 |
+| `Metaspace` | 类加载过多（动态代理/CGLIB）| 增大 `-XX:MaxMetaspaceSize` 或减少动态代理 |
+| `Direct buffer memory` | Netty/NIO 堆外内存泄漏 | 检查 `ByteBuf` 是否调用 `release()` |
+| `unable to create new native thread` | 线程数超系统限制 | 减少线程数，检查线程泄漏 |
 
 **OOM 不一定导致 JVM 退出**：Error 被抛出后若被捕获，进程可能继续运行；生产常配合 `-XX:OnOutOfMemoryError` 做强制退出或拉起。
 
@@ -177,11 +185,11 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 #### STW 暂停过长
 
 **G1 常用参数**：
-```bash
--XX:MaxGCPauseMillis=200
--XX:G1HeapRegionSize=16m
--XX:G1NewSizePercent=20
--XX:G1MaxNewSizePercent=60
+```
+-XX:MaxGCPauseMillis=200    # 目标最大停顿时间（G1 会自动调整 Region 数量）
+-XX:G1HeapRegionSize=16m    # Region 大小（1~32MB，取 2 的幂）
+-XX:G1NewSizePercent=20     # 新生代最小比例
+-XX:G1MaxNewSizePercent=60  # 新生代最大比例
 ```
 
 **ZGC** 适合：
@@ -195,18 +203,40 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 - Java 11 默认 G1
 - G1 的 Mixed GC 避免了 CMS 的严重碎片化问题
 
+## GC 收集器选型
+
+| 收集器 | JDK | 停顿 | 吞吐量 | 适用场景 |
+|--------|-----|------|--------|---------|
+| CMS | ≤ JDK 8 | 短（并发）| 一般 | 对延迟敏感，JDK 8 遗留系统 |
+| G1 | JDK 9+ 默认 | 可控（目标停顿）| 高 | 大堆（4G+）通用场景 |
+| ZGC | JDK 15+（生产）| 极短（< 1ms）| 略低 | 超大堆、极低延迟 |
+| Shenandoah | JDK 12+ | 极短 | 略低 | 与 ZGC 类似，Red Hat 维护 |
+
+**Java 8 → Java 11 GC 差异**：Java 8 默认 Parallel GC，Java 11 默认 G1；G1 的 Mixed GC 解决了 CMS 的碎片化问题（不再需要 Full GC 整理碎片）。
+
+---
+
 ### 常用 JVM 参数速查
 
 ```bash
--Xms4g -Xmx4g
--Xmn2g
--XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m
--XX:+UseG1GC
--XX:+UseZGC
--XX:MaxGCPauseMillis=200
+# 堆内存
+-Xms4g -Xmx4g          # 初始/最大堆（设置相同避免动态扩缩开销）
+-Xmn2g                 # 新生代大小
+-XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m  # 元空间
+
+# GC 选择
+-XX:+UseG1GC           # G1（JDK 9+ 默认）
+-XX:+UseZGC            # ZGC（JDK 15+ 推荐）
+-XX:MaxGCPauseMillis=200  # G1 目标停顿时间
+
+# OOM 时生成 Heap Dump
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=/tmp/heap.bin
+
+# GC 日志（JDK 9+）
 -Xlog:gc*:file=/var/log/gc.log:time,uptime:filecount=5,filesize=20m
+
+# OOM 时执行命令（如重启进程）
 -XX:OnOutOfMemoryError="kill -9 %p"
 ```
 

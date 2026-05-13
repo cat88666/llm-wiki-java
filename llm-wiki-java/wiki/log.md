@@ -1,5 +1,60 @@
 # Wiki Log
 
+## [2026-05-13] Rename | 系统设计-在线游戏平台架构 重命名为 系统设计-游戏架构系统
+
+- 触发：用户要求调整该页命名
+- **重命名** `synthesis/系统设计-在线游戏平台架构.md` → `synthesis/系统设计-游戏架构系统.md`
+- **更新** `synthesis/设计-德州扑克核心算法.md`
+  - 将关联页名称改为 `系统设计-游戏架构系统`
+- **更新** `wiki/index.md`
+  - 将索引条目改为 `系统设计-游戏架构系统`
+
+## [2026-05-13] Rename | 系统设计-IM即时通信系统 重命名为 系统设计-IM通信系统
+
+- 触发：用户要求进一步收短该页名称
+- **重命名** `synthesis/系统设计-IM即时通信系统.md` → `synthesis/系统设计-IM通信系统.md`
+- **更新** `concepts/08-distributed/机制-WebSocket协议.md`
+  - 将关联页名称改为 `系统设计-IM通信系统`
+- **更新** `wiki/index.md`
+  - 将索引条目改为 `系统设计-IM通信系统`
+
+## [2026-05-13] Rename | 系统设计-彩票系统核心设计 重命名为 系统设计-彩票系统
+
+- 触发：用户要求进一步收短该页名称
+- **重命名** `synthesis/系统设计-彩票系统核心设计.md` → `synthesis/系统设计-彩票系统.md`
+- **更新** `wiki/index.md`
+  - 将索引条目改为 `系统设计-彩票系统`
+- **更新引用**
+  - `synthesis/设计-账户钱包系统.md`
+  - `synthesis/mock-interview-eson.md`
+
+## [2026-05-13] Rename | 一批系统类 synthesis 页统一改为 系统设计-*
+
+- 触发：用户要求将类似 `设计-IM即时通信系统` 的系统类页面统一命名为 `系统设计-*`
+- **重命名**
+  - `synthesis/设计-秒杀系统.md` → `synthesis/系统设计-秒杀系统.md`
+  - `synthesis/设计-短链服务.md` → `synthesis/系统设计-短链服务.md`
+  - `synthesis/设计-区块链OTC平台.md` → `synthesis/系统设计-区块链OTC平台.md`
+  - `synthesis/设计-在线游戏平台架构.md` → `synthesis/系统设计-在线游戏平台架构.md`
+  - `synthesis/设计-彩票系统核心设计.md` → `synthesis/系统设计-彩票系统核心设计.md`
+- **更新引用**
+  - `concepts/08-distributed/概念-幂等设计.md`
+  - `summaries/主题-三高体系.md`
+  - `synthesis/mock-interview-eson.md`
+  - `synthesis/设计-德州扑克核心算法.md`
+  - `synthesis/设计-账户钱包系统.md`
+  - `synthesis/设计-P8高频边界问题.md`
+  - `wiki/index.md`
+
+## [2026-05-13] Rename | 设计-IM即时通信系统 重命名为 系统设计-IM即时通信系统
+
+- 触发：用户要求统一该页命名方式
+- **重命名** `synthesis/设计-IM即时通信系统.md` → `synthesis/系统设计-IM即时通信系统.md`
+- **更新** `concepts/08-distributed/机制-WebSocket协议.md`
+  - 将关联页名称改为 `系统设计-IM即时通信系统`
+- **更新** `wiki/index.md`
+  - 将索引条目改为 `系统设计-IM即时通信系统`
+
 ## [2026-05-13] Merge | 线上问题排查收口到概念-可观测性，删除 1 个重复专题页
 
 - 触发：继续按“单主题单归宿”原则收敛知识碎片
