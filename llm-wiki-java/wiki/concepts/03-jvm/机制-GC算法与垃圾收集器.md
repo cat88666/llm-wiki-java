@@ -3,10 +3,11 @@ type: concept
 status: active
 name: "GC算法与垃圾收集器"
 layer: L2
-aliases: ["垃圾回收", "GC", "CMS", "G1", "ZGC", "标记清除", "标记整理", "复制算法", "可达性分析", "三色标记", "STW", "强引用", "软引用", "弱引用", "虚引用", "SoftReference", "WeakReference", "PhantomReference"]
+aliases: ["垃圾回收", "GC", "CMS", "G1", "ZGC", "标记清除", "标记整理", "复制算法", "可达性分析", "三色标记", "STW", "强引用", "软引用", "弱引用", "虚引用", "SoftReference", "WeakReference", "PhantomReference", "JVM调优实战", "FullGC", "OOM"]
 related:
   - "[[机制-JVM内存模型]]"
   - "[[概念-ThreadLocal]]"
+  - "[[机制-对象池技术]]"
 sources:
   - "../../../raw/note/Hollis/JVM/✅什么是强引用、软引用、弱引用和虚引用？.md"
   - "../../../raw/note/Hollis/JVM/✅JVM有哪些垃圾回收算法？.md"
@@ -14,108 +15,230 @@ sources:
   - "../../../raw/note/Hollis/JVM/✅G1和CMS有什么区别？.md"
   - "../../../raw/note/Hollis/JVM/✅ZGC和CMS和G1的区别对比.md"
   - "../../../raw/note/Hollis/JVM/✅Java的堆是如何分代的？为什么分代？.md"
+  - "../../../raw/note/Hollis/JVM/✅常见的JVM调优工具有哪些.md"
+  - "../../../raw/note/Hollis/JVM/✅FullGC多久一次算正常？.md"
+  - "../../../raw/note/Hollis/JVM/✅Java发生了OOM一定会导致JVM 退出吗？.md"
+  - "../../../raw/note/Hollis/JVM/✅JVM 中一次完整的 GC 流程是怎样的？.md"
+  - "../../../raw/note/Hollis/JVM/✅YoungGC和FullGC的触发条件是什么？.md"
+  - "../../../raw/note/Hollis/JVM/✅Java 8 和 Java 11 的GC有什么区别？.md"
 created: 2026-05-02
-updated: 2026-05-02
+updated: 2026-05-13
 lint_notes: ""
 ---
 
 # GC算法与垃圾收集器
 
-> GC（垃圾回收）= 判断对象存活（可达性分析）+ 回收死亡对象（三种基础算法）+ 具体回收器实现（CMS / G1 / ZGC）；核心矛盾是**吞吐量与低延迟（STW 时长）的权衡**。
+> GC（垃圾回收）= 判断对象存活（可达性分析）+ 回收死亡对象（三种基础算法）+ 具体回收器实现（CMS / G1 / ZGC）；核心矛盾是**吞吐量与低延迟（STW 时长）的权衡**。本文同时覆盖 GC 原理和 JVM 调优实战。
 
 ## 第一性原理
 
-Java 堆由 JVM 自动管理——不自动回收则内存持续增长终至 OOM，全部暂停应用回收则 STW 过长影响响应时间。GC 设计的根本问题：**如何以尽可能低的停顿时间，回收尽可能多的垃圾，同时维持尽可能高的吞吐量**。三者不可兼得，不同回收器是不同的权衡点。
+Java 堆由 JVM 自动管理，不自动回收则内存持续增长终至 OOM，全部暂停应用回收则 STW 过长影响响应时间。GC 设计的根本问题：**如何以尽可能低的停顿时间，回收尽可能多的垃圾，同时维持尽可能高的吞吐量**。
+
+---
 
 ## 核心机制
 
 ### 第一步：判断对象是否存活
 
-**引用计数法**：每个对象有引用计数器，归零即可回收。
-- 缺陷：无法解决循环引用（A 引用 B、B 引用 A，两者均永不归零）
+**引用计数法**：
+- 每个对象有引用计数器，归零即可回收
+- 缺陷：无法解决循环引用
 - HotSpot 不用此法
 
-**可达性分析（主流）**：从 GC Roots 出发，遍历引用链，不可达 = 死亡。
+**可达性分析（主流）**：
+- 从 GC Roots 出发遍历引用链
+- 不可达对象视为死亡
 
-GC Roots 包括：系统类加载器加载的类、活跃线程的栈变量、JNI 引用、`synchronized` 持有的对象、Remembered Set（跨代引用解决）。
+GC Roots 包括：系统类加载器加载的类、活跃线程的栈变量、JNI 引用、`synchronized` 持有的对象、Remembered Set。
 
 ### 第二步：三种基础 GC 算法
 
 | 算法 | 步骤 | 优点 | 缺点 | 适用代 |
 |------|------|------|------|--------|
-| **标记-清除** | 标记存活对象 → 直接清除死亡对象 | 速度快 | 内存碎片 | 老年代（CMS）|
-| **标记-复制** | 存活对象复制到另一半内存 → 清除整块 | 无碎片 | 浪费 50% 空间 | 新生代（Eden+Survivor）|
-| **标记-整理** | 标记 → 移动存活对象到内存一端 → 清除边界后 | 无碎片、无空间浪费 | 移动对象耗时 | 老年代（G1/Serial Old）|
-
-**速度排序**：标记-清除 > 复制 > 标记-整理  
-**效果排序**：标记-整理 ≥ 复制 > 标记-清除
+| **标记-清除** | 标记存活对象 → 清除死亡对象 | 速度快 | 内存碎片 | 老年代（CMS）|
+| **标记-复制** | 存活对象复制到另一半内存 | 无碎片 | 浪费空间 | 新生代 |
+| **标记-整理** | 标记 → 移动存活对象到一端 | 无碎片 | 移动对象耗时 | 老年代（G1/Serial Old）|
 
 ### 第三步：垃圾收集器对比
 
 | 特性 | CMS | G1 | ZGC |
 |------|-----|----|----|
 | **JDK 版本** | ≤1.8（JDK14 删除）| 1.7+（1.9+ 默认）| JDK15+（JDK21 支持分代）|
-| **设计目标** | 低延迟 | 可预测停顿 + 兼顾吞吐 | **亚毫秒级停顿**，超大堆 |
+| **设计目标** | 低延迟 | 可预测停顿 + 兼顾吞吐 | 亚毫秒级停顿 |
 | **回收范围** | 仅老年代 | 整堆（Region 化）| 整堆 |
 | **GC 算法** | 标记-清除 | 年轻代复制 + 老年代整理 | 并发标记-整理 |
 | **内存碎片** | 有 | 无 | 无 |
-| **STW 可预测** | 否 | 是（`-XX:MaxGCPauseMillis`）| 极低（< 1ms 目标）|
-| **内存要求** | 无特殊要求 | 建议 4G+ | 适合 TB 级堆 |
-| **核心技术** | 三色标记 + 增量更新 | 三色标记 + 原始快照 + Region | 染色指针 + 读屏障 |
+| **STW 可预测** | 否 | 是 | 极低 |
+| **适用** | JDK8 遗留系统 | 通用首选 | 超低延迟大堆 |
 
 ### 三色标记法（CMS/G1 基础）
 
-并发标记期间应用线程仍在运行，对象引用关系会变化，三色标记防止漏标：
-- **白色**：未被访问（初始状态；GC 后白色 = 垃圾）
-- **灰色**：已被访问但子引用未全部扫描
-- **黑色**：已被访问且所有子引用已扫描（存活）
+- **白色**：未被访问
+- **灰色**：已访问但子引用未全部扫描
+- **黑色**：已访问且子引用已扫描
 
-**漏标问题**：并发标记过程中，黑色对象新引用了白色对象，会导致白色被错误回收。  
-解决方案：CMS 用**增量更新**（新引用被记录，重新标记）；G1 用**原始快照（SATB）**（删除引用时记录快照）。
+并发标记时引用关系会变化：
+- CMS 用**增量更新**
+- G1 用**原始快照（SATB）**
 
 ### 四种引用类型与 GC 行为
 
-Java 提供四种强度递减的引用，让应用层参与 GC 决策：
-
 | 引用类型 | 创建方式 | GC 回收时机 | 获取对象 | 典型用途 |
 |---------|---------|------------|---------|---------|
-| **强引用** | `Object o = new Object()` | 永不（可达时） | 直接访问 | 所有普通对象 |
-| **软引用** | `new SoftReference<>(obj)` | **OOM 前** | `.get()`（可能 null） | 内存敏感缓存（Guava softValues）|
-| **弱引用** | `new WeakReference<>(obj)` | **每次 GC 必回收** | `.get()`（可能 null） | `WeakHashMap`；ThreadLocal key |
-| **虚引用** | `new PhantomReference<>(obj, queue)` | GC 时（不影响生命周期）| 始终 null | 堆外内存/资源清理通知 |
+| **强引用** | `Object o = new Object()` | 可达时不回收 | 直接访问 | 普通对象 |
+| **软引用** | `new SoftReference<>(obj)` | OOM 前 | `.get()` | 内存敏感缓存 |
+| **弱引用** | `new WeakReference<>(obj)` | 每次 GC 必回收 | `.get()` | `WeakHashMap`、ThreadLocal key |
+| **虚引用** | `new PhantomReference<>(obj, queue)` | GC 时 | 始终 null | 资源清理通知 |
 
-**强度排序**：强 > 软 > 弱 > 虚
-
-**ThreadLocal 弱引用陷阱**：`ThreadLocalMap` 的 Entry key 是弱引用（ThreadLocal 对象 GC 后 key 变 null），但 value 是强引用。线程池中线程复用时，value 不会被回收 → **必须在 finally 中 `remove()`**。
-
-**ReferenceQueue**：软/弱/虚引用可配合 `ReferenceQueue` 使用——对象被 GC 后，Reference 对象入队，应用可轮询做后续清理（如 `DirectByteBuffer` 清理堆外内存）。
+**ThreadLocal 弱引用陷阱**：key 是弱引用，value 是强引用；线程池复用时必须 `remove()`。
 
 ### GC 触发条件
 
-- **Young GC（Minor GC）**：Eden 区满触发，只回收新生代
-- **Full GC**：老年代空间不足；元空间满；`System.gc()` 显式调用；晋升失败（Promotion Failure）
-- Full GC 频率高是性能问题信号，正常生产环境每天 < 1 次
+- **Young GC（Minor GC）**：Eden 满
+- **Full GC**：老年代空间不足、元空间满、`System.gc()`、晋升失败等
+
+---
+
+## JVM 调优实战
+
+### 调优方法论
+
+```
+1. 确定基线
+2. 发现异常
+3. 工具定位
+4. 参数调整或代码修复
+5. 验证效果
+```
+
+### 正常基线（经验值）
+
+以下以 4C8G 机器、4G 堆、G1 收集器为参考：
+
+| 指标 | 正常值 | 告警阈值 |
+|------|--------|---------|
+| YoungGC 频率 | 100次/分钟 | > 500次/分钟 |
+| YoungGC 耗时 | ~20ms | > 100ms |
+| FullGC 频率 | 日常 ≤ 1次/周；大促 ≤ 1次/2小时 | > 1次/小时 |
+| FullGC 耗时 | 400~700ms | > 1s |
+| 堆使用率 | < 50% | > 80% |
+
+### 常用调优工具
+
+| 工具 | 用途 | 典型命令 |
+|------|------|---------|
+| `jps` | 查看 Java 进程 | `jps -v` |
+| `jstat` | 监控 GC 频率/堆使用 | `jstat -gcutil <pid> 1000` |
+| `jmap` | 对象分布 / Heap Dump | `jmap -histo:live <pid>` |
+| `jstack` | 线程快照 | `jstack <pid>` |
+| `Arthas` | 线上诊断 | `dashboard` / `trace` / `watch` |
+| `VisualVM` | 图形化监控 | GUI |
+| `JProfiler/YourKit` | 商业分析工具 | 付费 |
+
+**生产首选 Arthas**：无侵入、不停服。
+
+### 典型问题排查
+
+#### 频繁 FullGC
+
+```bash
+jstat -gcutil <pid> 1000 10
+jmap -histo:live <pid> | head -30
+jmap -dump:format=b,file=/tmp/heap.bin <pid>
+```
+
+常见根因：
+- 老年代大量长生命周期对象
+- 静态集合累积
+- 对象分配速率超过 GC 回收速度
+- 堆设置过小
+
+#### OOM（OutOfMemoryError）
+
+| OOM 类型 | 原因 | 处理 |
+|---------|------|------|
+| `Java heap space` | 堆耗尽 | Heap Dump 分析 |
+| `GC overhead limit exceeded` | GC 时间过长且回收过少 | 堆不足或泄漏 |
+| `Metaspace` | 类加载过多 | 调整元空间或减少动态代理 |
+| `Direct buffer memory` | 堆外内存泄漏 | 检查 `ByteBuf.release()` |
+| `unable to create new native thread` | 线程数超限 | 减少线程，排查泄漏 |
+
+**OOM 不一定导致 JVM 退出**：Error 被抛出后若被捕获，进程可能继续运行；生产常配合 `-XX:OnOutOfMemoryError` 做强制退出或拉起。
+
+#### YoungGC 过于频繁
+
+原因：新生代太小、对象分配速率高。
+
+处理：
+- 调整 `-XX:NewRatio`
+- 直接设置 `-Xmn`
+- 减少短生命周期对象创建
+
+#### STW 暂停过长
+
+**G1 常用参数**：
+```bash
+-XX:MaxGCPauseMillis=200
+-XX:G1HeapRegionSize=16m
+-XX:G1NewSizePercent=20
+-XX:G1MaxNewSizePercent=60
+```
+
+**ZGC** 适合：
+- 堆 > 8G
+- 极低延迟场景
+- 能接受更高 CPU 开销
+
+### Java 8 → Java 11 GC 差异
+
+- Java 8 默认 Parallel GC
+- Java 11 默认 G1
+- G1 的 Mixed GC 避免了 CMS 的严重碎片化问题
+
+### 常用 JVM 参数速查
+
+```bash
+-Xms4g -Xmx4g
+-Xmn2g
+-XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m
+-XX:+UseG1GC
+-XX:+UseZGC
+-XX:MaxGCPauseMillis=200
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath=/tmp/heap.bin
+-Xlog:gc*:file=/var/log/gc.log:time,uptime:filecount=5,filesize=20m
+-XX:OnOutOfMemoryError="kill -9 %p"
+```
+
+---
 
 ## 关键权衡
 
-1. **STW vs 并发**：完全 STW 实现简单但停顿长；并发 GC 需要额外机制（三色标记、写屏障）处理并发修改
-2. **吞吐量 vs 延迟**：ParallelGC 追求吞吐（CPU 全用于 GC）；CMS/G1/ZGC 追求低延迟（部分 GC 与应用并发）
-3. **碎片 vs 停顿**：标记-清除无移动对象所以快（CMS 选它），但碎片多；标记-整理移动对象但无碎片（G1/ZGC 选它）
-4. **G1 的 Region 设计**：把堆分成 1M-32M 的等大 Region，每次选择回收收益最高的 Region（Garbage First），实现可预测停顿
+1. **STW vs 并发**：并发 GC 复杂，但停顿更短
+2. **吞吐量 vs 延迟**：Parallel 追吞吐，CMS/G1/ZGC 追延迟
+3. **碎片 vs 停顿**：CMS 快但有碎片；G1/ZGC 整理开销更大但无碎片
+4. **G1 vs ZGC**：G1 通用稳定；ZGC 适合超低延迟
+5. **参数调优 vs 代码优化**：参数只能缓解，内存泄漏和对象 churn 往往要靠代码修复
+
+---
 
 ## 与其他概念的关系
 
-- 依赖 [[机制-JVM内存模型]]：GC 主要作用在堆；分代 GC 对应 Young Gen + Old Gen
-- 四种引用类型是 GC 可达性分析规则的扩展：弱引用对象"弱可达"，GC 视为死亡
-- 与 [[概念-ThreadLocal]] 关联：ThreadLocalMap Entry 弱引用 key 设计，防止 ClassLoader 泄漏
-- 支撑了 L3 并发：GC 的 STW 会影响并发系统的响应时间和 SLA
+- 依赖 [[机制-JVM内存模型]]：各类 OOM 的根因落在不同内存区域
+- 与 [[概念-ThreadLocal]] 关联：弱引用 key / 强引用 value 导致泄漏
+- 与 [[机制-对象池技术]] 关联：对象池常用于降低对象分配速率、减少 FullGC
+
+---
 
 ## 应用边界
 
-**选 CMS**（基本淘汰）：JDK ≤ 8 的老项目，对停顿敏感但堆不大。
+**选 CMS**：JDK8 遗留系统、短期不升级。
 
-**选 G1**：通用首选，JDK 9+ 默认；堆 4G+；需要可预测 STW（如设置 200ms 目标）。
+**选 G1**：通用首选，JDK 9+ 默认；堆 4G+；需要可预测停顿。
 
-**选 ZGC**：超低延迟要求（< 1ms）；超大堆（TB 级）；JDK 15+；金融交易、实时推荐等场景。
+**选 ZGC**：超低延迟、超大堆、JDK15+。
 
-**调优口诀**：先用 G1 + 合理 `-Xmx`，再用 GC 日志分析 Full GC 根因，最后才换 ZGC。
+**调优口诀**：
+1. 先看 GC 日志和 `jstat`
+2. 再看堆分布和 Dump
+3. 先修代码问题，再调参数
