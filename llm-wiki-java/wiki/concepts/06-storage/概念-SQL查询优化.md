@@ -5,7 +5,7 @@ name: "SQL查询优化"
 layer: L5
 aliases: ["慢SQL", "执行计划", "EXPLAIN", "索引失效", "深分页", "慢查询日志"]
 related:
-  - "[[机制-InnoDB索引模型]]"
+  - "[[机制-InnoDB索引]]"
   - "[[机制-MVCC]]"
   - "[[机制-InnoDB锁机制]]"
 sources:
@@ -99,7 +99,7 @@ SELECT * FROM t WHERE id > last_max_id ORDER BY id LIMIT 10;
 
 ## 与其他概念的关系
 
-- 直接依赖 [[机制-InnoDB索引模型]]：所有优化手段都围绕如何更好地利用 B+ 树索引
+- 直接依赖 [[机制-InnoDB索引]]：所有优化手段都围绕如何更好地利用 B+ 树索引
 - 需理解 [[机制-MVCC]]：长事务导致 undo log 膨胀，影响查询性能
 - 需理解 [[机制-InnoDB锁机制]]：锁等待是慢 SQL 的常见隐性原因，`SHOW ENGINE INNODB STATUS` 排查
 

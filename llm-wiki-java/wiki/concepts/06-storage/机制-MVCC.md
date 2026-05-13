@@ -7,7 +7,7 @@ aliases: ["多版本并发控制", "快照读", "当前读", "ReadView", "undo l
 related:
   - "[[机制-MySQL三种日志]]"
   - "[[机制-InnoDB锁机制]]"
-  - "[[机制-InnoDB索引模型]]"
+  - "[[机制-InnoDB索引]]"
   - "[[机制-CAS]]"
 sources:
   - "../../../raw/note/Hollis/MySQL/✅如何理解MVCC？.md"
@@ -113,7 +113,7 @@ up_limit_id ≤ db_trx_id < low_limit_id
 ## 与其他概念的关系
 
 - 依赖 [[机制-MySQL三种日志]]：undo log 是版本链的物理存储；redo log 保证 undo log 本身的持久性
-- 依赖 [[机制-InnoDB索引模型]]：隐式字段（`db_trx_id`、`db_roll_ptr`）存在于聚簇索引叶子节点
+- 依赖 [[机制-InnoDB索引]]：隐式字段（`db_trx_id`、`db_roll_ptr`）存在于聚簇索引叶子节点
 - 与 [[机制-InnoDB锁机制]] 互补：快照读用 MVCC，当前读用锁；两者共同实现隔离性
 - 类比 [[机制-CAS]]：都是乐观并发控制思想——先操作后检查，而非提前加锁
 
