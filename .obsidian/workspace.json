@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm-wiki-java/raw/note/Hollis/分布式.md",
+                "file": "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "分布式"
+              "title": "✅能不能谈谈你对线程安全的理解？"
             }
           }
         ]
@@ -54,7 +54,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "线程 进程 区别",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -181,8 +181,14 @@
       "bases:新建数据库": false
     }
   },
-  "active": "d170bbbea78c75c6",
+  "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统基础.md",
+    "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统进程线程.md",
+    "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
+    "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
+    "llm-wiki-java/wiki/concepts/01-cs-base/概念-IO模型.md",
+    "llm-wiki-java/raw/note/Hollis/分布式.md",
     "llm-wiki-java/wiki/concepts/02-java-lang/概念-Java基础值类型.md",
     "llm-wiki-java/wiki/concepts/05-data-structure/概念-BitMap与布隆过滤器.md",
     "llm-wiki-java/wiki/concepts/02-java-lang/机制-反射与动态代理.md",
@@ -203,12 +209,6 @@
     "llm-wiki-java/raw/note/项目经验/数据库连接池满排查过程.md",
     "llm-wiki-java/raw/note/项目经验/数据库死锁问题排查过程.md",
     "llm-wiki-java/raw/note/项目经验/数据库CPU被打满排查过程.md",
-    "llm-wiki-java/raw/note/项目经验/数据倾斜导致的频繁FullGC问题排查.md",
-    "llm-wiki-java/raw/note/项目经验/慢SQL问题排查.md",
-    "llm-wiki-java/raw/note/项目经验/如何排查网络问题？.md",
-    "llm-wiki-java/raw/note/项目经验/如何使用jstack分析死锁.md",
-    "llm-wiki-java/raw/note/项目经验/回表导致慢 SQL 问题排查.md",
-    "llm-wiki-java/raw/note/项目经验/Sort aborted问题排查过程.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
     "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",

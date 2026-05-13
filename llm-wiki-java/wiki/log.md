@@ -518,8 +518,8 @@
 - 更新 `index.md`：L6 新增设计模式条目
 - 知识库现状：concepts×58 / entities×1 / summaries×8 / synthesis×3
 
-## [2026-05-07] Ingest | 操作系统/ → 概念-操作系统基础.md
-- 新建 `concepts/概念-操作系统基础.md`（#os）：覆盖 30 个原始文件核心知识
+## [2026-05-07] Ingest | 操作系统/ → 概念-操作系统进程线程.md
+- 新建 `concepts/概念-操作系统进程线程.md`（#os）：覆盖 30 个原始文件核心知识
 - 重点：进程/线程/协程三级对比、用户态/内核态切换机制、零拷贝4种实现(普通→mmap→sendfile→DMA Scatter)、五种IO模型、select/poll/epoll对比(O(n)→O(1))、MESI缓存一致性协议与JMM关系、Page Cache延迟写与fsync、进程调度6种算法(CFS是Linux默认)
 - 更新 `index.md`：CS基础区新增操作系统基础
 - 知识库现状：concepts×57 / entities×1 / summaries×8 / synthesis×3

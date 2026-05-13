@@ -22,7 +22,7 @@
 
 ### 基础知识（CS 基础）
 - [[概念-计算机网络]](concepts/01-cs-base/概念-计算机网络.md) — TCP三次握手/拥塞控制、HTTP版本演进(HTTP/3 QUIC)、HTTPS握手、Cookie/Session/Token、跨域CORS `#network`
-- [[概念-操作系统基础]](concepts/01-cs-base/概念-操作系统基础.md) — 进程/线程/协程、用户态/内核态、零拷贝(sendfile)、epoll/IO多路复用、MESI缓存一致性、Page Cache `#os`
+- [[概念-操作系统进程线程]](concepts/01-cs-base/概念-操作系统进程线程.md) — 进程/线程/协程、用户态/内核态、零拷贝(sendfile)、epoll/IO多路复用、MESI缓存一致性、Page Cache `#os`
 
 ### L1 语言基础
 - [[概念-OOP三大特征]](concepts/02-java-lang/概念-OOP三大特征.md) — 封装/继承/多态，接口 vs 抽象类，组合优于继承 `#java-lang`
