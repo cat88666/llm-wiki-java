@@ -66,7 +66,7 @@
 
 ### L5 存储层
 - [[概念-读写分离]](concepts/06-storage/概念-读写分离.md) — 主从复制路由写主读从、ShardingSphere中间件分流、主从延迟处理策略(强制读主库/读请求分类) `#storage`
-- [[机制-InnoDB索引模型]](concepts/06-storage/机制-InnoDB索引模型.md) — B+树索引、聚簇/二级索引、回表、覆盖索引、索引下推、最左前缀 `#storage`
+- [[机制-InnoDB索引]](concepts/06-storage/机制-InnoDB索引.md) — B+树索引、聚簇/二级索引、回表、覆盖索引、索引下推、最左前缀 `#storage`
 - [[机制-MVCC]](concepts/06-storage/机制-MVCC.md) — 快照读/当前读、undo log版本链、ReadView可见性、RC vs RR差异 `#storage`
 - [[机制-MySQL三种日志]](concepts/06-storage/机制-MySQL三种日志.md) — undo/redo/binlog的角色、两阶段提交保证主备一致、WAL原理 `#storage`
 - [[机制-InnoDB锁机制]](concepts/06-storage/机制-InnoDB锁机制.md) — S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR防幻读、死锁 `#storage`

@@ -6,7 +6,7 @@ layer: L5
 aliases: ["MyBatis", "MyBatis-Plus", "ORM", "Mapper", "PageHelper"]
 related:
   - "[[机制-动态代理]]"
-  - "[[机制-InnoDB索引模型]]"
+  - "[[机制-InnoDB索引]]"
   - "[[概念-SQL查询优化]]"
   - "[[概念-缓存三大问题]]"
 sources:
@@ -137,7 +137,7 @@ public class MyPlugin implements Interceptor {
 ## 与其他概念的关系
 
 - 底层用 [[机制-动态代理]]：`MapperProxy` 通过 JDK 动态代理让接口方法"有实现"
-- 执行的 SQL 依赖 [[机制-InnoDB索引模型]] 的索引设计，慢 SQL 通过 [[概念-SQL查询优化]] 排查
+- 执行的 SQL 依赖 [[机制-InnoDB索引]] 的索引设计，慢 SQL 通过 [[概念-SQL查询优化]] 排查
 - MyBatis 一/二级缓存是本地缓存，生产更多用 [[概念-缓存三大问题]] 中讨论的 Redis 缓存方案
 - 插件责任链是 [[机制-动态代理]] 的具体应用场景之一
 
