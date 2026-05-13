@@ -29,7 +29,7 @@ wiki 已覆盖以下所有目录的核心内容：
 | 容器化 / Netty / 可观测性 / 配置中心 / 任务调度 | 5个 concept 页 | #distributed |
 | DDD | 1个 concept 页 | #practice |
 | 场景题（~70个） | 6个 synthesis 页 | #practice |
-| 架构设计（13个） | `设计-架构设计思维` | #practice |
+| 架构设计（13个） | `设计-P7架构思维` | #practice |
 | 秒杀 / 分布式事务 / 分库分表 / 支付 / 缓存 / 算法 | 9个 synthesis 页 | #practice |
 
 ---

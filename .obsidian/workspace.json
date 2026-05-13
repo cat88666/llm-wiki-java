@@ -182,6 +182,8 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/synthesis/设计-P7架构思维.md",
+    "llm-wiki-java/wiki/synthesis/P7架构思维.md",
     "llm-wiki-java/wiki/concepts/07-framework/机制-SpringBoot自动装配.md",
     "llm-wiki-java/wiki/index.md",
     "llm-wiki-java/raw/note/Hollis/场景题.md",
@@ -210,8 +212,6 @@
     "llm-wiki-java/wiki/synthesis/系统设计-IM通信系统.md",
     "llm-wiki-java/wiki/summaries/主题-锁体系.md",
     "llm-wiki-java/wiki/summaries/主题-源码体系.md",
-    "llm-wiki-java/wiki/concepts/07-framework/机制-MyBatis.md",
-    "llm-wiki-java/wiki/concepts/06-storage/机制-InnoDB锁.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
     "llm-wiki-java/raw/note/tuling/tuling.zip",

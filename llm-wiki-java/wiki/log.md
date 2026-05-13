@@ -139,7 +139,7 @@
   - 合并并发与事务：热点行危害、长事务危害、分布式锁与事务位置
   - 合并特殊技巧：逻辑删除唯一性约束
 - **删除** `synthesis/设计-MySQL大表与查询优化.md`
-- **更新** `synthesis/设计-架构设计思维.md`
+- **更新** `synthesis/设计-P7架构思维.md`
   - 将对大表专题页的引用改为 `概念-SQL查询优化`
 - **更新** `wiki/index.md`
   - 删除 MySQL 大表重复专题页条目
@@ -431,11 +431,11 @@
 ## [2026-05-08] Ingest | 架构设计目录：13个文件 → 1个synthesis页
 - 来源：raw/note/Hollis/架构设计/（13个文件，全部读取）
 - 策略：13个问答聚合为一个P7架构思维综合页
-- **新建** `synthesis/设计-架构设计思维.md`（#practice #distributed）
+- **新建** `synthesis/设计-P7架构思维.md`（#practice #distributed）
   - 覆盖：架构权衡本质、没有银弹哲学、好架构标准、SOLID+架构原则
   - 覆盖：技术债管理、微服务拆分7原则（康威定律）、技术选型框架
   - 覆盖：单元化架构（优势/代价）、MVC vs 三层、介绍项目架构4维度、亿级商品存储
-- **更新** `wiki/index.md`：Synthesis区新增 设计-架构设计思维 条目
+- **更新** `wiki/index.md`：Synthesis区新增 设计-P7架构思维 条目
 
 ## [2026-05-08] Ingest | P7 场景题批次：6个synthesis综合页
 - 触发：用户要求直接处理 raw/note/Hollis/场景题/ 目录（134个文件）
