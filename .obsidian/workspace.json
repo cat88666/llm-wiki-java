@@ -183,6 +183,8 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/wiki/synthesis/设计-DDD落地实战.md",
+    "llm-wiki-java/wiki/concepts/06-storage/机制-InnoDB索引.md",
     "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统基础.md",
     "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统进程线程.md",
     "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
@@ -207,8 +209,6 @@
     "llm-wiki-java/raw/note/项目经验/服务发布分10批，第一批发完后负载很高后面恢复正常，如何处理？.md",
     "llm-wiki-java/raw/note/项目经验/日志打印导致CPU飙高问题排查.md",
     "llm-wiki-java/raw/note/项目经验/数据库连接池满排查过程.md",
-    "llm-wiki-java/raw/note/项目经验/数据库死锁问题排查过程.md",
-    "llm-wiki-java/raw/note/项目经验/数据库CPU被打满排查过程.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
     "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",

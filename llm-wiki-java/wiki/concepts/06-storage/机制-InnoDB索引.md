@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "InnoDB索引模型"
+name: "InnoDB索引"
 layer: L5
 aliases: ["B+树索引", "聚簇索引", "非聚簇索引", "二级索引", "回表", "覆盖索引", "索引下推", "最左前缀", "联合索引"]
 related:

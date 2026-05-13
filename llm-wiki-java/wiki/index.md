@@ -111,7 +111,7 @@
 - [[机制-分布式任务调度]](concepts/08-distributed/机制-分布式任务调度.md) — XXL-Job DB悲观锁唯一触发、分片任务(ShardIndex+Total)、时间轮O(1)调度、定时扫表三缺陷与解法、退避策略、PowerJob动态分片 `#distributed`
 - [[机制-Seata框架机制]](concepts/08-distributed/机制-Seata框架机制.md) — TC/TM/RM三组件全局事务协调、AT(代理数据源+UNDO_LOG)、TCC(空回滚/悬挂+分布式事务记录表)、四种模式选型 `#distributed`
 - [[概念-OAuth2授权协议]](concepts/08-distributed/概念-OAuth2授权协议.md) — 开放授权、Client/ResourceServer/OAuthServer三角色、Access Token授权流程、四种授权类型、OAuth2 vs OIDC `#distributed`
-- [[概念-DDD]](concepts/09-practice/概念-DDD.md) — 领域驱动设计、实体/值对象/聚合根、充血模型vs贫血模型、四层架构(用户接口/应用/领域/基础设施)、限界上下文作为微服务拆分依据、CQRS、Event Sourcing `#practice`
+- [[概念-DDD]](concepts/09-practice/概念-DDD.md) — 战略/战术建模、实体/值对象/聚合根、充血模型、四层架构落地、微服务拆分、领域事件实战、CQRS/ES `#practice #framework` #ddd
 
 ### L8 工程实践
 <!-- 面经实战高频考点已提取到 Synthesis 分区 -->
@@ -173,7 +173,6 @@
 - [[设计-德州扑克核心算法]](synthesis/设计-德州扑克核心算法.md) — 牌型多项式编码O(1)比较、三变体工厂评估器、智能保险方程组迭代求解、边池尾差处理、抽水两种模式 `#practice`
 - [[设计-项目难点表达]](synthesis/设计-项目难点表达.md) — STAR框架亮点模板库：CompletableFuture(10s→1s)/状态机+乐观锁/BitSet预约(400x压缩)/ZSet排行榜/本地消息表/XXL-JOB分片/TTL/Spring Event等10个量化模板 `#practice`
 - [[设计-大厂秒杀实践]](synthesis/设计-大厂秒杀实践.md) — 阿里Inventory Hint(行锁合并/Row Cache/组提交)+小红书合并秒杀(Leader-Follower 5.5x提升)对比教科书Redis预扣方案 `#practice #storage #distributed`
-- [[设计-DDD落地实战]](synthesis/设计-DDD落地实战.md) — 限界上下文→微服务拆分决策、聚合根粒度权衡(太细→分布式事务/太粗→锁竞争)、四层架构各层职责、领域事件Spring Event实战、CQRS适用边界 `#practice #framework`
 - [[设计-P8高频边界问题]](synthesis/设计-P8高频边界问题.md) — 系统边界职责/造轮子五问/库存三态与旁路验证/雪花算法边界(32台/时钟回拨)/MQ异步刷盘能不丢吗/OPS突增10倍框架/选型追问四维度 `#practice`
 - [[设计-云原生选型]](synthesis/设计-云原生选型.md) — IaaS/PaaS/SaaS/Serverless交付模型、公有云/私有云/混合云选型、Java冷启动问题(GraalVM AOT)、无状态设计原则、云原生改造要点 `#practice #distributed`
 - [[设计-彩票系统核心设计]](synthesis/设计-彩票系统核心设计.md) — 投注系统(乐观锁余额冻结/幂等下单)、开奖系统(VRF可验证随机/状态机/防篡改)、结算系统(固定赔率vs彩池/Kafka批量驱动百万注单)、风控防作弊 `#practice #distributed`
