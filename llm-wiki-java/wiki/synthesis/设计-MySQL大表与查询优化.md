@@ -4,8 +4,8 @@ status: active
 name: "MySQL大表与查询优化"
 tags: ["#storage", "#practice"]
 related:
-  - "[[机制-InnoDB索引模型]]"
-  - "[[机制-InnoDB锁机制]]"
+  - "[[机制-InnoDB索引]]"
+  - "[[机制-InnoDB锁]]"
   - "[[概念-SQL查询优化]]"
   - "[[机制-MySQL三种日志]]"
 sources:

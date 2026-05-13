@@ -8,7 +8,7 @@ related:
   - "[[机制-AOP织入]]"
   - "[[机制-IoC容器]]"
   - "[[机制-MVCC]]"
-  - "[[机制-InnoDB锁机制]]"
+  - "[[机制-InnoDB锁]]"
 sources:
   - "../../../raw/note/Hollis/Spring/✅Spring中@Transactional事务的实现原理.md"
   - "../../../raw/note/Hollis/Spring/✅Spring的事务传播机制有哪些？.md"
@@ -84,7 +84,7 @@ lint_notes: ""
 ## 关键权衡
 
 1. **隔离级别与性能**：`SERIALIZABLE` 最安全但并发度最低；`READ_COMMITTED` 是生产常见选择（防脏读，允许不可重复读）；与 [[机制-MVCC]] 共同决定 MySQL 的可见性行为
-2. **长事务的危害**：事务持续时间越长，持有的数据库锁越久，并发性能越差（见 [[机制-InnoDB锁机制]]）；避免在事务中调用外部接口、执行慢查询
+2. **长事务的危害**：事务持续时间越长，持有的数据库锁越久，并发性能越差（见 [[机制-InnoDB锁]]）；避免在事务中调用外部接口、执行慢查询
 3. **声明式 vs 编程式**：`@Transactional` 声明式简洁但有失效陷阱；`TransactionTemplate` 编程式灵活可控，适合需要精细控制事务边界的场景
 
 ## 与其他概念的关系
@@ -92,7 +92,7 @@ lint_notes: ""
 - 实现依赖 [[机制-AOP织入]]：`TransactionInterceptor` 是 Around Advice，代理失效则事务失效
 - 运行在 [[机制-IoC容器]] 管理的 Bean 上：Bean 不被 Spring 管理则无代理
 - 事务隔离级别对应 [[机制-MVCC]] 的 RC/RR 快照读行为
-- 事务中的锁由 [[机制-InnoDB锁机制]] 负责，长事务导致锁时间延长
+- 事务中的锁由 [[机制-InnoDB锁]] 负责，长事务导致锁时间延长
 
 ## 应用边界
 

@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "InnoDB锁机制"
+name: "InnoDB锁"
 layer: L5
 aliases: ["共享锁", "排他锁", "意向锁", "记录锁", "间隙锁", "临键锁", "Next-Key Lock", "Gap Lock", "死锁"]
 related:

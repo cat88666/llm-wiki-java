@@ -7,7 +7,7 @@ aliases: ["慢SQL", "执行计划", "EXPLAIN", "索引失效", "深分页", "慢
 related:
   - "[[机制-InnoDB索引]]"
   - "[[机制-MVCC]]"
-  - "[[机制-InnoDB锁机制]]"
+  - "[[机制-InnoDB锁]]"
 sources:
   - "../../../raw/note/Hollis/MySQL/✅如何进行SQL调优？.md"
   - "../../../raw/note/Hollis/MySQL/✅慢SQL的问题如何排查？.md"
@@ -101,7 +101,7 @@ SELECT * FROM t WHERE id > last_max_id ORDER BY id LIMIT 10;
 
 - 直接依赖 [[机制-InnoDB索引]]：所有优化手段都围绕如何更好地利用 B+ 树索引
 - 需理解 [[机制-MVCC]]：长事务导致 undo log 膨胀，影响查询性能
-- 需理解 [[机制-InnoDB锁机制]]：锁等待是慢 SQL 的常见隐性原因，`SHOW ENGINE INNODB STATUS` 排查
+- 需理解 [[机制-InnoDB锁]]：锁等待是慢 SQL 的常见隐性原因，`SHOW ENGINE INNODB STATUS` 排查
 
 ## 应用边界
 

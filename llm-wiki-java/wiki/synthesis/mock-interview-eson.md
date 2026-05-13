@@ -398,7 +398,7 @@
 🧑‍💼 **面试官：** AQS 的核心设计思想是什么？ReentrantLock 的公平锁和非公平锁在 AQS 层面有什么区别？
 
 👨‍💻 **参考回答：**
-> AQS 核心是一个 `volatile int state` + CLH 变种的等待队列。获取资源用 CAS 修改 state；失败则封装成 Node 入队，然后自旋/park。释放资源 CAS 还原 state 并 unpark 队头节点。  
+> AQS 核心是一个 `volatile int state` + CLH 变种的双向等待队列。获取资源用 CAS 修改 state；失败则封装成 Node 入队，然后自旋/park。释放资源 CAS 还原 state 并 unpark 队头节点。  
 > **公平锁**：`tryAcquire` 先调 `hasQueuedPredecessors()`，如果队列里有更早的等待者就直接入队；  
 > **非公平锁**：`tryAcquire` 直接 CAS 抢锁，不看队列，抢到就用，抢不到再入队。  
 > 非公平锁吞吐高（少一次队列判断，且刚释放锁的线程可能立即重获）；公平锁不会饥饿但上下文切换多。

@@ -69,7 +69,7 @@
 - [[机制-InnoDB索引]](concepts/06-storage/机制-InnoDB索引.md) — B+树索引、聚簇/二级索引、回表、覆盖索引、索引下推、最左前缀 `#storage`
 - [[机制-MVCC]](concepts/06-storage/机制-MVCC.md) — 快照读/当前读、undo log版本链、ReadView可见性、RC vs RR差异 `#storage`
 - [[机制-MySQL三种日志]](concepts/06-storage/机制-MySQL三种日志.md) — undo/redo/binlog的角色、两阶段提交保证主备一致、WAL原理 `#storage`
-- [[机制-InnoDB锁机制]](concepts/06-storage/机制-InnoDB锁机制.md) — S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR防幻读、死锁 `#storage`
+- [[机制-InnoDB锁]](concepts/06-storage/机制-InnoDB锁.md) — S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR防幻读、死锁 `#storage`
 - [[概念-SQL查询优化]](concepts/06-storage/概念-SQL查询优化.md) — EXPLAIN执行计划、索引失效场景、深分页、慢SQL排查流程 `#storage`
 - [[概念-Redis数据类型与底层结构]](concepts/06-storage/概念-Redis数据类型与底层结构.md) — 5种类型、SDS、ZipList/ListPack/SkipList二态编码、Redis快的5个原因 `#storage`
 - [[机制-Redis持久化]](concepts/06-storage/机制-Redis持久化.md) — RDB全量快照(BGSAVE+COW)、AOF三种写回策略、混合持久化(4.0+) `#storage`
@@ -84,6 +84,7 @@
 - [[机制-AOP织入]](concepts/07-framework/机制-AOP织入.md) — JDK/CGLIB代理、5种Advice、失效场景（this调用/private/static/final）`#framework`
 - [[机制-Spring事务]](concepts/07-framework/机制-Spring事务.md) — @Transactional=AOP切面、7种传播机制、失效场景（代理失效/异常被吞/多线程）`#framework`
 - [[机制-SpringBoot自动装配]](concepts/07-framework/机制-SpringBoot自动装配.md) — @EnableAutoConfiguration、spring.factories→.imports、@Conditional条件装配、自定义starter、完整启动流程、优雅停机 `#framework`
+- [[机制-MyBatis]](concepts/07-framework/机制-MyBatis.md) — 半自动ORM；#{}预编译防注入；一/二级缓存；PageHelper物理分页；插件责任链 `#framework`
 - [[机制-SpringMVC请求处理链]](concepts/07-framework/机制-SpringMVC请求处理链.md) — DispatcherServlet前端控制器、MappingRegistry路由注册、HandlerAdapter适配、Interceptor责任链、ExceptionResolver异常处理 `#framework`
 
 ### L7 分布式体系
@@ -115,15 +116,6 @@
 
 ### L8 工程实践
 <!-- 面经实战高频考点已提取到 Synthesis 分区 -->
-
----
-
-## Entities（实体页）
-
-> 具体框架、工具、组件、规范。有明确身份边界的具体对象。
-
-### L5 存储层
-- [[实体-MyBatis]](entities/实体-MyBatis.md) — 半自动ORM；#{}预编译防注入；一/二级缓存；PageHelper物理分页；插件责任链 `#storage`
 
 ---
 

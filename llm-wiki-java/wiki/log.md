@@ -378,7 +378,7 @@
 - **CHECK 1 (index.md路径)**：OK — 86条引用全部有效
 - **CHECK 2 (孤立页面)**：OK — 无孤立concepts页面
 - **CHECK 3 (内部链接)**：修复5处断链
-  - `synthesis/设计-线上问题排查.md`：`[[概念-JVM内存与GC]]`→`[[机制-JVM内存模型]]/[[机制-GC算法与垃圾收集器]]`，`[[概念-MySQL索引]]`→`[[机制-InnoDB索引模型]]`，`[[机制-锁与并发控制]]`→`[[机制-InnoDB锁机制]]`
+  - `synthesis/设计-线上问题排查.md`：`[[概念-JVM内存与GC]]`→`[[机制-JVM内存模型]]/[[机制-GC算法与垃圾收集器]]`，`[[概念-MySQL索引]]`→`[[机制-InnoDB索引]]`，`[[机制-锁与并发控制]]`→`[[机制-InnoDB锁]]`
   - `summaries/主题-Java并发体系.md`：ASCII art箱图内链接跨行→修复为单行
 - **CHECK 4 (sources路径)**：修复4个concept文件的sources路径（文件名与实际不符）
   - `机制-容器化与Docker.md`：补全✅前缀及正确文件名（6条）
@@ -598,7 +598,7 @@
 ## [2026-05-06] Ingest | MyBatis模块（L5 存储层）
 - 来源：`raw/note/Hollis/MyBatis/`（16 个问答式笔记）
 - 新建 entity 页 × 1：
-  - `实体-MyBatis.md`（工作原理、# vs $占位符、一/二级缓存对比与不推荐二级缓存的原因、PageHelper/RowBounds/MyBatis-Plus分页原理、插件责任链、延迟加载代理机制）
+  - `机制-MyBatis.md`（工作原理、# vs $占位符、一/二级缓存对比与不推荐二级缓存的原因、PageHelper/RowBounds/MyBatis-Plus分页原理、插件责任链、延迟加载代理机制）
 - 更新 `wiki/index.md`：Entities 分区 L5 新增 1 条
 
 ## [2026-05-06] Ingest | 集合类模块（L4 数据结构补充）
@@ -630,10 +630,10 @@
 ## [2026-05-02] Ingest | MySQL模块（L5 存储层）
 - 来源：`raw/note/Hollis/MySQL/`（120+ 个问答式笔记）
 - 新建 concept 页 × 5：
-  - `机制-InnoDB索引模型.md`（B+树选型、聚簇/非聚簇索引、回表、覆盖索引、索引下推、最左前缀）
+  - `机制-InnoDB索引.md`（B+树选型、聚簇/非聚簇索引、回表、覆盖索引、索引下推、最左前缀）
   - `机制-MVCC.md`（undo log版本链、ReadView四字段、快照读/当前读、RC vs RR）
   - `机制-MySQL三种日志.md`（undo/redo/binlog角色对比、两阶段提交XID机制、WAL原理）
-  - `机制-InnoDB锁机制.md`（S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR加锁规则、死锁）
+  - `机制-InnoDB锁.md`（S/X/IS/IX锁、Record/Gap/Next-Key Lock、RR加锁规则、死锁）
   - `概念-SQL查询优化.md`（EXPLAIN关键字段、索引失效场景、深分页优化、调优流程）
 - 新建 summary 页 × 1：`主题-MySQL体系.md`（含知识地图 + 高频考点 + 与 L4/L6/L7 联系）
 - 更新 `wiki/index.md`：L5 存储层分区填充 5 个 concept 链接；Summaries 分区新增 1 条
