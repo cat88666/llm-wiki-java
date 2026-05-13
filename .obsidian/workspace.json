@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
+                "file": "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "✅能不能谈谈你对线程安全的理解？"
+              "title": "设计-Redis实战场景"
             }
           }
         ]
@@ -183,13 +183,17 @@
   },
   "active": "998306c6bd3d09f8",
   "lastOpenFiles": [
+    "llm-wiki-java/raw/note/Hollis/Hollis.zip",
+    "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
+    "llm-wiki-java/raw/note/Hollis.zip",
+    "llm-wiki-java/raw/note/tuling/tuling.zip",
+    "llm-wiki-java/raw/note/tuling.zip",
     "llm-wiki-java/wiki/concepts/07-framework/机制-MyBatis.md",
     "llm-wiki-java/wiki/concepts/06-storage/机制-InnoDB锁.md",
     "llm-wiki-java/wiki/synthesis/设计-DDD落地实战.md",
     "llm-wiki-java/wiki/concepts/06-storage/机制-InnoDB索引.md",
     "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统基础.md",
     "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统进程线程.md",
-    "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
     "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
     "llm-wiki-java/wiki/concepts/01-cs-base/概念-IO模型.md",
     "llm-wiki-java/raw/note/Hollis/分布式.md",
@@ -208,7 +212,6 @@
     "llm-wiki-java/raw/note/项目经验/死锁会导致CPU使用率升高吗？为什么？.md",
     "llm-wiki-java/raw/note/项目经验/死循环会导致CPU使用率升高吗？为什么？.md",
     "llm-wiki-java/raw/note/项目经验/服务器被注入挖矿木马问题排查.md",
-    "llm-wiki-java/raw/note/项目经验/服务发布分10批，第一批发完后负载很高后面恢复正常，如何处理？.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
     "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",
@@ -216,9 +219,6 @@
     "llm-wiki-java/raw/note/tuling/15-zookeeper",
     "llm-wiki-java/raw/note/tuling/12-分布式",
     "llm-wiki-java/raw/note/tuling/11-大数据",
-    "llm-wiki-java/raw/note/tuling/10-k8s",
-    "llm-wiki-java/raw/note/tuling/09-微服务",
-    "llm-wiki-java/raw/note/tuling/08-mq",
     "未命名 2.canvas",
     "未命名 1.canvas",
     "未命名.canvas"
