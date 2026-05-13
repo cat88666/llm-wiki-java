@@ -129,13 +129,14 @@ GC Roots 包括：系统类加载器加载的类、活跃线程的栈变量、JN
 |------|------|---------|
 | `jps` | 查看 Java 进程 | `jps -v` |
 | `jstat` | 监控 GC 频率/堆使用 | `jstat -gcutil <pid> 1000` |
-| `jmap` | 对象分布 / Heap Dump | `jmap -histo:live <pid>` |
+| `jmap` | 对象分布 / Heap Dump | `jmap -histo:live <pid>` / `jmap -dump:format=b,file=heap.bin <pid>` |
 | `jstack` | 线程快照 | `jstack <pid>` |
+| `jhat` | 分析 heap dump（浏览器访问）| `jhat heap.bin` |
 | `Arthas` | 线上诊断 | `dashboard` / `trace` / `watch` |
 | `VisualVM` | 图形化监控 | GUI |
 | `JProfiler/YourKit` | 商业分析工具 | 付费 |
 
-**生产首选 Arthas**：无侵入、不停服。
+**生产首选 Arthas**：无侵入、不停服，支持 `dashboard`（实时监控）、`trace`（方法调用链路耗时）、`watch`（方法入参/返回值）、`jad`（反编译）。
 
 ### 典型问题排查
 
@@ -156,10 +157,10 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 ```
 
 常见根因：
-- 老年代大量长生命周期对象
-- 静态集合累积
-- 对象分配速率超过 GC 回收速度
-- 堆设置过小
+- 老年代大量长生命周期对象，如缓存或大对象滞留
+- 静态集合累积，典型是 `static List/Map`
+- 对象分配速率超过 GC 回收速度，需要减少对象创建或做对象复用
+- 堆设置过小，需要结合业务负载评估 `-Xmx`
 
 #### OOM（OutOfMemoryError）
 
@@ -171,16 +172,16 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 | `Direct buffer memory` | Netty/NIO 堆外内存泄漏 | 检查 `ByteBuf` 是否调用 `release()` |
 | `unable to create new native thread` | 线程数超系统限制 | 减少线程数，检查线程泄漏 |
 
-**OOM 不一定导致 JVM 退出**：Error 被抛出后若被捕获，进程可能继续运行；生产常配合 `-XX:OnOutOfMemoryError` 做强制退出或拉起。
+**OOM 不一定导致 JVM 退出**：JVM 会把问题转成 `Error` 抛出；如果被 catch 住，进程可能继续运行。生产常配合 `-XX:OnOutOfMemoryError` 做强制退出或拉起。
 
 #### YoungGC 过于频繁
 
-原因：新生代太小、对象分配速率高。
+原因：新生代（Eden）太小，对象分配速率高，Eden 很快填满触发 YoungGC。
 
 处理：
-- 调整 `-XX:NewRatio`
-- 直接设置 `-Xmn`
-- 减少短生命周期对象创建
+- 增大新生代比例：`-XX:NewRatio=2`（老年代:新生代 = 2:1）
+- 直接设置新生代大小：`-Xmn2g`
+- 减少短生命周期对象创建，关键代码路径避免频繁 `new`
 
 #### STW 暂停过长
 
@@ -196,6 +197,10 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 - 堆 > 8G
 - 极低延迟场景
 - 能接受更高 CPU 开销
+
+补充：
+- 停顿时间通常可做到 < 1ms，且与堆大小弱相关
+- 代价是更高的并发 GC 线程 CPU 开销
 
 ### Java 8 → Java 11 GC 差异
 
