@@ -10,7 +10,7 @@ Java 后端工程师知识库。
 - [更新日志](wiki/log.md)
 - [维护规范](CLAUDE.md)
 
-`wiki/index.md` 是主要入口。索引按 L0-L8 分层组织，并在最后一列提供可点击关键词，例如进程、线程、JVM、AQS、InnoDB、Kafka、DDD、秒杀等。
+`wiki/index.md` 是主要入口，由脚本自动生成。索引用一张表按 L0-L8 分层组织，并在最后一列提供可点击关键词，例如进程、线程、JVM、AQS、InnoDB、Kafka、DDD、秒杀等。
 
 ## 当前规模
 
@@ -42,8 +42,11 @@ Java 后端工程师知识库。
 ```text
 .
 ├── raw/                 # 原始资料，只作为来源，不直接当作知识库入口
+├── scripts/
+│   └── build_index.py   # 根据 index.meta.toml 自动生成 wiki/index.md
 ├── wiki/
-│   ├── index.md         # 总索引，覆盖所有 wiki 页面
+│   ├── index.md         # 自动生成的总索引，覆盖所有 wiki 页面
+│   ├── index.meta.toml  # 手动维护的索引配置：层级、主题入口、关键词
 │   ├── log.md           # 更新日志
 │   ├── concepts/        # 概念、机制、模型、算法
 │   ├── summaries/       # 主题级聚合总结
@@ -56,14 +59,35 @@ Java 后端工程师知识库。
 
 1. 从 [知识库总索引](wiki/index.md) 进入。
 2. 如果要按体系复习，优先看 `主题` 列。
-3. 如果要查一个具体概念，使用最后一列 `关键词`。
+3. 如果要查一个具体概念，优先看 `关键词` 列。
 4. 如果要准备系统设计或高阶面试，优先看 `综合分析` 列。
-5. 如果要追溯维护记录，看 [wiki/log.md](wiki/log.md)。
+5. 如果要追溯维护记录，看表格里的 `M / 维护` 行，或直接看 [wiki/log.md](wiki/log.md)。
+
+## 索引维护
+
+不要直接手改 `wiki/index.md`。它是生成文件。
+
+日常只需要维护：
+
+- `wiki/index.meta.toml`：层级名称、主题入口、综合分析入口、关键词。
+- `wiki/concepts/`、`wiki/summaries/`、`wiki/synthesis/`：新增或调整知识页面。
+
+重新生成索引：
+
+```bash
+python3 scripts/build_index.py
+```
+
+检查索引是否最新、是否覆盖所有 wiki 页面、是否存在坏链：
+
+```bash
+python3 scripts/build_index.py --check
+```
 
 ## 维护原则
 
 - `raw/` 保持只读，用作来源资料。
-- 新增或调整 `wiki/` 页面后，同步更新 [wiki/index.md](wiki/index.md)。
+- 新增或调整 `wiki/` 页面后，必要时更新 `wiki/index.meta.toml`，再运行 `python3 scripts/build_index.py`。
 - 总索引必须覆盖所有 wiki Markdown 页面，且不能出现失效链接。
 - 概念页优先写清第一性原理、核心机制、关键权衡和应用边界。
 - 综合分析页优先服务真实问题：系统设计、选型权衡、面试追问和项目表达。

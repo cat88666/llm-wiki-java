@@ -32,7 +32,8 @@ llm-wiki-java/
 │   │   └── 非技术问题/
 │   └── articles/               ← 技术文章原文
 └── wiki/                       ← AI 编译的结构化知识库
-    ├── index.md                ← 总索引，每次操作后更新
+    ├── index.md                ← 自动生成的总索引，不直接手改
+    ├── index.meta.toml         ← 手动维护的索引配置
     ├── log.md                  ← 操作日志，append-only
     ├── concepts/               ← 抽象概念（机制 / 原理 / 模型 / 算法）
     ├── entities/               ← 具体实体（框架 / 工具 / 组件 / 规范）
@@ -97,7 +98,7 @@ llm-wiki-java/
    - 模块知识聚合 → `summaries/`
    - 跨层比较/设计 → `synthesis/`
 4. 优先更新已有页面，再新建
-5. 更新 `wiki/index.md`，追加 `wiki/log.md`
+5. 必要时更新 `wiki/index.meta.toml`，运行 `python3 scripts/build_index.py` 生成 `wiki/index.md`，追加 `wiki/log.md`
 
 **Java 特定规则：**
 - 原始笔记是"✅问题" → 提取其背后的概念，不要照搬问答形式
@@ -135,9 +136,16 @@ llm-wiki-java/
 
 ## 六、index.md 与 log.md 更新规范
 
-**index.md** 格式：
-```markdown
-- [[页面名]](相对路径) — 一句话描述 `#标签`
+**index.md** 是生成文件，不直接手改。
+
+手动维护入口：
+- `wiki/index.meta.toml`：维护 L0-L8 层级、主题入口、综合分析入口、关键词。
+- `wiki/concepts/`、`wiki/summaries/`、`wiki/synthesis/`：新增或调整知识页面。
+
+生成与校验：
+```bash
+python3 scripts/build_index.py
+python3 scripts/build_index.py --check
 ```
 
 **log.md** 格式：

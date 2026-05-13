@@ -1,0 +1,163 @@
+[settings]
+title = "Java 知识库索引"
+description = "本文件由 scripts/build_index.py 根据 wiki/index.meta.toml 和 wiki/ 目录自动生成。"
+
+[[layers]]
+id = "L0"
+name = "计算机基础"
+concept_dirs = ["concepts/01-cs-base"]
+summaries = []
+synthesis = []
+keywords = [
+  { text = "进程", path = "concepts/01-cs-base/概念-操作系统进程线程.md" },
+  { text = "线程", path = "concepts/01-cs-base/概念-操作系统进程线程.md" },
+  { text = "协程", path = "concepts/01-cs-base/概念-操作系统进程线程.md" },
+  { text = "TCP", path = "concepts/01-cs-base/概念-计算机网络.md" },
+  { text = "HTTP", path = "concepts/01-cs-base/概念-计算机网络.md" },
+  { text = "IO多路复用", path = "concepts/01-cs-base/概念-IO模型.md" },
+]
+
+[[layers]]
+id = "L1"
+name = "Java基础"
+concept_dirs = ["concepts/02-java-lang"]
+summaries = ["summaries/主题-Java语言基础.md"]
+synthesis = []
+keywords = [
+  { text = "值类型", path = "concepts/02-java-lang/概念-Java基础值类型.md" },
+  { text = "OOP", path = "concepts/02-java-lang/概念-OOP三大特征.md" },
+  { text = "异常", path = "concepts/02-java-lang/概念-Java异常体系.md" },
+  { text = "泛型", path = "concepts/02-java-lang/机制-泛型类型擦除.md" },
+  { text = "反射", path = "concepts/02-java-lang/机制-反射与动态代理.md" },
+  { text = "SPI", path = "concepts/02-java-lang/机制-SPI.md" },
+]
+
+[[layers]]
+id = "L2"
+name = "JVM"
+concept_dirs = ["concepts/03-jvm"]
+summaries = ["summaries/主题-JVM体系.md"]
+synthesis = ["synthesis/设计-JVM调优实战.md"]
+keywords = [
+  { text = "内存模型", path = "concepts/03-jvm/机制-JVM内存模型.md" },
+  { text = "类加载", path = "concepts/03-jvm/机制-类加载机制.md" },
+  { text = "GC", path = "concepts/03-jvm/机制-GC算法与垃圾收集器.md" },
+  { text = "JIT", path = "concepts/03-jvm/机制-JIT编译.md" },
+  { text = "调优", path = "synthesis/设计-JVM调优实战.md" },
+]
+
+[[layers]]
+id = "L3"
+name = "Java并发"
+concept_dirs = ["concepts/04-concurrency"]
+summaries = ["summaries/主题-Java并发体系.md", "summaries/主题-锁体系.md"]
+synthesis = []
+keywords = [
+  { text = "JMM", path = "concepts/04-concurrency/概念-JMM.md" },
+  { text = "ThreadLocal", path = "concepts/04-concurrency/概念-ThreadLocal.md" },
+  { text = "synchronized", path = "concepts/04-concurrency/机制-synchronized.md" },
+  { text = "CAS", path = "concepts/04-concurrency/机制-CAS.md" },
+  { text = "AQS", path = "concepts/04-concurrency/机制-AQS.md" },
+  { text = "线程池", path = "concepts/04-concurrency/机制-线程池.md" },
+]
+
+[[layers]]
+id = "L4"
+name = "集合 / 算法 / 数据结构"
+concept_dirs = ["concepts/05-data-structure"]
+summaries = ["summaries/主题-Java集合框架.md", "summaries/主题-数据结构体系.md"]
+synthesis = ["synthesis/设计-算法高频题型.md", "synthesis/设计-海量数据处理.md"]
+keywords = [
+  { text = "HashMap", path = "concepts/05-data-structure/机制-HashMap底层实现.md" },
+  { text = "ConcurrentHashMap", path = "concepts/05-data-structure/机制-ConcurrentHashMap并发设计.md" },
+  { text = "红黑树", path = "concepts/05-data-structure/机制-红黑树.md" },
+  { text = "B+树", path = "concepts/05-data-structure/机制-B树与B加树.md" },
+  { text = "堆", path = "concepts/05-data-structure/机制-堆与优先队列.md" },
+  { text = "布隆过滤器", path = "concepts/05-data-structure/概念-BitMap与布隆过滤器.md" },
+]
+
+[[layers]]
+id = "L5"
+name = "Redis / MySQL / 存储"
+concept_dirs = ["concepts/06-storage"]
+summaries = ["summaries/主题-MySQL体系.md", "summaries/主题-Redis体系.md"]
+synthesis = ["synthesis/设计-多级缓存架构.md", "synthesis/设计-Redis实战场景.md"]
+keywords = [
+  { text = "SQL优化", path = "concepts/06-storage/概念-SQL查询优化.md" },
+  { text = "InnoDB索引", path = "concepts/06-storage/机制-InnoDB索引.md" },
+  { text = "InnoDB锁", path = "concepts/06-storage/机制-InnoDB锁.md" },
+  { text = "MVCC", path = "concepts/06-storage/机制-MVCC.md" },
+  { text = "MySQL日志", path = "concepts/06-storage/机制-MySQL三种日志.md" },
+  { text = "Redis锁", path = "concepts/06-storage/机制-Redis分布式锁.md" },
+  { text = "缓存问题", path = "concepts/06-storage/概念-缓存三大问题.md" },
+]
+
+[[layers]]
+id = "L6"
+name = "Spring / SpringBoot"
+concept_dirs = ["concepts/07-framework"]
+summaries = ["summaries/主题-Spring体系.md"]
+synthesis = []
+keywords = [
+  { text = "IoC", path = "concepts/07-framework/机制-IoC容器.md" },
+  { text = "AOP", path = "concepts/07-framework/机制-AOP织入.md" },
+  { text = "事务", path = "concepts/07-framework/机制-Spring事务.md" },
+  { text = "自动装配", path = "concepts/07-framework/机制-SpringBoot自动装配.md" },
+  { text = "SpringMVC", path = "concepts/07-framework/机制-SpringMVC请求处理链.md" },
+  { text = "MyBatis", path = "concepts/07-framework/机制-MyBatis.md" },
+]
+
+[[layers]]
+id = "L7"
+name = "分布式 / 中间件"
+concept_dirs = ["concepts/08-distributed"]
+summaries = ["summaries/主题-消息队列体系.md"]
+synthesis = [
+  "synthesis/设计-分布式场景综合.md",
+  "synthesis/设计-分布式事务.md",
+  "synthesis/设计-分库分表.md",
+  "synthesis/设计-订单超时关闭.md",
+  "synthesis/设计-支付系统设计.md",
+  "synthesis/设计-账户钱包系统.md",
+]
+keywords = [
+  { text = "分布式理论", path = "concepts/08-distributed/概念-分布式系统理论.md" },
+  { text = "幂等", path = "concepts/08-distributed/概念-幂等设计.md" },
+  { text = "限流熔断", path = "concepts/08-distributed/概念-限流与熔断.md" },
+  { text = "Kafka", path = "concepts/08-distributed/机制-Kafka.md" },
+  { text = "Nacos", path = "concepts/08-distributed/机制-配置中心与Nacos.md" },
+  { text = "Dubbo", path = "concepts/08-distributed/机制-RPC与Dubbo.md" },
+  { text = "Netty", path = "concepts/08-distributed/机制-Netty.md" },
+  { text = "OAuth2", path = "concepts/08-distributed/概念-OAuth2授权协议.md" },
+]
+
+[[layers]]
+id = "L8"
+name = "架构与实践"
+concept_dirs = ["concepts/09-practice"]
+summaries = ["summaries/主题-三高体系.md", "summaries/主题-源码体系.md"]
+synthesis = [
+  "synthesis/系统设计-秒杀系统.md",
+  "synthesis/系统设计-区块链OTC平台.md",
+  "synthesis/系统设计-IM通信系统.md",
+  "synthesis/系统设计-短链服务.md",
+  "synthesis/系统设计-彩票系统.md",
+  "synthesis/系统设计-游戏架构系统.md",
+  "synthesis/设计-P7架构思维.md",
+  "synthesis/设计-Gacha与游戏高并发.md",
+  "synthesis/设计-德州扑克核心算法.md",
+  "synthesis/设计-接口设计与防护.md",
+  "synthesis/设计-容量规划与性能基准.md",
+  "synthesis/设计-项目难点表达.md",
+  "synthesis/设计-P8高频边界问题.md",
+  "synthesis/mock-interview-eson.md",
+]
+keywords = [
+  { text = "DDD", path = "concepts/09-practice/概念-DDD.md" },
+  { text = "秒杀", path = "synthesis/系统设计-秒杀系统.md" },
+  { text = "短链", path = "synthesis/系统设计-短链服务.md" },
+  { text = "容量规划", path = "synthesis/设计-容量规划与性能基准.md" },
+  { text = "接口防护", path = "synthesis/设计-接口设计与防护.md" },
+  { text = "项目难点", path = "synthesis/设计-项目难点表达.md" },
+  { text = "P8边界", path = "synthesis/设计-P8高频边界问题.md" },
+]
