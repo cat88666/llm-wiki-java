@@ -6,7 +6,6 @@
       {
         "id": "c11af3df672bcc7a",
         "type": "tabs",
-        "dimension": 99.99999999999999,
         "children": [
           {
             "id": "998306c6bd3d09f8",
@@ -14,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "llm-wiki-java/wiki/synthesis/设计-分库分表.md",
+                "file": "llm-wiki-java/wiki/concepts/08-distributed/机制-配置中心与Nacos.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "设计-分库分表"
+              "title": "机制-配置中心与Nacos"
             }
           }
         ]
@@ -54,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "线程 进程 区别",
+                "query": "nacos",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 285.5
   },
   "right": {
     "id": "9f425c7537562bad",
@@ -181,44 +180,44 @@
       "bases:新建数据库": false
     }
   },
-  "active": "998306c6bd3d09f8",
+  "active": "d170bbbea78c75c6",
   "lastOpenFiles": [
-    "llm-wiki-java/wiki/synthesis/系统设计-游戏架构系统.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-IM通信系统.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-彩票系统.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-彩票系统核心设计.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-在线游戏平台架构.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-区块链OTC平台.md",
-    "llm-wiki-java/wiki/synthesis/设计-短链服务.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-短链服务.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-秒杀系统.md",
-    "llm-wiki-java/wiki/synthesis/系统设计-IM即时通信系统.md",
-    "llm-wiki-java/wiki/synthesis/设计-JVM调优实战.md",
+    "llm-wiki-java/wiki/synthesis/mock-interview-eson.md",
+    "llm-wiki-java/wiki/concepts/07-framework/机制-设计模式.md",
+    "llm-wiki-java/wiki/synthesis/设计-接口设计与防护.md",
+    "llm-wiki-java/wiki/synthesis/设计-分库分表.md",
     "llm-wiki-java/wiki/synthesis/设计-账户钱包系统.md",
     "llm-wiki-java/wiki/synthesis/设计-支付系统设计.md",
-    "llm-wiki-java/wiki/synthesis/设计-分库分表.md",
-    "llm-wiki-java/wiki/synthesis/设计-P8高频边界问题.md",
-    "llm-wiki-java/wiki/synthesis/设计-Redis实战场景.md",
-    "llm-wiki-java/raw/note/Hollis/Hollis.zip",
-    "llm-wiki-java/raw/note/Hollis/Java并发/✅能不能谈谈你对线程安全的理解？.md",
-    "llm-wiki-java/raw/note/Hollis.zip",
-    "llm-wiki-java/raw/note/tuling/tuling.zip",
-    "llm-wiki-java/raw/note/tuling.zip",
+    "llm-wiki-java/wiki/synthesis/设计-德州扑克核心算法.md",
+    "llm-wiki-java/wiki/synthesis/设计-JVM调优实战.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-秒杀系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-短链服务.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-游戏架构系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-彩票系统.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-区块链OTC平台.md",
+    "llm-wiki-java/wiki/synthesis/系统设计-IM通信系统.md",
+    "llm-wiki-java/wiki/summaries/主题-锁体系.md",
+    "llm-wiki-java/wiki/summaries/主题-源码体系.md",
     "llm-wiki-java/wiki/concepts/07-framework/机制-MyBatis.md",
     "llm-wiki-java/wiki/concepts/06-storage/机制-InnoDB锁.md",
-    "llm-wiki-java/wiki/synthesis/设计-DDD落地实战.md",
     "llm-wiki-java/wiki/concepts/06-storage/机制-InnoDB索引.md",
-    "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统基础.md",
-    "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统进程线程.md",
-    "llm-wiki-java/wiki/concepts/01-cs-base/概念-IO模型.md",
-    "llm-wiki-java/raw/note/Hollis/分布式.md",
+    "llm-wiki-java/wiki/concepts/05-data-structure/概念-BitMap与布隆过滤器.md",
     "llm-wiki-java/wiki/concepts/02-java-lang/概念-Java基础值类型.md",
+    "llm-wiki-java/wiki/concepts/02-java-lang/机制-反射与动态代理.md",
+    "llm-wiki-java/wiki/concepts/01-cs-base/概念-操作系统进程线程.md",
+    "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查.md",
+    "llm-wiki-java/raw/note/项目经验/频繁FullGC问题排查(2).md",
+    "llm-wiki-java/raw/note/项目经验/问题总结.md",
     "llm-wiki-java/raw/note/项目经验",
     "llm-wiki-java/raw/note/架构体系",
+    "llm-wiki-java/raw/note/tuling/tuling.zip",
+    "llm-wiki-java/raw/note/Hollis/Hollis.zip",
+    "llm-wiki-java/wiki/entities",
+    "llm-wiki-java/raw/note/Hollis.zip",
+    "llm-wiki-java/raw/note/tuling.zip",
     "llm-wiki-java/raw/note/tuling/11-大数据/10-ELK概念",
     "llm-wiki-java/raw/note/tuling/08-mq/Kafka",
     "llm-wiki-java/raw/note/tuling/15-zookeeper",
-    "llm-wiki-java/raw/note/tuling/12-分布式",
     "未命名 2.canvas",
     "未命名 1.canvas",
     "未命名.canvas"
