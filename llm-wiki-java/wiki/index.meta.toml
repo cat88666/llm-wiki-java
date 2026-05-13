@@ -9,9 +9,9 @@ concept_dirs = ["concepts/01-cs-base"]
 summaries = []
 synthesis = []
 keywords = [
-  { text = "进程", path = "concepts/01-cs-base/概念-操作系统进程线程.md" },
-  { text = "线程", path = "concepts/01-cs-base/概念-操作系统进程线程.md" },
-  { text = "协程", path = "concepts/01-cs-base/概念-操作系统进程线程.md" },
+  { text = "进程", path = "concepts/01-cs-base/概念-操作系统.md" },
+  { text = "线程", path = "concepts/01-cs-base/概念-操作系统.md" },
+  { text = "协程", path = "concepts/01-cs-base/概念-操作系统.md" },
   { text = "TCP", path = "concepts/01-cs-base/概念-计算机网络.md" },
   { text = "HTTP", path = "concepts/01-cs-base/概念-计算机网络.md" },
   { text = "IO多路复用", path = "concepts/01-cs-base/概念-IO模型.md" },

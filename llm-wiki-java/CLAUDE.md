@@ -131,6 +131,7 @@ llm-wiki-java/
 - 来源路径：相对路径 `../../raw/note/Hollis/模块名/文件名.md`
 - 文件命名：遵循 `.claude/skills/naming/SKILL.md` 规则
 - 层级标签：每个 concept 页 frontmatter 中必须包含 `layer` 字段（L1-L8）
+- 重构 `wiki/concepts/` 页面时，默认使用 `wiki/templates/rewrite-concept-prompt.md` 中的重写模板：保留 frontmatter/sources，增加快速导航，二级标题使用中文编号，内容按第一性原理、核心机制、Java 核心使用、使用原则、案例、综合对比、生产风险、概念关系、应用边界组织。
 
 ---
 
