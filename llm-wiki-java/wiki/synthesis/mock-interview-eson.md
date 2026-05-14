@@ -11,7 +11,7 @@ related:
   - "[[机制-RocketMQ]]"
   - "[[机制-数据加密与脱敏]]"
   - "[[系统设计-彩票系统]]"
-  - "[[系统设计-区块链OTC平台]]"
+  - "[[系统设计-区块链OTC]]"
 sources:
   - "../../raw/note/Interview/Eson.md"
 created: 2026-05-11

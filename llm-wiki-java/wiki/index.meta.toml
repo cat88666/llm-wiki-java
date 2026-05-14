@@ -148,8 +148,8 @@ concept_dirs = ["concepts/09-practice"]
 summaries = ["summaries/主题-三高体系.md", "summaries/主题-源码体系.md"]
 synthesis = [
   "synthesis/系统设计-秒杀系统.md",
-  "synthesis/系统设计-区块链OTC平台.md",
-  "synthesis/系统设计-IM通信系统.md",
+  "synthesis/系统设计-区块链OTC.md",
+  "synthesis/系统设计-IM系统.md",
   "synthesis/系统设计-短链服务.md",
   "synthesis/系统设计-彩票系统.md",
   "synthesis/系统设计-游戏架构系统.md",
