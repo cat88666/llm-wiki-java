@@ -20,16 +20,16 @@ keywords = [
 [[layers]]
 id = "L1"
 name = "Java基础"
-concept_dirs = ["concepts/02-java-lang"]
+concept_dirs = ["concepts/02-java"]
 summaries = ["summaries/主题-Java语言基础.md"]
 synthesis = []
 keywords = [
-  { text = "值类型", path = "concepts/02-java-lang/概念-Java基础值类型.md" },
-  { text = "OOP", path = "concepts/02-java-lang/概念-OOP三大特征.md" },
-  { text = "异常", path = "concepts/02-java-lang/概念-Java异常体系.md" },
-  { text = "泛型", path = "concepts/02-java-lang/机制-泛型类型擦除.md" },
-  { text = "反射", path = "concepts/02-java-lang/机制-反射与动态代理.md" },
-  { text = "SPI", path = "concepts/02-java-lang/机制-SPI.md" },
+  { text = "值类型", path = "concepts/02-java/概念-Java基础值类型.md" },
+  { text = "OOP", path = "concepts/02-java/概念-OOP三大特征.md" },
+  { text = "异常", path = "concepts/02-java/概念-Java异常体系.md" },
+  { text = "泛型", path = "concepts/02-java/机制-泛型类型擦除.md" },
+  { text = "反射", path = "concepts/02-java/机制-反射与动态代理.md" },
+  { text = "SPI", path = "concepts/02-java/机制-SPI.md" },
 ]
 
 [[layers]]
