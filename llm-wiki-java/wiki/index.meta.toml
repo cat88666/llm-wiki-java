@@ -131,7 +131,7 @@ synthesis = [
 keywords = [
   { text = "分布式理论", path = "concepts/08-distributed/概念-分布式系统理论.md" },
   { text = "幂等", path = "concepts/08-distributed/概念-幂等设计.md" },
-  { text = "限流熔断", path = "concepts/08-distributed/概念-限流与熔断.md" },
+  { text = "限流熔断", path = "summaries/主题-三高体系.md" },
   { text = "Kafka", path = "concepts/08-distributed/机制-Kafka.md" },
   { text = "Nacos", path = "concepts/08-distributed/机制-配置中心与Nacos.md" },
   { text = "Dubbo", path = "concepts/08-distributed/机制-RPC与Dubbo.md" },

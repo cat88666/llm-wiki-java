@@ -8,7 +8,7 @@ tags: ["#practice", "#framework"]
 related:
   - "[[机制-微服务与SpringCloud]]"
   - "[[主题-设计模式]]"
-  - "[[概念-高可用设计]]"
+  - "[[主题-三高体系]]"
   - "[[设计-分布式事务]]"
   - "[[机制-Spring]]"
 sources:

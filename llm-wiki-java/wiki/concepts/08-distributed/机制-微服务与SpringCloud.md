@@ -9,7 +9,7 @@ related:
   - "[[机制-ZAB协议与Zookeeper]]"
   - "[[机制-Spring]]"
   - "[[机制-SpringBoot]]"
-  - "[[概念-高可用设计]]"
+  - "[[主题-三高体系]]"
 sources:
   - "../../../raw/note/Hollis/SpringCloud/✅什么是SpringCloud，有哪些组件？.md"
   - "../../../raw/note/Hollis/SpringCloud/✅SpringCloud和Dubbo有什么区别？.md"

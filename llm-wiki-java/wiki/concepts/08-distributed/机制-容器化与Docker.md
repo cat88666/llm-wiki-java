@@ -8,7 +8,7 @@ tags: ["#devops"]
 related:
   - "[[机制-微服务与SpringCloud]]"
   - "[[机制-RPC与Dubbo]]"
-  - "[[概念-高可用设计]]"
+  - "[[主题-三高体系]]"
 sources:
   - "../../../raw/note/Hollis/容器/✅容器和虚拟机的区别是什么？.md"
   - "../../../raw/note/Hollis/容器/✅为什么要使用Docker？.md"
@@ -244,7 +244,7 @@ Java 应用天然不占优：
 
 - **[[机制-微服务与SpringCloud]]**：云原生是微服务的基础设施层承载方式
 - **[[机制-RPC与Dubbo]]**：容器环境中服务发现和 IP 漂移会影响 RPC 治理
-- **[[概念-高可用设计]]**：K8s Deployment、HPA、Probe、反亲和性是高可用的基础设施手段
+- **[[主题-三高体系]]**：K8s Deployment、HPA、Probe、反亲和性是高可用的基础设施手段
 
 ---
 
