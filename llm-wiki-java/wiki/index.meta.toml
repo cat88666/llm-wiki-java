@@ -76,7 +76,7 @@ id = "L4"
 name = "集合 / 算法 / 数据结构"
 concept_dirs = ["concepts/05-data-structure"]
 summaries = ["concepts/02-java/概念-Java集合.md", "concepts/05-data-structure/概念-数据结构体系.md"]
-synthesis = ["synthesis/设计-算法高频题型.md", "synthesis/设计-海量数据处理.md"]
+synthesis = ["summaries/主题-高频算法.md", "summaries/主题-海量数据.md"]
 keywords = [
   { text = "HashMap", path = "concepts/02-java/机制-HashMap.md" },
   { text = "ConcurrentHashMap", path = "concepts/02-java/机制-ConcurrentHashMap.md" },
@@ -121,17 +121,17 @@ keywords = [
 id = "L7"
 name = "分布式 / 中间件"
 concept_dirs = ["concepts/08-distributed"]
-summaries = ["summaries/主题-消息队列体系.md"]
+summaries = ["summaries/主题-消息队列.md"]
 synthesis = [
-  "synthesis/设计-分布式场景综合.md",
-  "synthesis/设计-分布式事务.md",
+  "concepts/08-distributed/概念-分布式场景.md",
+  "concepts/08-distributed/概念-分布式事务.md",
   "concepts/06-storage/概念-分库分表.md",
   "synthesis/系统设计-支付系统.md",
 ]
 keywords = [
-  { text = "分布式理论", path = "concepts/08-distributed/概念-分布式系统理论.md" },
+  { text = "分布式理论", path = "concepts/08-distributed/概念-分布式理论.md" },
   { text = "幂等", path = "concepts/08-distributed/概念-幂等设计.md" },
-  { text = "限流熔断", path = "summaries/主题-三高体系.md" },
+  { text = "限流熔断", path = "summaries/主题-三高架构.md" },
   { text = "Kafka", path = "concepts/08-distributed/机制-Kafka.md" },
   { text = "Nacos", path = "concepts/08-distributed/机制-配置中心与Nacos.md" },
   { text = "Dubbo", path = "concepts/08-distributed/机制-RPC与Dubbo.md" },
@@ -143,7 +143,7 @@ keywords = [
 id = "L8"
 name = "架构与实践"
 concept_dirs = ["concepts/09-practice"]
-summaries = ["summaries/主题-三高体系.md", "summaries/主题-源码体系.md"]
+summaries = ["summaries/主题-三高架构.md", "summaries/主题-源码体系.md"]
 synthesis = [
   "synthesis/系统设计-区块链OTC.md",
   "synthesis/系统设计-IM系统.md",
@@ -154,7 +154,7 @@ synthesis = [
   "synthesis/系统设计-电商系统.md",
   "synthesis/设计-德州扑克核心算法.md",
   "synthesis/设计-接口设计与防护.md",
-  "synthesis/设计-容量规划与性能基准.md",
+  "summaries/主题-机器容量.md",
   "synthesis/设计-项目难点表达.md",
   "synthesis/设计-P8架构思维.md",
   "synthesis/mock-interview-eson.md",
@@ -163,7 +163,7 @@ keywords = [
   { text = "DDD", path = "concepts/09-practice/概念-DDD.md" },
   { text = "秒杀", path = "synthesis/系统设计-电商系统.md" },
   { text = "短链", path = "synthesis/系统设计-短链服务.md" },
-  { text = "容量规划", path = "synthesis/设计-容量规划与性能基准.md" },
+  { text = "容量规划", path = "summaries/主题-机器容量.md" },
   { text = "接口防护", path = "synthesis/设计-接口设计与防护.md" },
   { text = "项目难点", path = "synthesis/设计-项目难点表达.md" },
   { text = "P8边界", path = "synthesis/设计-P8架构思维.md" },

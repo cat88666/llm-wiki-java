@@ -195,3 +195,83 @@
 - 重命名 `llm-wiki-template/` → `llm-wiki-java/`
 - 重写根目录/实例 `CLAUDE.md`，建立 L1-L8 知识结构
 - Hollis 来源目录更名，清理 Notion 导出文件名 ID
+
+## [2026-05-14] Update | 重命名并移动分布式事务页面
+- synthesis/设计-分布式事务.md → concepts/08-distributed/概念-分布式事务.md
+- 更新 index.meta.toml 中的路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名并移动分布式场景综合页面
+- synthesis/设计-分布式场景综合.md → concepts/08-distributed/设计-分布式场景.md
+- 更新 index.meta.toml 中的路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名分布式任务调度页面
+- concepts/08-distributed/机制-分布式任务调度.md → 概念-分布式任务.md
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名分布式系统理论页面
+- concepts/08-distributed/概念-分布式系统理论.md → 概念-分布式理论.md
+- 更新 index.meta.toml 路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名分布式场景页面
+- concepts/08-distributed/设计-分布式场景.md → 概念-分布式场景.md
+- 更新 index.meta.toml 路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名并移动容量规划页面
+- synthesis/设计-容量规划与性能基准.md → summaries/主题-机器容量.md
+- 更新 index.meta.toml 两处路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名三高体系页面
+- summaries/主题-三高体系.md → 主题-三高架构.md
+- 更新 index.meta.toml 两处路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名消息队列体系页面
+- summaries/主题-消息队列体系.md → 主题-消息队列.md
+- 更新 index.meta.toml 路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名并移动海量数据处理页面
+- synthesis/设计-海量数据处理.md → summaries/主题-海量数据.md
+- 更新 index.meta.toml 路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名并移动算法高频题型页面
+- synthesis/设计-算法高频题型.md → summaries/主题-高频算法.md
+- 更新 index.meta.toml 路径引用
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名 Seata 页面
+- concepts/08-distributed/机制-Seata框架机制.md → 机制-Seata.md
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名 Zookeeper 页面
+- concepts/08-distributed/机制-ZAB协议与Zookeeper.md → 机制-Zookeeper.md
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名 ElasticSearch 页面
+- concepts/08-distributed/机制-倒排索引与ElasticSearch.md → 机制-ElasticSearch.md
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 重命名并移动 WebSocket 页面
+- concepts/08-distributed/机制-WebSocket协议.md → concepts/01-cs-base/机制-WebSocket.md
+- 重新生成 wiki/index.md（107 pages）
+
+## [2026-05-14] Update | 合并消息队列可靠性页面至 RabbitMQ
+- 将 concepts/08-distributed/机制-消息队列可靠性.md 内容合并入 机制-RabbitMQ.md
+- 新增：场景综合（Spring Event/BlockingQueue/拉推模式/乱序/Kafka吞吐/订单超时）、本地消息表两章节
+- 补充 8 条场景题 sources，更新 aliases 和 related
+- 删除 机制-消息队列可靠性.md
+- 重新生成 wiki/index.md
+
+## [2026-05-14] Update | 重命名 gRPC 页面
+- concepts/08-distributed/机制-gRPC与Protobuf.md → 机制-RPC与Protobuf.md
+- 重新生成 wiki/index.md（106 pages）
+
+## [2026-05-14] Update | 重命名 SpringCloud 页面
+- concepts/08-distributed/机制-微服务与SpringCloud.md → 机制-SpringCloud.md
+- 重新生成 wiki/index.md（106 pages）

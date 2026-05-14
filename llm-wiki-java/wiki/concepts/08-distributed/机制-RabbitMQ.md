@@ -3,12 +3,13 @@ type: concept
 status: active
 name: "RabbitMQ"
 layer: L7
-aliases: ["RabbitMQ", "AMQP", "消息队列", "死信队列", "延迟消息", "消费端限流", "镜像集群", "Publisher Confirm"]
+aliases: ["RabbitMQ", "AMQP", "消息队列", "死信队列", "延迟消息", "消费端限流", "镜像集群", "Publisher Confirm", "本地消息表", "消息可靠性", "幂等消费"]
 tags: ["#distributed"]
 related:
   - "[[机制-Kafka]]"
-  - "[[机制-消息队列可靠性]]"
   - "[[概念-幂等设计]]"
+  - "[[机制-Redis持久化]]"
+  - "[[概念-缓存三大问题]]"
 sources:
   - "../../../raw/note/Hollis/RabbitMQ/✅rabbitMQ的整体架构是怎么样的？.md"
   - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ是怎么做消息分发的？.md"
@@ -20,8 +21,16 @@ sources:
   - "../../../raw/note/Hollis/RabbitMQ/✅什么是RabbitMQ的死信队列？.md"
   - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ如何实现消费端限流.md"
   - "../../../raw/note/Hollis/RabbitMQ/✅介绍下RabbitMQ的事务机制.md"
+  - "../../../raw/note/Hollis/场景题/✅MQ出现消息乱序了如何解决？.md"
+  - "../../../raw/note/Hollis/场景题/✅Kafka，单分区单消费者实例，如何提高吞吐量.md"
+  - "../../../raw/note/Hollis/场景题/✅Spring Event和MQ有什么区别？各自适用场景是什么？.md"
+  - "../../../raw/note/Hollis/场景题/✅消息队列使用拉模式好还是推模式好？为什么？.md"
+  - "../../../raw/note/Hollis/场景题/✅为什么不建议使用MQ实现订单到期关闭？.md"
+  - "../../../raw/note/Hollis/场景题/✅为什么不直接用原生的BlockinQueue做消息队列.md"
+  - "../../../raw/note/Hollis/场景题/✅用了本地消息表的方案，如果下游执行失败了上游如何回滚？.md"
+  - "../../../raw/note/Hollis/场景题/✅为了避免丢消息问题需要落表，如何设计这张消息表？.md"
 created: 2026-05-08
-updated: 2026-05-08
+updated: 2026-05-14
 lint_notes: ""
 ---
 
@@ -121,8 +130,78 @@ channel.basicAck(deliveryTag, false);
 
 - 区别于 [[机制-Kafka]]：Kafka 面向高吞吐流处理（顺序写、Consumer Group offset 管理）；RabbitMQ 面向灵活路由和任务队列（AMQP、Exchange 路由、消费后删除）；金融/订单业务倾向 RabbitMQ/RocketMQ，日志/大数据倾向 Kafka
 - 依赖 [[概念-幂等设计]]：网络延迟可能导致重复消费，消费者必须结合唯一标识实现幂等（"一锁、二判、三更新"）
-- 支撑了 [[机制-消息队列可靠性]]：三道防线（Confirm + 持久化 + ACK）是消息队列可靠性的标准实现模式
 - 关联 [[系统设计-支付系统]]：死信队列 + TTL 是实现订单超时关闭的常见方案
+
+## 场景综合
+
+### Spring Event vs MQ
+
+| 维度 | Spring Event | MQ |
+|------|-------------|----|
+| 作用范围 | 同 JVM | 跨服务/跨进程 |
+| 可靠性 | 进程崩溃即丢失 | 可持久化 |
+| 延迟 | 极低 | 毫秒级 |
+| 运维成本 | 低 | 高 |
+| 典型场景 | 同服务模块解耦 | 跨服务异步通信、削峰 |
+
+**原则**：同服务内解耦优先 Spring Event；跨服务、持久化、削峰才用 MQ。
+
+### BlockingQueue vs MQ
+
+`BlockingQueue` 只适合同 JVM 内线程协作，不适合分布式消息：不持久化、不能跨进程、没有路由能力、没有重试和死信、没有监控和堆积治理。
+
+### 拉模式 vs 推模式
+
+| | 拉模式（Kafka）| 推模式（RabbitMQ）|
+|--|---|---|
+| 控制权 | 消费者主动拉 | Broker 主动推 |
+| 实时性 | 略低 | 更高 |
+| 过载风险 | 不易压垮消费者 | 需配合限流 |
+| 批量消费 | 天然适合 | 需额外控制 |
+
+### 消息乱序：四种解法
+
+1. **顺序消息**：同一业务 key 进同一 Partition / Queue
+2. **前置状态判断**：消息携带 `beforeStatus`，消费时校验状态机
+3. **事件表 + 异步重试**：先落事件表，再异步按序处理
+4. **业务容忍乱序**：通过最终状态覆盖或幂等推进规避顺序依赖
+
+### Kafka 单分区消费提吞吐
+
+约束：单 Partition 在同一 Consumer Group 下只能被一个消费者消费。可行方案：增大 `max.poll.records`、poll 线程只拉取业务放线程池异步处理、批量写 DB；根本解法是增加 Partition。
+
+### 为什么不建议用 MQ 实现订单超时关闭
+
+主要问题：延迟不够精准、消息可靠性要求高、重复消费需幂等、已投递消息难取消。更推荐：Redisson `RDelayedQueue`、调度框架扫表、专用延迟任务系统。
+
+## 本地消息表
+
+### 下游失败时上游如何处理
+
+原则：**不回滚上游已提交业务，只保证下游最终一致。**
+
+流程：上游业务提交成功 → 消息表写入 `PENDING` → 定时任务扫描待发送消息 → 下游失败则重试 → 超阈值进入 `FAILED` + 报警 → 人工补偿。
+
+### 消息表设计
+
+```sql
+CREATE TABLE message_record (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    msg_id VARCHAR(64) NOT NULL UNIQUE,
+    biz_id VARCHAR(64) NOT NULL,
+    biz_type VARCHAR(32) NOT NULL,
+    topic VARCHAR(64),
+    payload TEXT,
+    state TINYINT DEFAULT 0,
+    retry_count INT DEFAULT 0,
+    next_retry_time DATETIME,
+    create_time DATETIME,
+    update_time DATETIME,
+    INDEX idx_state_retry (state, next_retry_time)
+);
+```
+
+双保险：业务操作和消息表写入同事务；定时任务扫描未发送消息重投。
 
 ## 应用边界
 
