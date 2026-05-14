@@ -1,7 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## 仓库用途
 
 受约束的 Karpathy LLM Wiki 工程，面向 **Java 后端工程师知识体系**。  
