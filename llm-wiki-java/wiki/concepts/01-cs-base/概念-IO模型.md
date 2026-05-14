@@ -2,7 +2,7 @@
 type: concept
 status: active
 name: "IO模型"
-layer: L1
+layer: L0
 aliases: ["BIO", "NIO", "AIO", "同步阻塞IO", "同步非阻塞IO", "异步IO", "零拷贝", "epoll", "Page Cache", "IO多路复用"]
 related:
   - "[[概念-操作系统]]"

@@ -6,7 +6,7 @@ layer: L1
 aliases: ["JDK新特性", "Java新特性", "虚拟线程", "Virtual Threads", "Record", "Sealed Classes", "Lambda", "Stream API", "Optional", "invokedynamic", "JDK21", "JDK17", "JDK16", "JDK11", "JDK8"]
 tags: ["#java-lang"]
 related:
-  - "[[机制-Lambda表达式]]"
+  - "[[机制-Lambda]]"
   - "[[机制-线程池]]"
   - "[[概念-JMM]]"
 sources:
@@ -117,7 +117,7 @@ ExecutorService exec = Executors.newVirtualThreadPerTaskExecutor();
 
 ## 与其他概念的关系
 
-- **依赖 [[机制-Lambda表达式]]**：Lambda/Stream 是 JDK8 的基础，invokedynamic 实现原理见机制-Lambda表达式
+- **依赖 [[机制-Lambda]]**：Lambda/Stream 是 JDK8 的基础，invokedynamic 实现原理见机制-Lambda表达式
 - **关联 [[机制-线程池]]**：虚拟线程替代的是 `newCachedThreadPool` 等 IO 密集型场景，不替代 CPU 密集型的固定线程池
 - **关联 [[概念-JMM]]**：虚拟线程遵守同样的 JMM 可见性规则；`synchronized` 在虚拟线程上会 pin 载体线程
 
