@@ -1,5 +1,18 @@
 # Wiki Log
 
+## [2026-05-14] Update | 重写 concepts/04-concurrency 全部 9 个概念页
+
+- **概念-Java并发.md**：从 ASCII 知识地图页重写为标准结构；增加快速导航、并发三大问题表、L3知识地图（带模块定位）、高频考点速查（7个考点详解）、工具选型决策树、常见误区表
+- **概念-JMM.md**：增加快速导航、中文编号标题；新增"硬件层真相"章节（Store Buffer/Invalidation Queue/MESI不够用的原因）；完整 8 条 happens-before 规则表；as-if-serial vs happens-before 对比；StoreLoad 屏障开销说明
+- **机制-volatile.md**：增加快速导航、中文编号标题；展开 LOCK 前缀指令 + MESI 缓存失效流程；DCL 详解（new 三步字节码+重排危害+屏障位置）；volatile vs synchronized vs AtomicXxx 三维对比；生产风险表（long/double 字撕裂等）
+- **机制-synchronized.md**：增加快速导航、中文编号标题；新增 Mark Word 结构（64-bit JVM 5种状态）；ObjectMonitor 详细字段；锁升级各阶段性能表；JIT 锁消除（逃逸分析示例）/锁粗化；生产风险表（死锁/String锁/wait虚假唤醒）
+- **机制-CAS.md**：增加快速导航、中文编号标题；展开 cmpxchg + 缓存行锁 vs 总线锁；新增"LongAdder 高竞争优化"章节（base + Cell 数组分段机制）；AtomicLong vs LongAdder 对比表；生产风险表
+- **机制-AQS.md**：增加快速导航、中文编号标题；Node.waitStatus 5种状态表；LockSupport vs Object.wait 对比；新增"AQS 实现的工具类"章节（ReentrantLock/CountDownLatch/Semaphore/CyclicBarrier 代码级原理）；AQS 工具类横向对比表
+- **机制-线程池.md**：增加快速导航、中文编号标题；ctl 变量设计说明；新增"生产监控与动态线程池"章节（关键指标/动态调整/Hippo4j）；ThreadPoolExecutor vs ForkJoinPool 对比；容量规划公式
+- **概念-ThreadLocal.md**：增加快速导航、中文编号标题；移除不存在的 [[概念-引用类型]] 链接；新增"父子线程传递"章节（InheritableThreadLocal/TTL capture-replay-restore 机制）；ThreadLocal vs synchronized vs ScopedValue 三维对比；弱引用误解澄清
+- **机制-CompletableFuture.md**：增加快速导航、中文编号标题；result volatile 字段 happens-before 说明；新增链式串行+异常回退场景示例；thenApply vs thenApplyAsync 详细对比；CompletableFuture vs CountDownLatch 对比；join() vs get() 对比；allOf 结果收集注意事项
+- 重建索引：91 页
+
 ## [2026-05-14] Update | 5次合并：数据结构体系/缓存三大问题/Canal/分库分表→目标页
 
 - 删除 `concepts/05-data-structure/概念-数据结构体系.md`，内容已在上一轮合并入 `concepts/02-java/概念-数据结构.md`（六、L4知识地图）
