@@ -1,7 +1,7 @@
 ---
-type: synthesis
+type: concept
 status: active
-name: "Redis实战场景设计"
+name: "Redis实战"
 layer: L8
 aliases: ["Redis排行榜", "Redis附近的人", "Redis点赞", "Redis红包", "Redis UV统计", "Redis购物车"]
 tags: ["#practice"]
@@ -11,17 +11,17 @@ related:
   - "[[机制-Redis集群与高可用]]"
   - "[[概念-缓存三大问题]]"
 sources:
-  - "../../raw/note/Hollis/场景题/✅如何实现百万级排行榜功能？.md"
-  - "../../raw/note/Hollis/场景题/✅Redis的zset实现排行榜，实现分数相同按照时间顺序排序，怎么做？.md"
-  - "../../raw/note/Hollis/场景题/✅如何实现 查找附近的人 功能？.md"
-  - "../../raw/note/Hollis/场景题/✅如何用Redis实现朋友圈点赞功能？.md"
-  - "../../raw/note/Hollis/场景题/✅如何实现一个抢红包功能？.md"
-  - "../../raw/note/Hollis/场景题/✅如何设计一个购物车功能？.md"
+  - "../../../raw/note/Hollis/场景题/✅如何实现百万级排行榜功能？.md"
+  - "../../../raw/note/Hollis/场景题/✅Redis的zset实现排行榜，实现分数相同按照时间顺序排序，怎么做？.md"
+  - "../../../raw/note/Hollis/场景题/✅如何实现 查找附近的人 功能？.md"
+  - "../../../raw/note/Hollis/场景题/✅如何用Redis实现朋友圈点赞功能？.md"
+  - "../../../raw/note/Hollis/场景题/✅如何实现一个抢红包功能？.md"
+  - "../../../raw/note/Hollis/场景题/✅如何设计一个购物车功能？.md"
 created: 2026-05-07
 updated: 2026-05-07
 ---
 
-# Redis 实战场景设计
+# Redis实战
 
 高频 Redis 系统设计题合集：排行榜、附近的人、点赞系统、抢红包、UV 统计。核心是根据业务特征选择合适的数据结构，同时处理高并发、大 key、热 key 等 Redis 特有的工程问题。
 

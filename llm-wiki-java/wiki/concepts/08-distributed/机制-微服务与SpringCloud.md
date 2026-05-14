@@ -7,7 +7,7 @@ aliases: ["SpringCloud", "微服务", "Eureka", "Feign", "OpenFeign", "Hystrix",
 related:
   - "[[机制-RPC与Dubbo]]"
   - "[[机制-ZAB协议与Zookeeper]]"
-  - "[[机制-AOP织入]]"
+  - "[[机制-Spring]]"
   - "[[机制-SpringBoot]]"
   - "[[概念-高可用设计]]"
 sources:
@@ -253,7 +253,7 @@ public interface OrderServiceClient {
 
 - **依赖 [[机制-RPC与Dubbo]]**：Dubbo 可作为 Spring Cloud 内部服务间调用的替代方案（OpenFeign HTTP → Dubbo TCP），两者互补而非互斥
 - **依赖 [[机制-ZAB协议与Zookeeper]]**：Eureka/Nacos 之前，ZooKeeper 也被用作注册中心；ZK 的 CP 特性使其在服务注册场景中略显过重
-- **依赖 [[机制-AOP织入]]**：OpenFeign 底层通过动态代理生成 Stub；Hystrix 通过 AOP 切面拦截方法调用并织入熔断逻辑
+- **依赖 [[机制-Spring]]**：OpenFeign 底层通过动态代理生成 Stub；Hystrix 通过 AOP 切面拦截方法调用并织入熔断逻辑
 - **依赖 [[机制-SpringBoot]]**：Spring Cloud 各组件均通过 Spring Boot AutoConfiguration 自动装配，`@EnableEurekaClient`/`@EnableFeignClients` 等注解触发自动配置链路
 
 ## 应用边界

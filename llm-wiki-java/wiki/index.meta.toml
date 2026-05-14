@@ -91,7 +91,7 @@ id = "L5"
 name = "Redis / MySQL / 存储"
 concept_dirs = ["concepts/06-storage"]
 summaries = ["concepts/06-storage/概念-MySQL体系.md", "concepts/06-storage/概念-Redis体系.md"]
-synthesis = ["synthesis/设计-多级缓存架构.md", "synthesis/设计-Redis实战场景.md"]
+synthesis = ["concepts/06-storage/概念-Redis实战.md"]
 keywords = [
   { text = "SQL优化", path = "concepts/06-storage/概念-SQL查询优化.md" },
   { text = "InnoDB索引", path = "concepts/06-storage/机制-InnoDB索引.md" },
@@ -106,11 +106,11 @@ keywords = [
 id = "L6"
 name = "Spring / SpringBoot"
 concept_dirs = ["concepts/07-framework"]
-summaries = ["concepts/07-framework/概念-Spring体系.md"]
+summaries = ["summaries/主题-设计模式.md"]
 synthesis = []
 keywords = [
-  { text = "IoC", path = "concepts/07-framework/机制-IoC容器.md" },
-  { text = "AOP", path = "concepts/07-framework/机制-AOP织入.md" },
+  { text = "IoC", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "AOP", path = "concepts/07-framework/机制-Spring.md" },
   { text = "事务", path = "concepts/07-framework/机制-Spring.md" },
   { text = "自动装配", path = "concepts/07-framework/机制-SpringBoot.md" },
   { text = "SpringMVC", path = "concepts/07-framework/机制-SpringMVC.md" },
@@ -125,10 +125,8 @@ summaries = ["summaries/主题-消息队列体系.md"]
 synthesis = [
   "synthesis/设计-分布式场景综合.md",
   "synthesis/设计-分布式事务.md",
-  "synthesis/设计-分库分表.md",
-  "synthesis/设计-订单超时关闭.md",
-  "synthesis/设计-支付系统设计.md",
-  "synthesis/设计-账户钱包系统.md",
+  "concepts/06-storage/概念-分库分表.md",
+  "synthesis/系统设计-支付系统.md",
 ]
 keywords = [
   { text = "分布式理论", path = "concepts/08-distributed/概念-分布式系统理论.md" },
@@ -147,27 +145,26 @@ name = "架构与实践"
 concept_dirs = ["concepts/09-practice"]
 summaries = ["summaries/主题-三高体系.md", "summaries/主题-源码体系.md"]
 synthesis = [
-  "synthesis/系统设计-秒杀系统.md",
   "synthesis/系统设计-区块链OTC.md",
   "synthesis/系统设计-IM系统.md",
   "synthesis/系统设计-短链服务.md",
   "synthesis/系统设计-彩票系统.md",
-  "synthesis/系统设计-游戏架构系统.md",
+  "synthesis/系统设计-游戏架构.md",
   "synthesis/设计-P7架构思维.md",
-  "synthesis/设计-Gacha与游戏高并发.md",
+  "synthesis/系统设计-电商系统.md",
   "synthesis/设计-德州扑克核心算法.md",
   "synthesis/设计-接口设计与防护.md",
   "synthesis/设计-容量规划与性能基准.md",
   "synthesis/设计-项目难点表达.md",
-  "synthesis/设计-P8高频边界问题.md",
+  "synthesis/设计-P8架构思维.md",
   "synthesis/mock-interview-eson.md",
 ]
 keywords = [
   { text = "DDD", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "秒杀", path = "synthesis/系统设计-秒杀系统.md" },
+  { text = "秒杀", path = "synthesis/系统设计-电商系统.md" },
   { text = "短链", path = "synthesis/系统设计-短链服务.md" },
   { text = "容量规划", path = "synthesis/设计-容量规划与性能基准.md" },
   { text = "接口防护", path = "synthesis/设计-接口设计与防护.md" },
   { text = "项目难点", path = "synthesis/设计-项目难点表达.md" },
-  { text = "P8边界", path = "synthesis/设计-P8高频边界问题.md" },
+  { text = "P8边界", path = "synthesis/设计-P8架构思维.md" },
 ]
