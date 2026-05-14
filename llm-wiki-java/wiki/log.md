@@ -1,5 +1,26 @@
 # Wiki Log
 
+## [2026-05-14] Update | 重写 3 个 concepts/02-java 概念页（动态代理、泛型、JDK新特性）
+
+- 重写 `机制-动态代理.md`：增加快速导航、Spring AOP 代理选择策略、JDK 代理 vs CGLIB 全维度对比表、自调用失效风险、JDK 17+ 强封装影响
+- 重写 `机制-泛型.md`：增加快速导航、桥方法机制、PECS 原则详解、Java vs C++ vs C# 泛型三方对比、堆污染/重载冲突/序列化丢失泛型等生产风险
+- 重写 `概念-JDK新特性.md`：增加快速导航、LTS 版本选型表、虚拟线程 vs 响应式对比、pin 问题与 ThreadLocal 膨胀风险、各特性应用边界表
+- 三个页面均按重写模板调整为中文编号结构
+
+## [2026-05-14] Update | 重写 3 个 L1 Java 基础概念页
+
+- 重写 `概念-Java基础类型.md`：增加快速导航、中文编号标题、生产风险表格、应用边界表格
+- 重写 `概念-Java异常体系.md`：增加 try-with-resources、自定义异常示例、综合对比表格、生产风险表格
+- 重写 `概念-OOP特征.md`：增加重载vs重写对比、继承vs组合对比、JDK 8 default 方法说明
+- 三个文件均按重写模板统一为九段式结构
+
+## [2026-05-14] Update | 重写 3 个 concepts/02-java 概念页
+
+- 重写 `机制-Java序列化.md`：增加快速导航、Externalizable、readResolve、Kryo 对比、fastjson 漏洞追问、生产风险表格
+- 重写 `机制-Lambda.md`：增加快速导航、invokedynamic 执行流程、变量捕获、方法引用分类、并行流 commonPool 风险、序列化 Lambda 陷阱
+- 重写 `机制-SPI.md`：增加快速导航、类加载器选择、JDBC/SLF4J/Boot 3.x 案例、Java SPI vs Dubbo SPI vs Spring SPI 三方对比
+- 三个页面均按重写模板调整为中文编号九章结构
+
 ## [2026-05-14] Rename | concepts/02-java-lang → 02-java
 
 - 目录 `concepts/02-java-lang/` → `concepts/02-java/`
