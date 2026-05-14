@@ -75,11 +75,11 @@ keywords = [
 id = "L4"
 name = "集合 / 算法 / 数据结构"
 concept_dirs = ["concepts/05-data-structure"]
-summaries = ["concepts/02-java/概念-Java集合.md", "concepts/05-data-structure/概念-数据结构体系.md"]
+summaries = ["concepts/02-java/概念-Java集合.md"]
 synthesis = ["summaries/主题-高频算法.md", "summaries/主题-海量数据.md"]
 keywords = [
   { text = "HashMap", path = "concepts/02-java/机制-HashMap.md" },
-  { text = "ConcurrentHashMap", path = "concepts/02-java/机制-ConcurrentHashMap.md" },
+  { text = "ConcurrentHashMap", path = "concepts/02-java/机制-HashMap.md" },
   { text = "红黑树", path = "concepts/05-data-structure/机制-红黑树.md" },
   { text = "B+树", path = "concepts/05-data-structure/机制-B+树.md" },
   { text = "堆", path = "concepts/05-data-structure/机制-优先队列.md" },
@@ -95,7 +95,7 @@ keywords = [
   { text = "SQL优化", path = "concepts/06-storage/概念-MySQL.md" },
   { text = "MySQL体系", path = "concepts/06-storage/概念-MySQL.md" },
   { text = "Redis", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "缓存问题", path = "concepts/06-storage/概念-缓存三大问题.md" },
+  { text = "缓存问题", path = "concepts/06-storage/概念-Redis.md" },
 ]
 
 [[layers]]
@@ -121,7 +121,6 @@ summaries = ["summaries/主题-消息队列.md"]
 synthesis = [
   "concepts/08-distributed/概念-分布式场景.md",
   "concepts/08-distributed/概念-分布式事务.md",
-  "concepts/06-storage/概念-分库分表.md",
   "synthesis/系统设计-支付系统.md",
 ]
 keywords = [

@@ -4,9 +4,8 @@ status: active
 name: "Redis"
 layer: L5
 tags: ["#storage"]
-aliases: ["Redis", "Redis数据结构", "SDS", "ZipList", "ListPack", "SkipList", "跳表", "Redis快的原因", "RDB", "AOF", "混合持久化", "BGSAVE", "写回策略", "AOF重写", "SETNX", "Redisson", "watchdog", "续期", "可重入锁", "分布式锁", "Redis主从", "哨兵模式", "Redis Cluster", "Sentinel", "脑裂", "槽位", "16384 slots", "Redis排行榜", "Redis附近的人", "Redis点赞", "Redis红包", "Redis UV统计", "Redis购物车", "HyperLogLog", "GEO"]
+aliases: ["Redis", "Redis数据结构", "SDS", "ZipList", "ListPack", "SkipList", "跳表", "Redis快的原因", "RDB", "AOF", "混合持久化", "BGSAVE", "写回策略", "AOF重写", "SETNX", "Redisson", "watchdog", "续期", "可重入锁", "分布式锁", "Redis主从", "哨兵模式", "Redis Cluster", "Sentinel", "脑裂", "槽位", "16384 slots", "Redis排行榜", "Redis附近的人", "Redis点赞", "Redis红包", "Redis UV统计", "Redis购物车", "HyperLogLog", "GEO", "缓存穿透", "缓存击穿", "缓存雪崩", "布隆过滤器", "内存淘汰策略", "缓存预热", "缓存一致性"]
 related:
-  - "[[概念-缓存三大问题]]"
   - "[[机制-B+树]]"
   - "[[机制-CAS]]"
   - "[[机制-AQS]]"
@@ -27,6 +26,9 @@ sources:
   - "../../../raw/note/Hollis/场景题/✅如何用Redis实现朋友圈点赞功能？.md"
   - "../../../raw/note/Hollis/场景题/✅如何实现一个抢红包功能？.md"
   - "../../../raw/note/Hollis/场景题/✅如何设计一个购物车功能？.md"
+  - "../../../raw/note/Hollis/Redis/✅什么是缓存击穿、缓存穿透、缓存雪崩？.md"
+  - "../../../raw/note/Hollis/Redis/✅Redis的内存淘汰策略是怎么样的？.md"
+  - "../../../raw/note/Hollis/Redis/✅如何解决Redis和数据库的一致性问题？.md"
 created: 2026-05-02
 updated: 2026-05-14
 lint_notes: ""
@@ -49,6 +51,7 @@ lint_notes: ""
 | [七、生产风险](#七生产风险) | 大 Key、热 Key、持久化配置、脑裂、锁失效 |
 | [八、与其他概念的关系](#八与其他概念的关系) | MySQL 日志、B+树、CAS、AQS |
 | [九、应用边界](#九应用边界) | 类型选型、各机制适用边界、常见误用 |
+| [十一、缓存三大问题](#十一缓存三大问题) | 穿透/击穿/雪崩解法、一致性策略、内存淘汰策略 |
 
 ## 一、第一性原理
 
@@ -621,3 +624,78 @@ HGETALL cart:user123              -- 查看全部
 | 抢红包 | List（预分配）| 公平性（二倍均值法）、原子 LPOP 防超卖 |
 | UV 统计 | HyperLogLog | 可接受 0.81% 误差则用；精确统计用 Set |
 | 购物车 | Hash | 未登录合并策略、持久化策略 |
+
+## 十一、缓存三大问题
+
+> 三大问题本质都是"缓存挡不住请求，流量打到数据库"，成因不同，解法不同。
+
+### 缓存穿透
+
+**场景**：请求一个数据库中根本不存在的 key（如恶意攻击用不存在的用户 ID）→ 缓存永远 miss → 全量打 DB
+
+**解法 1：布隆过滤器**
+
+```
+请求 → 先查布隆过滤器
+  → 不存在 → 直接返回（不查 DB）
+  → 可能存在 → 查缓存 → 查 DB
+```
+
+布隆过滤器用多个哈希函数将 key 映射到 bit 数组（参见 [[概念-BitMap]]）：判断"不存在"永远准确；判断"存在"有误判率；不支持删除。
+
+**解法 2：缓存空值**
+
+DB miss 时缓存 `NULL` 或特殊标记，设置短 TTL（5 分钟）。简单但恶意攻击用不同不存在 key 时浪费内存。
+
+### 缓存击穿
+
+**场景**：某热点 key 过期，大量并发同时 miss，全部打 DB
+
+| 解法 | 机制 | 代价 |
+|------|------|------|
+| 互斥锁 | 缓存 miss → 抢分布式锁 → 重建 → 释放 | 等锁期间响应变慢 |
+| 逻辑过期 | 热点 key 永不设 TTL，后台异步更新 | 短暂可能读到旧数据 |
+| 提前预热 + 主动续期 | 监控 TTL，过期前主动重建 | 额外定时任务 |
+
+### 缓存雪崩
+
+**场景 1**：大量 key 相同 TTL 同时过期 → 解法：随机化 TTL（`base_ttl + random(0, 300)`）
+
+**场景 2**：Redis 服务宕机 → 解法：Redis Cluster（单节点故障自动切换）；熔断降级（超阈值返回兜底数据）；多级缓存（Caffeine 本地缓存兜底）
+
+### 缓存与数据库一致性
+
+| 策略 | 操作顺序 | 分析 |
+|------|---------|------|
+| 先更新 DB，再删缓存 | UPDATE DB → DELETE cache | **推荐**。短暂不一致（DB 新，缓存旧）；删除失败可重试 |
+| 先删缓存，再更新 DB | DELETE cache → UPDATE DB | 脏读风险：删后线程查缓存 miss → 读旧 DB → 回填旧值 |
+| 延迟双删 | DELETE → UPDATE DB → sleep → DELETE | 防脏读，但 sleep 时长难定 |
+| Binlog 异步删缓存 | 监听 binlog（Canal）→ 异步删 cache | 最终一致，解耦，推荐大规模场景 |
+
+**最终一致性方案**：`应用 → UPDATE MySQL → Canal 监听 binlog → 发消息 → 消费者删除 Redis cache`
+
+### 内存淘汰策略（8 种）
+
+Redis 内存用满（达到 `maxmemory`）时触发淘汰：
+
+| 策略 | 范围 | 淘汰规则 |
+|------|------|---------|
+| `noeviction` | 全部 | 不淘汰，写操作报错 |
+| `allkeys-lru` | 全部 key | LRU（最近最少使用）|
+| `allkeys-lfu` | 全部 key | LFU（最近最少频率，4.0+）|
+| `allkeys-random` | 全部 key | 随机淘汰 |
+| `volatile-lru` | 有 TTL 的 key | LRU |
+| `volatile-lfu` | 有 TTL 的 key | LFU（4.0+）|
+| `volatile-random` | 有 TTL 的 key | 随机淘汰 |
+| `volatile-ttl` | 有 TTL 的 key | TTL 越短越先淘汰 |
+
+**生产选择**：缓存场景 → `allkeys-lru` 或 `allkeys-lfu`（LFU 对热点保护更好）；有不能丢的数据 → `volatile-lru`（不淘汰无 TTL 的 key）。
+
+### 三大问题速查
+
+| 问题 | 根因 | 推荐解法 |
+|------|------|---------|
+| 穿透 | key 根本不存在 | 布隆过滤器（大规模）/ 缓存空值（简单场景）|
+| 击穿 | 热点 key 在关键时刻过期 | 互斥锁（强一致）/ 逻辑过期（高性能）|
+| 雪崩（批量失效）| 大量 key 同 TTL | 随机化 TTL |
+| 雪崩（宕机）| Redis 实例故障 | Cluster + 熔断 + 多级缓存 |

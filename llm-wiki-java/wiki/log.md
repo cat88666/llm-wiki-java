@@ -1,5 +1,14 @@
 # Wiki Log
 
+## [2026-05-14] Update | 5次合并：数据结构体系/缓存三大问题/Canal/分库分表→目标页
+
+- 删除 `concepts/05-data-structure/概念-数据结构体系.md`，内容已在上一轮合并入 `concepts/02-java/概念-数据结构.md`（六、L4知识地图）
+- 删除 `concepts/06-storage/概念-缓存三大问题.md`，内容合并入 `concepts/06-storage/概念-Redis.md`（新增十一章：缓存穿透/击穿/雪崩解法、缓存一致性4种策略、8种内存淘汰策略）
+- 删除 `concepts/08-distributed/机制-Canal数据同步.md`，内容合并入 `concepts/06-storage/概念-MySQL.md`（新增十一章：Canal工作原理、binlog订阅、CDC、幂等消费）
+- 删除 `concepts/06-storage/概念-分库分表.md`，内容合并入 `concepts/06-storage/概念-MySQL.md`（新增十二章：分片键选择、Hash取模、基因法、雪花算法、时钟回拨、扩容双写迁移）
+- 更新 `index.meta.toml`：L4 summaries 移除 概念-数据结构体系.md；L5 缓存问题关键词路径改为 Redis.md；L7 synthesis 移除 概念-分库分表.md
+- 重建索引：91 页
+
 ## [2026-05-14] Update | 重写 concepts/03-jvm 下 2 个概念页（JIT编译、JVM内存模型）
 
 - 重写 `机制-JIT编译.md`：增加快速导航、C1/C2 分层编译 5 层级表、JVM 参数表（CompileThreshold/CodeCacheSize/MaxInlineSize 等）、C1 vs C2 对比、生产风险表格（预热超时/CodeCache 满/反优化）
@@ -321,3 +330,11 @@
 - 补充 17 条 sources，补充 aliases（慢SQL/EXPLAIN/大表优化等）
 - 删除 概念-SQL查询优化.md
 - 更新 index.meta.toml keywords，重新生成 wiki/index.md
+
+## [2026-05-14] Update | 合并 机制-ConcurrentHashMap.md 至 机制-HashMap.md
+- 新增三、ConcurrentHashMap 章节：分段锁 vs 节点锁、CAS+synchronized、fail-fast/fail-safe、COW
+- 新增五、综合对比：HashMap vs CHM vs Hashtable、CHM vs COW 横向表格
+- 原四-五改为四-七，补充 CHM 使用原则（null 禁止、弱一致性、size 近似）
+- 合并 16 条 sources、aliases、related
+- 删除 机制-ConcurrentHashMap.md，更新 index.meta.toml
+- 重新生成 wiki/index.md
