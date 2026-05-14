@@ -7,7 +7,7 @@ aliases: ["AOP", "面向切面编程", "切面", "代理", "Aspect", "织入", "
 related:
   - "[[机制-IoC容器]]"
   - "[[机制-动态代理]]"
-  - "[[机制-Spring事务]]"
+  - "[[机制-Spring]]"
 sources:
   - "../../../raw/note/Hollis/Spring/✅介绍一下Spring的AOP.md"
   - "../../../raw/note/Hollis/Spring/✅Spring的AOP在什么场景下会失效？.md"
@@ -87,7 +87,7 @@ AOP 本质是代理，凡是不经过代理对象的调用，AOP 都会失效：
 
 - 底层实现依赖 [[机制-动态代理]]：JDK 接口代理 / CGLIB 继承代理
 - 在 [[机制-IoC容器]] 中：Bean 初始化后置阶段（BeanPostProcessor.after）自动创建 AOP 代理
-- 支撑了 [[机制-Spring事务]]：`@Transactional` 就是一个 AOP 切面，TransactionInterceptor 是 Around Advice
+- 支撑了 [[机制-Spring]]：`@Transactional` 就是一个 AOP 切面，TransactionInterceptor 是 Around Advice
 
 ## 应用边界
 
