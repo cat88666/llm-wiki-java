@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "SpringBoot自动装配"
+name: "SpringBoot"
 layer: L6
 aliases: ["自动配置", "AutoConfiguration", "spring.factories", "@EnableAutoConfiguration", "条件装配", "starter"]
 related:
@@ -19,7 +19,7 @@ updated: 2026-05-08
 lint_notes: ""
 ---
 
-# SpringBoot自动装配
+# SpringBoot
 
 > SpringBoot 的核心价值：根据 classpath 中已有的 jar 包和类，自动向 IoC 容器注册合适的 Bean，消除 XML 配置的样板代码——"约定优于配置"的工程实践。
 

@@ -9,7 +9,7 @@ related:
   - "[[机制-动态代理]]"
   - "[[机制-Java序列化]]"
   - "[[机制-SPI]]"
-  - "[[机制-SpringBoot自动装配]]"
+  - "[[机制-SpringBoot]]"
 sources:
   - "../../../raw/note/Hollis/Dubbo/✅什么是RPC，和HTTP有什么区别？.md"
   - "../../../raw/note/Hollis/Dubbo/✅Dubbo的整体架构是怎么样的？.md"
@@ -211,7 +211,7 @@ Google 开源的高性能 RPC 框架，基于 **HTTP/2 + Protobuf**：
 - **依赖 [[机制-动态代理]]**：Consumer 端 Stub 通过 JDK 动态代理或 Javassist 字节码生成，实现调用透明化
 - **依赖 [[机制-SPI]]**：Dubbo SPI 是 JDK SPI 的增强版，支撑了 Dubbo 所有扩展点（Protocol/LB/Serialization 等）
 - **依赖 [[机制-Java序列化]]**：RPC 跨进程调用必须序列化，Dubbo 默认 Hessian2，可插拔替换
-- **与 [[机制-SpringBoot自动装配]] 协作**：Dubbo Spring Boot Starter 借助 AutoConfiguration 自动注册 DubboConfig Bean
+- **与 [[机制-SpringBoot]] 协作**：Dubbo Spring Boot Starter 借助 AutoConfiguration 自动注册 DubboConfig Bean
 
 ## 应用边界
 

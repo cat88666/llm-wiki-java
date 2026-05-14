@@ -122,11 +122,11 @@
 ## [2026-05-08] Ingest | P7 第二轮：Seata/SpringMVC/OAuth2
 
 - 新建 `机制-Seata框架机制` / `机制-SpringMVC请求处理链` / `概念-OAuth2授权协议`
-- 更新 `机制-SpringBoot自动装配`：完整启动流程 + 优雅停机
+- 更新 `机制-SpringBoot`：完整启动流程 + 优雅停机
 
 ## [2026-05-08] Ingest | P7 第一轮：消息队列/配置中心/任务调度/异步编程/JVM 调优
 
-- 新建 `机制-RabbitMQ` / `机制-配置中心与Nacos` / `机制-分布式任务调度` / `机制-CompletableFuture与异步编程` / `设计-JVM调优实战`
+- 新建 `机制-RabbitMQ` / `机制-配置中心与Nacos` / `机制-分布式任务调度` / `机制-CompletableFuture` / `设计-JVM调优实战`
 - 新建 `summaries/主题-消息队列体系`
 - 更新 `机制-IoC容器`：循环依赖补充
 

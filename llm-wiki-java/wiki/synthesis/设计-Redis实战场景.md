@@ -6,7 +6,7 @@ layer: L8
 aliases: ["Redis排行榜", "Redis附近的人", "Redis点赞", "Redis红包", "Redis UV统计", "Redis购物车"]
 tags: ["#practice"]
 related:
-  - "[[概念-Redis数据类型与底层结构]]"
+  - "[[概念-Redis]]"
   - "[[机制-Redis持久化]]"
   - "[[机制-Redis集群与高可用]]"
   - "[[概念-缓存三大问题]]"

@@ -93,7 +93,7 @@ java.util.Map
 
 - L4 数据结构基础：[[机制-HashMap]] → [[机制-红黑树]]（树化）/ [[概念-数据结构]]（数组+链表）
 - L3 并发：[[机制-ConcurrentHashMap]] → [[机制-CAS]] + [[机制-synchronized]]
-- L5 存储：[[机制-InnoDB索引]] 的 B+ 树是 MySQL 的 TreeMap；[[概念-Redis数据类型与底层结构]] 的 ZSet 类似 TreeMap
+- L5 存储：[[机制-InnoDB索引]] 的 B+ 树是 MySQL 的 TreeMap；[[概念-Redis]] 的 ZSet 类似 TreeMap
 
 ## 常见误区
 

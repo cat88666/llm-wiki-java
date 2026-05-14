@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "Spring事务"
+name: "Spring"
 layer: L6
 aliases: ["@Transactional", "Spring事务", "事务传播", "声明式事务", "TransactionInterceptor"]
 related:
@@ -19,7 +19,7 @@ updated: 2026-05-06
 lint_notes: ""
 ---
 
-# Spring事务
+# Spring
 
 > `@Transactional` 是 AOP 切面的声明式封装：Spring 在方法调用前后插入事务开始/提交/回滚逻辑，开发者只需标注注解，无需手写 JDBC 事务代码。
 

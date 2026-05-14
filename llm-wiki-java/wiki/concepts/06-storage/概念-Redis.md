@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "Redis数据类型与底层结构"
+name: "Redis"
 layer: L5
 aliases: ["Redis数据结构", "SDS", "ZipList", "ListPack", "SkipList", "跳表", "Redis快的原因"]
 related:
@@ -18,7 +18,7 @@ updated: 2026-05-02
 lint_notes: ""
 ---
 
-# Redis 数据类型与底层结构
+# Redis
 
 > Redis 对外暴露 5 种基本数据类型（String/List/Hash/Set/ZSet），每种类型根据数据规模动态切换底层编码（小数据用紧凑结构，大数据用高性能结构）；所有操作基于内存 + 单线程事件循环，是其高性能的根本原因。
 

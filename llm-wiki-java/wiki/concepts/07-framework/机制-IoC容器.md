@@ -7,7 +7,7 @@ aliases: ["IoC", "DI", "依赖注入", "控制反转", "BeanFactory", "Applicati
 related:
   - "[[机制-AOP织入]]"
   - "[[机制-动态代理]]"
-  - "[[机制-SpringBoot自动装配]]"
+  - "[[机制-SpringBoot]]"
 sources:
   - "../../../raw/note/Hollis/Spring/✅介绍一下Spring的IOC.md"
   - "../../../raw/note/Hollis/Spring/✅Spring Bean的生命周期是怎么样的？.md"
@@ -116,7 +116,7 @@ Spring 在 `DefaultSingletonBeanRegistry` 中维护三级缓存：
 
 - 支撑了 [[机制-AOP织入]]：AOP 代理在 Bean 生命周期第 7 步（BeanPostProcessor.after）中创建，依赖 IoC 容器管理 Bean
 - 底层用 [[机制-动态代理]]：AOP 代理和 @Transactional 代理均由 IoC 容器在 Bean 初始化后注入
-- 被 [[机制-SpringBoot自动装配]] 扩展：自动装配本质是自动向 IoC 容器注册 BeanDefinition
+- 被 [[机制-SpringBoot]] 扩展：自动装配本质是自动向 IoC 容器注册 BeanDefinition
 
 ## 应用边界
 

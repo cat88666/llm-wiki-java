@@ -82,7 +82,7 @@ keywords = [
   { text = "ConcurrentHashMap", path = "concepts/02-java/机制-ConcurrentHashMap.md" },
   { text = "红黑树", path = "concepts/05-data-structure/机制-红黑树.md" },
   { text = "B+树", path = "concepts/05-data-structure/机制-B+树.md" },
-  { text = "堆", path = "concepts/05-data-structure/机制-堆与优先队列.md" },
+  { text = "堆", path = "concepts/05-data-structure/机制-优先队列.md" },
   { text = "布隆过滤器", path = "concepts/05-data-structure/概念-BitMap.md" },
 ]
 
@@ -111,8 +111,8 @@ synthesis = []
 keywords = [
   { text = "IoC", path = "concepts/07-framework/机制-IoC容器.md" },
   { text = "AOP", path = "concepts/07-framework/机制-AOP织入.md" },
-  { text = "事务", path = "concepts/07-framework/机制-Spring事务.md" },
-  { text = "自动装配", path = "concepts/07-framework/机制-SpringBoot自动装配.md" },
+  { text = "事务", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "自动装配", path = "concepts/07-framework/机制-SpringBoot.md" },
   { text = "SpringMVC", path = "concepts/07-framework/机制-SpringMVC请求处理链.md" },
   { text = "MyBatis", path = "concepts/07-framework/机制-MyBatis.md" },
 ]

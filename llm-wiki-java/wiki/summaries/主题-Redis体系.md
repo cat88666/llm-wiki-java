@@ -5,7 +5,7 @@ name: "Redis体系"
 layer: L5
 tags: ["#storage"]
 concepts:
-  - "[[概念-Redis数据类型与底层结构]]"
+  - "[[概念-Redis]]"
   - "[[机制-Redis持久化]]"
   - "[[概念-缓存三大问题]]"
   - "[[机制-Redis分布式锁]]"
@@ -25,7 +25,7 @@ updated: 2026-05-02
 ## 知识地图
 
 ```
-         [[概念-Redis数据类型与底层结构]]
+         [[概念-Redis]]
     ┌──────────────────────────────────────────────┐
     │  String / List / Hash / Set / ZSet           │
     │  小数据: ZipList/ListPack（紧凑内存）           │

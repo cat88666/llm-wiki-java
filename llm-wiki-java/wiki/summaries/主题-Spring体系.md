@@ -27,7 +27,7 @@ Spring Framework
 │   ├── 5 种 Advice 类型
 │   └── 失效场景（this 自调用、private、static、final）
 │
-├── Spring 事务（[[机制-Spring事务]]）
+├── Spring 事务（[[机制-Spring]]）
 │   ├── @Transactional = AOP 切面（TransactionInterceptor）
 │   ├── 7 种传播机制（REQUIRED 默认）
 │   └── 失效场景（代理失效 + 配置错误 + 异常被吞 + 多线程）
@@ -36,7 +36,7 @@ Spring Framework
     └── DispatcherServlet → HandlerMapping → Controller → ViewResolver
 
 SpringBoot
-├── 自动装配（[[机制-SpringBoot自动装配]]）
+├── 自动装配（[[机制-SpringBoot]]）
 │   ├── @EnableAutoConfiguration → spring.factories / .imports
 │   ├── @Conditional 条件过滤
 │   └── 自定义 Starter 三步：autoconfigure + imports 文件 + starter pom

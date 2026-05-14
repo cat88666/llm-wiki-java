@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "CompletableFuture与异步编程"
+name: "CompletableFuture"
 layer: L3
 aliases: ["CompletableFuture", "异步编程", "ForkJoinPool", "Completion链", "thenApply", "thenCompose", "allOf", "anyOf"]
 tags: ["#concurrency"]
@@ -16,7 +16,7 @@ updated: 2026-05-08
 lint_notes: ""
 ---
 
-# CompletableFuture 与异步编程
+# CompletableFuture
 
 > CompletableFuture 是 Java 8 引入的异步编程模型：以**链式 Completion 阶段 + 事件驱动**替代阻塞式 Future.get()，允许任务编排（串行/并行/聚合）且不阻塞调用线程。
 
