@@ -275,3 +275,49 @@
 ## [2026-05-14] Update | 重命名 SpringCloud 页面
 - concepts/08-distributed/机制-微服务与SpringCloud.md → 机制-SpringCloud.md
 - 重新生成 wiki/index.md（106 pages）
+
+## [2026-05-14] Update | 重写 机制-WebSocket.md
+- 按 rewrite-concept-prompt.md 模板重写
+- 新增快速导航、中文编号标题（九章）
+- 补充 Java核心使用（Netty Pipeline / Spring WebSocket）、生产风险、综合对比章节
+- 修正内部链接：机制-gRPC与Protobuf → 机制-RPC与Protobuf
+- 重新生成 wiki/index.md（106 pages）
+
+## [2026-05-14] Update | 合并四个 MySQL 机制页至 概念-MySQL体系.md
+- 合并来源：机制-InnoDB索引.md、机制-InnoDB锁.md、机制-MVCC.md、机制-MySQL三种日志.md
+- 按 rewrite-concept-prompt.md 重写，九章结构：第一性原理、索引、锁、MVCC、三种日志、综合对比、生产风险、关系、边界
+- 新增快速导航、知识依赖图、综合对比章节、生产风险表格
+- 合并所有 sources（15 条）和 aliases
+- 删除四个源文件，更新 index.meta.toml keywords
+- 重新生成 wiki/index.md
+
+## [2026-05-14] Update | 重命名 MySQL 体系页面
+- concepts/06-storage/概念-MySQL体系.md → 概念-MySQL.md
+- 更新 index.meta.toml 两处路径引用
+- 重新生成 wiki/index.md（102 pages）
+
+## [2026-05-14] Update | 合并三个 Redis 机制页至 概念-Redis.md
+- 合并来源：机制-Redis分布式锁.md、机制-Redis持久化.md、机制-Redis集群与高可用.md
+- 按 rewrite-concept-prompt.md 重写，九章结构：第一性原理、数据类型与编码、持久化、分布式锁、集群高可用、综合对比、生产风险、关系、边界
+- 新增快速导航、综合对比（RDB/AOF/混合、哨兵/Cluster、Redis锁/ZK锁）、生产风险表格（9 条）
+- 合并所有 sources（8 条）和 aliases
+- 删除三个源文件，更新 index.meta.toml keywords
+- 重新生成 wiki/index.md
+
+## [2026-05-14] Update | 移动 SpringCloud 页面至 07-framework
+- concepts/08-distributed/机制-SpringCloud.md → concepts/07-framework/机制-SpringCloud.md
+- 重新生成 wiki/index.md（99 pages）
+
+## [2026-05-14] Update | 合并 Redis体系 和 Redis实战 至 概念-Redis.md
+- 合并来源：概念-Redis体系.md、概念-Redis实战.md
+- 新增内容：Redis vs MySQL 对比表（六、综合对比）、层间依赖（八、关系）
+- 新增十、实战场景设计：排行榜（ZSet+分片+编码合并）、附近的人（GEO）、点赞（ZSet/Set）、抢红包（List+二倍均值法）、UV统计（HyperLogLog）、购物车（Hash）
+- 补充 6 条场景题 sources，补充 aliases（HyperLogLog、GEO等）
+- 删除 概念-Redis体系.md、概念-Redis实战.md
+- 更新 index.meta.toml，重新生成 wiki/index.md
+
+## [2026-05-14] Update | 合并 概念-SQL查询优化.md 至 概念-MySQL.md
+- 新增十、SQL 查询优化章节：慢SQL发现路径、EXPLAIN关键字段、索引失效场景表、深分页优化、JOIN优化、大表查询/DDL/数据清理、热点行解法、长事务危害与写法、分布式锁与事务位置、逻辑删除唯一约束、慢SQL原因清单
+- 补充 17 条 sources，补充 aliases（慢SQL/EXPLAIN/大表优化等）
+- 删除 概念-SQL查询优化.md
+- 更新 index.meta.toml keywords，重新生成 wiki/index.md

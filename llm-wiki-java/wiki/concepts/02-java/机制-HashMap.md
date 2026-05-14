@@ -3,11 +3,12 @@ type: concept
 status: active
 name: "HashMap"
 layer: L4
-aliases: ["HashMap", "哈希表", "散列表", "hash冲突", "扩容"]
+aliases: ["HashMap", "哈希表", "散列表", "hash冲突", "扩容", "ConcurrentHashMap", "CHM", "分段锁", "节点锁", "fail-safe", "fail-fast", "COW", "CopyOnWriteArrayList"]
 related:
   - "[[机制-红黑树]]"
   - "[[概念-数据结构]]"
-  - "[[机制-ConcurrentHashMap]]"
+  - "[[机制-CAS]]"
+  - "[[机制-synchronized]]"
 sources:
   - "../../../raw/note/Hollis/集合类/✅HashMap的数据结构是怎样的？.md"
   - "../../../raw/note/Hollis/集合类/✅HashMap的hash方法是如何实现的？.md"
@@ -17,6 +18,14 @@ sources:
   - "../../../raw/note/Hollis/集合类/✅为什么HashMap的默认负载因子设置成0 75.md"
   - "../../../raw/note/Hollis/集合类/✅为什么在JDK8中HashMap要转成红黑树.md"
   - "../../../raw/note/Hollis/集合类/✅HashMap用在并发场景中有什么问题？.md"
+  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap是如何保证线程安全的？.md"
+  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap为什么在JDK 1 8中废弃分段锁？.md"
+  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap为什么在JDK1 8中使用synchronized而不是Reen.md"
+  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap在哪些地方做了并发控制.md"
+  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap是如何保证fail-safe的？.md"
+  - "../../../raw/note/Hollis/集合类/✅为什么ConcurrentHashMap不允许null值？.md"
+  - "../../../raw/note/Hollis/集合类/✅什么是COW，如何保证的线程安全？.md"
+  - "../../../raw/note/Hollis/集合类/✅什么是fail-fast？什么是fail-safe？.md"
 created: 2026-05-06
 updated: 2026-05-14
 lint_notes: ""
@@ -32,9 +41,11 @@ lint_notes: ""
 | --- | --- |
 | [一、第一性原理](#一第一性原理) | 散列、冲突、近似 O(1) |
 | [二、核心机制](#二核心机制) | 扰动函数、寻址、扩容、树化 |
-| [三、核心使用原则](#三核心使用原则) | 线程安全、内存开销、null |
-| [四、与其他概念的关系](#四与其他概念的关系) | 红黑树、线性结构、CHM |
-| [五、应用边界](#五应用边界) | 单线程 Map、排序、顺序、容量 |
+| [三、ConcurrentHashMap](#三concurrenthashmap) | 分段锁→节点锁、CAS、fail-safe、COW |
+| [四、核心使用原则](#四核心使用原则) | 线程安全、null、弱一致性、容量预估 |
+| [五、综合对比](#五综合对比) | HashMap vs CHM vs Hashtable、COW vs CHM |
+| [六、与其他概念的关系](#六与其他概念的关系) | 红黑树、CAS、synchronized |
+| [七、应用边界](#七应用边界) | 单线程/并发/排序/顺序场景选型 |
 
 ## 一、第一性原理
 

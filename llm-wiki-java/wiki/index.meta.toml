@@ -90,15 +90,11 @@ keywords = [
 id = "L5"
 name = "Redis / MySQL / 存储"
 concept_dirs = ["concepts/06-storage"]
-summaries = ["concepts/06-storage/概念-MySQL体系.md", "concepts/06-storage/概念-Redis体系.md"]
-synthesis = ["concepts/06-storage/概念-Redis实战.md"]
+summaries = ["concepts/06-storage/概念-MySQL.md", "concepts/06-storage/概念-Redis.md"]
 keywords = [
-  { text = "SQL优化", path = "concepts/06-storage/概念-SQL查询优化.md" },
-  { text = "InnoDB索引", path = "concepts/06-storage/机制-InnoDB索引.md" },
-  { text = "InnoDB锁", path = "concepts/06-storage/机制-InnoDB锁.md" },
-  { text = "MVCC", path = "concepts/06-storage/机制-MVCC.md" },
-  { text = "MySQL日志", path = "concepts/06-storage/机制-MySQL三种日志.md" },
-  { text = "Redis锁", path = "concepts/06-storage/机制-Redis分布式锁.md" },
+  { text = "SQL优化", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "MySQL体系", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "Redis", path = "concepts/06-storage/概念-Redis.md" },
   { text = "缓存问题", path = "concepts/06-storage/概念-缓存三大问题.md" },
 ]
 
