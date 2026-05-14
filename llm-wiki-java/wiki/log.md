@@ -66,9 +66,9 @@
 
 - 反射 + 动态代理 → `机制-反射与动态代理`
 - String不可变性 + 包装类 → `概念-Java基础值类型`
-- BitMap + 布隆过滤器 → `概念-BitMap与布隆过滤器`
+- BitMap + 布隆过滤器 → `概念-BitMap`
 - 引用类型 → 并入 `机制-GC算法与垃圾收集器`
-- Java集合框架 → 并入 `概念-线性数据结构`
+- Java集合框架 → 并入 `概念-数据结构`
 
 ## [2026-05-12] Ingest | 源码体系 + 锁体系主题页
 
@@ -132,7 +132,7 @@
 
 ## [2026-05-07] Ingest | Interview/Eson → 4 缺失知识点
 
-- 新建 `机制-对象池技术` / `机制-LSM树与RocksDB` / `设计-多级缓存架构` / `设计-支付系统设计`
+- 新建 `机制-对象池技术` / `机制-RocksDB` / `设计-多级缓存架构` / `设计-支付系统设计`
 
 ## [2026-05-07] Lint | 全库健康检查
 
@@ -174,7 +174,7 @@
 - Zookeeper/ → `机制-ZAB协议与Zookeeper`
 - Spring/ → concept × 4 + `主题-Spring体系`
 - MyBatis/ → `机制-MyBatis`
-- 集合类/ → `机制-HashMap底层实现` / `机制-ConcurrentHashMap并发设计` + `主题-Java集合框架`
+- 集合类/ → `机制-HashMap` / `机制-ConcurrentHashMap` + `主题-Java集合框架`
 
 ## [2026-05-06] Lint | 健康检查
 

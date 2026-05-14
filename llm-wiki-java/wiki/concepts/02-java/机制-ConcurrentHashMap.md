@@ -1,14 +1,14 @@
 ---
 type: concept
 status: active
-name: "ConcurrentHashMap并发设计"
+name: "ConcurrentHashMap"
 layer: L4
 aliases: ["ConcurrentHashMap", "CHM", "分段锁", "节点锁", "fail-safe", "COW"]
 related:
-  - "[[机制-HashMap底层实现]]"
+  - "[[机制-HashMap]]"
   - "[[机制-CAS]]"
   - "[[机制-synchronized]]"
-  - "[[概念-线性数据结构]]"
+  - "[[概念-数据结构]]"
 sources:
   - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap是如何保证线程安全的？.md"
   - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap为什么在JDK 1 8中废弃分段锁？.md"
@@ -19,15 +19,25 @@ sources:
   - "../../../raw/note/Hollis/集合类/✅什么是COW，如何保证的线程安全？.md"
   - "../../../raw/note/Hollis/集合类/✅什么是fail-fast？什么是fail-safe？.md"
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-14
 lint_notes: ""
 ---
 
-# ConcurrentHashMap并发设计
+# ConcurrentHashMap
 
 > 线程安全的哈希表，JDK 7 用分段锁（Segment），JDK 8 改用 CAS + synchronized 节点锁，将锁粒度从"一段"细化到"单个桶"。
 
-## 第一性原理
+## 快速导航
+
+| 标题索引 | 概述 |
+| --- | --- |
+| [一、第一性原理](#一第一性原理) | 并发 Map、锁拆分、吞吐量 |
+| [二、核心机制](#二核心机制) | Segment、CAS、桶锁、扩容 |
+| [三、核心使用原则](#三核心使用原则) | null 禁止、弱一致性、COW |
+| [四、与其他概念的关系](#四与其他概念的关系) | HashMap、CAS、synchronized |
+| [五、应用边界](#五应用边界) | 高并发读写、读多写少、全局锁 |
+
+## 一、第一性原理
 
 线程安全的 Map 有三个选项：
 1. `Hashtable`：方法级 synchronized，整张表一把锁，并发度 = 1，吞吐量差
@@ -36,7 +46,7 @@ lint_notes: ""
 
 JDK 7 → JDK 8 的演变核心：**锁粒度从"段（16个桶一组）"细化到"单个桶的头节点"**，并大量用 CAS 替换加锁操作。
 
-## 核心机制
+## 二、核心机制
 
 ### JDK 7：分段锁（Segment + ReentrantLock）
 
@@ -103,21 +113,21 @@ synchronized (lock) {
 
 **适合读多写少**（如配置白名单）。代价：写时复制整个数组，内存翻倍；写频繁时性能差。
 
-## 关键权衡
+## 三、核心使用原则
 
 1. **不允许 null key/value**：并发场景下 `map.get(key)` 返回 null 存在二义性（不存在 key vs value 本身为 null），无法通过 `contains()` 区分（因为检测过程可能被其他线程修改）。HashMap 单线程可用 `contains()` 消歧，CHM 直接禁止
 2. **弱一致性**：迭代器不保证能看到创建后的修改，是 fail-safe 的代价
 3. **size() 不精确**：CHM 的 size() 是近似值，多线程并发 put 时统计可能滞后（使用 `mappingCount()` 稍好）
 4. **COW 写开销**：`CopyOnWriteArrayList` 每次写都复制整个数组，写多时不适用
 
-## 与其他概念的关系
+## 四、与其他概念的关系
 
-- 演化自 [[机制-HashMap底层实现]]：同样的数组+链表+红黑树，加了并发层
+- 演化自 [[机制-HashMap]]：同样的数组+链表+红黑树，加了并发层
 - 底层用 [[机制-CAS]]：空桶插入、`transferIndex` 分配均用 CAS 无锁操作
 - 低竞争下用 [[机制-synchronized]]：节点锁在偏向锁阶段几乎无开销
 - 在 L3 并发：与 `ConcurrentLinkedQueue`、`BlockingQueue` 共同构成并发容器体系
 
-## 应用边界
+## 五、应用边界
 
 **适合 CHM**：多线程高并发读写 Map；key 分布均匀（避免桶集中）。
 

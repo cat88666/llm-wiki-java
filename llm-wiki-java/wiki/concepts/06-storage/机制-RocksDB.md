@@ -1,12 +1,12 @@
 ---
 type: concept
 status: active
-name: "LSM树与RocksDB"
+name: "RocksDB"
 layer: L5
 aliases: ["LSM树", "LSM-Tree", "RocksDB", "LevelDB", "SSTable", "Memtable", "Compaction", "写放大", "读放大", "空间放大", "WAL预写日志"]
 tags: ["#storage"]
 related:
-  - "[[机制-B树与B加树]]"
+  - "[[机制-B+树]]"
   - "[[机制-MySQL三种日志]]"
   - "[[机制-Redis持久化]]"
   - "[[概念-分布式系统理论]]"
@@ -16,7 +16,7 @@ updated: 2026-05-07
 lint_notes: ""
 ---
 
-# LSM 树与 RocksDB
+# RocksDB
 
 > LSM-Tree（Log-Structured Merge-Tree）是专为**写密集型**场景设计的存储结构：所有写操作先顺序追加到内存再批量落盘，以**读放大**换取**极致写吞吐**；RocksDB 是 Facebook 在 LevelDB 基础上实现的生产级 LSM 存储引擎，被 TiKV、Flink State Backend、Kafka 等广泛采用。
 
@@ -117,7 +117,7 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 
 ## 与其他概念的关系
 
-- **对立于 [[机制-B树与B加树]]**：B+ 树原地更新优化随机读（低读放大），LSM 顺序追加优化随机写（低写延迟）；InnoDB 用 B+树，TiKV/RocksDB 用 LSM 树——两种不同的读写权衡
+- **对立于 [[机制-B+树]]**：B+ 树原地更新优化随机读（低读放大），LSM 顺序追加优化随机写（低写延迟）；InnoDB 用 B+树，TiKV/RocksDB 用 LSM 树——两种不同的读写权衡
 - **借鉴 [[机制-MySQL三种日志]]**：WAL（Write-Ahead Log）是 LSM 和 InnoDB redo log 共享的崩溃恢复思想；Memtable flush = InnoDB Buffer Pool 刷脏页
 - **类比 [[机制-Redis持久化]]**：RDB ≈ SSTable 全量快照；AOF ≈ WAL 顺序追加；LSM Compaction ≈ AOF rewrite 整理
 - **支撑 [[概念-分布式系统理论]]**：TiKV（TiDB 底层）、CockroachDB、Cassandra、HBase 均基于 LSM；RocksDB 是工程落地的事实标准

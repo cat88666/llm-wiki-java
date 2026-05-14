@@ -5,7 +5,7 @@ name: "InnoDB索引"
 layer: L5
 aliases: ["B+树索引", "聚簇索引", "非聚簇索引", "二级索引", "回表", "覆盖索引", "索引下推", "最左前缀", "联合索引"]
 related:
-  - "[[机制-B树与B加树]]"
+  - "[[机制-B+树]]"
   - "[[机制-MVCC]]"
   - "[[机制-InnoDB锁]]"
   - "[[概念-SQL查询优化]]"
@@ -103,7 +103,7 @@ SELECT * FROM t WHERE zipcode='95054' AND lastname LIKE '%etrunia%';
 
 ## 与其他概念的关系
 
-- 依赖 [[机制-B树与B加树]]：InnoDB 索引是 B+ 树的工程实现
+- 依赖 [[机制-B+树]]：InnoDB 索引是 B+ 树的工程实现
 - 支撑 [[机制-MVCC]]：MVCC 的 ReadView 判断也需要通过聚簇索引的隐式字段（`db_trx_id`）进行
 - 影响 [[机制-InnoDB锁]]：Record Lock 锁的是索引记录，不是数据行，无索引时退化为锁全表
 - 指导 [[概念-SQL查询优化]]：索引失效、回表、最左前缀都是 SQL 调优的直接分析对象
