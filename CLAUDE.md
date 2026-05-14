@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 铁律（任何操作均不可违反）
 
 1. **`raw/` 只读**：绝对不写入、移动或修改 `raw/` 下任何文件
-2. **操作后必须收尾**：每次 Ingest / Query 回写 / Lint 后，必须更新 `llm-wiki-java/wiki/index.md` 并追加 `llm-wiki-java/wiki/log.md`
+2. **操作后必须收尾**：每次 Ingest / Query 回写 / Lint 后，必须更新 `llm-wiki-java/wiki/index.meta.toml`，运行 `python3 scripts/build_index.py` 重新生成 `llm-wiki-java/wiki/index.md`，并追加 `llm-wiki-java/wiki/log.md`
 3. **新建页面前必须命名**：任何新文件落盘前，先按 `naming/SKILL.md` 规则确定文件名，禁止自由命名
 4. **优先更新，不轻易新建**：新资料优先合并进已有页面，确实需要新主题时才新建
 5. **`concepts/` 页面结构**：必须包含以下 6 个部分，缺一不可：
