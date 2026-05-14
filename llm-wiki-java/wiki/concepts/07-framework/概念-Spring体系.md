@@ -1,15 +1,15 @@
 ---
-type: summary
+type: concept
 status: active
 name: "Spring体系"
 layer: L6
 sources:
-  - "../../raw/note/Hollis/Spring/"
+  - "../../../raw/note/Hollis/Spring/"
 created: 2026-05-06
 updated: 2026-05-06
 ---
 
-# 主题 — Spring 体系
+# Spring体系
 
 > L6 Spring/SpringBoot 知识地图，涵盖 IoC、AOP、事务、自动装配四大核心机制。
 

@@ -46,7 +46,7 @@ keywords = [
 id = "L2"
 name = "JVM"
 concept_dirs = ["concepts/03-jvm"]
-summaries = ["summaries/主题-JVM体系.md"]
+summaries = ["concepts/03-jvm/概念-JVM体系.md"]
 synthesis = ["synthesis/设计-JVM调优实战.md"]
 keywords = [
   { text = "内存模型", path = "concepts/03-jvm/机制-JVM内存模型.md" },
@@ -60,7 +60,7 @@ keywords = [
 id = "L3"
 name = "Java并发"
 concept_dirs = ["concepts/04-concurrency"]
-summaries = ["summaries/主题-Java并发体系.md", "summaries/主题-锁体系.md"]
+summaries = ["concepts/04-concurrency/概念-Java并发.md", "summaries/主题-锁体系.md"]
 synthesis = []
 keywords = [
   { text = "JMM", path = "concepts/04-concurrency/概念-JMM.md" },
@@ -75,7 +75,7 @@ keywords = [
 id = "L4"
 name = "集合 / 算法 / 数据结构"
 concept_dirs = ["concepts/05-data-structure"]
-summaries = ["summaries/主题-Java集合框架.md", "summaries/主题-数据结构体系.md"]
+summaries = ["concepts/02-java/概念-Java集合.md", "concepts/05-data-structure/概念-数据结构体系.md"]
 synthesis = ["synthesis/设计-算法高频题型.md", "synthesis/设计-海量数据处理.md"]
 keywords = [
   { text = "HashMap", path = "concepts/02-java/机制-HashMap.md" },
@@ -90,7 +90,7 @@ keywords = [
 id = "L5"
 name = "Redis / MySQL / 存储"
 concept_dirs = ["concepts/06-storage"]
-summaries = ["summaries/主题-MySQL体系.md", "summaries/主题-Redis体系.md"]
+summaries = ["concepts/06-storage/概念-MySQL体系.md", "concepts/06-storage/概念-Redis体系.md"]
 synthesis = ["synthesis/设计-多级缓存架构.md", "synthesis/设计-Redis实战场景.md"]
 keywords = [
   { text = "SQL优化", path = "concepts/06-storage/概念-SQL查询优化.md" },
@@ -106,14 +106,14 @@ keywords = [
 id = "L6"
 name = "Spring / SpringBoot"
 concept_dirs = ["concepts/07-framework"]
-summaries = ["summaries/主题-Spring体系.md"]
+summaries = ["concepts/07-framework/概念-Spring体系.md"]
 synthesis = []
 keywords = [
   { text = "IoC", path = "concepts/07-framework/机制-IoC容器.md" },
   { text = "AOP", path = "concepts/07-framework/机制-AOP织入.md" },
   { text = "事务", path = "concepts/07-framework/机制-Spring.md" },
   { text = "自动装配", path = "concepts/07-framework/机制-SpringBoot.md" },
-  { text = "SpringMVC", path = "concepts/07-framework/机制-SpringMVC请求处理链.md" },
+  { text = "SpringMVC", path = "concepts/07-framework/机制-SpringMVC.md" },
   { text = "MyBatis", path = "concepts/07-framework/机制-MyBatis.md" },
 ]
 

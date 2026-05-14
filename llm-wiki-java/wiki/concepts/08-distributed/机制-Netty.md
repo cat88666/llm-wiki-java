@@ -8,7 +8,7 @@ tags: ["#distributed"]
 related:
   - "[[概念-IO模型]]"
   - "[[机制-RPC与Dubbo]]"
-  - "[[机制-设计模式]]"
+  - "[[主题-设计模式]]"
 sources:
   - "../../../raw/note/tuling/07-Netty.md"
   - "../../../raw/note/tuling/架构设计.md"
@@ -195,7 +195,7 @@ if (ctx.channel().isWritable()) {
 
 - **依赖 [[概念-IO模型]]**：Netty 的 BIO/NIO/AIO 对应同步阻塞/同步非阻塞/异步，底层 epoll 是 NIO 多路复用的 Linux 实现
 - **支撑 [[机制-RPC与Dubbo]]**：Dubbo 底层网络传输基于 Netty；Dubbo 的 Provider/Consumer 通信通道就是 Netty Channel
-- **应用 [[机制-设计模式]]**：ChannelPipeline = 责任链模式；ByteBufAllocator = 工厂模式；SelectStrategy = 策略模式；EventExecutorChooser = 策略模式
+- **应用 [[主题-设计模式]]**：ChannelPipeline = 责任链模式；ByteBufAllocator = 工厂模式；SelectStrategy = 策略模式；EventExecutorChooser = 策略模式
 
 ## 应用边界
 

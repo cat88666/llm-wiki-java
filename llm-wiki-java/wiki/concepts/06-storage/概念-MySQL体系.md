@@ -1,5 +1,5 @@
 ---
-type: summary
+type: concept
 status: active
 name: "MySQL体系"
 layer: L5
@@ -11,12 +11,12 @@ concepts:
   - "[[机制-InnoDB锁]]"
   - "[[概念-SQL查询优化]]"
 sources:
-  - "../../raw/note/Hollis/MySQL/"
+  - "../../../raw/note/Hollis/MySQL/"
 created: 2026-05-02
 updated: 2026-05-02
 ---
 
-# MySQL 体系（L5 存储层）
+# MySQL体系
 
 > 本页是 L5 MySQL 知识地图，聚合 5 个核心概念页的依赖关系与高频考点。
 

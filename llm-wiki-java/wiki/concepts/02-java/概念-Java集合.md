@@ -1,15 +1,16 @@
 ---
-type: summary
+type: concept
 status: active
-name: "Java集合框架"
+name: "Java集合"
 layer: L4
+aliases: ["Java集合框架", "Collection", "List", "Set", "Map", "Queue", "JCF"]
 sources:
-  - "../../raw/note/Hollis/集合类/"
+  - "../../../raw/note/Hollis/集合类/"
 created: 2026-05-06
 updated: 2026-05-06
 ---
 
-# 主题 — Java 集合框架
+# Java集合
 
 > L4 Java 集合类知识地图，涵盖 List/Set/Map/Queue 体系 + 并发容器 + Stream。
 

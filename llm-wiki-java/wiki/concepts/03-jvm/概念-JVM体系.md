@@ -1,5 +1,5 @@
 ---
-type: summary
+type: concept
 status: active
 name: "JVM体系"
 layer: L2
@@ -11,13 +11,13 @@ topics:
   - JIT编译与优化
   - 引用类型
 sources:
-  - "../../raw/note/Hollis/JVM/"
+  - "../../../raw/note/Hollis/JVM/"
 created: 2026-05-02
 updated: 2026-05-02
 lint_notes: ""
 ---
 
-# 主题：JVM体系
+# JVM体系
 
 > L2 运行时层。JVM 是 Java 平台无关性的核心，也是理解性能调优、内存问题、GC 调参的基础。依赖 L1 语言基础，支撑 L3 并发（JMM）、L4 集合框架（HashMap 分析）、L5 存储（连接池管理）。
 

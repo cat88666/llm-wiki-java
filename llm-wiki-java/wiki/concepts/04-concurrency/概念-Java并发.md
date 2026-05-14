@@ -1,8 +1,9 @@
 ---
-type: summary
+type: concept
 status: active
-name: "Java并发体系"
+name: "Java并发"
 layer: L3
+aliases: ["Java并发体系", "并发编程", "JUC", "Java Concurrency"]
 tags: ["#concurrency"]
 concepts:
   - "[[概念-JMM]]"
@@ -18,7 +19,7 @@ created: 2026-05-02
 updated: 2026-05-02
 ---
 
-# Java 并发体系（L3）
+# Java并发
 
 > 本页是 L3 并发编程的知识地图，聚合 7 个核心概念页的依赖关系与高频考点。
 

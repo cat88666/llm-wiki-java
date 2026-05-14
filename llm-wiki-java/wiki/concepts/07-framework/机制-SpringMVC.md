@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "SpringMVC请求处理链"
+name: "SpringMVC"
 layer: L6
 aliases: ["SpringMVC", "DispatcherServlet", "HandlerMapping", "HandlerAdapter", "MappingRegistry", "请求路由", "拦截器", "ViewResolver", "ExceptionResolver"]
 related:
@@ -16,7 +16,7 @@ updated: 2026-05-08
 lint_notes: ""
 ---
 
-# SpringMVC请求处理链
+# SpringMVC
 
 > SpringMVC 以 DispatcherServlet 为核心前端控制器，通过 HandlerMapping 路由、HandlerAdapter 调用、Interceptor 前后置处理、ViewResolver 渲染四级流水线，将 HTTP 请求分发到对应 Controller 方法并返回响应。
 

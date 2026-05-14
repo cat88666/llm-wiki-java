@@ -6,7 +6,7 @@ layer: L7
 aliases: ["OAuth2", "OAuth 2.0", "开放授权", "Access Token", "授权服务器", "单点登录", "SSO"]
 related:
   - "[[概念-网络安全]]"
-  - "[[机制-SpringMVC请求处理链]]"
+  - "[[机制-SpringMVC]]"
 sources:
   - "../../../raw/note/Hollis/分布式/✅什么是OAuth2？有什么用？.md"
 created: 2026-05-08
@@ -80,7 +80,7 @@ OAuth2 本身是**授权**协议，不是认证协议。SSO 通常在 OAuth2 基
 ## 与其他概念的关系
 
 - 与 [[概念-网络安全]] 相关：OAuth2 是 API 安全的核心授权机制，Token 通过 HTTPS 传输，防止中间人攻击
-- 依赖 [[机制-SpringMVC请求处理链]]：Spring Security OAuth2 的 Token 验证通过 Filter/Interceptor 在请求进入 Controller 前完成
+- 依赖 [[机制-SpringMVC]]：Spring Security OAuth2 的 Token 验证通过 Filter/Interceptor 在请求进入 Controller 前完成
 
 ## 应用边界
 

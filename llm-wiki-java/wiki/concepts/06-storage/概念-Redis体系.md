@@ -1,5 +1,5 @@
 ---
-type: summary
+type: concept
 status: active
 name: "Redis体系"
 layer: L5
@@ -11,12 +11,12 @@ concepts:
   - "[[机制-Redis分布式锁]]"
   - "[[机制-Redis集群与高可用]]"
 sources:
-  - "../../raw/note/Hollis/Redis/"
+  - "../../../raw/note/Hollis/Redis/"
 created: 2026-05-02
 updated: 2026-05-02
 ---
 
-# Redis 体系（L5 存储层）
+# Redis体系
 
 > 本页是 L5 Redis 知识地图，聚合 5 个核心概念页的依赖关系与高频考点。
 

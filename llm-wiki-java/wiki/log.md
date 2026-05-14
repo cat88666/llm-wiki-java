@@ -68,7 +68,7 @@
 - String不可变性 + 包装类 → `概念-Java基础值类型`
 - BitMap + 布隆过滤器 → `概念-BitMap`
 - 引用类型 → 并入 `机制-GC算法与垃圾收集器`
-- Java集合框架 → 并入 `概念-数据结构`
+- Java集合框架 → `概念-Java集合`
 
 ## [2026-05-12] Ingest | 源码体系 + 锁体系主题页
 
@@ -121,7 +121,7 @@
 
 ## [2026-05-08] Ingest | P7 第二轮：Seata/SpringMVC/OAuth2
 
-- 新建 `机制-Seata框架机制` / `机制-SpringMVC请求处理链` / `概念-OAuth2授权协议`
+- 新建 `机制-Seata框架机制` / `机制-SpringMVC` / `概念-OAuth2授权协议`
 - 更新 `机制-SpringBoot`：完整启动流程 + 优雅停机
 
 ## [2026-05-08] Ingest | P7 第一轮：消息队列/配置中心/任务调度/异步编程/JVM 调优
@@ -157,7 +157,7 @@
 - 网络安全/ → `concepts/概念-网络安全`（13 文件）
 - 微服务/ → 更新 `机制-微服务与SpringCloud`（5 新章节）
 - 分布式/ → `概念-分布式系统理论` / `概念-幂等设计` / `机制-Canal数据同步`
-- 设计模式/ → `机制-设计模式`（21 文件）
+- 设计模式/ → `主题-设计模式`（21 文件）
 - 操作系统/ → `概念-操作系统`（30 文件）
 - 计算机网络/ → `概念-计算机网络`（30 文件）
 - 容器/ + 高并发/ + 高可用/ → `机制-容器化与Docker` / `概念-限流与熔断` / `概念-高可用设计`
@@ -172,22 +172,22 @@
 - ElasticSearch/ → `机制-倒排索引与ElasticSearch`
 - RabbitMQ/ → `机制-消息队列可靠性`
 - Zookeeper/ → `机制-ZAB协议与Zookeeper`
-- Spring/ → concept × 4 + `主题-Spring体系`
+- Spring/ → concept × 4 + `概念-Spring体系`
 - MyBatis/ → `机制-MyBatis`
-- 集合类/ → `机制-HashMap` / `机制-ConcurrentHashMap` + `主题-Java集合框架`
+- 集合类/ → `机制-HashMap` / `机制-ConcurrentHashMap` + `概念-Java集合`
 
 ## [2026-05-06] Lint | 健康检查
 
 - 删除 4 重复页：机制-HashMap / 机制-ConcurrentHashMap / 机制-CopyOnWrite / 概念-集合迭代一致性
-- 修复 `主题-Redis体系` 畸形 wikilink
+- 修复 `概念-Redis体系` 畸形 wikilink
 
 ## [2026-05-02] Ingest | 基础模块批量摄入
 
-- Redis/ → concept × 5 + `主题-Redis体系`
-- MySQL/ → concept × 5 + `主题-MySQL体系`
-- Java并发/ → concept × 7 + `主题-Java并发体系`
-- JVM/ → concept × 5 + `主题-JVM体系`
-- 数据结构/ → concept × 7 + `主题-数据结构体系`
+- Redis/ → concept × 5 + `概念-Redis体系`
+- MySQL/ → concept × 5 + `概念-MySQL体系`
+- Java并发/ → concept × 7 + `概念-Java并发`
+- JVM/ → concept × 5 + `概念-JVM体系`
+- 数据结构/ → concept × 7 + `概念-数据结构体系`
 - Java基础/ → concept × 11 + `主题-Java语言基础`
 
 ## [2026-05-02] Init | Java 知识库初始化
