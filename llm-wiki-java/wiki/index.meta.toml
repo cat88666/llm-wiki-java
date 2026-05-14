@@ -47,13 +47,13 @@ id = "L2"
 name = "JVM"
 concept_dirs = ["concepts/03-jvm"]
 summaries = ["concepts/03-jvm/概念-JVM体系.md"]
-synthesis = ["synthesis/设计-JVM调优实战.md"]
+synthesis = ["summaries/主题-JVM调优.md"]
 keywords = [
   { text = "内存模型", path = "concepts/03-jvm/机制-JVM内存模型.md" },
   { text = "类加载", path = "concepts/03-jvm/机制-类加载机制.md" },
   { text = "GC", path = "concepts/03-jvm/机制-垃圾收集器.md" },
   { text = "JIT", path = "concepts/03-jvm/机制-JIT编译.md" },
-  { text = "调优", path = "synthesis/设计-JVM调优实战.md" },
+  { text = "调优", path = "summaries/主题-JVM调优.md" },
 ]
 
 [[layers]]
