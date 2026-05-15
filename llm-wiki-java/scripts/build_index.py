@@ -55,7 +55,7 @@ def join_links(paths: list[str | Path]) -> str:
 
 
 def join_keywords(keywords: list[dict]) -> str:
-    return "<br>".join(md_link(item["path"], item["text"]) for item in keywords)
+    return " · ".join(md_link(item["path"], item["text"]) for item in keywords)
 
 
 def concepts_for(layer: dict, pages: set[Path], kind: str) -> list[Path]:
