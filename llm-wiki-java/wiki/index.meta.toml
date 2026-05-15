@@ -14,6 +14,7 @@ summaries = [
   "summaries/主题-海量数据.md",
   "summaries/主题-机器容量.md",
   "summaries/主题-编程语言.md",
+  "summaries/主题-模拟面试.md",
 ]
 
 # ── 综合分析（synthesis/）──────────────────────────────
@@ -38,7 +39,7 @@ synthesis = [
 
 [[layers]]
 id = "L0"
-name = "计算机 / 网络"
+name = "计算机与网络"
 concept_dirs = ["concepts/01-cs-base"]
 keywords = [
   # 操作系统
@@ -162,7 +163,7 @@ keywords = [
 
 [[layers]]
 id = "L4"
-name = "集合 / 算法 / 数据结构"
+name = "算法"
 concept_dirs = ["concepts/05-data-structure"]
 keywords = [
   { text = "红黑树", path = "concepts/05-data-structure/机制-红黑树.md" },
@@ -177,7 +178,7 @@ keywords = [
 
 [[layers]]
 id = "L5"
-name = "Redis / MySQL / 存储"
+name = "Redis / MySQL / RocksDB"
 concept_dirs = ["concepts/06-storage"]
 keywords = [
   # MySQL 索引
@@ -243,7 +244,7 @@ keywords = [
 
 [[layers]]
 id = "L7"
-name = "分布式 / 中间件"
+name = "分布式"
 concept_dirs = ["concepts/08-distributed"]
 keywords = [
   # 理论

@@ -1,5 +1,23 @@
 # Wiki Log
 
+## [2026-05-15] Update | 支付中台内容从主题-模拟面试迁移到系统设计-支付系统
+- 删除 主题-模拟面试.md 中"二、支付中台 & Seata TCC"章节（约 140 行）
+- 将其中新增知识合并进 系统设计-支付系统.md：分户账/总账/在途户、分账解耦、清分/清算/结算/对账术语、对账差异闭环（长款/短款/重单/漏单）、支付超时中间态、信封加密、三条新面试追问
+- 主题-模拟面试.md 添加 [[系统设计-支付系统]] 导航提示，章节重新编号 一→八
+
+## [2026-05-15] Update | 重写 summaries/主题-模拟面试.md
+- 去掉时间列和所有章节标题中的时间标注
+- 去掉面试官/候选人对话格式（🧑‍💼/👨‍💻），改为直接"### 问题标题 + 答案"结构
+- 去掉所有 📝考察点、💡加分技巧、⚠️陷阱预警 旁注，精炼内容
+- 快速导航改为两列（标题索引 + 概述），去掉时间列
+
+## [2026-05-15] Rename | synthesis/mock-interview-eson.md → summaries/主题-模拟面试.md
+- 移动文件：`synthesis/mock-interview-eson.md` → `summaries/主题-模拟面试.md`
+- 更新 frontmatter：`type: synthesis` → `type: summary`，`name` 改为 `模拟面试`
+- 更新 `index.meta.toml`：从 synthesis 删除，加入 summaries 列表
+- 移除断链 `[[设计-分布式事务]]`（已由 synthesis 页面覆盖）
+- 重新生成 index.md（90 pages）
+
 ## [2026-05-15] Update | 重写 wiki/synthesis/ 全部 12 个页面
 - 使用 rewrite-synthesis-prompt.md 按问题驱动格式重写所有 synthesis 页
 - 统一结构：场景概述→方案对比矩阵（含结论列）→决策树→落地实践→面试追问（**问**/**答**格式）→概念关系
@@ -407,3 +425,8 @@
 - 合并 16 条 sources、aliases、related
 - 删除 机制-ConcurrentHashMap.md，更新 index.meta.toml
 - 重新生成 wiki/index.md
+
+## [2026-05-15] Update | 主题-模拟面试 快速导航修正
+- 更新 快速导航 表：移除已迁移的三节（JVM/CoinsOTC/Netty），修正章节编号（五→二、六→三、七→四、八→五）
+- 添加迁移去向注释（指向 主题-JVM调优、系统设计-区块链OTC、系统设计-游戏架构）
+- 重建 wiki/index.md（90 pages）

@@ -182,3 +182,17 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 - 高频随机点查 + 复杂 JOIN（B+ 树更优，InnoDB 是正确选择）
 - 数据量小（< 1GB），B+ 树简单可靠
 - 事务 ACID 要求严格的 OLTP 核心链路
+
+### 实战案例：游戏结算写缓冲
+
+**场景**：游戏结算同步写 MySQL，高峰期 P99 = 800ms（大量请求竞争行锁）。
+
+**方案**：结算事件先写本地 RocksDB（μs 级），异步线程批量提交 MySQL（降低行锁竞争）；RocksDB 作为写前日志兜底，进程 crash 后 replay 不丢结算数据。P99 降到 100ms。
+
+**为什么选 RocksDB 而不是 MQ**：
+1. 延迟：RocksDB 本地写 μs 级，MQ 网络调用最快 ms 级，游戏结算对延迟敏感
+2. 部署简单：容器化实例挂载独立 RocksDB 目录，不需要维护 MQ 集群
+
+需跨服务消费的事件（如排行榜更新）再从 RocksDB 二次投递到 MQ。
+
+**失败处理**：每条记录在 RocksDB 标记状态（pending/committed/failed），写 MySQL 失败标记 failed 下轮重试，超 N 次告警人工介入。每日对账任务比对两侧记录。

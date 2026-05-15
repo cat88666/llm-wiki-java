@@ -131,6 +131,29 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 - 代价：更高的 CPU 开销（并发 GC 线程）
 - 适合：堆 > 8G、延迟敏感（金融交易、游戏）
 
+### 实战案例：0 Full GC 调优（STAR）
+
+**Situation**：游戏逻辑服高峰期 Full GC 3-5 次/天，每次 STW 1-3 秒，玩家掉线投诉。
+
+**Action**：
+1. **MAT 分析 Heap Dump**：RoomContext 对象峰值在 Old Gen 堆积 2GB+，CMS concurrent mode failure 退化成 Serial GC
+2. **对象池改造**：Commons Pool2 池化 RoomContext（borrow/return+reset），Old Gen 使用率 85% → 25%
+3. **切换 G1 调参**：
+   ```
+   -XX:+UseG1GC -Xms4g -Xmx4g
+   -XX:MaxGCPauseMillis=50
+   -XX:G1HeapRegionSize=16m
+   -XX:G1ReservePercent=20
+   -XX:InitiatingHeapOccupancyPercent=35  # 默认 45%，调低提前触发 Mixed GC
+   ```
+4. **Metaspace 控制**：`-XX:MaxMetaspaceSize=512m`，清理不必要的 String intern
+
+**Result**：0 Full GC，Minor GC 每 2 分钟一次，< 30ms。
+
+**IHOP 调低的代价**：Mixed GC 频率增加，CPU 稍高；收益是 Old Gen 不会堆满避免 Evacuation Failure 退化 Full GC。游戏场景 GC 停顿比多几个百分点 CPU 更重要。
+
+**对象池大小如何确定**：统计高峰期 P99 在线房间数（如 200），池大小设为 250（25% 余量）。`minIdle=50, maxTotal=300, maxIdle=200`。超 maxTotal 配 `BlockWhenExhausted=true + MaxWaitMillis=3000`，超时返回"服务器繁忙"——拒绝单请求比全服 Full GC 代价小。监控：Prometheus 暴露 `numActive/numIdle`。
+
 ---
 
 ## GC 收集器选型

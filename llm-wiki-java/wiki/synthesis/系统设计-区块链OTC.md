@@ -224,6 +224,15 @@ CREATE UNIQUE INDEX uk_withdrawal ON withdrawal_tx(withdrawal_id);
 **问**：UTXO 和账户模型对充值对账的影响是什么？
 **答**：BTC UTXO 模型下，充值地址可以每次不同（HD 钱包派生），系统需要维护地址→userId 的映射表，对账时扫描所有派生地址的 UTXO。ETH 账户模型下，充值地址固定（或一个 userId 一个地址），对账通过订阅 Transfer 事件（ERC20）或监听账户余额变化。BTC 对账逻辑更复杂，ETH 更简单直接。
 
+**问**：AES 密钥存哪里？DEK/KEK 分层是什么？
+**答**：三层管理：①DEK（数据密钥）加密私钥，加密后存 DB；②KEK（密钥加密密钥）加密 DEK，存环境变量，部署时注入，不写代码或配置文件；③生产最终方案 KEK 由 KMS（AWS KMS/阿里云 KMS）管理，应用启动时通过 IAM 获取，KEK 从不落盘。拖库只能拿到加密后的 DEK + 加密私钥，没有 KEK 无法解密。
+
+**问**：Redisson 主节点宕机，分布式锁失效怎么办？
+**答**：两层保障：①RedLock——向 3 个独立 Redis 节点加锁，majority 成功才算成功，单节点宕机不影响；②DB 层幂等——链上转账有 txHash，DB 建唯一索引 `(txHash, direction)`，锁失效时二次提交被唯一约束拦截。
+
+**问**：你了解 Kleppmann 批评 RedLock 的观点吗？
+**答**：核心观点：RedLock 依赖系统时钟，时钟跳变（NTP 校准/VM 暂停）导致锁 TTL 提前过期，两个客户端同时持锁。解决方案是 Fencing Token——锁附带单调递增 token，存储层只接受比上次更大的 token 写入。我们的场景：RedLock + DB 唯一索引本质就是变相 Fencing，DB 唯一约束扮演最终裁决者。
+
 ## 八、与其他概念的关系
 
 - 私钥内存安全（AES-GCM + Arrays.fill）参见 [[机制-数据加密与脱敏]]：对称加密存储、私钥清零是该页的工程实践
