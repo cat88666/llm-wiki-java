@@ -1,5 +1,29 @@
 # Wiki Log
 
+## [2026-05-15] Update | 重写 concepts/08-distributed 全部 19 个概念页
+
+- **链接修复**：全部文件中 `[[机制-ZAB协议与Zookeeper]]` → `[[机制-Zookeeper]]`、`[[机制-微服务与SpringCloud]]` → `[[机制-SpringCloud]]`、`[[主题-三高体系]]` → `[[主题-三高架构]]`、`[[概念-分布式系统理论]]` → `[[概念-分布式理论]]`、`[[机制-InnoDB索引]]`/`[[机制-MySQL三种日志]]` → `[[概念-MySQL]]`、`[[机制-消息队列可靠性]]` → `[[机制-RabbitMQ]]`、`[[机制-Redis分布式锁]]` → `[[概念-Redis]]`；移除 `[[模拟面试-Eson]]` 孤立链接
+- **补全残缺 frontmatter**：`机制-RPC与Protobuf.md`（补 type/status/name/layer）、`机制-数据加密与脱敏.md`（同）
+- **概念-分布式理论.md**：已在上轮完成，快速导航 + 10个编号章节，ZAB vs Raft 对比
+- **概念-分布式事务.md**：type改为concept，layer=L8，空回滚/悬挂统一解法（分布式事务记录表），本地消息表 vs 事务消息对比
+- **概念-幂等设计.md**：8个编号章节；幂等号设计原则；MQ消费幂等 @Transactional 代码；唯一性约束三大缺陷
+- **机制-Zookeeper.md**：ZAB vs Raft 差异；集群容错表（3/5/7节点）；惊群效应 → 监听前驱节点解法
+- **机制-Kafka.md**：Producer TPS 参数表；Consumer 并行消费 bucketing 代码；ISR/HW/LEO 详解
+- **机制-RabbitMQ.md**：本地消息表完整 SQL Schema；Spring Event vs MQ 对比；消息乱序4种解法
+- **机制-RocketMQ.md**：CommitLog vs Kafka Segment 差异表；4.x vs 5.x 延迟消息对比；三路 MQ 对比表
+- **机制-Netty.md**：主从 Reactor 完整链路；ByteBuf 四种实现（Pooled/UnPooled × Heap/Direct）；WriteBufferWaterMark 背压实践
+- **机制-RPC与Dubbo.md**：9层分层架构；5种负载均衡；Dubbo SPI vs JDK SPI 对比；gRPC 四种通信模式
+- **机制-RPC与Protobuf.md**：完整 frontmatter；Varint/Field Tag 编码；Deadline 传播；17种 Status Code；gRPC vs REST 对比
+- **概念-OAuth2授权协议.md**：PKCE 扩展详解；Token 验证方式（JWT vs Introspection）；微服务 Client Credentials 模式
+- **概念-分布式场景.md**：type=synthesis，layer=L8；修复所有链接；库存三方案/锁选型/SSO/跨库JOIN/平滑迁移/Excel导入
+- **概念-分布式任务.md**：Timer缺陷；分层时间轮；XXL-Job DB悲观锁防重复；退避策略三类型；PowerJob MapReduce动态分片
+- **概念-可观测性.md**：修复链接；Prometheus 4种 Metric 类型；SkyWalking 无侵入原理；三支柱协作流程；12类故障案例
+- **机制-ElasticSearch.md**：修复链接；Hot-Warm-Cold + ILM；乐观锁 if_seq_no；search_after vs scroll；DB一致性4方案
+- **机制-Seata.md**：name改为"Seata"；修复链接；AT vs XA 对比表；空回滚/悬挂统一解法；四模式对比
+- **机制-配置中心与Nacos.md**：修复链接；Nacos 1.x 长轮询 vs 2.x gRPC；Distro vs JRaft；四注册中心选型对比
+- **机制-容器化与Docker.md**：修复链接；namespace+cgroup原理；K8s核心对象；冷启动4方案对比；云原生改造要点表
+- **机制-数据加密与脱敏.md**：完整 frontmatter；修复链接；AES-GCM IV铁律；RSA-OAEP混合加密；防重放三层防御；Arrays.fill清零
+
 ## [2026-05-14] Update | 重写 concepts/04-concurrency 全部 9 个概念页
 
 - **概念-Java并发.md**：从 ASCII 知识地图页重写为标准结构；增加快速导航、并发三大问题表、L3知识地图（带模块定位）、高频考点速查（7个考点详解）、工具选型决策树、常见误区表
