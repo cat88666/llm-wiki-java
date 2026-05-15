@@ -1,5 +1,15 @@
 # Wiki Log
 
+## [2026-05-15] Update | 重写 wiki/synthesis/ 全部 12 个页面
+- 使用 rewrite-synthesis-prompt.md 按问题驱动格式重写所有 synthesis 页
+- 统一结构：场景概述→方案对比矩阵（含结论列）→决策树→落地实践→面试追问（**问**/**答**格式）→概念关系
+- 修复所有断链：`[[主题-三高体系]]`→`[[主题-三高架构]]`、`[[机制-Redis分布式锁]]`→`[[概念-Redis]]`、`[[机制-消息队列可靠性]]`→`[[机制-RabbitMQ]]`、`[[机制-InnoDB锁]]`→`[[概念-MySQL]]`、`[[概念-分布式系统理论]]`→`[[概念-分布式理论]]`、`[[机制-Spring IoC容器]]`→`[[机制-Spring]]`、`[[设计-分布式事务]]`→`[[机制-Seata]]`、`[[机制-分布式任务调度]]`→`[[概念-分布式任务]]`、`[[机制-ZAB协议与Zookeeper]]`→`[[机制-Zookeeper]]`、`[[机制-微服务与SpringCloud]]`→`[[机制-SpringCloud]]`
+- 删除所有 `[[模拟面试-Eson]]` 引用（文件不存在）
+- 为缺少 frontmatter 的文件补全：IM系统/电商系统/区块链OTC 新增完整 YAML frontmatter
+- 为 frontmatter 不完整的文件补全字段：P8架构思维/项目难点表达 补充 type/status/name/related/sources
+- 从 `index.meta.toml` 移除已不存在的 `synthesis/mock-interview-eson.md` 引用
+- 重新生成 index.md（89 pages）
+
 ## [2026-05-15] Rename | 主题-Java-Python-Go对比 → 主题-编程语言
 - 重命名 `summaries/主题-Java-Python-Go对比.md` → `summaries/主题-编程语言.md`
 - 同步更新 `index.meta.toml` 和 `index.md` 的 summaries 引用

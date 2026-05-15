@@ -30,7 +30,6 @@ synthesis = [
   "synthesis/设计-德州扑克核心算法.md",
   "synthesis/设计-接口设计与防护.md",
   "synthesis/设计-项目难点表达.md",
-  "synthesis/mock-interview-eson.md",
   "concepts/08-distributed/概念-分布式场景.md",
   "concepts/08-distributed/概念-分布式事务.md",
 ]

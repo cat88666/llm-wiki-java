@@ -49,7 +49,6 @@
 | [德州扑克核心算法](synthesis/设计-德州扑克核心算法.md) | `synthesis/设计-德州扑克核心算法.md` |
 | [接口设计与防护](synthesis/设计-接口设计与防护.md) | `synthesis/设计-接口设计与防护.md` |
 | [项目难点表达](synthesis/设计-项目难点表达.md) | `synthesis/设计-项目难点表达.md` |
-| [mock-interview-eson](synthesis/mock-interview-eson.md) | `synthesis/mock-interview-eson.md` |
 | [分布式场景](concepts/08-distributed/概念-分布式场景.md) | `concepts/08-distributed/概念-分布式场景.md` |
 | [分布式事务](concepts/08-distributed/概念-分布式事务.md) | `concepts/08-distributed/概念-分布式事务.md` |
 
