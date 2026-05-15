@@ -128,10 +128,10 @@ keywords = [
   { text = "幂等", path = "concepts/08-distributed/概念-幂等设计.md" },
   { text = "限流熔断", path = "summaries/主题-三高架构.md" },
   { text = "Kafka", path = "concepts/08-distributed/机制-Kafka.md" },
-  { text = "Nacos", path = "concepts/08-distributed/机制-配置中心与Nacos.md" },
+  { text = "Nacos", path = "concepts/08-distributed/机制-Nacos.md" },
   { text = "Dubbo", path = "concepts/08-distributed/机制-RPC与Dubbo.md" },
   { text = "Netty", path = "concepts/08-distributed/机制-Netty.md" },
-  { text = "OAuth2", path = "concepts/08-distributed/概念-OAuth2授权协议.md" },
+  { text = "OAuth2", path = "concepts/08-distributed/概念-OAuth2.md" },
 ]
 
 [[layers]]
