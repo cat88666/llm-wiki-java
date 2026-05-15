@@ -79,33 +79,60 @@ def maintenance_pages(pages: set[Path]) -> list[Path]:
     )
 
 
-def render_index_table(meta: dict, pages: set[Path]) -> list[str]:
+def render_concept_table(meta: dict, pages: set[Path]) -> list[str]:
     lines = [
-        "## 索引",
+        "## 机制和概念索引",
         "",
-        "| 层级 | 知识域 | 主题 | 综合分析 | 概念 | 机制 | 关键词 |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| 层级 | 知识域 | 概念 | 机制 | 关键词 |",
+        "| --- | --- | --- | --- | --- |",
     ]
     for layer in meta["layers"]:
-        summaries = [Path(p) for p in layer.get("summaries", [])]
-        synthesis = [Path(p) for p in layer.get("synthesis", [])]
         concepts = concepts_for(layer, pages, "概念")
         mechanisms = concepts_for(layer, pages, "机制")
         keywords = layer.get("keywords", [])
         lines.append(
-            "| {id} | {name} | {summaries} | {synthesis} | {concepts} | {mechanisms} | {keywords} |".format(
+            "| {id} | {name} | {concepts} | {mechanisms} | {keywords} |".format(
                 id=layer["id"],
                 name=layer["name"],
-                summaries=join_links(summaries),
-                synthesis=join_links(synthesis),
                 concepts=join_links(concepts),
                 mechanisms=join_links(mechanisms),
                 keywords=join_keywords(keywords),
             )
         )
-    maintenance = maintenance_pages(pages)
-    if maintenance:
-        lines.append(f"| M | 维护 | {join_links(maintenance)} |  |  |  |  |")
+    return lines
+
+
+def render_summaries(meta: dict) -> list[str]:
+    settings = meta.get("settings", {})
+    summaries = [Path(p) for p in settings.get("summaries", meta.get("summaries", []))]
+    if not summaries:
+        return []
+    lines = [
+        "",
+        "## 主题总结",
+        "",
+        "| 主题 | 路径 |",
+        "| --- | --- |",
+    ]
+    for p in summaries:
+        lines.append(f"| {md_link(p)} | `{p}` |")
+    return lines
+
+
+def render_synthesis(meta: dict) -> list[str]:
+    settings = meta.get("settings", {})
+    synthesis = [Path(p) for p in settings.get("synthesis", meta.get("synthesis", []))]
+    if not synthesis:
+        return []
+    lines = [
+        "",
+        "## 综合分析",
+        "",
+        "| 专题 | 路径 |",
+        "| --- | --- |",
+    ]
+    for p in synthesis:
+        lines.append(f"| {md_link(p)} | `{p}` |")
     return lines
 
 
@@ -122,7 +149,18 @@ def render_index(meta: dict, pages: list[Path]) -> str:
     if description:
         lines.append(f"> {description}")
     lines.append("")
-    lines.extend(render_index_table(meta, page_set))
+    lines.extend(render_concept_table(meta, page_set))
+    lines.extend(render_summaries(meta))
+    lines.extend(render_synthesis(meta))
+
+    maintenance = maintenance_pages(page_set)
+    if maintenance:
+        lines.append("")
+        lines.append("## 维护")
+        lines.append("")
+        for p in maintenance:
+            lines.append(f"- {md_link(p)}")
+
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -141,9 +179,10 @@ def validate(meta: dict, rendered: str, pages: list[Path]) -> list[str]:
 
     configured_paths: list[Path] = []
     for layer in meta["layers"]:
-        configured_paths.extend(Path(p) for p in layer.get("summaries", []))
-        configured_paths.extend(Path(p) for p in layer.get("synthesis", []))
         configured_paths.extend(Path(item["path"]) for item in layer.get("keywords", []))
+    settings = meta.get("settings", {})
+    configured_paths.extend(Path(p) for p in settings.get("summaries", meta.get("summaries", [])))
+    configured_paths.extend(Path(p) for p in settings.get("synthesis", meta.get("synthesis", [])))
 
     for path in sorted(set(configured_paths)):
         if path not in page_set:
