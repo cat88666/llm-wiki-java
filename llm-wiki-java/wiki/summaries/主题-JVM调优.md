@@ -195,6 +195,14 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 
 ---
 
+## 面试追问
+
+**问**：当时为什么选 G1 不选 ZGC？
+**答**：时机问题。2019-2023 年 ZGC 在 JDK 11 是 Experimental 状态，生产不敢用。现在（JDK 17+）新项目会优先评估 ZGC——STW < 1ms，且无需手动调 IHOP 和 MaxGCPauseMillis。代价：内存占用大（着色指针多用 ~15% 内存），4G 堆可能不够，需要 8G+；并发 GC 线程 CPU 开销比 G1 高。游戏/金融对延迟敏感、有富余内存时选 ZGC；资源受限或堆 < 8G 仍选 G1。
+
+**问**：对象池化后 reset 漏字段怎么发现？
+**答**：`RoomContext` 实现 `Resettable` 接口，写单元测试通过反射遍历所有字段，检查 `reset()` 后每个字段是否等于其类型默认值（int=0, String=null, List=空集合）。新增字段时 CI 跑这个测试，漏了就 fail。比 code review 更可靠，因为漏加 reset 是"遗忘型"错误，很难靠人眼发现。
+
 ## 与其他概念的关系
 
 - 依赖 [[机制-垃圾收集器]]：调优的前提是理解 G1/ZGC 的 GC 流程

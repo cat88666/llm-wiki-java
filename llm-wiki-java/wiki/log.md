@@ -430,3 +430,18 @@
 - 更新 快速导航 表：移除已迁移的三节（JVM/CoinsOTC/Netty），修正章节编号（五→二、六→三、七→四、八→五）
 - 添加迁移去向注释（指向 主题-JVM调优、系统设计-区块链OTC、系统设计-游戏架构）
 - 重建 wiki/index.md（90 pages）
+
+## [2026-05-15] Update | 技术内容知识聚合（模拟面试拆解）
+- 主题-模拟面试.md：删除二（基础技术问答）、三（Gacha系统设计）、四（算法LRU）、附C（陷阱题集），仅保留一（暖场）、二（行为，原五）、附A、附B
+- 迁移目标文件（新增面试追问/实战内容）：
+  - 主题-锁体系.md → AQS、volatile vs synchronized、线程池CPU/IO参数
+  - 概念-Redis.md → Redis为什么快、缓存一致性Cache Aside、bigkey、Cluster MOVED/ASK
+  - 机制-Spring.md → @Transactional失效5场景+踩坑、Spring三级缓存为什么要三级
+  - 概念-分布式事务.md → TCC vs本地消息表选型、Seata TC挂了、为什么不替换TCC
+  - 主题-消息队列.md → RocketMQ vs Kafka场景对比、消息堆积止血+根因
+  - 概念-MySQL.md → 跨分片聚合（汇总表+ClickHouse OLAP）
+  - 系统设计-彩票系统.md → Gacha高并发设计、Redis挂了、热点分桶、概率公平、全球部署
+  - 主题-高频算法.md → LRU完整Java实现+线程安全方案
+  - 主题-JVM调优.md → G1 vs ZGC时机选择、对象池reset测试方法
+  - 设计-P7架构思维.md → 性能瓶颈分层评估、从0到1搭系统五步法
+- 重建 wiki/index.md（90 pages）

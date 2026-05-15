@@ -699,3 +699,20 @@ Redis 内存用满（达到 `maxmemory`）时触发淘汰：
 | 击穿 | 热点 key 在关键时刻过期 | 互斥锁（强一致）/ 逻辑过期（高性能）|
 | 雪崩（批量失效）| 大量 key 同 TTL | 随机化 TTL |
 | 雪崩（宕机）| Redis 实例故障 | Cluster + 熔断 + 多级缓存 |
+
+## 十二、面试追问
+
+**问**：Redis 为什么快？
+**答**：①纯内存，ns 级读写；②单线程命令执行，无上下文切换和锁竞争；③epoll IO 多路复用，单线程处理大量连接；④高效数据结构（SDS/ziplist/skiplist/listpack）；⑤Redis 6.0+ 多线程处理网络 I/O，命令执行仍单线程。瓶颈不在 CPU 而在网络 I/O，单线程足够。
+
+**问**：Redis 和 MySQL 数据一致性怎么保证？
+**答**：**先更新 DB，再删缓存**（Cache Aside Pattern）。不用"先删后更新"，并发场景产生脏数据（线程A删缓存→线程B读DB写旧缓存→线程A写新DB，缓存永远是旧值）。两层保障：①写路径删缓存；②Canal 订阅 binlog 异步删缓存（防写路径删除失败残留）。强一致场景（如余额）不走缓存，直接读 DB。
+
+**问**：Redis bigkey 怎么处理？
+**答**：发现：`redis-cli --bigkeys` 或 `MEMORY USAGE key`。  
+删除：用 `UNLINK`（Redis 4.0+ 异步删除），**不要** `DEL`（主线程阻塞）。  
+预防：写入时按 key 分桶（如 `rank:0~9`，每个子 key 控制在合理大小）。  
+实战：排行榜 ZSet 200 万成员，`DEL` 导致主线程阻塞 2 秒，改 `UNLINK` + 按前缀分 10 个 key 解决。
+
+**问**：Redis Cluster 迁移期间 MOVED 和 ASK 的区别？
+**答**：`MOVED`：key 已迁移完成，客户端更新本地 slot→节点路由表，之后直接请求新节点。`ASK`：key 正在迁移中，客户端临时向新节点发 `ASKING` 再发请求（一次性，不更新路由表，下次同 slot 还走旧节点）。Redisson/Lettuce 已内置自动处理，业务层无感知。
