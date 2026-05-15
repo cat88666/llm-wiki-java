@@ -1,5 +1,15 @@
 # Wiki Log
 
+## [2026-05-15] Rename | 主题-Java-Python-Go对比 → 主题-编程语言
+- 重命名 `summaries/主题-Java-Python-Go对比.md` → `summaries/主题-编程语言.md`
+- 同步更新 `index.meta.toml` 和 `index.md` 的 summaries 引用
+- 更新页面元信息：`name` 改为 `编程语言`，标题改为 `编程语言（Java / Python / Go 对比）`
+
+## [2026-05-15] Update | 新增主题：Java / Python / Go 对比
+- 新建 `summaries/主题-Java-Python-Go对比.md`，覆盖语言设计哲学、类型系统、运行时/内存、并发、生态、部署成本与选型框架
+- 更新 `index.meta.toml` 的 `summaries` 列表，新增 `summaries/主题-Java-Python-Go对比.md`
+- 重建 `index.md`（`/opt/miniconda3/bin/python3 scripts/build_index.py`）
+
 ## [2026-05-15] Update | 文件改名
 - `概念-OAuth2授权协议.md` → `概念-OAuth2.md`，更新 概念-网络安全.md、index.meta.toml 引用
 - `机制-配置中心与Nacos.md` → `机制-Nacos.md`
