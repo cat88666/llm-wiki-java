@@ -15,7 +15,7 @@ sources:
   - "../../../raw/note/Hollis/Spring/✅为什么SpringBoot 3中移除了spring factories.md"
   - "../../../raw/note/Hollis/Spring/✅SpringBoot如何做优雅停机？.md"
 created: 2026-05-06
-updated: 2026-05-08
+updated: 2026-05-15
 lint_notes: ""
 ---
 
@@ -23,15 +23,26 @@ lint_notes: ""
 
 > SpringBoot 的核心价值：根据 classpath 中已有的 jar 包和类，自动向 IoC 容器注册合适的 Bean，消除 XML 配置的样板代码——"约定优于配置"的工程实践。
 
-## 第一性原理
+## 快速导航
+
+| 标题索引 | 概述 |
+| --- | --- |
+| [一、第一性原理](#一第一性原理) | 约定优于配置、消除样板配置 |
+| [二、核心机制](#二核心机制) | 启动流程、自动配置链路、@Conditional、spring.factories 演变 |
+| [三、Java 核心使用](#三java-核心使用) | 自定义 Starter、优雅停机 |
+| [四、关键权衡](#四关键权衡) | 自动配置优先级、启动速度、调试困难 |
+| [五、与其他概念的关系](#五与其他概念的关系) | Spring IoC、SPI、SpringCloud |
+| [六、应用边界](#六应用边界) | 适用与不适用场景 |
+
+## 一、第一性原理
 
 Spring 本身已经能管理 Bean，但需要开发者显式写大量 XML 或 @Configuration 配置。SpringBoot 解决的问题是：**当某个功能的 jar 包已经在 classpath 上，就应该自动配置好它，无需开发者手工声明**。
 
 实现手段：`@Conditional` 条件化注解 + `SPI` 机制（`spring.factories` / `.imports` 文件）。
 
-## 核心机制
+## 二、核心机制
 
-### 启动流程（完整版）
+### 2.1 启动流程
 
 **阶段一：new SpringApplication()**
 
@@ -81,20 +92,7 @@ afterRefresh（空扩展点）
 
 **内嵌 Tomcat 启动位置**：`refreshContext → onRefresh → ServletWebServerApplicationContext.createWebServer() → TomcatServletWebServerFactory.getWebServer()` → 创建并启动 Tomcat 实例。
 
-### 优雅停机
-
-```yaml
-# application.yml
-server:
-  shutdown: graceful                            # 开启优雅停机
-spring:
-  lifecycle:
-    timeout-per-shutdown-phase: 2m             # 等待最长时间
-```
-
-收到 SIGTERM 信号后，SpringBoot 停止接收新请求，等待已有请求处理完毕（最长 2 分钟），再关闭容器、销毁 Bean（`DisposableBean.destroy()` / `@PreDestroy`）。
-
-### 自动配置核心链路
+### 2.2 自动配置核心链路
 
 ```
 @SpringBootApplication
@@ -107,7 +105,7 @@ spring:
                               → 满足条件的配置类 → 注册 BeanDefinition → IoC 容器
 ```
 
-### 条件化配置（@Conditional）
+### 2.3 条件化配置（@Conditional）
 
 | 注解 | 条件 |
 |------|------|
@@ -125,7 +123,7 @@ public class DataSourceAutoConfiguration { ... }
 
 这是"约定优于配置"的关键：有 class 就配，用户自定义了则不覆盖。
 
-### spring.factories vs .imports 文件（Boot 2→3 演变）
+### 2.4 spring.factories vs .imports 文件（Boot 2→3 演变）
 
 | 版本 | 配置文件位置 | 格式 |
 |------|------------|------|
@@ -137,7 +135,9 @@ public class DataSourceAutoConfiguration { ... }
 
 这与 L1 [[机制-SPI]] 思想一脉相承，但是 Spring 自己的扩展实现。
 
-### 自定义 Starter
+## 三、Java 核心使用
+
+### 3.1 自定义 Starter
 
 ```
 my-spring-boot-starter/
@@ -151,19 +151,34 @@ my-spring-boot-starter/
 
 starter 本身不写代码，只是一个"依赖聚合"；autoconfigure 模块包含真正的自动配置逻辑。
 
-## 关键权衡
+### 3.2 优雅停机
 
-1. **自动配置的优先级**：用户显式定义的 Bean 通过 `@ConditionalOnMissingBean` 覆盖自动配置，自定义总是优先
-2. **启动速度**：大量 `@Conditional` 判断在启动时执行；Boot 3.x 的 `.imports` 懒加载改善了这个问题
-3. **调试困难**：不知道哪些 Bean 被自动配置、为什么某个配置没生效 → 用 `spring.autoconfigure.exclude` 排除或查看 `/actuator/conditions` endpoint
+```yaml
+# application.yml
+server:
+  shutdown: graceful                            # 开启优雅停机
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 2m             # 等待最长时间
+```
 
-## 与其他概念的关系
+收到 SIGTERM 信号后，SpringBoot 停止接收新请求，等待已有请求处理完毕（最长 2 分钟），再关闭容器、销毁 Bean（`DisposableBean.destroy()` / `@PreDestroy`）。
+
+## 四、关键权衡
+
+| 权衡点 | 说明 |
+|--------|------|
+| 自动配置优先级 | 用户显式定义的 Bean 通过 `@ConditionalOnMissingBean` 覆盖自动配置，自定义总是优先 |
+| 启动速度 | 大量 `@Conditional` 判断在启动时执行；Boot 3.x 的 `.imports` 懒加载改善了这个问题 |
+| 调试困难 | 不知道哪些 Bean 被自动配置、为什么某个配置没生效 → 用 `spring.autoconfigure.exclude` 排除或查看 `/actuator/conditions` endpoint |
+
+## 五、与其他概念的关系
 
 - 向 [[机制-Spring]] 注册 BeanDefinition：自动装配的结果就是自动填充 IoC 容器
 - 思想来自 [[机制-SPI]]：`spring.factories` 是 Spring 版的 SPI 扩展点，`ServiceLoader` 的演变
 - L7 框架（SpringCloud、Dubbo）均通过 starter 机制与 Spring 集成
 
-## 应用边界
+## 六、应用边界
 
 **理解自动装配的场景**：排查"为什么这个 Bean 没被注入"；编写 starter 供团队复用；配置 `spring.autoconfigure.exclude` 禁用不需要的自动配置。
 
