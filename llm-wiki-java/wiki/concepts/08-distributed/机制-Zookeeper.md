@@ -18,8 +18,10 @@ sources:
   - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper的典型应用场景有哪些？.md"
   - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper集群中的角色有哪些？有什么区别？.md"
   - "../../../raw/note/Hollis/Zookeeper/✅什么是脑裂？如何解决？.md"
+  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper集群中节点之间数据是如何同步的.md"
+  - "../../../raw/note/Hollis/Zookeeper/✅为什么Zookeeper可以用来作为注册中心.md"
 created: 2026-05-06
-updated: 2026-05-15
+updated: 2026-05-16
 lint_notes: ""
 ---
 
@@ -34,8 +36,8 @@ lint_notes: ""
 | [一、第一性原理](#一第一性原理) | 共享状态协调的根本需求 |
 | [二、ZNode 数据模型](#二znode-数据模型) | 四种节点类型与路径结构 |
 | [三、Watch 机制](#三watch-机制) | 一次性事件通知原理 |
-| [四、ZAB 协议](#四zab-协议) | Leader 广播 + 半数确认，CP vs AP |
-| [五、集群角色与 Leader 选举](#五集群角色与-leader-选举) | Leader/Follower/Observer，遵强投强规则 |
+| [四、ZAB 协议](#四zab-协议) | 三阶段：选举→数据同步→请求广播；两阶段提交；CP vs AP |
+| [五、集群角色与 Leader 选举](#五集群角色与-leader-选举) | Leader/Follower/Observer；遵强投强，改票机制，投票箱计数 |
 | [六、分布式锁实现](#六分布式锁实现) | 临时顺序节点 + 监听前驱节点 |
 | [七、脑裂与防护](#七脑裂与防护) | 过半写原则防止脑裂 |
 | [八、关键权衡](#八关键权衡) | 写性能低、全内存、ZK vs Nacos |
@@ -90,18 +92,45 @@ lint_notes: ""
 
 ## 四、ZAB 协议
 
-ZAB（Zookeeper Atomic Broadcast）= 原子广播协议，保证所有节点按相同顺序应用写操作。
+ZAB（Zookeeper Atomic Broadcast）= 原子广播协议，分三个阶段保证所有节点按相同顺序应用写操作。
 
 ```
-写请求（任意节点）→ 转发给 Leader
-Leader → 分配全局唯一 zxid（事务 ID）→ 广播 Proposal 给所有 Follower
-过半 Follower → ACK → Leader commit → 通知所有节点提交
+领导者选举阶段 → 数据同步阶段 → 请求广播阶段
 ```
+
+| 阶段 | 内容 |
+|------|------|
+| 领导者选举 | 从集群选出 Leader，所有写请求由 Leader 串行处理 |
+| 数据同步 | Leader 与各节点进行数据对齐（快照 or Diff 日志），确保数据一致后对外服务 |
+| 请求广播 | Leader 将写请求以事务形式广播，过半 Follower 持久化确认后提交 |
+
+**请求广播（两阶段提交）完整流程**：
+
+```
+Client 写请求（任意节点收到）→ 转发给 Leader
+  │
+  ├─ Leader 分配全局唯一 zxid → 广播 Proposal 给所有 Follower
+  │
+  ├─ Follower 收到 Proposal → 持久化日志 → 返回 ACK 给 Leader
+  │
+  ├─ Leader 收到过半 ACK → 更新自身内存数据 → 发送 COMMIT 给所有 Follower
+  │
+  ├─ Follower 收到 COMMIT → 更新本地内存数据
+  │
+  ├─ Observer（不参与投票）→ Leader 直接发送写请求 → Observer 直接更新内存
+  │
+  └─ Leader 返回客户端写请求响应成功
+```
+
+**数据同步阶段（集群启动/新节点加入）**：
+- 发送**快照**（全量同步）：适合 Follower 落后太多事务的情况
+- 发送**Diff 日志**（增量同步）：适合 Follower 落后少量事务的情况
 
 **CP 还是 AP**：
-- **CP**（一致性优先）：存活节点 < N/2 时拒绝写请求；Leader 选举期间整个集群停写
-- 保证的是**顺序一致性**（非线性一致性）：所有节点看到的写操作顺序相同，但 Follower 可能短暂读到旧数据（同步延迟）
-- 想要线性一致性：调用 `sync()` 强制 Follower 与 Leader 同步后再读（有性能代价）
+- **CP**（一致性优先）：存活节点 < N/2 时拒绝写请求；Leader 选举期间整个集群停写（约 10~30 秒）
+- 保证的是**顺序一致性**（非线性一致性）：所有节点看到的写操作顺序相同，但 Follower 可能短暂读到旧数据
+- 严格来说是**最终一致性**（Follower 同步有延迟）；想要线性一致性需调用 `sync()` 强制同步
+- 注意：ZK 尽力达到强一致，但实际是最终一致
 
 **ZAB vs Raft**：两者思想相同（Leader + 多数确认），ZAB 早于 Raft，ZK 使用 ZAB；etcd/Consul/TiKV 使用 Raft。
 
@@ -117,10 +146,27 @@ Leader → 分配全局唯一 zxid（事务 ID）→ 广播 Proposal 给所有 F
 
 ### Leader 选举（遵强投强）
 
-1. 节点启动 → 进入 LOOKING 状态，广播投票（包含自己的 `zxid` 和 `sid`）
-2. 收到他人投票 → 比较 zxid，**谁的 zxid 大（数据更新）就投谁**；zxid 相同则比 sid（节点 ID 大者优先）
-3. 超过半数节点投同一候选人 → 该节点当选 Leader
-4. 其他节点同步 Leader 数据后对外服务
+```
+各节点进入 LOOKING 状态，初始都投票给自己（zxid=自身最大事务ID，sid=节点ID）
+
+各节点收到他人选票 → PK 规则
+  ├─ 对方 zxid > 自身 zxid → 改票，投对方（数据更完整的节点优先）
+  ├─ zxid 相等 → 比较 sid（myid），sid 大者获胜 → 改票投 sid 更大的节点
+  ├─ 自己赢了（zxid 或 sid 更大）→ 忽略对方选票，保持原票
+  └─ 平局（选票与自己当前投的相同）→ 将该选票放入投票箱
+
+改票后广播新选票给所有节点
+
+投票箱计数：超过半数节点投同一候选人 → 该节点当选 Leader
+所有节点 PK 规则相同 → 改票结果同步 → 最终各节点选出同一个 Leader
+```
+
+**步骤说明**：
+1. 集群中各节点首先都是观望状态（LOOKING），初始投票给自己
+2. 相互交互投票，每个节点收到他人选票后 PK：先比 zxid，zxid 大者获胜；zxid 相等则比 sid（节点 ID），sid 大者获胜
+3. PK 输了 → 改票投更强的节点，将新选票广播给其他节点；PK 赢了 → 忽略该选票
+4. 节点统计投票箱，超过半数指向同一节点 → 该节点为 Leader
+5. 各节点规则相同，最终选出同一个 Leader
 
 **zxid 优先的原因**：持有最新 zxid 的节点数据最完整，保证已提交的事务不丢失（等同于 Raft 的"日志最新者赢"）。
 
@@ -164,6 +210,7 @@ Leader → 分配全局唯一 zxid（事务 ID）→ 广播 Proposal 给所有 F
 | 存储容量 | ZNode 存储在内存中（+事务日志），适合小型元数据/配置，不适合大数据量 |
 | ZK vs Nacos | ZK 是通用分布式协调，不是专为服务发现设计，配置复杂；Nacos 专为服务注册发现优化，同时支持 AP+CP |
 | ZK vs Redis 分布式锁 | Redis SETNX 性能更高（毫秒级）；ZK 临时节点天然防死锁（Session 断开自动删除）|
+| ZK 作为注册中心 | 优点：数据存内存 + NIO + 多线程模型，性能较高；临时节点自动感知服务下线。缺点：CP 设计，选举期间集群不可写（约 10~30s）；注册中心更需要 AP（节点故障时宁可返回旧数据也要保持可用）→ **生产建议用 Nacos（AP 模式）、Eureka、Redis，而非 ZK** |
 
 ## 九、与其他概念的关系
 
