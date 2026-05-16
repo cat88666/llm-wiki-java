@@ -6,8 +6,9 @@ layer: L4
 aliases: ["Java集合框架", "Collection", "List", "Set", "Map", "Queue", "JCF"]
 sources:
   - "../../../raw/note/Hollis/集合类/"
+  - "../../../raw/note/Hollis/Java并发/✅CopyOnWriteArrayList的底层原理是怎样的？.md"
 created: 2026-05-06
-updated: 2026-05-15
+updated: 2026-05-16
 lint_notes: ""
 ---
 
@@ -21,7 +22,7 @@ lint_notes: ""
 | --- | --- |
 | [一、第一性原理](#一第一性原理) | 数组不够用、统一数据容器抽象 |
 | [二、核心机制](#二核心机制) | Collection 体系、Map 体系、并发容器、类层次全景 |
-| [三、Java 核心使用](#三java-核心使用) | HashMap 原理、ConcurrentHashMap 原理、fail-fast vs fail-safe |
+| [三、Java 核心使用](#三java-核心使用) | HashMap 原理、ConcurrentHashMap 原理、CopyOnWriteArrayList 原理、fail-fast vs fail-safe |
 | [四、核心使用原则](#四核心使用原则) | 集合选型决策树 |
 | [五、综合对比](#五综合对比) | List/Set/Map/Queue 横向对比 |
 | [六、生产风险](#六生产风险) | 常见误区与踩坑 |
@@ -127,7 +128,41 @@ java.util.Map
 | 不允许 null | 二义性：并发场景无法用 `contains()` 区分"key不存在"与"value为null" |
 | fail-safe 实现 | 弱一致性迭代器，不依赖 modCount，并发修改不抛异常 |
 
-### 3.3 fail-fast vs fail-safe
+### 3.3 CopyOnWriteArrayList 核心问题
+
+**底层原理**：
+
+```
+写操作流程
+  └─ 加锁（ReentrantLock）                  ← 防止并发写入丢失数据
+  └─ 将原数组复制一份新数组
+  └─ 写操作在新数组上进行
+  └─ 写完后将内部引用（volatile array）指向新数组
+  └─ 解锁
+
+读操作流程
+  └─ 直接读原数组（无锁）                    ← 读写操作在不同数组上，完全不互斥
+```
+
+**关键特性**：
+
+| 特性 | 说明 |
+|------|------|
+| 内部存储 | `volatile Object[] array`（volatile 保证引用切换的可见性）|
+| 写操作 | 加 `ReentrantLock`，整体复制数组后写新数组，写完切换引用 |
+| 读操作 | 直接读当前数组，**无锁**，读写互不阻塞 |
+| 迭代器 | 构造时拿到当前数组快照，遍历过程中写操作对其不可见（fail-safe）|
+| 一致性 | **最终一致性**：读可能读到写操作前的旧数据，不保证实时 |
+
+**适用与不适用**：
+
+| 场景 | 结论 |
+|------|------|
+| 读多写极少（监听器列表、白名单）| ✅ 适合：读无锁，吞吐高 |
+| 数据量大 + 写频繁 | ❌ 不适合：每次写复制整个数组，GC 压力大，内存占用高 |
+| 实时性要求高 | ❌ 不适合：读到的可能是写操作前的旧数据 |
+
+### 3.4 fail-fast vs fail-safe
 
 | 机制 | 代表 | 行为 | 原理 |
 |------|------|------|------|

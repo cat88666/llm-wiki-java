@@ -455,3 +455,15 @@
   - 1.5 双记账vs单记账（IN/OUT流水+在途户+余额三态+CHECK约束）
   - 1.6 清结算对账全流程（清分→清算→结算→对账差异闭环四级）
 - 更新快速导航锚链接
+
+## [2026-05-16] Update | 机制-Zookeeper.md — 补充 ZAB 三阶段与数据同步细节
+- 四、ZAB 协议：补充三阶段划分（领导者选举→数据同步→请求广播）
+- 四、ZAB 协议：补充两阶段提交完整流程（Follower持久化→ACK→Leader commit→Follower更新内存→Observer直接更新）
+- 四、ZAB 协议：补充数据同步阶段（快照 vs Diff日志）；明确 ZK 是最终一致性而非强一致
+- 五、Leader 选举：补充 PK 细节（初始投自己、改票机制、投票箱计数超半数确认）
+- 八、关键权衡：补充 ZK 作为注册中心的优劣分析（内存+NIO性能、CP代价、推荐用Nacos/Eureka）
+
+## [2026-05-16] Update | 概念-Java集合.md — 补充 CopyOnWriteArrayList 底层原理
+- 新增 3.3 CopyOnWriteArrayList 核心问题：写时复制流程（加锁→复制新数组→写新数组→切换volatile引用→解锁）、读无锁
+- 补充关键特性表：volatile array、ReentrantLock写、无锁读、迭代器快照
+- 补充适用与不适用场景：读多写极少适合；数据量大+写频繁、实时性要求高不适合
