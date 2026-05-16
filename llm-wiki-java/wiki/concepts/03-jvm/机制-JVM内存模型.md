@@ -8,13 +8,6 @@ related:
   - "[[机制-垃圾收集器]]"
   - "[[机制-JIT编译]]"
   - "[[概念-IO模型]]"
-sources:
-  - "../../../raw/note/Hollis/JVM/✅JVM的运行时内存区域是怎样的？.md"
-  - "../../../raw/note/Hollis/JVM/✅Java的堆是如何分代的？为什么分代？.md"
-  - "../../../raw/note/Hollis/JVM/✅什么是方法区？是如何实现的？.md"
-created: 2026-05-02
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # JVM内存模型

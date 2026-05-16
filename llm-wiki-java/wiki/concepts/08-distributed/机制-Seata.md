@@ -9,15 +9,6 @@ related:
   - "[[概念-分布式理论]]"
   - "[[机制-Spring]]"
   - "[[概念-幂等设计]]"
-sources:
-  - "../../../raw/note/Hollis/分布式/✅Seata的实现原理是什么.md"
-  - "../../../raw/note/Hollis/分布式/✅Seata的AT模式的实现原理.md"
-  - "../../../raw/note/Hollis/分布式/✅Seata的4种事务模式，各自适合的场景是什么？.md"
-  - "../../../raw/note/Hollis/分布式/✅Seata的AT模式和XA有什么区别？.md"
-  - "../../../raw/note/Hollis/分布式/✅TCC的空回滚和悬挂是什么？如何解决？.md"
-created: 2026-05-08
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # Seata框架机制

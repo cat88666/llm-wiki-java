@@ -9,18 +9,6 @@ related:
   - "[[机制-SpringCloud]]"
   - "[[机制-Zookeeper]]"
   - "[[概念-分布式理论]]"
-sources:
-  - "../../../raw/note/Hollis/配置中心/✅什么是Nacos，主要用来作什么？.md"
-  - "../../../raw/note/Hollis/配置中心/✅配置中心的作用是什么？如何选型？.md"
-  - "../../../raw/note/Hollis/配置中心/✅Nacos是AP的还是CP的？.md"
-  - "../../../raw/note/Hollis/配置中心/✅Nacos能同时实现AP和CP的原理是什么？.md"
-  - "../../../raw/note/Hollis/配置中心/✅Nacos如何实现的配置变化客户端可以感知到？.md"
-  - "../../../raw/note/Hollis/配置中心/✅Nacos的服务注册和服务发现的过程是怎么样的？.md"
-  - "../../../raw/note/Hollis/配置中心/✅Nacos 2 x为什么新增了RPC的通信方式？.md"
-  - "../../../raw/note/Hollis/配置中心/✅注册中心如何选型？.md"
-created: 2026-05-08
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # 配置中心与 Nacos

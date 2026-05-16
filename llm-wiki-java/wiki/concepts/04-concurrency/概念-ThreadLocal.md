@@ -8,13 +8,6 @@ related:
   - "[[机制-线程池]]"
   - "[[概念-JMM]]"
   - "[[机制-AQS]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/✅ThreadLocal为什么会导致内存泄漏？如何解决的？.md"
-  - "../../../raw/note/Hollis/Java并发/✅ThreadLocal的应用场景有哪些？.md"
-  - "../../../raw/note/Hollis/Java并发/✅线程池中使用ThreadLocal会有哪些潜在风险？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # ThreadLocal

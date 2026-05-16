@@ -7,12 +7,6 @@ aliases: ["SpringMVC", "DispatcherServlet", "HandlerMapping", "HandlerAdapter", 
 related:
   - "[[机制-Spring]]"
   - "[[机制-SpringBoot]]"
-sources:
-  - "../../../raw/note/Hollis/Spring/✅SpringMVC是如何将不同的Request路由到不同Controller中的？.md"
-  - "../../../raw/note/Hollis/Spring/✅SpringBoot的启动流程是怎么样的？.md"
-created: 2026-05-08
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # SpringMVC

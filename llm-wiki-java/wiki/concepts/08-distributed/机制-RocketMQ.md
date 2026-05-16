@@ -10,11 +10,6 @@ related:
   - "[[机制-RabbitMQ]]"
   - "[[概念-幂等设计]]"
   - "[[机制-Seata]]"
-sources:
-  - "../../raw/note/Interview/Eson.md"
-created: 2026-05-08
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # RocketMQ

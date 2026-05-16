@@ -9,11 +9,6 @@ related:
   - "[[机制-Lambda]]"
   - "[[机制-线程池]]"
   - "[[概念-JMM]]"
-sources:
-  - "../../../raw/note/架构体系/一、Java 基础与进阶.md"
-created: 2026-05-07
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # JDK 新特性

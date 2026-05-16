@@ -1,5 +1,11 @@
 # Wiki Log
 
+## [2026-05-16] Ingest | 主题-架构体系.md — 新建（raw/note/架构体系/ 7个文件）
+- 新建 `summaries/主题-架构体系.md`，覆盖 7 大模块知识全景
+- 聚焦 wiki 其他页未覆盖内容：DDD（战略/战术/分层/CQRS）、Spring Cloud Netflix vs Alibaba 对比、高可用 SLA 指标/异地多活策略、秒杀系统分层拦截、SOLID 原则、CI/CD + K8s 发布策略
+- 已有详细 wiki 页的模块（JVM/并发/MySQL/Redis/分布式/Kafka/Dubbo/设计模式/算法）仅给出链接索引，不重复内容
+- 更新 `index.meta.toml` summaries 列表，重建 index.md（92 pages）
+
 ## [2026-05-16] Update | 概念-Java集合.md — 合并 tuling 04-数据结构.md
 - Queue体系 新增 SynchronousQueue（无容量直接移交，newCachedThreadPool 场景）和 DelayQueue（堆+Delayed接口）
 - LinkedBlockingQueue 补充"两把锁，吞吐高于 ArrayBlockingQueue"细节

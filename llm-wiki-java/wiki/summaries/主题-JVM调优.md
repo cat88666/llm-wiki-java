@@ -7,16 +7,6 @@ related:
   - "[[机制-垃圾收集器]]"
   - "[[机制-JVM内存模型]]"
   - "[[机制-垃圾收集器]]"
-sources:
-  - "../../raw/note/Hollis/JVM/✅常见的JVM调优工具有哪些.md"
-  - "../../raw/note/Hollis/JVM/✅FullGC多久一次算正常？.md"
-  - "../../raw/note/Hollis/JVM/✅Java发生了OOM一定会导致JVM 退出吗？.md"
-  - "../../raw/note/Hollis/JVM/✅JVM 中一次完整的 GC 流程是怎样的？.md"
-  - "../../raw/note/Hollis/JVM/✅YoungGC和FullGC的触发条件是什么？.md"
-  - "../../raw/note/Hollis/JVM/✅ZGC和CMS和G1的区别对比.md"
-  - "../../raw/note/Hollis/JVM/✅Java 8 和 Java 11 的GC有什么区别？.md"
-created: 2026-05-08
-updated: 2026-05-16
 ---
 
 # JVM调优

@@ -9,13 +9,6 @@ related:
   - "[[机制-synchronized]]"
   - "[[机制-AQS]]"
   - "[[概念-JMM]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/✅什么是CAS？存在什么问题？.md"
-  - "../../../raw/note/Hollis/Java并发/✅CAS在操作系统层面是如何保证原子性的？.md"
-  - "../../../raw/note/Hollis/Java并发/✅CAS一定有自旋吗？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # CAS（Compare And Swap）

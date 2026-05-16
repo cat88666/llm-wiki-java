@@ -14,11 +14,6 @@ related:
   - "[[机制-线程池]]"
   - "[[概念-ThreadLocal]]"
   - "[[机制-CompletableFuture]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # Java 并发

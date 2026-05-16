@@ -12,27 +12,6 @@ related:
   - "[[概念-MySQL]]"
   - "[[概念-ThreadLocal]]"
   - "[[机制-SPI]]"
-sources:
-  - "../../../raw/note/Hollis/Spring/"
-  - "../../../raw/note/Hollis/Spring/✅介绍一下Spring的IOC.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring Bean的生命周期是怎么样的？.md"
-  - "../../../raw/note/Hollis/Spring/✅什么是Spring的循环依赖问题？.md"
-  - "../../../raw/note/Hollis/Spring/✅什么是Spring的三级缓存.md"
-  - "../../../raw/note/Hollis/Spring/✅三级缓存是如何解决循环依赖的问题的？.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring 中的 Bean 作用域有哪些？.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring默认支持循环依赖吗？如果发生如何解决？.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring解决循环依赖一定需要三级缓存吗？.md"
-  - "../../../raw/note/Hollis/Spring/✅@Lazy注解能解决循环依赖吗？.md"
-  - "../../../raw/note/Hollis/Spring/✅介绍一下Spring的AOP.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring的AOP在什么场景下会失效？.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring中用到了哪些设计模式.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring中@Transactional事务的实现原理.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring的事务传播机制有哪些？.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring事务失效可能是哪些原因？.md"
-  - "../../../raw/note/Hollis/Spring/✅Spring的事务在多线程下生效吗？为什么？.md"
-created: 2026-05-06
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # Spring

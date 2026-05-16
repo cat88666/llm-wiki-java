@@ -8,23 +8,6 @@ tags: ["#distributed"]
 related:
   - "[[概念-MySQL]]"
   - "[[机制-RabbitMQ]]"
-sources:
-  - "../../../raw/note/Hollis/ElasticSearch/✅倒排索引是什么？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅ElasticSearch为什么快？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅Elasticsearch集群中的角色有哪些？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅ES 支持乐观锁吗？如何实现的？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅Elasticsearch支持事务吗？为什么？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅什么是ElasticSearch的深度分页问题？如何解决？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅如何保证ES和数据库的数据一致性？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅为什么要使用ElasticSearch？和传统关系数据库（如 MySQL）有什么不同？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅如何优化 ElasticSearch 搜索性能？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅介绍下ES的Hot-Warm-Cold架构.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅什么是ILM（索引生命周期管理）？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅ES支持哪些数据类型，和MySQL之间的映射关系是怎么样的？.md"
-  - "../../../raw/note/Hollis/ElasticSearch/✅ES 不支持 decimal，如何避免丢失精度？.md"
-created: 2026-05-06
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # 倒排索引与ElasticSearch

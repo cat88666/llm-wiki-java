@@ -10,23 +10,6 @@ related:
   - "[[机制-Java序列化]]"
   - "[[机制-SPI]]"
   - "[[机制-SpringBoot]]"
-sources:
-  - "../../../raw/note/Hollis/Dubbo/✅什么是RPC，和HTTP有什么区别？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo的整体架构是怎么样的？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo如何实现像本地方法一样调用远程方法的？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo的服务调用的过程是什么样的？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo支持哪些负载均衡策略？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo支持哪些调用协议？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo支持哪些序列化方式？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo的SPI和JDK的SPI有什么区别？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo 支持哪些服务治理？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅什么是Dubbo的优雅停机，怎么实现的？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅Dubbo服务发现与路由的概念有什么不同？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅为什么RPC要比HTTP更快一些？.md"
-  - "../../../raw/note/Hollis/Dubbo/✅什么场景只能用HTTP，不能用RPC？.md"
-created: 2026-05-06
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # Dubbo

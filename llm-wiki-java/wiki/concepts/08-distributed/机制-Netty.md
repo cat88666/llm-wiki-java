@@ -9,12 +9,6 @@ related:
   - "[[概念-IO模型]]"
   - "[[机制-Dubbo]]"
   - "[[主题-设计模式]]"
-sources:
-  - "../../../raw/note/tuling/07-Netty.md"
-  - "../../../raw/note/tuling/架构设计.md"
-created: 2026-05-07
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # Netty

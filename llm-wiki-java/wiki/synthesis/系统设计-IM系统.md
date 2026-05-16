@@ -10,11 +10,6 @@ related:
   - "[[概念-Redis]]"
   - "[[概念-幂等设计]]"
   - "[[机制-RabbitMQ]]"
-sources:
-  - "../../raw/note/Interview/Eson.md"
-created: 2026-05-08
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # 系统设计-IM系统

@@ -8,13 +8,6 @@ related:
   - "[[概念-JMM]]"
   - "[[机制-synchronized]]"
   - "[[机制-CAS]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/✅volatile是如何保证可见性和有序性的？.md"
-  - "../../../raw/note/Hollis/Java并发/✅volatile能保证原子性吗？为什么？.md"
-  - "../../../raw/note/Hollis/Java并发/✅有了synchronized为什么还需要volatile.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # volatile

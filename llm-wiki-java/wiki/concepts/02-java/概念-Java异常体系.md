@@ -7,14 +7,6 @@ aliases: ["Exception", "异常", "Checked Exception", "RuntimeException", "Error
 related:
   - "[[机制-Java序列化]]"
   - "[[概念-OOP特征]]"
-sources:
-  - "../../../raw/note/Hollis/Java基础/✅Java中异常分哪两类，有什么区别？.md"
-  - "../../../raw/note/Hollis/Java基础/✅final、finally、finalize有什么区别.md"
-  - "../../../raw/note/Hollis/Java基础/✅finally中代码一定会执行吗？.md"
-  - "../../../raw/note/Hollis/Java基础/✅为什么不建议使用异常控制业务流程.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # Java 异常体系

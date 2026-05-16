@@ -10,21 +10,6 @@ related:
   - "[[机制-SpringCloud]]"
   - "[[机制-Dubbo]]"
   - "[[主题-三高架构]]"
-sources:
-  - "../../../raw/note/Hollis/容器/✅容器和虚拟机的区别是什么？.md"
-  - "../../../raw/note/Hollis/容器/✅为什么要使用Docker？.md"
-  - "../../../raw/note/Hollis/容器/✅Dockerfile 是什么？它通常包含哪些指令？.md"
-  - "../../../raw/note/Hollis/容器/✅什么是 Docker Compose？.md"
-  - "../../../raw/note/Hollis/容器/✅Docker 的常用命令有哪些？.md"
-  - "../../../raw/note/Hollis/容器/✅有了Docker为啥还需要k8s.md"
-  - "../../../raw/note/Hollis/云计算/✅什么是云计算？.md"
-  - "../../../raw/note/Hollis/云计算/✅什么是IaaS、PaaS、SaaS？.md"
-  - "../../../raw/note/Hollis/云计算/✅什么是公有云、私有云、混合云？.md"
-  - "../../../raw/note/Hollis/云计算/✅什么是Serverless？.md"
-  - "../../../raw/note/Hollis/云计算/✅啥是无状态，为啥说Serverless是无状态的.md"
-  - "../../../raw/note/Hollis/云计算/✅为什么云原生对应用的启动速度要求很高？.md"
-created: 2026-05-06
-updated: 2026-05-15
 ---
 
 # 容器化与 Docker

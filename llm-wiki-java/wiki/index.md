@@ -22,6 +22,7 @@
 
 | 主题 | 路径 |
 | --- | --- |
+| [架构体系](summaries/主题-架构体系.md) | `summaries/主题-架构体系.md` |
 | [JVM调优](summaries/主题-JVM调优.md) | `summaries/主题-JVM调优.md` |
 | [三高架构](summaries/主题-三高架构.md) | `summaries/主题-三高架构.md` |
 | [消息队列](summaries/主题-消息队列.md) | `summaries/主题-消息队列.md` |

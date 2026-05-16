@@ -9,26 +9,6 @@ related:
   - "[[概念-Java集合]]"
   - "[[机制-CAS]]"
   - "[[机制-synchronized]]"
-sources:
-  - "../../../raw/note/Hollis/集合类/✅HashMap的数据结构是怎样的？.md"
-  - "../../../raw/note/Hollis/集合类/✅HashMap的hash方法是如何实现的？.md"
-  - "../../../raw/note/Hollis/集合类/✅HashMap是如何扩容的？.md"
-  - "../../../raw/note/Hollis/集合类/✅JDK1 8中HashMap有哪些改变？.md"
-  - "../../../raw/note/Hollis/集合类/✅为什么HashMap的Cap是2^n，如何保证？.md"
-  - "../../../raw/note/Hollis/集合类/✅为什么HashMap的默认负载因子设置成0 75.md"
-  - "../../../raw/note/Hollis/集合类/✅为什么在JDK8中HashMap要转成红黑树.md"
-  - "../../../raw/note/Hollis/集合类/✅HashMap用在并发场景中有什么问题？.md"
-  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap是如何保证线程安全的？.md"
-  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap为什么在JDK 1 8中废弃分段锁？.md"
-  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap为什么在JDK1 8中使用synchronized而不是Reen.md"
-  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap在哪些地方做了并发控制.md"
-  - "../../../raw/note/Hollis/集合类/✅ConcurrentHashMap是如何保证fail-safe的？.md"
-  - "../../../raw/note/Hollis/集合类/✅为什么ConcurrentHashMap不允许null值？.md"
-  - "../../../raw/note/Hollis/集合类/✅什么是COW，如何保证的线程安全？.md"
-  - "../../../raw/note/Hollis/集合类/✅什么是fail-fast？什么是fail-safe？.md"
-created: 2026-05-06
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # HashMap

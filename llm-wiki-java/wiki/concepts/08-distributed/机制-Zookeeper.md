@@ -8,21 +8,6 @@ related:
   - "[[概念-Redis]]"
   - "[[机制-AQS]]"
   - "[[概念-分布式理论]]"
-sources:
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper如何保证数据的一致性？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper是CP的还是AP的？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper是选举机制是怎样的？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper的数据结构是怎么样的？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper的watch机制是如何工作的？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅如何用Zookeeper实现分布式锁？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper的典型应用场景有哪些？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper集群中的角色有哪些？有什么区别？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅什么是脑裂？如何解决？.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅Zookeeper集群中节点之间数据是如何同步的.md"
-  - "../../../raw/note/Hollis/Zookeeper/✅为什么Zookeeper可以用来作为注册中心.md"
-created: 2026-05-06
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # ZAB协议与Zookeeper

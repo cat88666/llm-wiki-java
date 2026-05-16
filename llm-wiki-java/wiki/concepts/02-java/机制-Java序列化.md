@@ -7,14 +7,6 @@ aliases: ["Serialization", "序列化", "反序列化", "Serializable", "Externa
 related:
   - "[[机制-动态代理]]"
   - "[[概念-Java异常体系]]"
-sources:
-  - "../../../raw/note/Hollis/Java基础/✅什么是序列化与反序列化.md"
-  - "../../../raw/note/Hollis/Java基础/✅Java序列化的原理是啥.md"
-  - "../../../raw/note/Hollis/Java基础/✅serialVersionUID 有何用途 如果没定义会有什么问题？.md"
-  - "../../../raw/note/Hollis/Java基础/✅你知道fastjson的反序列化漏洞吗.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # Java序列化

@@ -8,14 +8,6 @@ related:
   - "[[概念-操作系统]]"
   - "[[机制-线程池]]"
   - "[[机制-Netty]]"
-sources:
-  - "../../../raw/note/Hollis/Java基础/✅什么是AIO、BIO和NIO？.md"
-  - "../../../raw/note/Hollis/操作系统/✅操作系统的IO模型有哪些？.md"
-  - "../../../raw/note/Hollis/操作系统/✅什么是零拷贝？.md"
-  - "../../../raw/note/Hollis/操作系统/✅如何理解select、poll、epoll？.md"
-  - "../../../raw/note/Hollis/操作系统/✅什么是Page Cache，他的读写过程是怎么样的？有什么优缺点？.md"
-created: 2026-05-02
-updated: 2026-05-13
 ---
 
 # IO模型

@@ -7,11 +7,6 @@ aliases: ["SPI", "Service Provider Interface", "ServiceLoader", "ExtensionLoader
 related:
   - "[[机制-动态代理]]"
   - "[[机制-动态代理]]"
-sources:
-  - "../../../raw/note/Hollis/Java基础/✅什么是SPI，和API有啥区别.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # SPI机制

@@ -9,26 +9,6 @@ related:
   - "[[机制-Kafka]]"
   - "[[概念-幂等设计]]"
   - "[[概念-Redis]]"
-sources:
-  - "../../../raw/note/Hollis/RabbitMQ/✅rabbitMQ的整体架构是怎么样的？.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ是怎么做消息分发的？.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ如何保证消息不丢.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅如何保障消息一定能发送到RabbitMQ.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ如何防止重复消费.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ 是如何保证高可用的.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅rabbitMQ如何实现延迟消息？.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅什么是RabbitMQ的死信队列？.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅RabbitMQ如何实现消费端限流.md"
-  - "../../../raw/note/Hollis/RabbitMQ/✅介绍下RabbitMQ的事务机制.md"
-  - "../../../raw/note/Hollis/场景题/✅MQ出现消息乱序了如何解决？.md"
-  - "../../../raw/note/Hollis/场景题/✅Spring Event和MQ有什么区别？各自适用场景是什么？.md"
-  - "../../../raw/note/Hollis/场景题/✅消息队列使用拉模式好还是推模式好？为什么？.md"
-  - "../../../raw/note/Hollis/场景题/✅为什么不建议使用MQ实现订单到期关闭？.md"
-  - "../../../raw/note/Hollis/场景题/✅用了本地消息表的方案，如果下游执行失败了上游如何回滚？.md"
-  - "../../../raw/note/Hollis/场景题/✅为了避免丢消息问题需要落表，如何设计这张消息表？.md"
-created: 2026-05-08
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # RabbitMQ

@@ -10,11 +10,6 @@ related:
   - "[[机制-Kafka]]"
   - "[[机制-Protobuf]]"
   - "[[概念-幂等设计]]"
-sources:
-  - "../../raw/note/Interview/Eson.md"
-created: 2026-05-14
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # WebSocket

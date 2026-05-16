@@ -9,18 +9,6 @@ related:
   - "[[概念-MySQL]]"
   - "[[概念-MySQL]]"
   - "[[概念-Redis]]"
-sources:
-  - "../../../raw/note/Hollis/MyBatis/✅Mybatis的工作原理？.md"
-  - "../../../raw/note/Hollis/MyBatis/✅Mybatis的缓存机制.md"
-  - "../../../raw/note/Hollis/MyBatis/✅#和$的区别是什么？什么情况必须用$.md"
-  - "../../../raw/note/Hollis/MyBatis/✅Mybatis插件的运行原理？.md"
-  - "../../../raw/note/Hollis/MyBatis/✅使用MyBatis如何实现分页？.md"
-  - "../../../raw/note/Hollis/MyBatis/✅PageHelper分页的原理是什么？.md"
-  - "../../../raw/note/Hollis/MyBatis/✅Mybatis 是否支持延迟加载？实现原理是什么？.md"
-  - "../../../raw/note/Hollis/MyBatis/✅MyBatis与Hibernate有何不同？.md"
-created: 2026-05-06
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # MyBatis

@@ -11,27 +11,6 @@ related:
   - "[[机制-AQS]]"
   - "[[概念-MySQL]]"
   - "[[概念-幂等设计]]"
-sources:
-  - "../../../raw/note/Hollis/Redis/✅Redis 支持哪几种数据类型？.md"
-  - "../../../raw/note/Hollis/Redis/✅Redis中的Zset是怎么实现的？.md"
-  - "../../../raw/note/Hollis/Redis/✅Redis为什么这么快？.md"
-  - "../../../raw/note/Hollis/Redis/✅Redis的持久化机制是怎样的？.md"
-  - "../../../raw/note/Hollis/Redis/✅RDB和AOF的写回策略分别是什么？.md"
-  - "../../../raw/note/Hollis/Redis/✅如何用SETNX实现分布式锁？.md"
-  - "../../../raw/note/Hollis/Redis/✅Redisson的watchdog机制是怎么样的？.md"
-  - "../../../raw/note/Hollis/Redis/✅介绍一下Redis的集群模式？.md"
-  - "../../../raw/note/Hollis/场景题/✅如何实现百万级排行榜功能？.md"
-  - "../../../raw/note/Hollis/场景题/✅Redis的zset实现排行榜，实现分数相同按照时间顺序排序，怎么做？.md"
-  - "../../../raw/note/Hollis/场景题/✅如何实现 查找附近的人 功能？.md"
-  - "../../../raw/note/Hollis/场景题/✅如何用Redis实现朋友圈点赞功能？.md"
-  - "../../../raw/note/Hollis/场景题/✅如何实现一个抢红包功能？.md"
-  - "../../../raw/note/Hollis/场景题/✅如何设计一个购物车功能？.md"
-  - "../../../raw/note/Hollis/Redis/✅什么是缓存击穿、缓存穿透、缓存雪崩？.md"
-  - "../../../raw/note/Hollis/Redis/✅Redis的内存淘汰策略是怎么样的？.md"
-  - "../../../raw/note/Hollis/Redis/✅如何解决Redis和数据库的一致性问题？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # Redis

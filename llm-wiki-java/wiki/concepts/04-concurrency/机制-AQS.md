@@ -9,13 +9,6 @@ related:
   - "[[机制-volatile]]"
   - "[[机制-synchronized]]"
   - "[[机制-线程池]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/✅如何理解AQS？.md"
-  - "../../../raw/note/Hollis/Java并发/✅AQS的同步队列和条件队列原理？.md"
-  - "../../../raw/note/Hollis/Java并发/✅AQS是如何实现线程的等待和唤醒的？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # AQS（AbstractQueuedSynchronizer）

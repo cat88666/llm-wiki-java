@@ -13,17 +13,6 @@ related:
   - "[[概念-BitMap]]"
   - "[[概念-前缀树]]"
   - "[[机制-HashMap]]"
-sources:
-  - "../../../raw/note/Hollis/集合类/"
-  - "../../../raw/note/Hollis/Java并发/✅CopyOnWriteArrayList的底层原理是怎样的？.md"
-  - "../../../raw/note/Hollis/数据结构/✅数组和链表有何区别？.md"
-  - "../../../raw/note/Hollis/数据结构/✅栈和队列的区别.md"
-  - "../../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
-  - "../../../raw/note/Hollis/集合类/✅ArrayList的subList方法有什么需要注意的地方吗？.md"
-  - "../../../raw/note/Hollis/集合类/✅ArrayList的序列化是怎么实现的？.md"
-created: 2026-05-06
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # Java集合

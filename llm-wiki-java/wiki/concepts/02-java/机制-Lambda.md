@@ -7,13 +7,6 @@ aliases: ["Lambda", "函数式接口", "Stream", "invokedynamic", "FunctionalInt
 related:
   - "[[机制-泛型]]"
   - "[[概念-OOP特征]]"
-sources:
-  - "../../../raw/note/Hollis/Java基础/✅Lambda表达式是如何实现的？.md"
-  - "../../../raw/note/Hollis/Java基础/✅Stream的并行流一定比串行流更快吗？.md"
-  - "../../../raw/note/Hollis/Java基础/✅说几个常见的语法糖？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # Lambda表达式

@@ -7,14 +7,6 @@ aliases: ["JIT", "即时编译", "热点代码", "逃逸分析", "方法内联",
 related:
   - "[[机制-JVM内存模型]]"
   - "[[机制-垃圾收集器]]"
-sources:
-  - "../../../raw/note/Hollis/JVM/✅简单介绍一下JIT优化技术？.md"
-  - "../../../raw/note/Hollis/JVM/✅什么是逃逸分析？.md"
-  - "../../../raw/note/Hollis/JVM/✅什么是AOT编译？和JIT有啥区别？.md"
-  - "../../../raw/note/Hollis/JVM/✅Java是编译型还是解释型.md"
-created: 2026-05-02
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # JIT编译

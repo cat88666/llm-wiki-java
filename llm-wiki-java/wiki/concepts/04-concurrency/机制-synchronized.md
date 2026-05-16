@@ -8,13 +8,6 @@ related:
   - "[[概念-JMM]]"
   - "[[机制-CAS]]"
   - "[[机制-AQS]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/✅synchronized是怎么实现的？.md"
-  - "../../../raw/note/Hollis/Java并发/✅synchronized的锁升级过程是怎样的？.md"
-  - "../../../raw/note/Hollis/Java并发/✅synchronized是如何保证原子性、可见性、有序性的？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # synchronized

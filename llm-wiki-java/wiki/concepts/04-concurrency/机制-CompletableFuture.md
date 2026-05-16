@@ -8,11 +8,6 @@ related:
   - "[[机制-线程池]]"
   - "[[概念-JMM]]"
   - "[[机制-AQS]]"
-sources:
-  - "../../../raw/note/Hollis/Java并发/✅CompletableFuture的底层是如何实现的？.md"
-created: 2026-05-08
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # CompletableFuture

@@ -10,11 +10,6 @@ related:
   - "[[机制-Dubbo]]"
   - "[[机制-SpringCloud]]"
   - "[[机制-RabbitMQ]]"
-sources:
-  - "../../raw/note/Interview/Eson.md"
-created: 2026-05-07
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # Protobuf

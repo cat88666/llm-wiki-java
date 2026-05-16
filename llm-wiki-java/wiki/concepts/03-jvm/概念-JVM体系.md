@@ -11,11 +11,6 @@ topics:
   - 类加载与双亲委派
   - JIT编译与优化
   - 引用类型
-sources:
-  - "../../../raw/note/Hollis/JVM/"
-created: 2026-05-02
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # JVM体系

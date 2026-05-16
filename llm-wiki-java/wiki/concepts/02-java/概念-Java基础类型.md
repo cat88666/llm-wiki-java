@@ -9,21 +9,6 @@ related:
   - "[[机制-Lambda]]"
   - "[[概念-JMM]]"
   - "[[机制-HashMap]]"
-sources:
-  - "../../../raw/note/Hollis/Java基础/✅String是如何实现不可变的？.md"
-  - "../../../raw/note/Hollis/Java基础/✅String为什么设计成不可变的？.md"
-  - "../../../raw/note/Hollis/Java基础/✅String、StringBuilder和StringBuffer的区别？.md"
-  - "../../../raw/note/Hollis/Java基础/✅String中intern的原理是什么？.md"
-  - "../../../raw/note/Hollis/Java基础/✅JDK 9中对字符串的拼接做了什么优化？.md"
-  - "../../../raw/note/Hollis/Java基础/✅为什么JDK 9中把String的char[]改成了byte[]？.md"
-  - "../../../raw/note/Hollis/Java基础/✅Java中有了基本类型为什么还需要包装类？.md"
-  - "../../../raw/note/Hollis/Java基础/✅RPC接口返回中，使用基本类型还是包装类？.md"
-  - "../../../raw/note/Hollis/Java基础/✅BigDecimal和Long表示金额哪个更合适，怎么选择？.md"
-  - "../../../raw/note/Hollis/Java基础/✅为什么不能用BigDecimal的equals方法做等值比较？.md"
-  - "../../../raw/note/Hollis/Java基础/✅为什么不能用浮点数表示金额？.md"
-created: 2026-05-02
-updated: 2026-05-14
-lint_notes: ""
 ---
 
 # Java 基础值类型

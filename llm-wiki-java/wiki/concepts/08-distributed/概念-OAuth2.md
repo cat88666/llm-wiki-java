@@ -8,11 +8,6 @@ tags: ["#distributed"]
 related:
   - "[[概念-网络安全]]"
   - "[[机制-SpringMVC]]"
-sources:
-  - "../../../raw/note/Hollis/分布式/✅什么是OAuth2？有什么用？.md"
-created: 2026-05-08
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # OAuth2授权协议

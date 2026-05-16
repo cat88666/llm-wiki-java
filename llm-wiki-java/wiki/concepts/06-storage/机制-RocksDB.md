@@ -10,10 +10,6 @@ related:
   - "[[概念-MySQL]]"
   - "[[概念-Redis]]"
   - "[[概念-分布式理论]]"
-sources: []
-created: 2026-05-07
-updated: 2026-05-15
-lint_notes: ""
 ---
 
 # RocksDB
