@@ -20,7 +20,6 @@ sources:
   - "../../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
   - "../../../raw/note/Hollis/集合类/✅ArrayList的subList方法有什么需要注意的地方吗？.md"
   - "../../../raw/note/Hollis/集合类/✅ArrayList的序列化是怎么实现的？.md"
-  - "../../../raw/note/tuling/04-数据结构.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""

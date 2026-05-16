@@ -3,7 +3,7 @@ type: concept
 status: active
 name: "Kubernetes"
 layer: L7
-aliases: ["K8s", "Kubernetes", "Pod", "Deployment", "ReplicaSet", "Service", "Ingress", "HPA", "PV", "PVC", "StorageClass", "CSI", "CNI", "kube-proxy", "kubelet", "etcd", "Helm"]
+aliases: ["K8s", "Kubernetes", "Pod", "Deployment", "ReplicaSet", "Service", "Ingress", "HPA", "PV", "PVC", "StorageClass", "CSI", "CNI", "kube-proxy", "kubelet", "etcd", "API Server", "Scheduler", "Controller Manager", "Helm"]
 tags: ["#distributed", "#devops"]
 related:
   - "[[机制-Docker]]"
@@ -61,16 +61,29 @@ Controller / Scheduler / kubelet 持续协调
 实际集群状态逐步逼近期望状态
 ```
 
+### 核心特性
+
+| 特性 | 解决的问题 |
+|------|------------|
+| 服务发现与负载均衡 | Pod IP 会变化，Service/CoreDNS 提供稳定访问入口和负载分发 |
+| 存储编排 | 自动挂载本地存储、云盘、网络存储，使用 PV/PVC 屏蔽底层差异 |
+| Secret 与配置管理 | Secret/ConfigMap 独立于镜像更新，避免为了改配置重新构建镜像 |
+| 批量执行 | Job/CronJob 管理批处理、定时任务、CI 类一次性工作负载 |
+| 水平扩缩 | 通过 `kubectl scale`、控制台或 HPA 根据指标自动扩缩副本 |
+| 自动化上线与回滚 | Deployment 分批滚动更新，结合健康检查避免一次性终止全部实例 |
+| 自动装箱 | Scheduler 根据资源需求、亲和性、污点容忍等约束把 Pod 放到合适节点 |
+| 自我修复 | 容器失败自动重启，节点故障后重新调度，健康检查失败后替换实例 |
+
 ## 二、整体架构
 
 ### 控制面组件
 
 | 组件 | 作用 |
 | --- | --- |
-| **API Server** | 集群统一入口，提供 REST API；所有组件都通过它读写资源 |
-| **etcd** | 高可用强一致 KV 存储，保存集群资源与状态，底层基于 Raft |
-| **Scheduler** | 监听未绑定 Node 的 Pod，按过滤和打分策略选择合适节点 |
-| **Controller Manager** | 运行多种控制器，维护副本数、节点状态、Endpoint、PV/PVC 等 |
+| **API Server** | K8s 请求入口，提供 REST API；接收 kubectl/UI/组件请求，所有组件都通过它读写资源 |
+| **etcd** | K8s 存储服务，高可用强一致 KV；保存关键配置、资源对象和集群状态，通常只有 API Server 直接读写 |
+| **Scheduler** | Worker Node 调度器；监听未绑定 Node 的 Pod，按过滤和打分策略选择最合适节点 |
+| **Controller Manager** | 控制器集合；包含 Node/Service/Endpoint/ReplicaSet/Volume 等控制器，持续把实际状态修正为期望状态 |
 
 API Server 是通信中心：kubelet 上报节点和 Pod 状态，Scheduler 监听待调度 Pod，Controller 监听资源变化并发起修正动作，所有状态最终写入 etcd。
 

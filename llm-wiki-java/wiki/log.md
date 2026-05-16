@@ -1,6 +1,11 @@
 # Wiki Log
 
-## [2026-05-16] Update | 主题-三高架构.md — 合并 tuling/Java 高并发架构师 100 个必会知识点.md
+## [2026-05-16] Update | 主题-模拟面试.md — 合并 up.md（简历）
+- 6.4 区块链OTC 新增"技术亮点"表：低代码 Redisson @DistributedLock 注解方案 + Server层队列合并DB操作（100ms换30%吞吐）+ 多链集成；附 Redisson 注解方案追问口径
+- 新增 6.5 CloudStack 云计算平台网络改造：多运营商网络适配（电信/移动/联通多线路）+ 深信服硬件插件替代虚拟路由 VR，含面试口径和高频追问
+- 已有内容（游戏0FGC/支付链路/撮合引擎/区块链安全/MongoDB/架构速查表/自我介绍）不重复
+
+## [2026-05-16] Update | 主题-三高架构.md — 合并 Java 高并发架构师 100 个必会知识点.md
 - 二、高并发：新增"架构师高并发思维"5原则（CPU Cache命中率/顺序IO/无锁/少线程/事件驱动）
 - 二、高并发：新增 CPU 硬件并发基础表（Cache层级/Cache Line/False Sharing/MESI/NUMA/内存屏障）
 - 四、高性能：新增"高性能网络"节（Reactor三模型/IO多路复用select→epoll/零拷贝对比/Netty三件套/Kafka高性能原理）
@@ -22,18 +27,18 @@
 - CAP/BASE 理论已有深度覆盖，跳过重复内容
 - 三、BASE 理论末尾新增"分布式缓存层次"子节：6层架构（客户端→CDN→Nginx→服务端→DB→OS）
 
-## [2026-05-16] Update | 主题-三高架构.md — 合并 tuling/架构设计.md 六、多线程 + 并发三要素
+## [2026-05-16] Update | 主题-三高架构.md — 合并 架构设计.md 六、多线程 + 并发三要素
 - 二、高并发：新增并发编程三要素表（原子性/有序性/可见性，修正源文"可用性"笔误）
 - 四、线程池调优：新增 5 步执行优先级状态机（core→queue→max→reject→keepAlive回收）
 
-## [2026-05-16] Update | 主题-三高架构.md — 合并 tuling/架构设计.md 五、高并发设计
+## [2026-05-16] Update | 主题-三高架构.md — 合并 架构设计.md 五、高并发设计
 - 一：新增 CAP（CP/AP 对比表）+ BASE 理论
 - 二：补充三板斧 + 垂直/水平扩展；锁策略扩展分布式锁三方案 + 锁续期/防误删
 - 三：新增负载均衡 4 种策略
 - 四：新增分库分表三类型、MQ 削峰核心纪律（四大可靠性问题）、性能瓶颈根因分析（6步顺序）
 - 五：新增高并发典型架构图（CDN→Nginx→网关→Service→Cache/MQ/DB/Search）
 
-## [2026-05-16] Update | 主题-设计模式.md — 合并 tuling/架构设计.md 一~四节
+## [2026-05-16] Update | 主题-设计模式.md — 合并 架构设计.md 一~四节
 - 创建型补充：建造者（链式/Lombok @Builder）、原型（clone/Prototype Scope）
 - 结构型补充：适配器（HandlerAdapter/AdvisorAdapter）、装饰器（HttpServletRequestWrapper）、桥接/组合/外观速查表
 - 行为型补充：命令/迭代器/中介者/备忘录/状态/访问者/解释器速查表
@@ -47,13 +52,13 @@
 - 已有详细 wiki 页的模块（JVM/并发/MySQL/Redis/分布式/Kafka/Dubbo/设计模式/算法）仅给出链接索引，不重复内容
 - 更新 `index.meta.toml` summaries 列表，重建 index.md（92 pages）
 
-## [2026-05-16] Update | 概念-Java集合.md — 合并 tuling 04-数据结构.md
+## [2026-05-16] Update | 概念-Java集合.md — 合并  04-数据结构.md
 - Queue体系 新增 SynchronousQueue（无容量直接移交，newCachedThreadPool 场景）和 DelayQueue（堆+Delayed接口）
 - LinkedBlockingQueue 补充"两把锁，吞吐高于 ArrayBlockingQueue"细节
 - 九、L4数据结构全景 结构图新增跳表（SkipList）节点；高频考点速查新增跳表一节（原理/O(log n)/ConcurrentSkipListMap/vs红黑树）
 - 其余内容（List/Set/Map/树对比表）已有更完整版本，不重复合并
 
-## [2026-05-16] Ingest | 机制-线程.md — 新建（tuling 03-线程.md）
+## [2026-05-16] Ingest | 机制-线程.md — 新建（ 03-线程.md）
 - 新建 `concepts/04-JUC/机制-线程.md`（L3 层）
 - 覆盖内容：线程生命周期6状态图、创建方式5种对比、关键方法辨析（start/run/sleep/join/yield/wait/notify）、线程间通信6种机制、中断机制三方法、死锁四条件与活锁/饥饿区分、jstack/Arthas 排查
 - 不重复已有页面内容：synchronized/AQS/CAS/volatile/线程池/CompletableFuture 均已有独立页面
@@ -295,7 +300,7 @@
 - 修复 5 处断链、4 个 sources 路径
 - 知识库：concepts×69 / summaries×8 / synthesis×8
 
-## [2026-05-07] Ingest | tuling/ → Kafka + Netty + DDD + Nacos
+## [2026-05-07] Ingest |  → Kafka + Netty + DDD + Nacos
 
 - 新建 `机制-Kafka` / `机制-Netty` / `概念-DDD`
 - 更新 `机制-微服务与SpringCloud`：Nacos 注册中心章节
@@ -516,14 +521,14 @@
   - 1.6 清结算对账全流程（清分→清算→结算→对账差异闭环四级）
 - 更新快速导航锚链接
 
-## [2026-05-16] Update | 概念-JVM.md — 合并 tuling/06-JVM
+## [2026-05-16] Update | 概念-JVM.md — 合并 06-JVM
 - 新增「生命周期与类加载」：JVM 实例生命周期、对象生命周期、类生命周期、类初始化触发/被动引用、类加载器与双亲委派
 - 扩展 JVM 内存区域：PC、虚拟机栈/栈帧、本地方法栈、堆分代、方法区/元空间
 - 扩展 GC Roots、Minor GC 对象移动流程
 - 新增「JVM 调优与排查」：jstat/jmap/jstack/jinfo、OOM dump、jstat 估算对象增长/GC 频率/GC 耗时、常见参数和调优结论
 - 新增面试速答；L2 索引新增 JVM生命周期、类生命周期、jstat/jmap/jstack
 
-## [2026-05-16] Update | 概念-DDD.md — 合并 tuling/DDD架构
+## [2026-05-16] Update | 概念-DDD.md — 合并 DDD架构
 - 补充 DDD vs 表驱动开发、DDD 收益与成本
 - 战术建模新增实体 vs 值对象细化对比与订单/订单项示例
 - 新增「DDD 落地流程」章节：确定业务领域、设计领域模型、建立统一语言、实现领域模型、应用架构设计、持续演进
@@ -531,7 +536,7 @@
 - 领域事件扩展：订单创建/支付/取消事件示例，明确领域事件与 MQ 消息的区别
 - 新增面试速答；L8 索引新增实体/值对象、领域事件关键词
 
-## [2026-05-16] Update | 机制-RocketMQ.md — 合并 tuling/08-mq
+## [2026-05-16] Update | 机制-RocketMQ.md — 合并 08-mq
 - 新增「可靠性与高性能设计」：生产/存储/消费三阶段可靠性、CommitLog + ConsumeQueue + PageCache + 零拷贝、Tag/SQL92 过滤、重复消费幂等
 - 新增「顺序消息机制」：全局顺序 vs 局部顺序、MessageQueueSelector、MessageListenerOrderly、Broker MessageQueue 锁/本地 MessageQueue 锁/ProcessQueue 锁
 - 扩展消息积压治理：mqadmin 定位、扩容/批量消费/临时 Topic 分流/位点跳过、监控预防
@@ -539,7 +544,7 @@
 - 扩展 RocketMQ vs Kafka、Pull vs Push、面试速答与记忆口诀
 - L7 索引新增顺序消息、消息堆积关键词
 
-## [2026-05-16] Update | 机制-Spring.md — 合并 tuling/06-spring
+## [2026-05-16] Update | 机制-Spring.md — 合并 06-spring
 - 二、IoC 容器新增「容器启动整体流程」：扫描组件、生成 BeanDefinition、BeanFactoryPostProcessor、创建非懒加载 singleton、发布启动事件
 - 新增 BeanFactory vs ApplicationContext 对比，补充 Environment/MessageSource/ApplicationEventPublisher 等能力差异
 - Bean 生命周期补充 7 步面试速记；新增 BeanFactoryPostProcessor vs BeanPostProcessor 扩展点对比
@@ -553,12 +558,12 @@
 - L6 索引中的 OpenFeign/Gateway 关键词回指 `机制-SpringCloud.md`
 - 删除合并后的独立文件 `机制-SpringCloudGateway.md`、`机制-SpringCloudOpenfeign.md`
 
-## [2026-05-16] Add | 机制-SpringCloudOpenfeign.md — 摄入 tuling/09-微服务/13-openFeign
+## [2026-05-16] Add | 机制-SpringCloudOpenfeign.md — 摄入 09-微服务/13-openFeign
 - 整理 OpenFeign 第一性原理、`@FeignClient` 用法、动态代理执行流程、服务发现与负载均衡、超时/重试/容错、与 RestTemplate/Dubbo 对比和应用边界
 - L6 索引新增 `OpenFeign/Feign`、`Feign超时` 关键词
 - `机制-SpringCloud.md` related 增加 `机制-SpringCloudOpenfeign`（后续已合并回 SpringCloud 总页）
 
-## [2026-05-16] Add | 机制-SpringCloudGateway.md — 摄入 tuling/09-微服务/16-gateway
+## [2026-05-16] Add | 机制-SpringCloudGateway.md — 摄入 09-微服务/16-gateway
 - 整理 Gateway 第一性原理、Route/Predicate/Filter、执行流程、动态路由、鉴权限流、过滤器链、Zuul/Nginx 对比和应用边界
 - L6 索引将 `网关/Gateway` 指向独立 Gateway 页，并新增 `Route/Predicate/Filter` 关键词
 - `机制-SpringCloud.md` related 增加 `机制-SpringCloudGateway`（后续已合并回 SpringCloud 总页）
@@ -570,7 +575,7 @@
 - 五、Leader 选举：补充 PK 细节（初始投自己、改票机制、投票箱计数超半数确认）
 - 八、关键权衡：补充 ZK 作为注册中心的优劣分析（内存+NIO性能、CP代价、推荐用Nacos/Eureka）
 
-## [2026-05-16] Add | 概念-k8s.md — 摄入 tuling/10-k8s
+## [2026-05-16] Add | 概念-k8s.md — 摄入 10-k8s
 - 整理 K8s 架构、核心对象、Pod 生命周期、调度/HPA、Service/Ingress/CNI、PV/PVC/CSI、安全、发布运维与 Helm
 - L7 索引新增 K8s/Kubernetes、Pod/Deployment/Service、Ingress/HPA 关键词
 - `机制-Docker.md` related 增加 `[[概念-k8s]]`
@@ -606,11 +611,11 @@
 
 ## [2026-05-16] Update | 机制-Nacos.md — 注册中心 + 配置中心补充
 - 新增 aliases：雪崩保护/保护阈值/Namespace/Group/DataId/RefreshScope/配置优先级
-- 新增 source：tuling/09-微服务/11-nacos.md
+- 新增 source：09-微服务/11-nacos.md
 - 三、注册中心：新增「雪崩保护（保护阈值）」：健康实例/总实例 < 阈值时不健康实例也加入列表；「临时实例 vs 持久实例」对比表（ephemeral=false）
 - 二、配置中心：新增 Namespace/Group/DataId 三元组表；vs Spring Cloud Config 对比表（Git依赖/动态感知/UI/复杂度）；配置优先级（C>B>A，精准>扩展>共享）；@RefreshScope 代码示例及注意事项
 
-## [2026-05-16] Update | 机制-Kafka.md — tuling Kafka 笔记合并
+## [2026-05-16] Update | 机制-Kafka.md —  Kafka 笔记合并
 - 新增 aliases：消费者组状态/批量消费/Controller选举/Partition Leader选举/Topic vs Partition
 - 二、核心架构：补充 Topic vs Partition 存在理由（吞吐/负载均衡/扩展性）
 - 四、ISR：新增版本演进表（<0.9.x lag.max.messages → ≥0.9.x lag.max.ms）；「不能100%不丢」改为3端分析表（生产者/Broker/消费者原因+最佳实践）
@@ -619,14 +624,14 @@
 - 七→十一各节编号顺移
 - 十、大流量实战：新增批量消费最佳实践（@KafkaListener + setBatchListener + CompletionService + finally陷阱说明）
 
-## [2026-05-16] Update | 机制-SpringBoot.md — tuling SpringBoot 笔记合并
-- 新增 source：tuling/07-springBoot.md
+## [2026-05-16] Update | 机制-SpringBoot.md —  SpringBoot 笔记合并
+- 新增 source：07-springBoot.md
 - 新增 aliases：MANIFEST.MF/配置文件加载顺序/jar启动/@SpringBootApplication/@ComponentScan
 - 三、Java 核心使用：新增 3.0 核心注解底层——@SpringBootApplication 三元注解拆解表；@Bean 底层（方法名=beanName + CGLIB 单例代理）
 - 二、核心机制：新增 2.5 配置文件加载顺序（8级优先级表，记忆规则：外>内/profile>通用/命令行>配置文件）；新增 2.6 jar 启动原理（MANIFEST.MF → Main-Class JarLauncher + Start-Class → fat jar 类加载器说明）
 
-## [2026-05-16] Update | 机制-Dubbo.md — tuling 05-doubble.md 合并
-- 新增 source：tuling/05-doubble.md
+## [2026-05-16] Update | 机制-Dubbo.md —  05-doubble.md 合并
+- 新增 source：05-doubble.md
 - 新增 aliases：服务导出/服务引入/平滑加权轮询/Directory/Invoker/Exporter
 - 三、Dubbo 整体架构：分层架构表新增"关键组件"列（Protocol三件套/Cluster四组件/Exchange四组件/Transport四组件/Serialize核心接口）；新增"RPC最小三件套"总结（Protocol+Invoker+Exporter）
 - 新增 四、服务导出与引入流程：Provider端5步（注解解析→export→注册中心→配置监听→Netty/Tomcat启动）；Consumer端4步（注解解析→Directory→监听器→代理注入Spring）

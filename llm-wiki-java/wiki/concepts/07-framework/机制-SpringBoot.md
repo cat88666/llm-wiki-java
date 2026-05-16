@@ -3,7 +3,7 @@ type: concept
 status: active
 name: "SpringBoot"
 layer: L6
-aliases: ["自动配置", "AutoConfiguration", "spring.factories", "@EnableAutoConfiguration", "条件装配", "starter", "MANIFEST.MF", "配置文件加载顺序", "jar启动", "@SpringBootApplication", "@ComponentScan"]
+aliases: ["自动配置", "AutoConfiguration", "AutoConfigurationImportSelector", "DeferredImportSelector", "spring.factories", "@EnableAutoConfiguration", "条件装配", "starter", "MANIFEST.MF", "Start-Class", "配置文件加载顺序", "jar启动", "@SpringBootApplication", "@ComponentScan"]
 related:
   - "[[机制-Spring]]"
   - "[[机制-SPI]]"
@@ -22,7 +22,7 @@ related:
 | [三、Java 核心使用](#三java-核心使用) | 自定义 Starter、优雅停机、@Bean/@SpringBootApplication 底层 |
 | [四、关键权衡](#四关键权衡) | 自动配置优先级、启动速度、调试困难 |
 | [五、与其他概念的关系](#五与其他概念的关系) | Spring IoC、SPI、SpringCloud |
-| [六、应用边界](#六应用边界) | 适用与不适用场景 |
+| [六、应用边界](#六应用边界) | 适用与不适用场景、面试速答 |
 
 ## 一、第一性原理
 
@@ -94,6 +94,8 @@ afterRefresh（空扩展点）
                         └── 条件过滤（@Conditional）
                               → 满足条件的配置类 → 注册 BeanDefinition → IoC 容器
 ```
+
+关键点在 `@Import(AutoConfigurationImportSelector.class)`：`AutoConfigurationImportSelector` 实现了 `DeferredImportSelector`，Spring 解析 `@Import` 时会延迟调用它的 `getAutoConfigurationEntry()`，读取候选自动配置类，再经过去重、排除、条件过滤，最后把满足条件的自动配置类导入容器。
 
 ### 2.3 条件化配置（@Conditional）
 
@@ -221,3 +223,13 @@ spring:
 **理解自动装配的场景**：排查"为什么这个 Bean 没被注入"；编写 starter 供团队复用；配置 `spring.autoconfigure.exclude` 禁用不需要的自动配置。
 
 **不依赖自动装配的场景**：需要精细控制 Bean 初始化顺序时，用 `@DependsOn` + 显式 `@Configuration`。
+
+### 面试速答
+
+| 问题 | 速答 |
+|------|------|
+| `java -jar` 如何找到启动类 | JVM 读取 `META-INF/MANIFEST.MF`；SpringBoot fat jar 的 `Main-Class` 通常是 `JarLauncher`，`Start-Class` 才是真正业务启动类，如 `com.xxx.Application` |
+| SpringBoot 启动原理 | `SpringApplication.run()` 准备环境、创建 ApplicationContext、加载主配置类和自动配置、刷新容器、启动内嵌 WebServer，最后执行 Runner |
+| `@SpringBootApplication` 做了什么 | 组合了 `@SpringBootConfiguration`、`@EnableAutoConfiguration`、`@ComponentScan` |
+| 自动装配核心 | `@EnableAutoConfiguration` 通过 `@Import(AutoConfigurationImportSelector.class)` 导入自动配置类，Boot 2.x 从 `spring.factories` 读取，Boot 3.x 从 `.imports` 读取 |
+| 为什么用户配置优先 | 自动配置通常使用 `@ConditionalOnMissingBean`，用户自己声明 Bean 后自动配置不会覆盖 |
