@@ -13,7 +13,7 @@
 - 其余内容（List/Set/Map/树对比表）已有更完整版本，不重复合并
 
 ## [2026-05-16] Ingest | 机制-线程.md — 新建（tuling 03-线程.md）
-- 新建 `concepts/04-concurrency/机制-线程.md`（L3 层）
+- 新建 `concepts/04-JUC/机制-线程.md`（L3 层）
 - 覆盖内容：线程生命周期6状态图、创建方式5种对比、关键方法辨析（start/run/sleep/join/yield/wait/notify）、线程间通信6种机制、中断机制三方法、死锁四条件与活锁/饥饿区分、jstack/Arthas 排查
 - 不重复已有页面内容：synchronized/AQS/CAS/volatile/线程池/CompletableFuture 均已有独立页面
 - 更新 `index.meta.toml`：L3 层新增5条关键词（线程生命周期/线程状态/BLOCKED·WAITING/死锁/线程中断）
@@ -93,7 +93,7 @@
 - **机制-容器化与Docker.md**：修复链接；namespace+cgroup原理；K8s核心对象；冷启动4方案对比；云原生改造要点表
 - **机制-数据加密与脱敏.md**：完整 frontmatter；修复链接；AES-GCM IV铁律；RSA-OAEP混合加密；防重放三层防御；Arrays.fill清零
 
-## [2026-05-14] Update | 重写 concepts/04-concurrency 全部 9 个概念页
+## [2026-05-14] Update | 重写 concepts/04-JUC 全部 9 个概念页
 
 - **概念-Java并发.md**：从 ASCII 知识地图页重写为标准结构；增加快速导航、并发三大问题表、L3知识地图（带模块定位）、高频考点速查（7个考点详解）、工具选型决策树、常见误区表
 - **概念-JMM.md**：增加快速导航、中文编号标题；新增"硬件层真相"章节（Store Buffer/Invalidation Queue/MESI不够用的原因）；完整 8 条 happens-before 规则表；as-if-serial vs happens-before 对比；StoreLoad 屏障开销说明
@@ -373,7 +373,7 @@
 - 重新生成 wiki/index.md（107 pages）
 
 ## [2026-05-14] Update | 重命名并移动 WebSocket 页面
-- concepts/08-distributed/机制-WebSocket协议.md → concepts/01-cs-base/机制-WebSocket.md
+- concepts/08-distributed/机制-WebSocket协议.md → concepts/01-CS/机制-WebSocket.md
 - 重新生成 wiki/index.md（107 pages）
 
 ## [2026-05-14] Update | 合并消息队列可靠性页面至 RabbitMQ

@@ -41,31 +41,31 @@ synthesis = [
 [[layers]]
 id = "L0"
 name = "计算机与网络"
-concept_dirs = ["concepts/01-cs-base"]
+concept_dirs = ["concepts/01-CS"]
 keywords = [
   # 操作系统
-  { text = "进程", path = "concepts/01-cs-base/概念-操作系统.md" },
-  { text = "线程", path = "concepts/01-cs-base/概念-操作系统.md" },
-  { text = "协程", path = "concepts/01-cs-base/概念-操作系统.md" },
-  { text = "虚拟内存", path = "concepts/01-cs-base/概念-操作系统.md" },
-  { text = "用户态/内核态", path = "concepts/01-cs-base/概念-操作系统.md" },
+  { text = "进程", path = "concepts/01-CS/概念-操作系统.md" },
+  { text = "线程", path = "concepts/01-CS/概念-操作系统.md" },
+  { text = "协程", path = "concepts/01-CS/概念-操作系统.md" },
+  { text = "虚拟内存", path = "concepts/01-CS/概念-操作系统.md" },
+  { text = "用户态/内核态", path = "concepts/01-CS/概念-操作系统.md" },
   # 网络
-  { text = "TCP", path = "concepts/01-cs-base/概念-计算机网络.md" },
-  { text = "HTTP/HTTPS", path = "concepts/01-cs-base/概念-计算机网络.md" },
-  { text = "DNS", path = "concepts/01-cs-base/概念-计算机网络.md" },
-  { text = "Cookie/Session/Token", path = "concepts/01-cs-base/概念-计算机网络.md" },
-  { text = "跨域/CDN", path = "concepts/01-cs-base/概念-计算机网络.md" },
+  { text = "TCP", path = "concepts/01-CS/概念-计算机网络.md" },
+  { text = "HTTP/HTTPS", path = "concepts/01-CS/概念-计算机网络.md" },
+  { text = "DNS", path = "concepts/01-CS/概念-计算机网络.md" },
+  { text = "Cookie/Session/Token", path = "concepts/01-CS/概念-计算机网络.md" },
+  { text = "跨域/CDN", path = "concepts/01-CS/概念-计算机网络.md" },
   # IO
-  { text = "BIO/NIO/AIO", path = "concepts/01-cs-base/概念-IO模型.md" },
-  { text = "epoll", path = "concepts/01-cs-base/概念-IO模型.md" },
-  { text = "Reactor", path = "concepts/01-cs-base/概念-IO模型.md" },
-  { text = "零拷贝", path = "concepts/01-cs-base/概念-IO模型.md" },
+  { text = "BIO/NIO/AIO", path = "concepts/01-CS/概念-IO模型.md" },
+  { text = "epoll", path = "concepts/01-CS/概念-IO模型.md" },
+  { text = "Reactor", path = "concepts/01-CS/概念-IO模型.md" },
+  { text = "零拷贝", path = "concepts/01-CS/概念-IO模型.md" },
   # 安全
-  { text = "XSS/CSRF", path = "concepts/01-cs-base/概念-网络安全.md" },
-  { text = "SQL注入", path = "concepts/01-cs-base/概念-网络安全.md" },
-  { text = "DDoS", path = "concepts/01-cs-base/概念-网络安全.md" },
+  { text = "XSS/CSRF", path = "concepts/01-CS/概念-网络安全.md" },
+  { text = "SQL注入", path = "concepts/01-CS/概念-网络安全.md" },
+  { text = "DDoS", path = "concepts/01-CS/概念-网络安全.md" },
   # WebSocket
-  { text = "WebSocket", path = "concepts/01-cs-base/机制-WebSocket.md" },
+  { text = "WebSocket", path = "concepts/01-CS/机制-WebSocket.md" },
 ]
 
 [[layers]]
@@ -136,40 +136,40 @@ keywords = [
 [[layers]]
 id = "L3"
 name = "Java并发"
-concept_dirs = ["concepts/04-concurrency"]
+concept_dirs = ["concepts/04-JUC"]
 keywords = [
   # JMM
-  { text = "JMM", path = "concepts/04-concurrency/概念-JMM.md" },
-  { text = "happens-before", path = "concepts/04-concurrency/概念-JMM.md" },
+  { text = "JMM", path = "concepts/04-JUC/概念-JMM.md" },
+  { text = "happens-before", path = "concepts/04-JUC/概念-JMM.md" },
   # 并发体系
-  { text = "JUC", path = "concepts/04-concurrency/概念-Java并发.md" },
-  { text = "可见性/原子性/有序性", path = "concepts/04-concurrency/概念-Java并发.md" },
+  { text = "JUC", path = "concepts/04-JUC/概念-Java并发.md" },
+  { text = "可见性/原子性/有序性", path = "concepts/04-JUC/概念-Java并发.md" },
   # ThreadLocal
-  { text = "ThreadLocal", path = "concepts/04-concurrency/概念-ThreadLocal.md" },
+  { text = "ThreadLocal", path = "concepts/04-JUC/概念-ThreadLocal.md" },
   # synchronized
-  { text = "synchronized", path = "concepts/04-concurrency/机制-synchronized.md" },
-  { text = "锁升级", path = "concepts/04-concurrency/机制-synchronized.md" },
+  { text = "synchronized", path = "concepts/04-JUC/机制-synchronized.md" },
+  { text = "锁升级", path = "concepts/04-JUC/机制-synchronized.md" },
   # volatile
-  { text = "volatile", path = "concepts/04-concurrency/机制-volatile.md" },
-  { text = "DCL双重检验锁", path = "concepts/04-concurrency/机制-volatile.md" },
+  { text = "volatile", path = "concepts/04-JUC/机制-volatile.md" },
+  { text = "DCL双重检验锁", path = "concepts/04-JUC/机制-volatile.md" },
   # CAS
-  { text = "CAS", path = "concepts/04-concurrency/机制-CAS.md" },
-  { text = "LongAdder", path = "concepts/04-concurrency/机制-CAS.md" },
+  { text = "CAS", path = "concepts/04-JUC/机制-CAS.md" },
+  { text = "LongAdder", path = "concepts/04-JUC/机制-CAS.md" },
   # AQS
-  { text = "AQS", path = "concepts/04-concurrency/机制-AQS.md" },
-  { text = "ReentrantLock", path = "concepts/04-concurrency/机制-AQS.md" },
-  { text = "CountDownLatch", path = "concepts/04-concurrency/机制-AQS.md" },
+  { text = "AQS", path = "concepts/04-JUC/机制-AQS.md" },
+  { text = "ReentrantLock", path = "concepts/04-JUC/机制-AQS.md" },
+  { text = "CountDownLatch", path = "concepts/04-JUC/机制-AQS.md" },
   # 线程池
-  { text = "线程池", path = "concepts/04-concurrency/机制-线程池.md" },
-  { text = "拒绝策略", path = "concepts/04-concurrency/机制-线程池.md" },
+  { text = "线程池", path = "concepts/04-JUC/机制-线程池.md" },
+  { text = "拒绝策略", path = "concepts/04-JUC/机制-线程池.md" },
   # CompletableFuture
-  { text = "CompletableFuture", path = "concepts/04-concurrency/机制-CompletableFuture.md" },
+  { text = "CompletableFuture", path = "concepts/04-JUC/机制-CompletableFuture.md" },
   # 线程生命周期
-  { text = "线程生命周期", path = "concepts/04-concurrency/机制-线程.md" },
-  { text = "线程状态", path = "concepts/04-concurrency/机制-线程.md" },
-  { text = "BLOCKED/WAITING", path = "concepts/04-concurrency/机制-线程.md" },
-  { text = "死锁", path = "concepts/04-concurrency/机制-线程.md" },
-  { text = "线程中断", path = "concepts/04-concurrency/机制-线程.md" },
+  { text = "线程生命周期", path = "concepts/04-JUC/机制-线程.md" },
+  { text = "线程状态", path = "concepts/04-JUC/机制-线程.md" },
+  { text = "BLOCKED/WAITING", path = "concepts/04-JUC/机制-线程.md" },
+  { text = "死锁", path = "concepts/04-JUC/机制-线程.md" },
+  { text = "线程中断", path = "concepts/04-JUC/机制-线程.md" },
 ]
 
 [[layers]]
