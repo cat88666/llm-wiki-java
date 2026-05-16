@@ -114,16 +114,16 @@ keywords = [
   { text = "类生命周期", path = "concepts/03-jvm/概念-JVM.md" },
   { text = "jstat/jmap/jstack", path = "concepts/03-jvm/概念-JVM.md" },
   # 内存
-  { text = "堆/栈/方法区", path = "concepts/03-jvm/机制-JVM内存模型.md" },
-  { text = "元空间", path = "concepts/03-jvm/机制-JVM内存模型.md" },
-  { text = "OOM排查", path = "concepts/03-jvm/机制-JVM内存模型.md" },
+  { text = "堆/栈/方法区", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "元空间", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "OOM排查", path = "concepts/03-jvm/概念-JVM.md" },
   # GC
-  { text = "GC算法", path = "concepts/03-jvm/机制-垃圾收集器.md" },
-  { text = "G1/ZGC", path = "concepts/03-jvm/机制-垃圾收集器.md" },
-  { text = "强/软/弱/虚引用", path = "concepts/03-jvm/机制-垃圾收集器.md" },
+  { text = "GC算法", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "G1/ZGC", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "强/软/弱/虚引用", path = "concepts/03-jvm/概念-JVM.md" },
   # 类加载
-  { text = "类加载", path = "concepts/03-jvm/机制-类加载机制.md" },
-  { text = "双亲委派", path = "concepts/03-jvm/机制-类加载机制.md" },
+  { text = "类加载", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "双亲委派", path = "concepts/03-jvm/概念-JVM.md" },
   # JIT
   { text = "JIT", path = "concepts/03-jvm/机制-JIT编译.md" },
   { text = "逃逸分析", path = "concepts/03-jvm/机制-JIT编译.md" },

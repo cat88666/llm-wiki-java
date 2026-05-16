@@ -1,5 +1,23 @@
 # Wiki Log
 
+## [2026-05-16] Update | 主题-三高架构.md — 合并 tuling/Java 高并发架构师 100 个必会知识点.md
+- 二、高并发：新增"架构师高并发思维"5原则（CPU Cache命中率/顺序IO/无锁/少线程/事件驱动）
+- 二、高并发：新增 CPU 硬件并发基础表（Cache层级/Cache Line/False Sharing/MESI/NUMA/内存屏障）
+- 四、高性能：新增"高性能网络"节（Reactor三模型/IO多路复用select→epoll/零拷贝对比/Netty三件套/Kafka高性能原理）
+- 五、联动场景：新增"高并发架构模式"表（Actor Model/Event-Driven/Backpressure/CQRS/Event Sourcing/Pipeline）
+- Backpressure 核心约束说明（Kafka poll主动拉取=天然背压；Reactor Flowable/Flux=编程式背压）
+- 已有内容（限流算法/熔断/分布式锁/线程池/分库分表/MQ可靠性/CAP/BASE）不重复
+
+## [2026-05-16] Update | 概念-JVM.md — 三文件合并重写（机制-JVM内存模型 + 机制-垃圾收集器 + 机制-类加载机制）
+- 大幅扩充：对象晋升老年代规则表、对象创建5步、TLAB机制（来自 机制-JVM内存模型）
+- 新增三色标记法（白/灰/黑）+ CMS增量更新 vs G1 SATB（来自 机制-垃圾收集器）
+- 新增调优方法论5步 + 正常基线经验值表、YoungGC/STW过长排查（来自 机制-垃圾收集器）
+- 新增三种类加载器 ASCII图 + loadClass核心代码 + 线程上下文类加载器（来自 机制-类加载机制）
+- 新增 JDK8 vs JDK9+ 类加载器架构对比 + 自定义ClassLoader使用场景表（来自 机制-类加载机制）
+- 新增七、综合对比（堆vs栈/永久代vs元空间/对象内存分配方式三表）
+- 生产风险新增类加载5种风险表；应用边界扩充何时需要自定义ClassLoader
+- 删除已合并的三个源文件；index.meta.toml 关键词全部重定向至 概念-JVM.md
+
 ## [2026-05-16] Update | 概念-分布式理论.md — 合并 Hollis/架构设计 CAP/BASE/缓存方案
 - CAP/BASE 理论已有深度覆盖，跳过重复内容
 - 三、BASE 理论末尾新增"分布式缓存层次"子节：6层架构（客户端→CDN→Nginx→服务端→DB→OS）
