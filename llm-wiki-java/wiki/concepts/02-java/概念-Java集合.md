@@ -12,7 +12,18 @@ related:
   - "[[机制-B+树]]"
   - "[[概念-BitMap]]"
   - "[[概念-前缀树]]"
-  - "[[机制-HashMap]]"
+sources:
+  - "../../../raw/note/Hollis/集合类/"
+  - "../../../raw/note/Hollis/Java并发/✅CopyOnWriteArrayList的底层原理是怎样的？.md"
+  - "../../../raw/note/Hollis/数据结构/✅数组和链表有何区别？.md"
+  - "../../../raw/note/Hollis/数据结构/✅栈和队列的区别.md"
+  - "../../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
+  - "../../../raw/note/Hollis/集合类/✅ArrayList的subList方法有什么需要注意的地方吗？.md"
+  - "../../../raw/note/Hollis/集合类/✅ArrayList的序列化是怎么实现的？.md"
+  - "../../../raw/note/tuling/04-数据结构.md"
+created: 2026-05-06
+updated: 2026-05-16
+lint_notes: ""
 ---
 
 # Java集合
@@ -23,25 +34,56 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 数组不够用、统一数据容器抽象 |
-| [二、核心机制](#二核心机制) | Collection 体系、Map 体系、并发容器、类层次全景 |
-| [三、Java 核心使用](#三java-核心使用) | HashMap 原理、ConcurrentHashMap 原理、CopyOnWriteArrayList 原理、fail-fast vs fail-safe |
-| [四、核心使用原则](#四核心使用原则) | 集合选型决策树 |
-| [五、综合对比](#五综合对比) | List/Set/Map/Queue 横向对比 |
-| [六、生产风险](#六生产风险) | 常见误区与踩坑 |
-| [七、与其他概念的关系](#七与其他概念的关系) | 数据结构、并发、存储 |
-| [八、应用边界](#八应用边界) | 并行流、并发容器边界 |
-| [九、L4数据结构全景](#九l4数据结构全景) | 树/堆/图/BitMap知识地图，高频考点速查 |
+| [一、集合框架本质](#一集合框架本质) | 数组不够用、统一数据容器抽象 |
+| [二、数据结构全景](#二数据结构全景) | 线性/树/堆/图/BitMap 知识地图 |
+| [三、集合体系总结](#三集合体系总结) | Collection / Map / 并发容器类层次全景 |
+| [四、List体系](#四list体系) | ArrayList、LinkedList、CopyOnWriteArrayList |
+| [五、Set体系](#五set体系) | HashSet、LinkedHashSet、TreeSet、去重与排序 |
+| [六、Map体系](#六map体系) | HashMap、LinkedHashMap、TreeMap、ConcurrentHashMap |
+| [七、Queue体系](#七queue体系) | ArrayDeque、PriorityQueue、BlockingQueue |
+| [八、HashMap 原理](#八hashmap-原理) | 数据结构、扰动函数、扩容机制 |
+| [九、ConcurrentHashMap 原理](#九concurrenthashmap-原理) | JDK7 分段锁、JDK8 CAS + 节点锁 |
+| [十、CopyOnWriteArrayList 原理](#十copyonwritearraylist-原理) | 写时复制、快照迭代、适用边界 |
+| [十一、线性结构基础](#十一线性结构基础) | 数组、链表、栈、队列选型 |
+| [十二、综合对比](#十二综合对比) | List/Set/Map/Queue 横向对比 |
+| [十三、生产风险](#十三生产风险) | 常见误区与踩坑 |
+| [十四、应用边界](#十四应用边界) | 并行流、并发容器边界 |
+| [十五、核心总结](#十五核心总结) | 高频考点：红黑树/B+树/堆/跳表/图/BitMap |
 
-## 一、第一性原理
+## 一、集合框架本质
 
 Java 数组长度固定、类型单一、没有内置去重/排序/线程安全能力。当业务需要动态增长、按 key 查找、有序遍历、并发读写时，裸数组无法满足。
 
 集合框架的本质：**用接口抽象"数据容器的行为"（List/Set/Map/Queue），用不同数据结构实现"不同的性能权衡"（数组/链表/哈希/红黑树/堆）**。选型的核心就是在访问模式、内存开销、线程安全三个维度上做取舍。
 
-## 二、核心机制
+## 二、数据结构全景
 
-### 2.1 类层次全景
+```
+数据结构
+│
+├── 线性结构（按访问模式分类）
+│   ├── 数组：随机访问 O(1)，连续内存
+│   ├── 链表：O(1) 插删（已有引用），不连续内存
+│   ├── 跳表（SkipList）：链表 + 多层索引，O(log n) 查找，Redis ZSet / ConcurrentSkipListMap 底层
+│   ├── 栈（LIFO）：ArrayDeque 实现，函数调用/DFS
+│   └── 队列（FIFO）：ArrayDeque/LinkedList，BFS/任务调度
+│
+├── 树结构（利用有序性加速查找）
+│   ├── [[机制-红黑树]]      自平衡 BST，O(log n) 增删查，HashMap/TreeMap 底层
+│   ├── [[机制-B+树]]        多路平衡，极低树高，MySQL InnoDB 索引底层
+│   └── [[概念-前缀树]]      共享公共前缀，O(m) 字符串检索，搜索补全
+│
+├── 堆（维护动态集合最值）
+│   └── [[机制-优先队列]]    完全二叉树 + 数组实现，Top K / TP99 / 定时器
+│
+├── 图（多对多关系）
+│   └── [[概念-图]]          有向/无向，DFS/BFS，Dijkstra 依赖小顶堆
+│
+└── 空间压缩结构
+    └── [[概念-BitMap]]      1 bit 表示整数存在性，布隆过滤器基础，去重/签到
+```
+
+## 三、集合体系总结
 
 ```
 java.util.Collection
@@ -74,33 +116,32 @@ java.util.Map
     └── PriorityBlockingQueue 堆+锁
 ```
 
-### 2.2 List 体系
+## 四、List体系
 
-| 实现 | 结构 | 复杂 | 插入 | 扩容 | 核心特性 | 适用场景 |
+| 实现 | 结构 | 复杂度 | 插入 | 扩容 | 核心特性 | 适用场景 |
 |------|-------|--------|-------|------|----------|----------|
-| ArrayList | 动态数组 | O(1) | O(n)（中间位置需移动元素）| 1.5 倍 | 连续内存，读快写尾部快，中间增删需搬移元素 | 默认 List 选择，读多写少、按下标访问、尾部追加 |
-| LinkedList | 双向链表 | O(n) | O(1)（已定位节点时）| 无需 | 节点离散存储，头尾操作方便，随机访问差且对象开销高 | 少量头尾插入删除，或需要 Deque 语义时优先考虑 ArrayDeque |
+| ArrayList | 动态数组 | O(1) | O(n)（中间位置需移动元素）| 1.5 倍 | 连续内存，CPU Cache 友好；尾部追加均摊 O(1)，中间增删需搬移元素 | 绝大多数场景首选；读多写少、按下标访问、尾部追加 |
+| LinkedList | 双向链表 | O(n) | O(1)（已定位节点时）| 无需 | 节点离散存储，随机访问差；中间插入仍需先 O(n) 遍历定位，且每个节点有 prev/next 额外开销 | 仅在频繁头部插入/删除且不需随机访问时考虑；需要 Deque 语义时优先考虑 ArrayDeque |
 | CopyOnWriteArrayList | 写时复制数组 | O(1) | O(n)（写入复制新数组）| 写入时复制 | 读操作无锁，迭代基于快照，写入成本和内存开销高 | 读多写极少，如监听器列表、配置快照、白名单 |
 
-### 2.3 Set 体系
+## 五、Set体系
 
-| 实现 | 结构 | 去重 | 有序性 |
-|------|-------|---------|--------|
-| HashSet | HashMap | hashCode + equals | 无序 |
-| LinkedHashSet | LinkedHashMap | hashCode + equals | 插入顺序 |
-| TreeSet | TreeMap（红黑树）| Comparable / Comparator | 自然/自定义排序 |
+| 实现 | 结构 | 去重 | 有序性 | 复杂度 | 适用场景 |
+|------|------|------|--------|----------|----------|
+| HashSet | HashMap | hashCode + equals | 无序 | 增删查均摊 O(1) | 默认 Set 选择，快速去重、判断元素是否存在 |
+| LinkedHashSet | LinkedHashMap | hashCode + equals | 插入顺序 | 增删查均摊 O(1) | 需要去重且保留插入顺序，如结果去重后按原顺序输出 |
+| TreeSet | TreeMap（红黑树）| Comparable / Comparator | 自然/自定义排序 | 增删查 O(log n) | 需要去重并排序，或需要范围查询、最大/最小值 |
 
-### 2.4 Map 体系
+## 六、Map体系
 
-| 实现 | 底层结构 | key 有序 | 允许 null key | 线程安全 |
-|------|---------|---------|--------------|---------|
-| HashMap | 数组+链表+红黑树 | 否 | 是（1个）| 否 |
-| LinkedHashMap | HashMap + 双向链表 | 插入/访问顺序 | 是 | 否 |
-| TreeMap | 红黑树 | 自然/自定义排序 | 否 | 否 |
-| Hashtable | 数组+链表 | 否 | 否 | 是（方法级 synchronized）|
-| ConcurrentHashMap | 数组+链表+红黑树 | 否 | 否 | 是（CAS+节点锁）|
+| 实现 | 底层结构 | key 有序 | 允许 null key | 复杂度 | 额外开销 | 适用场景 |
+|------|---------|---------|--------------|--------|----------|----------|
+| HashMap | 数组+链表+红黑树 | 否 | 是（1个）| 增删查均摊 O(1) | 最低 | 默认 Map 选择，通用 KV 存取、快速查找 |
+| LinkedHashMap | HashMap + 双向链表 | 插入/访问顺序 | 是 | 增删查均摊 O(1) | 双向链表 | 需要稳定遍历顺序，或基于访问顺序实现 LRU |
+| TreeMap | 红黑树 | 自然/自定义排序 | 否 | 增删查 O(log n) | 红黑树节点 | 需要 key 排序、范围查询、最大/最小 key |
+| ConcurrentHashMap | 数组+链表+红黑树 | 否 | 否 | 增删查均摊 O(1) | 并发控制开销 | 并发场景下的 Map，替代 Hashtable / synchronizedMap |
 
-### 2.5 Queue 体系
+## 七、Queue体系
 
 | 实现 | 底层结构 | 有界 | 阻塞 | 适用 |
 |------|---------|------|------|------|
@@ -111,7 +152,62 @@ java.util.Map
 | SynchronousQueue | 无容量（直接移交）| 无 | 是 | 生产者必须等消费者接收才能返回，用于线程池直接提交（`Executors.newCachedThreadPool`）|
 | DelayQueue | 堆（PriorityQueue）| 无界 | 是 | 延迟任务、定时调度（元素需实现 `Delayed` 接口）|
 
-### 2.6 线性结构基础：数组 · 链表 · 栈 · 队列
+## 八、HashMap 原理
+
+| 考点 | 关键答案 |
+|------|---------|
+| 数据结构 | JDK8：数组+链表+红黑树（链表≥8且容量≥64时树化，≤6时退化）|
+| 容量为何是 2^n | `& (n-1)` 代替 `% n`（位运算快+解决负数问题）|
+| 负载因子为何 0.75 | 泊松分布下冲突概率与空间利用率的最优平衡 |
+| hash 扰动 | `(h = key.hashCode()) ^ (h >>> 16)`，高低位混合减少冲突 |
+| JDK7 并发死循环 | 头插法 + 多线程扩容 → 环形链表；JDK8 改尾插法修复 |
+| 扩容机制 | `++size > threshold(cap×0.75)` 时触发；JDK8 高低位拆分免 rehash |
+
+## 九、ConcurrentHashMap 原理
+
+| 考点 | 关键答案 |
+|------|---------|
+| JDK7 并发方案 | Segment 分段锁（继承 ReentrantLock），并发度 = Segment 数（16）|
+| JDK8 并发方案 | 空桶 CAS 插入；非空桶 synchronized 节点锁，粒度细化到单个桶 |
+| 为何不用 ReentrantLock | 节点锁竞争低，偏向锁即可；synchronized 有 JVM 运行时优化；ReentrantLock 额外内存（AQS）|
+| 不允许 null | 二义性：并发场景无法用 `contains()` 区分"key不存在"与"value为null" |
+| fail-safe 实现 | 弱一致性迭代器，不依赖 modCount，并发修改不抛异常 |
+
+## 十、CopyOnWriteArrayList 原理
+
+**底层原理**：
+
+```
+写操作流程
+  └─ 加锁（ReentrantLock）                  ← 防止并发写入丢失数据
+  └─ 将原数组复制一份新数组
+  └─ 写操作在新数组上进行
+  └─ 写完后将内部引用（volatile array）指向新数组
+  └─ 解锁
+
+读操作流程
+  └─ 直接读原数组（无锁）                    ← 读写操作在不同数组上，完全不互斥
+```
+
+**关键特性**：
+
+| 特性 | 说明 |
+|------|------|
+| 内部存储 | `volatile Object[] array`（volatile 保证引用切换的可见性）|
+| 写操作 | 加 `ReentrantLock`，整体复制数组后写新数组，写完切换引用 |
+| 读操作 | 直接读当前数组，**无锁**，读写互不阻塞 |
+| 迭代器 | 构造时拿到当前数组快照，遍历过程中写操作对其不可见（fail-safe）|
+| 一致性 | **最终一致性**：读可能读到写操作前的旧数据，不保证实时 |
+
+**适用与不适用**：
+
+| 场景 | 结论 |
+|------|------|
+| 读多写极少（监听器列表、白名单）| ✅ 适合：读无锁，吞吐高 |
+| 数据量大 + 写频繁 | ❌ 不适合：每次写复制整个数组，GC 压力大，内存占用高 |
+| 实时性要求高 | ❌ 不适合：读到的可能是写操作前的旧数据 |
+
+## 十一、线性结构基础：数组 · 链表 · 栈 · 队列
 
 **数组 vs 链表**（底层原理层）：
 
@@ -150,140 +246,9 @@ offer(x) → 入队   poll() → 出队   peek() → 查看队头
 只访问"最早加入"的元素 → 队列（ArrayDeque / LinkedBlockingQueue）
 ```
 
-### 2.7 Set 去重机制与排序接口
+## 十二、综合对比
 
-**Set 去重依赖**：
-
-| Set 实现 | 去重依赖 | 注意 |
-|---------|---------|------|
-| HashSet | `hashCode()` + `equals()` | 两者必须同时重写，否则去重失效 |
-| TreeSet | `compareTo()`（Comparable）或 `compare()`（Comparator）| equals 与 compareTo 结果不一致时行为异常 |
-| LinkedHashSet | 同 HashSet | 额外保留插入顺序 |
-
-**排序接口**：
-- `Comparable`（内置排序）：对象自身实现，`compareTo()`，适合有"自然顺序"的对象
-- `Comparator`（外置排序）：临时规则，`compare()`，适合多种排序维度或不能修改源类时
-
-```java
-// Comparable：对象自带排序
-class Student implements Comparable<Student> {
-    public int compareTo(Student o) { return this.age - o.age; }
-}
-
-// Comparator：临时规则，Lambda 写法
-list.sort((a, b) -> a.getName().compareTo(b.getName()));
-```
-
-## 三、Java 核心使用
-
-### 3.1 HashMap 核心问题（高频考点）
-
-| 考点 | 关键答案 |
-|------|---------|
-| 数据结构 | JDK8：数组+链表+红黑树（链表≥8且容量≥64时树化，≤6时退化）|
-| 容量为何是 2^n | `& (n-1)` 代替 `% n`（位运算快+解决负数问题）|
-| 负载因子为何 0.75 | 泊松分布下冲突概率与空间利用率的最优平衡 |
-| hash 扰动 | `(h = key.hashCode()) ^ (h >>> 16)`，高低位混合减少冲突 |
-| JDK7 并发死循环 | 头插法 + 多线程扩容 → 环形链表；JDK8 改尾插法修复 |
-| 扩容机制 | `++size > threshold(cap×0.75)` 时触发；JDK8 高低位拆分免 rehash |
-
-### 3.2 ConcurrentHashMap 核心问题（高频考点）
-
-| 考点 | 关键答案 |
-|------|---------|
-| JDK7 并发方案 | Segment 分段锁（继承 ReentrantLock），并发度 = Segment 数（16）|
-| JDK8 并发方案 | 空桶 CAS 插入；非空桶 synchronized 节点锁，粒度细化到单个桶 |
-| 为何不用 ReentrantLock | 节点锁竞争低，偏向锁即可；synchronized 有 JVM 运行时优化；ReentrantLock 额外内存（AQS）|
-| 不允许 null | 二义性：并发场景无法用 `contains()` 区分"key不存在"与"value为null" |
-| fail-safe 实现 | 弱一致性迭代器，不依赖 modCount，并发修改不抛异常 |
-
-### 3.3 CopyOnWriteArrayList 核心问题
-
-**底层原理**：
-
-```
-写操作流程
-  └─ 加锁（ReentrantLock）                  ← 防止并发写入丢失数据
-  └─ 将原数组复制一份新数组
-  └─ 写操作在新数组上进行
-  └─ 写完后将内部引用（volatile array）指向新数组
-  └─ 解锁
-
-读操作流程
-  └─ 直接读原数组（无锁）                    ← 读写操作在不同数组上，完全不互斥
-```
-
-**关键特性**：
-
-| 特性 | 说明 |
-|------|------|
-| 内部存储 | `volatile Object[] array`（volatile 保证引用切换的可见性）|
-| 写操作 | 加 `ReentrantLock`，整体复制数组后写新数组，写完切换引用 |
-| 读操作 | 直接读当前数组，**无锁**，读写互不阻塞 |
-| 迭代器 | 构造时拿到当前数组快照，遍历过程中写操作对其不可见（fail-safe）|
-| 一致性 | **最终一致性**：读可能读到写操作前的旧数据，不保证实时 |
-
-**适用与不适用**：
-
-| 场景 | 结论 |
-|------|------|
-| 读多写极少（监听器列表、白名单）| ✅ 适合：读无锁，吞吐高 |
-| 数据量大 + 写频繁 | ❌ 不适合：每次写复制整个数组，GC 压力大，内存占用高 |
-| 实时性要求高 | ❌ 不适合：读到的可能是写操作前的旧数据 |
-
-### 3.4 fail-fast vs fail-safe
-
-| 机制 | 代表 | 行为 | 原理 |
-|------|------|------|------|
-| fail-fast | ArrayList、HashMap | 迭代时修改集合 → `ConcurrentModificationException` | 检测 `modCount` 变化 |
-| fail-safe | ConcurrentHashMap、CopyOnWriteArrayList | 迭代快照或弱一致，不抛异常 | 不依赖 modCount |
-
-**安全遍历删除**：`iterator.remove()` / `removeIf()` / `Stream.filter()`。
-
-## 四、核心使用原则
-
-### 集合选型决策树
-
-```
-需要线程安全？
-├── 是 → 读多写少？
-│        ├── 是 → CopyOnWriteArrayList（List）/ ConcurrentHashMap（Map）
-│        └── 否 → ConcurrentHashMap / BlockingQueue（生产-消费）
-└── 否 → 需要排序？
-         ├── 是 → TreeMap / TreeSet
-         └── 否 → 需要保留插入顺序？
-                  ├── 是 → LinkedHashMap / LinkedHashSet
-                  └── 否 → HashMap / ArrayList / HashSet
-```
-
-**选型核心原则**：
-- **默认选 ArrayList + HashMap**，覆盖 90% 场景
-- **需要线程安全时不要用 Vector/Hashtable**，用 `java.util.concurrent` 包下的实现
-- **需要队列语义时用 ArrayDeque**，不要用 Stack（继承自 Vector，已过时）
-- **LRU 缓存用 LinkedHashMap**，重写 `removeEldestEntry()`
-
-## 五、综合对比
-
-### 5.1 ArrayList vs LinkedList
-
-| 维度 | ArrayList | LinkedList |
-|------|-----------|------------|
-| 随机访问 | O(1)，数组下标直接定位 | O(n)，需从头/尾遍历 |
-| 尾部追加 | 均摊 O(1) | O(1) |
-| 中间插入 | O(n)，需移动元素 | O(n)（遍历定位）+ O(1)（改指针）|
-| 内存连续性 | 连续，CPU Cache 友好 | 非连续，每个节点额外 prev/next 指针开销 |
-| 结论 | **绝大多数场景首选** | 仅在频繁头部插入/删除且不需随机访问时考虑 |
-
-### 5.2 HashMap vs TreeMap vs LinkedHashMap
-
-| 维度 | HashMap | TreeMap | LinkedHashMap |
-|------|---------|---------|---------------|
-| 时间复杂度 | O(1) 均摊 | O(log n) | O(1) 均摊 |
-| key 有序 | 否 | 自然/自定义排序 | 插入/访问顺序 |
-| 额外开销 | 最低 | 红黑树节点 | 双向链表 |
-| 适用 | 通用 KV 查找 | 范围查询、排序需求 | LRU 缓存、保序遍历 |
-
-### 5.3 线程安全容器对比
+### 12.1 线程安全容器对比
 
 | 容器 | 机制 | 读性能 | 写性能 | 适用 |
 |------|------|--------|--------|------|
@@ -292,7 +257,7 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 | CopyOnWriteArrayList | 写时复制整个数组 | 极高（无锁）| 低（复制开销）| 读多写极少 |
 | BlockingQueue 系列 | ReentrantLock + Condition | 中 | 中 | 生产-消费模型 |
 
-## 六、生产风险
+## 十三、生产风险
 
 | 风险 | 说明 | 应对 |
 |------|------|------|
@@ -305,14 +270,7 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 | ArrayList.subList() 陷阱 | 返回的是原 List 的**视图**（SubList 内部类），不是新 List；对父 List 做结构性修改（增/删元素）后再访问 subList 会抛 `ConcurrentModificationException` | 需要独立副本时用 `new ArrayList<>(list.subList(1, 3))`；subList 不可序列化 |
 | ArrayList 序列化 | `elementData` 是 `transient`，只序列化 `[0, size)` 范围有效元素，节省空间；但自定义序列化时若直接操作 elementData 会丢失数据 | 使用标准 `ObjectOutputStream`，序列化逻辑已由 `writeObject` 正确处理 |
 
-## 七、与其他概念的关系
-
-- L4 数据结构：[[机制-HashMap]] 内桶用数组+链表+[[机制-红黑树]]；[[机制-优先队列]]（堆）是 PriorityQueue 底层
-- L3 并发：[[机制-HashMap]] → [[机制-CAS]] + [[机制-synchronized]]
-- L5 存储：[[机制-B+树]] 是 InnoDB 索引底层；[[概念-Redis]] ZSet 底层是跳表（有序链表变体）
-- 延伸结构：[[概念-图]]（BFS 用队列/DFS 用栈）、[[概念-BitMap]]（紧凑 boolean 数组）、[[概念-前缀树]]（共享前缀字符串检索）
-
-## 八、应用边界
+## 十四、应用边界
 
 **集合框架能解决的**：单 JVM 内的数据组织、查找、排序、去重、线程安全访问。
 
@@ -324,36 +282,7 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 
 ---
 
-## 九、L4数据结构全景
-
-### 结构全景图
-
-```
-数据结构
-│
-├── 线性结构（按访问模式分类）
-│   ├── 数组：随机访问 O(1)，连续内存
-│   ├── 链表：O(1) 插删（已有引用），不连续内存
-│   ├── 跳表（SkipList）：链表 + 多层索引，O(log n) 查找，Redis ZSet / ConcurrentSkipListMap 底层
-│   ├── 栈（LIFO）：ArrayDeque 实现，函数调用/DFS
-│   └── 队列（FIFO）：ArrayDeque/LinkedList，BFS/任务调度
-│
-├── 树结构（利用有序性加速查找）
-│   ├── [[机制-红黑树]]      自平衡 BST，O(log n) 增删查，HashMap/TreeMap 底层
-│   ├── [[机制-B+树]]        多路平衡，极低树高，MySQL InnoDB 索引底层
-│   └── [[概念-前缀树]]      共享公共前缀，O(m) 字符串检索，搜索补全
-│
-├── 堆（维护动态集合最值）
-│   └── [[机制-优先队列]]    完全二叉树 + 数组实现，Top K / TP99 / 定时器
-│
-├── 图（多对多关系）
-│   └── [[概念-图]]          有向/无向，DFS/BFS，Dijkstra 依赖小顶堆
-│
-└── 空间压缩结构
-    └── [[概念-BitMap]]      1 bit 表示整数存在性，布隆过滤器基础，去重/签到
-```
-
-### 高频考点速查
+## 十五、核心总结
 
 **红黑树**：
 - 5 条规则：黑根；红节点子必黑；所有路径黑高相同 → 最长路径 ≤ 最短 × 2
@@ -384,26 +313,3 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 **BitMap 与布隆过滤器**：
 - BitMap：1 bit = 1 个整数的存在状态，10 亿整数仅需 125 MB
 - 布隆过滤器：k 个哈希 → k 个 bit 位；有误判（假阳性），无漏判（假阴性）；不支持删除
-
-### 结构间依赖
-
-```
-线性结构（栈/队列）
-    ↓ 是 DFS/BFS 的运行时容器
-图遍历（DFS/BFS）
-    ↓ BFS + 小顶堆 →
-Dijkstra 最短路径 ← 依赖 堆（优先队列）← 数组实现
-
-红黑树 → 磁盘场景多路化 → B+ 树 → MySQL InnoDB 索引底层
-
-BitMap → 扩展为布隆过滤器（多哈希 + 多 bit 位）→ 缓存穿透防护 / URL 去重
-```
-
-### L4 与上下层关系
-
-| 上层依赖 | 具体联系 |
-|---------|---------|
-| L4 容器（集合框架）| `HashMap` 内桶用红黑树；`PriorityQueue` 是堆；`ArrayDeque` 是循环数组 |
-| L5 MySQL | InnoDB 索引 = B+ 树；回表 = 二级索引叶节点存主键再查聚簇索引 |
-| L5 Redis | ZSet 底层 = 跳表（有序链表变体）；BitMap 命令直接暴露位图 |
-| L3 并发 | `PriorityBlockingQueue` 是线程安全堆；`ConcurrentSkipListMap` 是跳表 |
