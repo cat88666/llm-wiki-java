@@ -28,14 +28,14 @@
 - 移动文件：`synthesis/mock-interview-eson.md` → `summaries/主题-模拟面试.md`
 - 更新 frontmatter：`type: synthesis` → `type: summary`，`name` 改为 `模拟面试`
 - 更新 `index.meta.toml`：从 synthesis 删除，加入 summaries 列表
-- 移除断链 `[[设计-分布式事务]]`（已由 synthesis 页面覆盖）
+- 移除断链 `[[概念-分布式事务]]`（已由 synthesis 页面覆盖）
 - 重新生成 index.md（90 pages）
 
 ## [2026-05-15] Update | 重写 wiki/synthesis/ 全部 12 个页面
 - 使用 rewrite-synthesis-prompt.md 按问题驱动格式重写所有 synthesis 页
 - 统一结构：场景概述→方案对比矩阵（含结论列）→决策树→落地实践→面试追问（**问**/**答**格式）→概念关系
-- 修复所有断链：`[[主题-三高体系]]`→`[[主题-三高架构]]`、`[[机制-Redis分布式锁]]`→`[[概念-Redis]]`、`[[机制-消息队列可靠性]]`→`[[机制-RabbitMQ]]`、`[[机制-InnoDB锁]]`→`[[概念-MySQL]]`、`[[概念-分布式系统理论]]`→`[[概念-分布式理论]]`、`[[机制-Spring IoC容器]]`→`[[机制-Spring]]`、`[[设计-分布式事务]]`→`[[机制-Seata]]`、`[[机制-分布式任务调度]]`→`[[概念-分布式任务]]`、`[[机制-ZAB协议与Zookeeper]]`→`[[机制-Zookeeper]]`、`[[机制-微服务与SpringCloud]]`→`[[机制-SpringCloud]]`
-- 删除所有 `[[模拟面试-Eson]]` 引用（文件不存在）
+- 修复所有断链：`[[主题-三高架构]]`→`[[主题-三高架构]]`、`[[概念-Redis]]`→`[[概念-Redis]]`、`[[主题-消息队列]]`→`[[机制-RabbitMQ]]`、`[[概念-MySQL]]`→`[[概念-MySQL]]`、`[[概念-分布式理论]]`→`[[概念-分布式理论]]`、`[[机制-Spring]]`→`[[机制-Spring]]`、`[[概念-分布式事务]]`→`[[机制-Seata]]`、`[[概念-分布式任务]]`→`[[概念-分布式任务]]`、`[[机制-Zookeeper]]`→`[[机制-Zookeeper]]`、`[[机制-SpringCloud]]`→`[[机制-SpringCloud]]`
+- 删除所有 `[[主题-模拟面试]]` 引用（文件不存在）
 - 为缺少 frontmatter 的文件补全：IM系统/电商系统/区块链OTC 新增完整 YAML frontmatter
 - 为 frontmatter 不完整的文件补全字段：P8架构思维/项目难点表达 补充 type/status/name/related/sources
 - 从 `index.meta.toml` 移除已不存在的 `synthesis/mock-interview-eson.md` 引用
@@ -60,12 +60,12 @@
 ## [2026-05-15] Update | 合并 概念-读写分离 到 概念-MySQL
 - `概念-读写分离.md` 内容合并为 `概念-MySQL.md` 第十三章（读写分离）
 - 合并 aliases（读写分离/主从分离/主从延迟/强制读主库）、sources（2篇Hollis笔记）、related 到 MySQL frontmatter
-- 更新内部引用 `[[概念-读写分离]]` → 内部锚点链接
+- 更新内部引用 `[[概念-MySQL]]` → 内部锚点链接
 - 删除 `概念-读写分离.md`，重建 index.md
 
 ## [2026-05-15] Update | 重写 concepts/08-distributed 全部 19 个概念页
 
-- **链接修复**：全部文件中 `[[机制-ZAB协议与Zookeeper]]` → `[[机制-Zookeeper]]`、`[[机制-微服务与SpringCloud]]` → `[[机制-SpringCloud]]`、`[[主题-三高体系]]` → `[[主题-三高架构]]`、`[[概念-分布式系统理论]]` → `[[概念-分布式理论]]`、`[[机制-InnoDB索引]]`/`[[机制-MySQL三种日志]]` → `[[概念-MySQL]]`、`[[机制-消息队列可靠性]]` → `[[机制-RabbitMQ]]`、`[[机制-Redis分布式锁]]` → `[[概念-Redis]]`；移除 `[[模拟面试-Eson]]` 孤立链接
+- **链接修复**：全部文件中 `[[机制-Zookeeper]]` → `[[机制-Zookeeper]]`、`[[机制-SpringCloud]]` → `[[机制-SpringCloud]]`、`[[主题-三高架构]]` → `[[主题-三高架构]]`、`[[概念-分布式理论]]` → `[[概念-分布式理论]]`、`[[概念-MySQL]]`/`[[概念-MySQL]]` → `[[概念-MySQL]]`、`[[主题-消息队列]]` → `[[机制-RabbitMQ]]`、`[[概念-Redis]]` → `[[概念-Redis]]`；移除 `[[主题-模拟面试]]` 孤立链接
 - **补全残缺 frontmatter**：`机制-Protobuf.md`（补 type/status/name/layer）、`机制-数据加密与脱敏.md`（同）
 - **概念-分布式理论.md**：已在上轮完成，快速导航 + 10个编号章节，ZAB vs Raft 对比
 - **概念-分布式事务.md**：type改为concept，layer=L8，空回滚/悬挂统一解法（分布式事务记录表），本地消息表 vs 事务消息对比
@@ -96,7 +96,7 @@
 - **机制-CAS.md**：增加快速导航、中文编号标题；展开 cmpxchg + 缓存行锁 vs 总线锁；新增"LongAdder 高竞争优化"章节（base + Cell 数组分段机制）；AtomicLong vs LongAdder 对比表；生产风险表
 - **机制-AQS.md**：增加快速导航、中文编号标题；Node.waitStatus 5种状态表；LockSupport vs Object.wait 对比；新增"AQS 实现的工具类"章节（ReentrantLock/CountDownLatch/Semaphore/CyclicBarrier 代码级原理）；AQS 工具类横向对比表
 - **机制-线程池.md**：增加快速导航、中文编号标题；ctl 变量设计说明；新增"生产监控与动态线程池"章节（关键指标/动态调整/Hippo4j）；ThreadPoolExecutor vs ForkJoinPool 对比；容量规划公式
-- **概念-ThreadLocal.md**：增加快速导航、中文编号标题；移除不存在的 [[概念-引用类型]] 链接；新增"父子线程传递"章节（InheritableThreadLocal/TTL capture-replay-restore 机制）；ThreadLocal vs synchronized vs ScopedValue 三维对比；弱引用误解澄清
+- **概念-ThreadLocal.md**：增加快速导航、中文编号标题；移除不存在的 [[机制-垃圾收集器]] 链接；新增"父子线程传递"章节（InheritableThreadLocal/TTL capture-replay-restore 机制）；ThreadLocal vs synchronized vs ScopedValue 三维对比；弱引用误解澄清
 - **机制-CompletableFuture.md**：增加快速导航、中文编号标题；result volatile 字段 happens-before 说明；新增链式串行+异常回退场景示例；thenApply vs thenApplyAsync 详细对比；CompletableFuture vs CountDownLatch 对比；join() vs get() 对比；allOf 结果收集注意事项
 - 重建索引：91 页
 
@@ -470,7 +470,6 @@
 - 更新快速导航锚链接
 
 ## [2026-05-16] Update | 概念-JVM体系.md — 合并 tuling/06-JVM
-- sources 增加 `raw/note/tuling/06-JVM.md`、`06-JVM/02-jvm内存模型.md`、`06-JVM/03-jvm调优.md`
 - 新增「生命周期与类加载」：JVM 实例生命周期、对象生命周期、类生命周期、类初始化触发/被动引用、类加载器与双亲委派
 - 扩展 JVM 内存区域：PC、虚拟机栈/栈帧、本地方法栈、堆分代、方法区/元空间
 - 扩展 GC Roots、Minor GC 对象移动流程
@@ -486,7 +485,6 @@
 - 新增面试速答；L8 索引新增实体/值对象、领域事件关键词
 
 ## [2026-05-16] Update | 机制-RocketMQ.md — 合并 tuling/08-mq
-- sources 增加 `raw/note/tuling/08-mq.md`
 - 新增「可靠性与高性能设计」：生产/存储/消费三阶段可靠性、CommitLog + ConsumeQueue + PageCache + 零拷贝、Tag/SQL92 过滤、重复消费幂等
 - 新增「顺序消息机制」：全局顺序 vs 局部顺序、MessageQueueSelector、MessageListenerOrderly、Broker MessageQueue 锁/本地 MessageQueue 锁/ProcessQueue 锁
 - 扩展消息积压治理：mqadmin 定位、扩容/批量消费/临时 Topic 分流/位点跳过、监控预防
@@ -495,7 +493,6 @@
 - L7 索引新增顺序消息、消息堆积关键词
 
 ## [2026-05-16] Update | 机制-Spring.md — 合并 tuling/06-spring
-- sources 增加 `raw/note/tuling/06-spring.md`
 - 二、IoC 容器新增「容器启动整体流程」：扫描组件、生成 BeanDefinition、BeanFactoryPostProcessor、创建非懒加载 singleton、发布启动事件
 - 新增 BeanFactory vs ApplicationContext 对比，补充 Environment/MessageSource/ApplicationEventPublisher 等能力差异
 - Bean 生命周期补充 7 步面试速记；新增 BeanFactoryPostProcessor vs BeanPostProcessor 扩展点对比
@@ -510,13 +507,11 @@
 - 删除合并后的独立文件 `机制-SpringCloudGateway.md`、`机制-SpringCloudOpenfeign.md`
 
 ## [2026-05-16] Add | 机制-SpringCloudOpenfeign.md — 摄入 tuling/09-微服务/13-openFeign
-- 新增 `wiki/concepts/07-framework/机制-SpringCloudOpenfeign.md`，来源 `raw/note/tuling/09-微服务/13-openFeign.md`
 - 整理 OpenFeign 第一性原理、`@FeignClient` 用法、动态代理执行流程、服务发现与负载均衡、超时/重试/容错、与 RestTemplate/Dubbo 对比和应用边界
 - L6 索引新增 `OpenFeign/Feign`、`Feign超时` 关键词
 - `机制-SpringCloud.md` related 增加 `机制-SpringCloudOpenfeign`（后续已合并回 SpringCloud 总页）
 
 ## [2026-05-16] Add | 机制-SpringCloudGateway.md — 摄入 tuling/09-微服务/16-gateway
-- 新增 `wiki/concepts/07-framework/机制-SpringCloudGateway.md`，来源 `raw/note/tuling/09-微服务/16-gateway.md`
 - 整理 Gateway 第一性原理、Route/Predicate/Filter、执行流程、动态路由、鉴权限流、过滤器链、Zuul/Nginx 对比和应用边界
 - L6 索引将 `网关/Gateway` 指向独立 Gateway 页，并新增 `Route/Predicate/Filter` 关键词
 - `机制-SpringCloud.md` related 增加 `机制-SpringCloudGateway`（后续已合并回 SpringCloud 总页）
@@ -529,7 +524,6 @@
 - 八、关键权衡：补充 ZK 作为注册中心的优劣分析（内存+NIO性能、CP代价、推荐用Nacos/Eureka）
 
 ## [2026-05-16] Add | 概念-k8s.md — 摄入 tuling/10-k8s
-- 新增 `wiki/concepts/08-distributed/概念-k8s.md`，来源 `raw/note/tuling/10-k8s.md` 与 `10-k8s/01-k8s面试题.md`
 - 整理 K8s 架构、核心对象、Pod 生命周期、调度/HPA、Service/Ingress/CNI、PV/PVC/CSI、安全、发布运维与 Helm
 - L7 索引新增 K8s/Kubernetes、Pod/Deployment/Service、Ingress/HPA 关键词
 - `机制-Docker.md` related 增加 `[[概念-k8s]]`
@@ -546,7 +540,7 @@
 - 概念-Java集合.md 生产风险强化：ArrayList.subList()陷阱 + 序列化说明
 - 概念-Java集合.md frontmatter：合并 related/sources/aliases
 - 概念-Java集合.md 七、与其他概念的关系 更新为完整链接
-- 7个引用文件中 [[概念-数据结构]] 替换为 [[概念-Java集合]]
+- 7个引用文件中 [[概念-Java集合]] 替换为 [[概念-Java集合]]
 - 删除 wiki/concepts/02-java/概念-数据结构.md
 - 重建索引：89页（-1）
 

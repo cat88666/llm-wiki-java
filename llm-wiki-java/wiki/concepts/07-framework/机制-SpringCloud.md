@@ -6,11 +6,11 @@ layer: L7
 aliases: ["SpringCloud", "微服务", "Eureka", "Feign", "OpenFeign", "SpringCloudOpenFeign", "FeignClient", "Feign超时", "Hystrix", "Sentinel", "Gateway", "SpringCloudGateway", "Route", "Predicate", "GatewayFilter", "GlobalFilter", "WebFlux", "Reactor", "Ribbon", "LoadBalancer", "Nacos", "熔断器", "服务注册", "服务发现", "蓝绿部署", "灰度发布", "金丝雀发布", "ServiceMesh", "Service Mesh", "Istio", "CI/CD", "DevOps", "康威定律", "限流降级熔断", "循环依赖"]
 related:
   - "[[机制-Dubbo]]"
-  - "[[机制-ZAB协议与Zookeeper]]"
+  - "[[机制-Zookeeper]]"
   - "[[机制-动态代理]]"
   - "[[机制-Spring]]"
   - "[[机制-SpringBoot]]"
-  - "[[主题-三高体系]]"
+  - "[[主题-三高架构]]"
 sources:
   - "../../../raw/note/Hollis/SpringCloud/✅什么是SpringCloud，有哪些组件？.md"
   - "../../../raw/note/Hollis/SpringCloud/✅SpringCloud和Dubbo有什么区别？.md"
@@ -36,8 +36,6 @@ sources:
   - "../../../raw/note/Hollis/微服务/✅什么是康威定律？.md"
   - "../../../raw/note/Hollis/微服务/✅SOA和微服务之间的主要区别是什么？.md"
   - "../../../raw/note/Hollis/微服务/✅分布式和微服务的区别是什么？.md"
-  - "../../../raw/note/tuling/09-微服务/13-openFeign.md"
-  - "../../../raw/note/tuling/09-微服务/16-gateway.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""
@@ -81,7 +79,7 @@ lint_notes: ""
 
 ### 2.2 服务注册：Eureka vs ZooKeeper
 
-| 维度 | Eureka | ZooKeeper（见 [[机制-ZAB协议与Zookeeper]]）|
+| 维度 | Eureka | ZooKeeper（见 [[机制-Zookeeper]]）|
 |------|--------|--------------------------------------|
 | CAP 选择 | **AP**（可用性优先）| **CP**（一致性优先）|
 | 设计目标 | 专为服务注册发现设计 | 通用分布式协调组件 |
@@ -647,7 +645,7 @@ Nginx 负责外层四/七层代理、TLS、静态资源和基础防护；Gateway
 ## 九、与其他概念的关系
 
 - **依赖 [[机制-Dubbo]]**：Dubbo 可作为 Spring Cloud 内部服务间调用的替代方案（OpenFeign HTTP → Dubbo TCP），两者互补而非互斥
-- **依赖 [[机制-ZAB协议与Zookeeper]]**：Eureka/Nacos 之前，ZooKeeper 也被用作注册中心；ZK 的 CP 特性使其在服务注册场景中略显过重
+- **依赖 [[机制-Zookeeper]]**：Eureka/Nacos 之前，ZooKeeper 也被用作注册中心；ZK 的 CP 特性使其在服务注册场景中略显过重
 - **依赖 [[机制-Spring]] / [[机制-动态代理]]**：OpenFeign 底层通过动态代理生成 Stub；Hystrix 通过 AOP 切面拦截方法调用并织入熔断逻辑
 - **依赖 [[机制-SpringBoot]]**：Spring Cloud 各组件均通过 Spring Boot AutoConfiguration 自动装配，`@EnableEurekaClient`/`@EnableFeignClients` 等注解触发自动配置链路
 

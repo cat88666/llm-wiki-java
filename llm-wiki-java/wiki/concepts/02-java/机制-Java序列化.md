@@ -5,7 +5,7 @@ name: "Java序列化"
 layer: L1
 aliases: ["Serialization", "序列化", "反序列化", "Serializable", "Externalizable"]
 related:
-  - "[[机制-反射]]"
+  - "[[机制-动态代理]]"
   - "[[概念-Java异常体系]]"
 sources:
   - "../../../raw/note/Hollis/Java基础/✅什么是序列化与反序列化.md"
@@ -46,7 +46,7 @@ JVM 进程终止后堆内对象全部消亡。序列化解决的根本问题：*
 1. 类实现 `java.io.Serializable`（标记接口，无方法）
 2. `ObjectOutputStream.writeObject(obj)` 写入字节流
 3. `ObjectInputStream.readObject()` 还原对象
-4. 底层通过 [[机制-反射]] 遍历所有非 `static`、非 `transient` 字段，按固定二进制格式写入
+4. 底层通过 [[机制-动态代理]] 遍历所有非 `static`、非 `transient` 字段，按固定二进制格式写入
 
 ### 2.2 serialVersionUID
 
@@ -144,7 +144,7 @@ private Object readResolve() throws ObjectStreamException {
 
 ## 八、与其他概念的关系
 
-- 依赖 [[机制-反射]]：原生序列化通过反射读写对象字段，Externalizable 除外
+- 依赖 [[机制-动态代理]]：原生序列化通过反射读写对象字段，Externalizable 除外
 - 关联 [[概念-Java异常体系]]：`writeObject` / `readObject` 抛 `IOException`（Checked），`InvalidClassException` 是版本不兼容的标志
 - 支撑了 L5 Redis：Java 对象存入 Redis 需选择序列化方案，影响存储体积和可读性
 - 支撑了 L7 RPC：Dubbo、gRPC 的参数传递性能直接取决于序列化协议选择

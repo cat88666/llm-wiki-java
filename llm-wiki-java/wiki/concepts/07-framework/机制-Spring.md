@@ -8,8 +8,8 @@ related:
   - "[[机制-动态代理]]"
   - "[[机制-SpringBoot]]"
   - "[[机制-SpringMVC]]"
-  - "[[机制-MVCC]]"
-  - "[[机制-InnoDB锁]]"
+  - "[[概念-MySQL]]"
+  - "[[概念-MySQL]]"
   - "[[概念-ThreadLocal]]"
   - "[[机制-SPI]]"
 sources:
@@ -30,7 +30,6 @@ sources:
   - "../../../raw/note/Hollis/Spring/✅Spring的事务传播机制有哪些？.md"
   - "../../../raw/note/Hollis/Spring/✅Spring事务失效可能是哪些原因？.md"
   - "../../../raw/note/Hollis/Spring/✅Spring的事务在多线程下生效吗？为什么？.md"
-  - "../../../raw/note/tuling/06-spring.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""
@@ -352,7 +351,7 @@ Client
 | 循环依赖是兜底机制 | 三级缓存能处理一部分单例循环依赖，但构造器和 prototype 循环依赖无法解决，应优先重构依赖方向 |
 | AOP 隐藏调用路径 | 简化横切逻辑的同时使调试更复杂——需要识别 `$Proxy`、`$$EnhancerByCGLIB` 和代理边界 |
 | 声明式事务边界陷阱 | 需要避开自调用、异常吞噬、跨线程和长事务 |
-| 事务隔离与数据库实现 | 隔离级别、[[机制-MVCC]]、[[机制-InnoDB锁]] 共同决定可见性、锁等待和并发性能 |
+| 事务隔离与数据库实现 | 隔离级别、[[概念-MySQL]]、[[概念-MySQL]] 共同决定可见性、锁等待和并发性能 |
 
 ## 七、与其他概念的关系
 
@@ -361,7 +360,7 @@ Client
 - 与 [[机制-SpringMVC]] 协作：Controller、Service、HandlerMapping 等都运行在 Spring 容器中
 - 与 [[概念-ThreadLocal]] 相关：事务连接绑定到线程，解释了多线程事务失效
 - 与 [[机制-SPI]] 相关：SpringBoot 自动配置文件体现了按约定发现扩展点的思想
-- 与 [[机制-MVCC]]、[[机制-InnoDB锁]] 相关：数据库事务的隔离和锁行为由存储引擎真正执行
+- 与 [[概念-MySQL]]、[[概念-MySQL]] 相关：数据库事务的隔离和锁行为由存储引擎真正执行
 
 ## 八、应用边界
 

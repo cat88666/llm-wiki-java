@@ -7,9 +7,9 @@ aliases: ["LSM树", "LSM-Tree", "RocksDB", "LevelDB", "SSTable", "Memtable", "Co
 tags: ["#storage"]
 related:
   - "[[机制-B+树]]"
-  - "[[机制-MySQL三种日志]]"
-  - "[[机制-Redis持久化]]"
-  - "[[概念-分布式系统理论]]"
+  - "[[概念-MySQL]]"
+  - "[[概念-Redis]]"
+  - "[[概念-分布式理论]]"
 sources: []
 created: 2026-05-07
 updated: 2026-05-15
@@ -166,9 +166,9 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 ## 七、与其他概念的关系
 
 - **对立于 [[机制-B+树]]**：B+ 树原地更新优化随机读（低读放大），LSM 顺序追加优化随机写（低写延迟）；InnoDB 用 B+树，TiKV/RocksDB 用 LSM 树——两种不同的读写权衡
-- **借鉴 [[机制-MySQL三种日志]]**：WAL（Write-Ahead Log）是 LSM 和 InnoDB redo log 共享的崩溃恢复思想；Memtable flush = InnoDB Buffer Pool 刷脏页
-- **类比 [[机制-Redis持久化]]**：RDB ≈ SSTable 全量快照；AOF ≈ WAL 顺序追加；LSM Compaction ≈ AOF rewrite 整理
-- **支撑 [[概念-分布式系统理论]]**：TiKV（TiDB 底层）、CockroachDB、Cassandra、HBase 均基于 LSM；RocksDB 是工程落地的事实标准
+- **借鉴 [[概念-MySQL]]**：WAL（Write-Ahead Log）是 LSM 和 InnoDB redo log 共享的崩溃恢复思想；Memtable flush = InnoDB Buffer Pool 刷脏页
+- **类比 [[概念-Redis]]**：RDB ≈ SSTable 全量快照；AOF ≈ WAL 顺序追加；LSM Compaction ≈ AOF rewrite 整理
+- **支撑 [[概念-分布式理论]]**：TiKV（TiDB 底层）、CockroachDB、Cassandra、HBase 均基于 LSM；RocksDB 是工程落地的事实标准
 
 ## 八、应用边界
 

@@ -10,9 +10,6 @@ related:
   - "[[概念-分布式理论]]"
   - "[[概念-可观测性]]"
   - "[[机制-ElasticSearch]]"
-sources:
-  - "../../../raw/note/tuling/10-k8s.md"
-  - "../../../raw/note/tuling/10-k8s/01-k8s面试题.md"
 created: 2026-05-16
 updated: 2026-05-16
 lint_notes: ""

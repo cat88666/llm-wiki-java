@@ -24,7 +24,6 @@ sources:
   - "../../../raw/note/Hollis/Dubbo/✅Dubbo服务发现与路由的概念有什么不同？.md"
   - "../../../raw/note/Hollis/Dubbo/✅为什么RPC要比HTTP更快一些？.md"
   - "../../../raw/note/Hollis/Dubbo/✅什么场景只能用HTTP，不能用RPC？.md"
-  - "../../../raw/note/tuling/05-doubble.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""

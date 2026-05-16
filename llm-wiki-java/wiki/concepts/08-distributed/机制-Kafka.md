@@ -10,14 +10,6 @@ related:
   - "[[机制-Zookeeper]]"
   - "[[概念-分布式理论]]"
   - "[[概念-幂等设计]]"
-sources:
-  - "../../../raw/note/tuling/08-mq/Kafka.md"
-  - "../../../raw/note/tuling/08-mq/Kafka/✅Kafka 消息的发送过程简单介绍一下？.md"
-  - "../../../raw/note/tuling/08-mq/Kafka/✅Kafka 中的Offset是什么？.md"
-  - "../../../raw/note/tuling/08-mq/Kafka/✅Kafka的消费者数量和分区数量可以不同吗？会发生什么？.md"
-  - "../../../raw/note/tuling/08-mq/Kafka/✅Kafka为什么依赖Zookeeper，有什么用？.md"
-  - "../../../raw/note/tuling/08-mq/Kafka/✅Kafka支持事务消息吗？如何实现的？.md"
-  - "../../../raw/note/tuling/08-mq/Kafka/✅MQ的重平衡会带来哪些问题？.md"
 created: 2026-05-07
 updated: 2026-05-16
 lint_notes: ""

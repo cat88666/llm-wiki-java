@@ -18,7 +18,6 @@ sources:
   - "../../../raw/note/Hollis/配置中心/✅Nacos的服务注册和服务发现的过程是怎么样的？.md"
   - "../../../raw/note/Hollis/配置中心/✅Nacos 2 x为什么新增了RPC的通信方式？.md"
   - "../../../raw/note/Hollis/配置中心/✅注册中心如何选型？.md"
-  - "../../../raw/note/tuling/09-微服务/11-nacos.md"
 created: 2026-05-08
 updated: 2026-05-16
 lint_notes: ""

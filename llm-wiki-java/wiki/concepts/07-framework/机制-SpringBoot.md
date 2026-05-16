@@ -14,7 +14,6 @@ sources:
   - "../../../raw/note/Hollis/Spring/✅如何自定义一个starter？.md"
   - "../../../raw/note/Hollis/Spring/✅为什么SpringBoot 3中移除了spring factories.md"
   - "../../../raw/note/Hollis/Spring/✅SpringBoot如何做优雅停机？.md"
-  - "../../../raw/note/tuling/07-springBoot.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""

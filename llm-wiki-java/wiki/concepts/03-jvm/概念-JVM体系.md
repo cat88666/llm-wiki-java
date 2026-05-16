@@ -13,9 +13,6 @@ topics:
   - 引用类型
 sources:
   - "../../../raw/note/Hollis/JVM/"
-  - "../../../raw/note/tuling/06-JVM.md"
-  - "../../../raw/note/tuling/06-JVM/02-jvm内存模型.md"
-  - "../../../raw/note/tuling/06-JVM/03-jvm调优.md"
 created: 2026-05-02
 updated: 2026-05-16
 lint_notes: ""
@@ -64,7 +61,7 @@ JVM
 │   │   ├── 存活判断：可达性分析（GC Roots），引用计数法的缺陷
 │   │   ├── 三大算法：标记-清除 / 标记-复制 / 标记-整理
 │   │   └── 收集器：CMS → G1（JDK9 默认）→ ZGC（JDK15，亚毫秒）
-│   └── [[概念-引用类型]]
+│   └── [[机制-垃圾收集器]]
 │       └── 强 > 软 > 弱 > 虚；ThreadLocal 弱引用陷阱
 │
 ├── 类加载

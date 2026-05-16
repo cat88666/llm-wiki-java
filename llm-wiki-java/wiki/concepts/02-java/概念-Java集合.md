@@ -12,7 +12,7 @@ related:
   - "[[机制-B+树]]"
   - "[[概念-BitMap]]"
   - "[[概念-前缀树]]"
-  - "[[机制-ConcurrentHashMap]]"
+  - "[[机制-HashMap]]"
 sources:
   - "../../../raw/note/Hollis/集合类/"
   - "../../../raw/note/Hollis/Java并发/✅CopyOnWriteArrayList的底层原理是怎样的？.md"
@@ -21,7 +21,6 @@ sources:
   - "../../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
   - "../../../raw/note/Hollis/集合类/✅ArrayList的subList方法有什么需要注意的地方吗？.md"
   - "../../../raw/note/Hollis/集合类/✅ArrayList的序列化是怎么实现的？.md"
-  - "../../../raw/note/tuling/04-数据结构.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""
@@ -320,7 +319,7 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 ## 七、与其他概念的关系
 
 - L4 数据结构：[[机制-HashMap]] 内桶用数组+链表+[[机制-红黑树]]；[[机制-优先队列]]（堆）是 PriorityQueue 底层
-- L3 并发：[[机制-ConcurrentHashMap]] → [[机制-CAS]] + [[机制-synchronized]]
+- L3 并发：[[机制-HashMap]] → [[机制-CAS]] + [[机制-synchronized]]
 - L5 存储：[[机制-B+树]] 是 InnoDB 索引底层；[[概念-Redis]] ZSet 底层是跳表（有序链表变体）
 - 延伸结构：[[概念-图]]（BFS 用队列/DFS 用栈）、[[概念-BitMap]]（紧凑 boolean 数组）、[[概念-前缀树]]（共享前缀字符串检索）
 

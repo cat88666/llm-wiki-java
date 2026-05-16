@@ -6,7 +6,7 @@ tags: ["#jvm", "#practice"]
 related:
   - "[[机制-垃圾收集器]]"
   - "[[机制-JVM内存模型]]"
-  - "[[概念-引用类型]]"
+  - "[[机制-垃圾收集器]]"
 sources:
   - "../../raw/note/Hollis/JVM/✅常见的JVM调优工具有哪些.md"
   - "../../raw/note/Hollis/JVM/✅FullGC多久一次算正常？.md"
@@ -228,4 +228,4 @@ jmap -dump:format=b,file=/tmp/heap.bin <pid>
 
 - 依赖 [[机制-垃圾收集器]]：调优的前提是理解 G1/ZGC 的 GC 流程
 - 依赖 [[机制-JVM内存模型]]：堆/非堆结构决定了各类 OOM 的根因
-- 关联 [[概念-引用类型]]：弱引用/软引用是防止内存泄漏的常用手段（缓存用 `WeakHashMap` / Guava Cache）
+- 关联 [[机制-垃圾收集器]]：弱引用/软引用是防止内存泄漏的常用手段（缓存用 `WeakHashMap` / Guava Cache）
