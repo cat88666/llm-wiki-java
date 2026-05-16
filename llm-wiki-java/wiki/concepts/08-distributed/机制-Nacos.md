@@ -3,7 +3,7 @@ type: concept
 status: active
 name: "配置中心与Nacos"
 layer: L7
-aliases: ["Nacos", "配置中心", "注册中心", "服务发现", "长轮询", "Distro协议", "JRaft", "Apollo", "动态配置", "推拉结合", "gRPC长连接"]
+aliases: ["Nacos", "配置中心", "注册中心", "服务发现", "长轮询", "Distro协议", "JRaft", "Apollo", "动态配置", "推拉结合", "gRPC长连接", "雪崩保护", "保护阈值", "Namespace", "Group", "DataId", "RefreshScope", "配置优先级"]
 tags: ["#distributed"]
 related:
   - "[[机制-SpringCloud]]"
@@ -18,8 +18,9 @@ sources:
   - "../../../raw/note/Hollis/配置中心/✅Nacos的服务注册和服务发现的过程是怎么样的？.md"
   - "../../../raw/note/Hollis/配置中心/✅Nacos 2 x为什么新增了RPC的通信方式？.md"
   - "../../../raw/note/Hollis/配置中心/✅注册中心如何选型？.md"
+  - "../../../raw/note/tuling/09-微服务/11-nacos.md"
 created: 2026-05-08
-updated: 2026-05-15
+updated: 2026-05-16
 lint_notes: ""
 ---
 
@@ -32,8 +33,8 @@ lint_notes: ""
 | 标题索引 | 概述 |
 | --- | --- |
 | [一、第一性原理](#一第一性原理) | 配置中心 vs 注册中心各自的根本问题 |
-| [二、哪些配置放配置中心](#二哪些配置放配置中心) | 动态 vs 静态配置分层管理 |
-| [三、Nacos 注册中心机制](#三nacos-注册中心机制) | 服务注册/心跳/推拉结合发现 |
+| [二、配置中心](#二配置中心) | 动态 vs 静态配置分层管理；Namespace/Group/DataId；vs SpringCloud Config；配置优先级；@RefreshScope |
+| [三、Nacos 注册中心机制](#三nacos-注册中心机制) | 服务注册/心跳/推拉结合发现；雪崩保护（保护阈值）；临时实例 vs 持久实例 |
 | [四、配置动态感知](#四配置动态感知) | 1.x 长轮询 vs 2.x gRPC 长连接 |
 | [五、AP + CP 双模式](#五ap--cp-双模式) | Distro（AP）+ JRaft（CP）各管一摊 |
 | [六、注册中心选型对比](#六注册中心选型对比) | Nacos/Eureka/Consul/ZK 四维对比 |
@@ -49,7 +50,7 @@ lint_notes: ""
 
 Nacos 的洞察：**配置管理要 CP（不同节点配置不一致是灾难），注册中心要 AP（注册中心不可用比注册信息短暂不一致更致命）**，所以用两种协议各自保障。
 
-## 二、哪些配置放配置中心
+## 二、配置中心
 
 | 配置类型 | 推荐位置 | 原因 |
 |---------|---------|------|
@@ -58,6 +59,52 @@ Nacos 的洞察：**配置管理要 CP（不同节点配置不一致是灾难）
 | 日志级别/采样率 | **配置中心** | 生产排查时动态调整 |
 | 数据库连接 URL/密码 | 配置文件（或 Vault）| 基本不变，发版时固定 |
 | 环境相关配置（dev/prod）| 配置文件（profiles）| Spring profiles 已支持 |
+
+### 数据模型：Namespace / Group / DataId 三元组
+
+Nacos 用三级维度唯一定位一份配置：
+
+| 维度 | 含义 | 典型用法 |
+|------|------|---------|
+| **Namespace** | 租户/环境隔离 | 开发/测试/生产各一个 Namespace |
+| **Group** | 项目/业务隔离 | 同一环境内区分不同项目（如 ORDER_GROUP） |
+| **DataId** | 微服务配置文件 | 通常是 `${spring.application.name}.${file-extension}` |
+
+默认值：Namespace = `public`，Group = `DEFAULT_GROUP`。三者共同确保不同环境/项目/服务间配置互不干扰。
+
+### vs Spring Cloud Config
+
+| 维度 | Nacos Config | Spring Cloud Config |
+|------|-------------|---------------------|
+| 配置存储 | 内置 DB（Derby/MySQL）| 依赖 Git 仓库 |
+| 动态感知 | 长轮询（1.x）/ gRPC 推送（2.x），变更秒级生效 | 需配合 Spring Cloud Bus 通过 MQ 广播刷新 |
+| 可视化界面 | 内置 UI，可在线编辑 | 无 |
+| 复杂度 | 低，开箱即用 | 高，需 Git + Bus + MQ |
+
+### 配置优先级（从高到低）
+
+```
+C：应用名 + Profile 自动生成的 DataId（nacos-config-product.yaml）
+B：ext-config[n].data-id 扩展 DataId（不同工程扩展配置）
+A：shared-configs 共享 DataId（不同工程通用配置）
+```
+
+优先级：**C（精准）> B（扩展）> A（共享）**，即 profile 精准配置 > 同工程通用 > 跨工程共享。同一个 key 多处定义时，高优先级覆盖低优先级。
+
+### @RefreshScope — 动态刷新
+
+`@Value` 注解读取配置中心的值后**无法感知后续变更**；需在 Controller/Service 类上加 `@RefreshScope`，配置变更后 Nacos 触发刷新，该 Bean 重新创建，`@Value` 字段获取到新值。
+
+```java
+@RestController
+@RefreshScope  // 加上此注解，@Value 字段在配置变更时自动刷新
+public class TestController {
+    @Value("${common.age}")
+    private String age;
+}
+```
+
+> 注意：`@RefreshScope` 会重新创建 Bean，代价是一次 Bean 销毁+重建；高并发时可能短暂出现请求使用旧 Bean 的情况（Bean 刷新期间的并发窗口）。
 
 ## 三、Nacos 注册中心机制
 
@@ -74,6 +121,26 @@ Nacos 的洞察：**配置管理要 CP（不同节点配置不一致是灾难）
 - **拉**：客户端首次全量拉取 + 每隔 10s 定时拉取（更新本地缓存）
 - **推**：服务变更时 Server 主动推送（UDP / gRPC），客户端秒级感知
 - **本地缓存**：即使 Nacos Server 宕机，客户端仍可用缓存提供服务（高可用兜底）
+
+**雪崩保护（保护阈值）**：
+
+当大量服务实例宕机，若只将健康实例返回给消费者，剩余健康实例会因流量激增被压垮，引发雪崩。保护阈值机制解决此问题：
+
+```
+保护阈值（0~1 之间的值，如 0.6）
+健康实例数 / 总实例数 < 保护阈值（如 1/2 = 0.5 < 0.6）
+→ 触发保护：不健康实例也加入服务列表
+→ 消费者可能访问到不健康实例并快速失败
+→ 但避免了剩余健康实例被打垮的更大灾难
+```
+
+**临时实例 vs 持久实例**：
+
+| | 临时实例（默认）| 持久实例 |
+|--|------|------|
+| 配置 | `ephemeral=true`（默认）| `spring.cloud.nacos.discovery.ephemeral=false` |
+| 宕机后 | 心跳超时 → 自动剔除 | 宕机不从服务列表删除，标记为不健康 |
+| 适用 | 普通微服务实例 | 需要保留记录的服务（如基础设施节点）|
 
 ## 四、配置动态感知
 

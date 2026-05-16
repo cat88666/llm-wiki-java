@@ -3,11 +3,12 @@ type: concept
 status: active
 name: "容器化与Docker"
 layer: L7
-aliases: ["Docker", "容器", "K8s", "Kubernetes", "Dockerfile", "Docker Compose", "容器编排", "云原生", "Serverless", "namespace", "cgroup", "GraalVM", "无状态设计"]
+aliases: ["Docker", "容器", "Dockerfile", "Docker Compose", "容器编排", "云原生", "Serverless", "namespace", "cgroup", "GraalVM", "无状态设计"]
 tags: ["#devops"]
 related:
+  - "[[概念-k8s]]"
   - "[[机制-SpringCloud]]"
-  - "[[机制-RPC与Dubbo]]"
+  - "[[机制-Dubbo]]"
   - "[[主题-三高架构]]"
 sources:
   - "../../../raw/note/Hollis/容器/✅容器和虚拟机的区别是什么？.md"
@@ -123,6 +124,8 @@ docker exec -it app bash
 
 Docker 解决单机容器运行，K8s 解决生产环境的编排问题：
 
+> K8s 的架构、Pod 生命周期、调度、网络、存储和安全细节见 [[概念-k8s]]。
+
 | 生产问题 | K8s 解决方案 |
 |---------|------------|
 | 容器宕机需手动重启 | Deployment / Pod 自动重启 |
@@ -229,7 +232,7 @@ Docker 解决单机容器运行，K8s 解决生产环境的编排问题：
 ## 十、与其他概念的关系
 
 - **[[机制-SpringCloud]]**：云原生是微服务的基础设施层承载方式，Nacos/Sentinel 等组件在 K8s 中以 Sidecar 模式运行
-- **[[机制-RPC与Dubbo]]**：容器环境中服务发现和 IP 漂移会影响 RPC 治理，Dubbo 需配合 Nacos/ZK 感知变化
+- **[[机制-Dubbo]]**：容器环境中服务发现和 IP 漂移会影响 RPC 治理，Dubbo 需配合 Nacos/ZK 感知变化
 - **[[主题-三高架构]]**：K8s Deployment、HPA、Probe、反亲和性是高可用的基础设施手段
 
 ## 十一、应用边界

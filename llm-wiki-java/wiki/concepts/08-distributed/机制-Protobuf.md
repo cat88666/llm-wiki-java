@@ -1,13 +1,13 @@
 ---
 type: concept
 status: active
-name: "gRPC与Protobuf"
+name: "Protobuf"
 layer: L7
 aliases: ["gRPC", "Protobuf", "Protocol Buffers", "Varint编码", "HTTP/2多路复用", "Deadline传播", "双向流", "gRPC拦截器"]
 tags: ["#distributed"]
 related:
   - "[[机制-Netty]]"
-  - "[[机制-RPC与Dubbo]]"
+  - "[[机制-Dubbo]]"
   - "[[机制-SpringCloud]]"
   - "[[机制-RabbitMQ]]"
 sources:
@@ -17,7 +17,7 @@ updated: 2026-05-15
 lint_notes: ""
 ---
 
-# gRPC与Protobuf
+# Protobuf
 
 > gRPC 是 Google 开源的、基于 HTTP/2 + Protocol Buffers 的高性能跨语言 RPC 框架；Protobuf 是其二进制序列化协议，相比 JSON 体积缩减 3-10×，解析速度快 5-10×。
 
@@ -149,7 +149,7 @@ gRPC 有 17 种 Status Code（非 HTTP Status Code）：
 ## 九、与其他概念的关系
 
 - **依赖 [[机制-Netty]]**：Java gRPC 底层传输层使用 Netty，EventLoop 管理 HTTP/2 连接
-- **区别于 [[机制-RPC与Dubbo]]**：Dubbo 是 Java-first 的服务治理框架，内置注册中心/负载均衡；gRPC 只是通信协议，需要外部治理（Consul/Nacos）
+- **区别于 [[机制-Dubbo]]**：Dubbo 是 Java-first 的服务治理框架，内置注册中心/负载均衡；gRPC 只是通信协议，需要外部治理（Consul/Nacos）
 - **与 [[机制-SpringCloud]] 配合**：Spring Cloud 生态通过 `grpc-spring-boot-starter` 集成 gRPC，Nacos 作为注册中心
 - **优于 [[机制-RabbitMQ]] 的场景**：同步请求-响应（RPC），而非异步消息投递
 

@@ -3,7 +3,7 @@ type: concept
 status: active
 name: "SpringBoot"
 layer: L6
-aliases: ["自动配置", "AutoConfiguration", "spring.factories", "@EnableAutoConfiguration", "条件装配", "starter"]
+aliases: ["自动配置", "AutoConfiguration", "spring.factories", "@EnableAutoConfiguration", "条件装配", "starter", "MANIFEST.MF", "配置文件加载顺序", "jar启动", "@SpringBootApplication", "@ComponentScan"]
 related:
   - "[[机制-Spring]]"
   - "[[机制-SPI]]"
@@ -14,8 +14,9 @@ sources:
   - "../../../raw/note/Hollis/Spring/✅如何自定义一个starter？.md"
   - "../../../raw/note/Hollis/Spring/✅为什么SpringBoot 3中移除了spring factories.md"
   - "../../../raw/note/Hollis/Spring/✅SpringBoot如何做优雅停机？.md"
+  - "../../../raw/note/tuling/07-springBoot.md"
 created: 2026-05-06
-updated: 2026-05-15
+updated: 2026-05-16
 lint_notes: ""
 ---
 
@@ -28,8 +29,8 @@ lint_notes: ""
 | 标题索引 | 概述 |
 | --- | --- |
 | [一、第一性原理](#一第一性原理) | 约定优于配置、消除样板配置 |
-| [二、核心机制](#二核心机制) | 启动流程、自动配置链路、@Conditional、spring.factories 演变 |
-| [三、Java 核心使用](#三java-核心使用) | 自定义 Starter、优雅停机 |
+| [二、核心机制](#二核心机制) | 启动流程、自动配置链路、@Conditional、spring.factories 演变、配置文件加载顺序、jar 启动原理 |
+| [三、Java 核心使用](#三java-核心使用) | 自定义 Starter、优雅停机、@Bean/@SpringBootApplication 底层 |
 | [四、关键权衡](#四关键权衡) | 自动配置优先级、启动速度、调试困难 |
 | [五、与其他概念的关系](#五与其他概念的关系) | Spring IoC、SPI、SpringCloud |
 | [六、应用边界](#六应用边界) | 适用与不适用场景 |
@@ -135,7 +136,55 @@ public class DataSourceAutoConfiguration { ... }
 
 这与 L1 [[机制-SPI]] 思想一脉相承，但是 Spring 自己的扩展实现。
 
+### 2.5 配置文件加载顺序（高优先级覆盖低优先级）
+
+高优先级覆盖低优先级，多个来源共同生效时形成互补配置：
+
+| 优先级 | 来源 |
+|--------|------|
+| 1（最高）| 命令行参数（`--server.port=8080`）|
+| 2 | Java 系统属性（`System.getProperties()`）|
+| 3 | 操作系统环境变量 |
+| 4 | jar **包外** `application-{profile}.yml / .properties` |
+| 5 | jar **包内** `application-{profile}.yml / .properties` |
+| 6 | jar **包外** `application.yml / .properties` |
+| 7 | jar **包内** `application.yml / .properties` |
+| 8（最低）| `@Configuration` 类上的 `@PropertySource` |
+
+**记忆规则**：外 > 内；profile 精准 > 通用；命令行 > 系统属性 > 环境变量 > 配置文件。
+
+### 2.6 jar 启动原理（`java -jar`）
+
+```bash
+java -jar xxx.jar
+```
+
+1. `java -jar` 读取 jar 包中的 `META-INF/MANIFEST.MF` 文件
+2. `MANIFEST.MF` 中指定：
+   ```
+   Main-Class: org.springframework.boot.loader.JarLauncher   ← Spring Boot Loader
+   Start-Class: com.example.MyApplication                     ← 真正的启动类
+   ```
+3. JVM 执行 `JarLauncher.main()` → 加载 BOOT-INF/classes 和 BOOT-INF/lib 下的 jar → 反射调用 `Start-Class.main()` 启动应用
+
+**为什么需要 JarLauncher**：标准 `java -jar` 不支持 jar 中嵌套 jar（nested jars）。Spring Boot 自己实现了 `JarLauncher` 类加载器来展开 BOOT-INF/lib 中的依赖 jar，实现了"fat jar"格式。
+
 ## 三、Java 核心使用
+
+### 3.0 核心注解底层
+
+**`@SpringBootApplication` 组合拆解**：
+
+| 元注解 | 等价关系 | 作用 |
+|--------|---------|------|
+| `@SpringBootConfiguration` | = `@Configuration` | 启动类本身是配置类 |
+| `@EnableAutoConfiguration` | `@Import(AutoConfigurationImportSelector)` | 加载自动配置类 |
+| `@ComponentScan` | 默认扫描启动类所在包及其子包 | 注册 @Component 系列 Bean |
+
+**`@Bean` 底层机制**：
+- 启动时 Spring 解析 `@Bean` 方法，**方法名即 beanName**（可用 `name` 属性覆盖）
+- 调用方法返回值注册为 Bean 实例
+- 在 `@Configuration` 类中，Spring 通过 CGLIB 代理使 `@Bean` 方法具有单例语义（多次调用同一 `@Bean` 方法返回同一实例）
 
 ### 3.1 自定义 Starter
 

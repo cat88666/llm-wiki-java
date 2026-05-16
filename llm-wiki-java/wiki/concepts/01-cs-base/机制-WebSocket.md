@@ -8,7 +8,7 @@ aliases: ["WebSocket", "WSS", "长连接", "全双工推送", "WebSocket握手"]
 related:
   - "[[机制-Netty]]"
   - "[[机制-Kafka]]"
-  - "[[机制-RPC与Protobuf]]"
+  - "[[机制-Protobuf]]"
   - "[[概念-幂等设计]]"
 sources:
   - "../../raw/note/Interview/Eson.md"
@@ -171,7 +171,7 @@ Client ─ LB ──┬── Node A（userId: 101, 203）
 
 - 依赖 [[机制-Netty]]：Java 生产级 WebSocket 几乎都用 Netty，`WebSocketServerProtocolHandler` 封装了握手全流程
 - 区别于 [[机制-Kafka]]：WebSocket 是实时推送协议（在线用户）；Kafka 是持久化消息队列（离线积压）；IM 系统两者都需要
-- 区别于 [[机制-RPC与Protobuf]]：gRPC 双向流也可实现类似能力，但不适合浏览器直连；WebSocket 对浏览器天然友好
+- 区别于 [[机制-Protobuf]]：gRPC 双向流也可实现类似能力，但不适合浏览器直连；WebSocket 对浏览器天然友好
 - 依赖 [[概念-幂等设计]]：重连补发离线消息时，客户端必须幂等处理，防止重复展示
 
 ## 九、应用边界

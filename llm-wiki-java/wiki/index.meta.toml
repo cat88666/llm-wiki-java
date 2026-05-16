@@ -109,6 +109,10 @@ id = "L2"
 name = "JVM"
 concept_dirs = ["concepts/03-jvm"]
 keywords = [
+  # 体系
+  { text = "JVM生命周期", path = "concepts/03-jvm/概念-JVM体系.md" },
+  { text = "类生命周期", path = "concepts/03-jvm/概念-JVM体系.md" },
+  { text = "jstat/jmap/jstack", path = "concepts/03-jvm/概念-JVM体系.md" },
   # 内存
   { text = "堆/栈/方法区", path = "concepts/03-jvm/机制-JVM内存模型.md" },
   { text = "元空间", path = "concepts/03-jvm/机制-JVM内存模型.md" },
@@ -159,21 +163,27 @@ keywords = [
   { text = "拒绝策略", path = "concepts/04-concurrency/机制-线程池.md" },
   # CompletableFuture
   { text = "CompletableFuture", path = "concepts/04-concurrency/机制-CompletableFuture.md" },
+  # 线程生命周期
+  { text = "线程生命周期", path = "concepts/04-concurrency/机制-线程.md" },
+  { text = "线程状态", path = "concepts/04-concurrency/机制-线程.md" },
+  { text = "BLOCKED/WAITING", path = "concepts/04-concurrency/机制-线程.md" },
+  { text = "死锁", path = "concepts/04-concurrency/机制-线程.md" },
+  { text = "线程中断", path = "concepts/04-concurrency/机制-线程.md" },
 ]
 
 [[layers]]
 id = "L4"
 name = "算法"
-concept_dirs = ["concepts/05-data-structure"]
+concept_dirs = ["concepts/05-structure"]
 keywords = [
-  { text = "红黑树", path = "concepts/05-data-structure/机制-红黑树.md" },
-  { text = "B+树", path = "concepts/05-data-structure/机制-B+树.md" },
+  { text = "红黑树", path = "concepts/05-structure/机制-红黑树.md" },
+  { text = "B+树", path = "concepts/05-structure/机制-B+树.md" },
   { text = "跳表", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "堆/优先队列", path = "concepts/05-data-structure/机制-优先队列.md" },
-  { text = "布隆过滤器", path = "concepts/05-data-structure/概念-BitMap.md" },
-  { text = "BitMap", path = "concepts/05-data-structure/概念-BitMap.md" },
-  { text = "前缀树/Trie", path = "concepts/05-data-structure/概念-前缀树.md" },
-  { text = "图/DFS/BFS", path = "concepts/05-data-structure/概念-图.md" },
+  { text = "堆/优先队列", path = "concepts/05-structure/机制-优先队列.md" },
+  { text = "布隆过滤器", path = "concepts/05-structure/概念-BitMap.md" },
+  { text = "BitMap", path = "concepts/05-structure/概念-BitMap.md" },
+  { text = "前缀树/Trie", path = "concepts/05-structure/概念-前缀树.md" },
+  { text = "图/DFS/BFS", path = "concepts/05-structure/概念-图.md" },
 ]
 
 [[layers]]
@@ -223,6 +233,8 @@ concept_dirs = ["concepts/07-framework"]
 keywords = [
   # Spring
   { text = "IoC/DI", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "Bean生命周期", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "BeanFactory/ApplicationContext", path = "concepts/07-framework/机制-Spring.md" },
   { text = "AOP", path = "concepts/07-framework/机制-Spring.md" },
   { text = "循环依赖/三级缓存", path = "concepts/07-framework/机制-Spring.md" },
   { text = "Spring事务", path = "concepts/07-framework/机制-Spring.md" },
@@ -235,7 +247,10 @@ keywords = [
   { text = "拦截器", path = "concepts/07-framework/机制-SpringMVC.md" },
   # SpringCloud
   { text = "微服务", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "OpenFeign/Feign", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "Feign超时", path = "concepts/07-framework/机制-SpringCloud.md" },
   { text = "网关/Gateway", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "Route/Predicate/Filter", path = "concepts/07-framework/机制-SpringCloud.md" },
   { text = "Sentinel/熔断", path = "concepts/07-framework/机制-SpringCloud.md" },
   { text = "灰度发布", path = "concepts/07-framework/机制-SpringCloud.md" },
   # MyBatis
@@ -264,20 +279,25 @@ keywords = [
   { text = "消息可靠性", path = "concepts/08-distributed/机制-RabbitMQ.md" },
   { text = "死信/延迟队列", path = "concepts/08-distributed/机制-RabbitMQ.md" },
   { text = "事务消息", path = "concepts/08-distributed/机制-RocketMQ.md" },
+  { text = "顺序消息", path = "concepts/08-distributed/机制-RocketMQ.md" },
+  { text = "消息堆积", path = "concepts/08-distributed/机制-RocketMQ.md" },
   # 注册发现/配置
   { text = "Nacos", path = "concepts/08-distributed/机制-Nacos.md" },
   { text = "Zookeeper", path = "concepts/08-distributed/机制-Zookeeper.md" },
   { text = "ZAB/ZK锁", path = "concepts/08-distributed/机制-Zookeeper.md" },
   # RPC
-  { text = "Dubbo", path = "concepts/08-distributed/机制-RPC与Dubbo.md" },
-  { text = "gRPC/Protobuf", path = "concepts/08-distributed/机制-RPC与Protobuf.md" },
+  { text = "Dubbo", path = "concepts/08-distributed/机制-Dubbo.md" },
+  { text = "gRPC/Protobuf", path = "concepts/08-distributed/机制-Protobuf.md" },
   # 网络框架
   { text = "Netty", path = "concepts/08-distributed/机制-Netty.md" },
   # 搜索
   { text = "ElasticSearch", path = "concepts/08-distributed/机制-ElasticSearch.md" },
   { text = "倒排索引", path = "concepts/08-distributed/机制-ElasticSearch.md" },
   # 容器
-  { text = "Docker/K8s", path = "concepts/08-distributed/机制-Docker.md" },
+  { text = "Docker", path = "concepts/08-distributed/机制-Docker.md" },
+  { text = "K8s/Kubernetes", path = "concepts/08-distributed/概念-k8s.md" },
+  { text = "Pod/Deployment/Service", path = "concepts/08-distributed/概念-k8s.md" },
+  { text = "Ingress/HPA", path = "concepts/08-distributed/概念-k8s.md" },
   { text = "云原生", path = "concepts/08-distributed/机制-Docker.md" },
   # 认证
   { text = "OAuth2/SSO", path = "concepts/08-distributed/概念-OAuth2.md" },
@@ -302,6 +322,8 @@ keywords = [
   { text = "DDD", path = "concepts/09-practice/概念-DDD.md" },
   { text = "领域建模", path = "concepts/09-practice/概念-DDD.md" },
   { text = "聚合根", path = "concepts/09-practice/概念-DDD.md" },
+  { text = "实体/值对象", path = "concepts/09-practice/概念-DDD.md" },
+  { text = "领域事件", path = "concepts/09-practice/概念-DDD.md" },
   { text = "CQRS", path = "concepts/09-practice/概念-DDD.md" },
   { text = "限界上下文", path = "concepts/09-practice/概念-DDD.md" },
   { text = "秒杀", path = "synthesis/系统设计-电商系统.md" },

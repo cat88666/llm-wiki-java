@@ -21,6 +21,7 @@ sources:
   - "../../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
   - "../../../raw/note/Hollis/集合类/✅ArrayList的subList方法有什么需要注意的地方吗？.md"
   - "../../../raw/note/Hollis/集合类/✅ArrayList的序列化是怎么实现的？.md"
+  - "../../../raw/note/tuling/04-数据结构.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""
@@ -117,8 +118,10 @@ java.util.Map
 |------|---------|------|------|------|
 | ArrayDeque | 循环数组 | 自动扩容 | 否 | 替代 Stack 和 LinkedList 队列用途 |
 | PriorityQueue | 小顶堆 | 自动扩容 | 否 | 按优先级出队 |
-| LinkedBlockingQueue | 链表 | 可选 | 是 | 生产-消费模型 |
-| ArrayBlockingQueue | 数组 | 有界 | 是 | 生产-消费模型（固定容量）|
+| LinkedBlockingQueue | 链表 | 可选 | 是 | 生产-消费模型（两把锁，吞吐高于 ArrayBlockingQueue）|
+| ArrayBlockingQueue | 数组 | 有界 | 是 | 生产-消费模型（固定容量，单锁）|
+| SynchronousQueue | 无容量（直接移交）| 无 | 是 | 生产者必须等消费者接收才能返回，用于线程池直接提交（`Executors.newCachedThreadPool`）|
+| DelayQueue | 堆（PriorityQueue）| 无界 | 是 | 延迟任务、定时调度（元素需实现 `Delayed` 接口）|
 
 ### 2.6 线性结构基础：数组 · 链表 · 栈 · 队列
 
@@ -343,6 +346,7 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 ├── 线性结构（按访问模式分类）
 │   ├── 数组：随机访问 O(1)，连续内存
 │   ├── 链表：O(1) 插删（已有引用），不连续内存
+│   ├── 跳表（SkipList）：链表 + 多层索引，O(log n) 查找，Redis ZSet / ConcurrentSkipListMap 底层
 │   ├── 栈（LIFO）：ArrayDeque 实现，函数调用/DFS
 │   └── 队列（FIFO）：ArrayDeque/LinkedList，BFS/任务调度
 │
@@ -377,6 +381,12 @@ list.sort((a, b) -> a.getName().compareTo(b.getName()));
 - 反直觉口诀：**找最大 K → 用小顶堆**（维护 K 个候选，新元素 > 堆顶才替换）
 - 原因：小顶堆只存 K 个元素，内存 O(k)；大顶堆需存全量数据
 - Java：`PriorityQueue`（默认小顶堆）；大顶堆 `new PriorityQueue<>(Comparator.reverseOrder())`
+
+**跳表（SkipList）**：
+- 链表 + 多层索引，每层索引以概率 1/2 晋升，期望层高 O(log n)
+- 查找/插入/删除均 O(log n)，范围查询效率高（底层链表有序，顺序扫描不需要额外操作）
+- Java：`ConcurrentSkipListMap`（并发有序 Map，替代 TreeMap 的线程安全方案）
+- vs 红黑树：实现更简单；并发场景下跳表做分段/无锁优化更自然；Redis ZSet 采用跳表
 
 **图遍历**：
 - BFS：用队列，按层扩散，无权图最短路径
