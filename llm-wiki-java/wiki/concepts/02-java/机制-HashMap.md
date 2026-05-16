@@ -8,7 +8,7 @@ related:
   - "[[机制-红黑树]]"
   - "[[概念-Java集合]]"
   - "[[机制-CAS]]"
-  - "[[机制-synchronized]]"
+  - "[[机制-Synchronized]]"
 ---
 
 # HashMap
@@ -201,7 +201,7 @@ synchronized (lock) {
 - 底层节点退化为 [[机制-红黑树]]：链表长度 ≥ 8 触发树化，O(log n) 保底
 - 依赖 [[概念-Java集合]]：数组（主桶）+ 链表（冲突链）是基本结构
 - ConcurrentHashMap 底层用 [[机制-CAS]]：空桶插入、`transferIndex` 分配均用 CAS 无锁
-- ConcurrentHashMap 低竞争下用 [[机制-synchronized]]：节点锁在偏向锁阶段几乎无开销
+- ConcurrentHashMap 低竞争下用 [[机制-Synchronized]]：节点锁在偏向锁阶段几乎无开销
 - 在 L5 MySQL：B+ 树索引和 HashMap 都是 hash 思想的体现，但场景不同（磁盘 IO 友好 vs 内存 O(1)）
 
 ## 七、应用边界

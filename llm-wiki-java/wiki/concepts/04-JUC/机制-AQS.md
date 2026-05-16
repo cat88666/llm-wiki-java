@@ -6,8 +6,8 @@ layer: L3
 aliases: ["AbstractQueuedSynchronizer", "抽象队列同步器", "同步队列", "条件队列", "CLH队列", "LockSupport", "park/unpark", "ReentrantLock", "CountDownLatch", "Semaphore", "CyclicBarrier", "独占模式", "共享模式"]
 related:
   - "[[机制-CAS]]"
-  - "[[机制-volatile]]"
-  - "[[机制-synchronized]]"
+  - "[[机制-Volatile]]"
+  - "[[机制-Synchronized]]"
   - "[[机制-线程池]]"
 ---
 
@@ -228,8 +228,8 @@ protected int tryAcquireShared(int acquires) {
 ## 七、与其他概念的关系
 
 - 依赖 [[机制-CAS]]：`compareAndSetState` 是 AQS 修改 state 的核心，CAS 是无锁并发的基础
-- 依赖 [[机制-volatile]]：`state` 字段是 volatile，保证多线程间的可见性
-- 替代/增强 [[机制-synchronized]]：AQS 是 Java 层的锁框架，支持可中断、超时、多条件等 synchronized 不具备的特性
+- 依赖 [[机制-Volatile]]：`state` 字段是 volatile，保证多线程间的可见性
+- 替代/增强 [[机制-Synchronized]]：AQS 是 Java 层的锁框架，支持可中断、超时、多条件等 synchronized 不具备的特性
 - 被 [[机制-线程池]] 使用：`ThreadPoolExecutor` 内部用 `ReentrantLock` 保护 workers 集合，`BlockingQueue` 实现中用 Condition 协调生产者-消费者
 
 ## 八、应用边界

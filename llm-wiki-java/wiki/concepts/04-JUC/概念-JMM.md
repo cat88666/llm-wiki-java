@@ -5,8 +5,8 @@ name: "JMM"
 layer: L3
 aliases: ["Java内存模型", "Java Memory Model", "happens-before", "内存屏障", "主内存", "工作内存", "StoreStore", "StoreLoad", "LoadLoad", "Store Buffer", "可见性", "有序性", "as-if-serial"]
 related:
-  - "[[机制-volatile]]"
-  - "[[机制-synchronized]]"
+  - "[[机制-Volatile]]"
+  - "[[机制-Synchronized]]"
   - "[[机制-JVM内存模型]]"
   - "[[机制-CAS]]"
 ---
@@ -167,8 +167,8 @@ volatile 的 **StoreStore 屏障**禁止②③之间重排，**StoreLoad 屏障*
 
 ## 六、与其他概念的关系
 
-- [[机制-volatile]]：JMM "volatile 变量规则"的具体实现，通过 LOCK 前缀指令 + 内存屏障落地
-- [[机制-synchronized]]：JMM "监视器锁规则"的具体实现，monitorenter/exit 附带 happens-before 保证
+- [[机制-Volatile]]：JMM "volatile 变量规则"的具体实现，通过 LOCK 前缀指令 + 内存屏障落地
+- [[机制-Synchronized]]：JMM "监视器锁规则"的具体实现，monitorenter/exit 附带 happens-before 保证
 - 与 [[机制-JVM内存模型]] 的区别：JVM 内存结构是物理分区（堆/栈），JMM 是并发语义规范
 - 支撑 [[机制-CAS]]：`AtomicInteger` 的 `volatile value` 字段结合 CAS，是 JMM 可见性 + 原子性的双重利用
 

@@ -6,7 +6,7 @@ layer: L3
 aliases: ["内存屏障", "可见性", "有序性", "指令重排", "LOCK前缀", "StoreStore屏障", "StoreLoad屏障", "DCL", "双重检验锁", "MESI失效"]
 related:
   - "[[概念-JMM]]"
-  - "[[机制-synchronized]]"
+  - "[[机制-Synchronized]]"
   - "[[机制-CAS]]"
 ---
 
@@ -162,7 +162,7 @@ c.getValue();  // 不加 volatile：可能看到部分初始化的 Config
 ## 六、与其他概念的关系
 
 - 是 [[概念-JMM]] 中"volatile 变量规则"（happens-before）的具体实现；volatile 写 happens-before 后续 volatile 读
-- 与 [[机制-synchronized]] 互补：volatile 保证可见性+有序性（轻量），synchronized 额外保证原子性（互斥）；两者不互相包含，各有边界
+- 与 [[机制-Synchronized]] 互补：volatile 保证可见性+有序性（轻量），synchronized 额外保证原子性（互斥）；两者不互相包含，各有边界
 - 支撑 [[机制-CAS]]：`AtomicInteger` 内部的 `value` 字段是 volatile，保证 CAS 操作总能读到主内存最新值，避免基于旧值做比较
 
 ## 七、应用边界

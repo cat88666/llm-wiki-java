@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "Java异常体系"
+name: "Java异常"
 layer: L1
 aliases: ["Exception", "异常", "Checked Exception", "RuntimeException", "Error", "try-catch-finally"]
 related:

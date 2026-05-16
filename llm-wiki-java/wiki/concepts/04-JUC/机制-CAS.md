@@ -5,8 +5,8 @@ name: "CAS"
 layer: L3
 aliases: ["Compare And Swap", "乐观锁", "ABA问题", "AtomicStampedReference", "自旋", "cmpxchg", "无锁算法", "LongAdder", "Cell数组", "AtomicInteger", "AtomicReference"]
 related:
-  - "[[机制-volatile]]"
-  - "[[机制-synchronized]]"
+  - "[[机制-Volatile]]"
+  - "[[机制-Synchronized]]"
   - "[[机制-AQS]]"
   - "[[概念-JMM]]"
 ---
@@ -172,10 +172,10 @@ sum() = base + Σ cells[i].value
 
 ## 六、与其他概念的关系
 
-- 依赖 [[机制-volatile]]：`AtomicInteger.value` 是 volatile，CAS 读写结合 volatile 实现可见性
+- 依赖 [[机制-Volatile]]：`AtomicInteger.value` 是 volatile，CAS 读写结合 volatile 实现可见性
 - 依赖 [[概念-JMM]]：CAS 操作隐含 happens-before 关系，成功的 CAS 对后续读可见
 - 支撑 [[机制-AQS]]：AQS 的 `compareAndSetState(expect, update)` 就是 CAS，是 AQS 修改同步状态的核心手段
-- 相对于 [[机制-synchronized]]：CAS 是乐观非阻塞，synchronized 是悲观阻塞；两者互补，AQS 内部混用了两者（CAS + LockSupport.park）
+- 相对于 [[机制-Synchronized]]：CAS 是乐观非阻塞，synchronized 是悲观阻塞；两者互补，AQS 内部混用了两者（CAS + LockSupport.park）
 
 ## 七、应用边界
 

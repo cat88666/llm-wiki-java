@@ -1,7 +1,7 @@
 ---
 type: concept
 status: active
-name: "Java基础类型"
+name: "Java类型"
 layer: L1
 aliases: ["String不可变性", "String immutability", "String常量池", "包装类", "Autoboxing", "Unboxing", "Integer Cache", "自动装箱", "BigDecimal"]
 related:
@@ -11,7 +11,7 @@ related:
   - "[[机制-HashMap]]"
 ---
 
-# Java 基础值类型
+# Java 类型
 
 > Java 中三类值语义对象 -- String、包装类、BigDecimal -- 共享"不可变 + 缓存"设计，分别解决字符串安全共享、基本类型对象化、精确十进制运算的根本需求。
 

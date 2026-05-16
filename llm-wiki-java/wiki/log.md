@@ -1,5 +1,20 @@
 # Wiki Log
 
+## [2026-05-16] Update | 概念-分布式理论.md — 合并 Hollis/架构设计 CAP/BASE/缓存方案
+- CAP/BASE 理论已有深度覆盖，跳过重复内容
+- 三、BASE 理论末尾新增"分布式缓存层次"子节：6层架构（客户端→CDN→Nginx→服务端→DB→OS）
+
+## [2026-05-16] Update | 主题-三高架构.md — 合并 tuling/架构设计.md 六、多线程 + 并发三要素
+- 二、高并发：新增并发编程三要素表（原子性/有序性/可见性，修正源文"可用性"笔误）
+- 四、线程池调优：新增 5 步执行优先级状态机（core→queue→max→reject→keepAlive回收）
+
+## [2026-05-16] Update | 主题-三高架构.md — 合并 tuling/架构设计.md 五、高并发设计
+- 一：新增 CAP（CP/AP 对比表）+ BASE 理论
+- 二：补充三板斧 + 垂直/水平扩展；锁策略扩展分布式锁三方案 + 锁续期/防误删
+- 三：新增负载均衡 4 种策略
+- 四：新增分库分表三类型、MQ 削峰核心纪律（四大可靠性问题）、性能瓶颈根因分析（6步顺序）
+- 五：新增高并发典型架构图（CDN→Nginx→网关→Service→Cache/MQ/DB/Search）
+
 ## [2026-05-16] Update | 主题-设计模式.md — 合并 tuling/架构设计.md 一~四节
 - 创建型补充：建造者（链式/Lombok @Builder）、原型（clone/Prototype Scope）
 - 结构型补充：适配器（HandlerAdapter/AdvisorAdapter）、装饰器（HttpServletRequestWrapper）、桥接/组合/外观速查表
@@ -105,8 +120,8 @@
 
 - **概念-Java并发.md**：从 ASCII 知识地图页重写为标准结构；增加快速导航、并发三大问题表、L3知识地图（带模块定位）、高频考点速查（7个考点详解）、工具选型决策树、常见误区表
 - **概念-JMM.md**：增加快速导航、中文编号标题；新增"硬件层真相"章节（Store Buffer/Invalidation Queue/MESI不够用的原因）；完整 8 条 happens-before 规则表；as-if-serial vs happens-before 对比；StoreLoad 屏障开销说明
-- **机制-volatile.md**：增加快速导航、中文编号标题；展开 LOCK 前缀指令 + MESI 缓存失效流程；DCL 详解（new 三步字节码+重排危害+屏障位置）；volatile vs synchronized vs AtomicXxx 三维对比；生产风险表（long/double 字撕裂等）
-- **机制-synchronized.md**：增加快速导航、中文编号标题；新增 Mark Word 结构（64-bit JVM 5种状态）；ObjectMonitor 详细字段；锁升级各阶段性能表；JIT 锁消除（逃逸分析示例）/锁粗化；生产风险表（死锁/String锁/wait虚假唤醒）
+- **机制-Volatile.md**：增加快速导航、中文编号标题；展开 LOCK 前缀指令 + MESI 缓存失效流程；DCL 详解（new 三步字节码+重排危害+屏障位置）；volatile vs synchronized vs AtomicXxx 三维对比；生产风险表（long/double 字撕裂等）
+- **机制-Synchronized.md**：增加快速导航、中文编号标题；新增 Mark Word 结构（64-bit JVM 5种状态）；ObjectMonitor 详细字段；锁升级各阶段性能表；JIT 锁消除（逃逸分析示例）/锁粗化；生产风险表（死锁/String锁/wait虚假唤醒）
 - **机制-CAS.md**：增加快速导航、中文编号标题；展开 cmpxchg + 缓存行锁 vs 总线锁；新增"LongAdder 高竞争优化"章节（base + Cell 数组分段机制）；AtomicLong vs LongAdder 对比表；生产风险表
 - **机制-AQS.md**：增加快速导航、中文编号标题；Node.waitStatus 5种状态表；LockSupport vs Object.wait 对比；新增"AQS 实现的工具类"章节（ReentrantLock/CountDownLatch/Semaphore/CyclicBarrier 代码级原理）；AQS 工具类横向对比表
 - **机制-线程池.md**：增加快速导航、中文编号标题；ctl 变量设计说明；新增"生产监控与动态线程池"章节（关键指标/动态调整/Hippo4j）；ThreadPoolExecutor vs ForkJoinPool 对比；容量规划公式
@@ -146,8 +161,8 @@
 
 ## [2026-05-14] Update | 重写 3 个 L1 Java 基础概念页
 
-- 重写 `概念-Java基础类型.md`：增加快速导航、中文编号标题、生产风险表格、应用边界表格
-- 重写 `概念-Java异常体系.md`：增加 try-with-resources、自定义异常示例、综合对比表格、生产风险表格
+- 重写 `概念-Java类型.md`：增加快速导航、中文编号标题、生产风险表格、应用边界表格
+- 重写 `概念-Java异常.md`：增加 try-with-resources、自定义异常示例、综合对比表格、生产风险表格
 - 重写 `概念-OOP特征.md`：增加重载vs重写对比、继承vs组合对比、JDK 8 default 方法说明
 - 三个文件均按重写模板统一为九段式结构
 
@@ -176,7 +191,7 @@
 - `设计-线上问题排查` → 并入 `概念-可观测性`（删除）
 - `设计-大厂秒杀实践` → 并入 `系统设计-秒杀系统`（删除）
 - `设计-消息队列场景综合` → 并入 `机制-消息队列可靠性`（删除）
-- `主题-JVM调优` → 并入 `机制-GC算法与垃圾收集器`（删除）
+- `概念-JVM` → 并入 `机制-GC算法与垃圾收集器`（删除）
 - `设计-云原生选型` → 并入 `机制-容器化与Docker`（删除）
 - `设计-MySQL大表与查询优化` → 并入 `概念-SQL查询优化`（删除）
 
@@ -249,7 +264,7 @@
 
 ## [2026-05-08] Ingest | P7 第一轮：消息队列/配置中心/任务调度/异步编程/JVM 调优
 
-- 新建 `机制-RabbitMQ` / `机制-配置中心与Nacos` / `机制-分布式任务调度` / `机制-CompletableFuture` / `主题-JVM调优`
+- 新建 `机制-RabbitMQ` / `机制-配置中心与Nacos` / `机制-分布式任务调度` / `机制-CompletableFuture` / `概念-JVM`
 - 新建 `summaries/主题-消息队列体系`
 - 更新 `机制-Spring`：IoC 循环依赖补充
 
@@ -309,7 +324,7 @@
 - Redis/ → concept × 5 + `概念-Redis体系`
 - MySQL/ → concept × 5 + `概念-MySQL体系`
 - Java并发/ → concept × 7 + `概念-Java并发`
-- JVM/ → concept × 5 + `概念-JVM体系`
+- JVM/ → concept × 5 + `概念-JVM`
 - 数据结构/ → concept × 7 + `概念-数据结构体系`
 - Java基础/ → concept × 11 + `主题-Java语言基础`
 
@@ -455,7 +470,7 @@
 
 ## [2026-05-15] Update | 主题-模拟面试 快速导航修正
 - 更新 快速导航 表：移除已迁移的三节（JVM/CoinsOTC/Netty），修正章节编号（五→二、六→三、七→四、八→五）
-- 添加迁移去向注释（指向 主题-JVM调优、系统设计-区块链OTC、系统设计-游戏架构）
+- 添加迁移去向注释（指向 概念-JVM、系统设计-区块链OTC、系统设计-游戏架构）
 - 重建 wiki/index.md（90 pages）
 
 ## [2026-05-15] Update | 技术内容知识聚合（模拟面试拆解）
@@ -469,7 +484,7 @@
   - 概念-MySQL.md → 跨分片聚合（汇总表+ClickHouse OLAP）
   - 系统设计-彩票系统.md → Gacha高并发设计、Redis挂了、热点分桶、概率公平、全球部署
   - 主题-高频算法.md → LRU完整Java实现+线程安全方案
-  - 主题-JVM调优.md → G1 vs ZGC时机选择、对象池reset测试方法
+  - 概念-JVM.md → G1 vs ZGC时机选择、对象池reset测试方法
   - 设计-P7架构思维.md → 性能瓶颈分层评估、从0到1搭系统五步法
 - 重建 wiki/index.md（90 pages）
 
@@ -483,7 +498,7 @@
   - 1.6 清结算对账全流程（清分→清算→结算→对账差异闭环四级）
 - 更新快速导航锚链接
 
-## [2026-05-16] Update | 概念-JVM体系.md — 合并 tuling/06-JVM
+## [2026-05-16] Update | 概念-JVM.md — 合并 tuling/06-JVM
 - 新增「生命周期与类加载」：JVM 实例生命周期、对象生命周期、类生命周期、类初始化触发/被动引用、类加载器与双亲委派
 - 扩展 JVM 内存区域：PC、虚拟机栈/栈帧、本地方法栈、堆分代、方法区/元空间
 - 扩展 GC Roots、Minor GC 对象移动流程

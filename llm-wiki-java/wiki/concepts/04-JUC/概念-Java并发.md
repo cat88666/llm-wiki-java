@@ -7,8 +7,8 @@ aliases: ["Java并发体系", "并发编程", "JUC", "Java Concurrency", "java.u
 tags: ["#concurrency"]
 related:
   - "[[概念-JMM]]"
-  - "[[机制-synchronized]]"
-  - "[[机制-volatile]]"
+  - "[[机制-Synchronized]]"
+  - "[[机制-Volatile]]"
   - "[[机制-AQS]]"
   - "[[机制-CAS]]"
   - "[[机制-线程池]]"
@@ -62,7 +62,7 @@ related:
     └────────┬─────────────┬────────────┘
              │             │
     ┌──────────────┐  ┌──────────────────┐
-    │[[机制-synchronized]]│  │ [[机制-volatile]]│
+    │[[机制-Synchronized]]│  │ [[机制-Volatile]]│
     │ Monitor+三性保证  │  │ 可见性+有序性    │
     │ 偏向→轻量→重量锁  │  │ 不保证原子性     │
     └──────────────┘  └──────────────────┘
@@ -178,8 +178,8 @@ related:
 ## 五、与其他概念的关系
 
 - [[概念-JMM]]：并发规范基础，所有关键字的语义来源
-- [[机制-synchronized]]：JVM 内置互斥锁，三性保证
-- [[机制-volatile]]：轻量级可见性+有序性，不保证原子性
+- [[机制-Synchronized]]：JVM 内置互斥锁，三性保证
+- [[机制-Volatile]]：轻量级可见性+有序性，不保证原子性
 - [[机制-CAS]]：硬件级无锁操作，AQS 和 AtomicXxx 的底层
 - [[机制-AQS]]：JUC 工具类骨架（ReentrantLock/CountDownLatch/Semaphore）
 - [[机制-线程池]]：线程资源管理中心，避免频繁创建销毁

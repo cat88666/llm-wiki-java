@@ -5,7 +5,6 @@ description = "本文件由 scripts/build_index.py 根据 wiki/index.meta.toml �
 # ── 主题总结（summaries/）──────────────────────────────
 summaries = [
   "summaries/主题-架构体系.md",
-  "summaries/主题-JVM调优.md",
   "summaries/主题-三高架构.md",
   "summaries/主题-消息队列.md",
   "summaries/主题-设计模式.md",
@@ -74,14 +73,14 @@ name = "Java基础"
 concept_dirs = ["concepts/02-java"]
 keywords = [
   # 基础类型
-  { text = "String", path = "concepts/02-java/概念-Java基础类型.md" },
-  { text = "BigDecimal", path = "concepts/02-java/概念-Java基础类型.md" },
-  { text = "自动装箱", path = "concepts/02-java/概念-Java基础类型.md" },
+  { text = "String", path = "concepts/02-java/概念-Java类型.md" },
+  { text = "BigDecimal", path = "concepts/02-java/概念-Java类型.md" },
+  { text = "自动装箱", path = "concepts/02-java/概念-Java类型.md" },
   # OOP
   { text = "OOP", path = "concepts/02-java/概念-OOP特征.md" },
   { text = "接口与抽象类", path = "concepts/02-java/概念-OOP特征.md" },
   # 异常
-  { text = "异常体系", path = "concepts/02-java/概念-Java异常体系.md" },
+  { text = "异常体系", path = "concepts/02-java/概念-Java异常.md" },
   # 集合
   { text = "集合框架", path = "concepts/02-java/概念-Java集合.md" },
   { text = "List/Set/Map", path = "concepts/02-java/概念-Java集合.md" },
@@ -111,9 +110,9 @@ name = "JVM"
 concept_dirs = ["concepts/03-jvm"]
 keywords = [
   # 体系
-  { text = "JVM生命周期", path = "concepts/03-jvm/概念-JVM体系.md" },
-  { text = "类生命周期", path = "concepts/03-jvm/概念-JVM体系.md" },
-  { text = "jstat/jmap/jstack", path = "concepts/03-jvm/概念-JVM体系.md" },
+  { text = "JVM生命周期", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "类生命周期", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "jstat/jmap/jstack", path = "concepts/03-jvm/概念-JVM.md" },
   # 内存
   { text = "堆/栈/方法区", path = "concepts/03-jvm/机制-JVM内存模型.md" },
   { text = "元空间", path = "concepts/03-jvm/机制-JVM内存模型.md" },
@@ -147,11 +146,11 @@ keywords = [
   # ThreadLocal
   { text = "ThreadLocal", path = "concepts/04-JUC/概念-ThreadLocal.md" },
   # synchronized
-  { text = "synchronized", path = "concepts/04-JUC/机制-synchronized.md" },
-  { text = "锁升级", path = "concepts/04-JUC/机制-synchronized.md" },
+  { text = "synchronized", path = "concepts/04-JUC/机制-Synchronized.md" },
+  { text = "锁升级", path = "concepts/04-JUC/机制-Synchronized.md" },
   # volatile
-  { text = "volatile", path = "concepts/04-JUC/机制-volatile.md" },
-  { text = "DCL双重检验锁", path = "concepts/04-JUC/机制-volatile.md" },
+  { text = "volatile", path = "concepts/04-JUC/机制-Volatile.md" },
+  { text = "DCL双重检验锁", path = "concepts/04-JUC/机制-Volatile.md" },
   # CAS
   { text = "CAS", path = "concepts/04-JUC/机制-CAS.md" },
   { text = "LongAdder", path = "concepts/04-JUC/机制-CAS.md" },

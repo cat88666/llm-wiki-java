@@ -6,7 +6,7 @@ layer: L1
 aliases: ["Serialization", "序列化", "反序列化", "Serializable", "Externalizable"]
 related:
   - "[[机制-动态代理]]"
-  - "[[概念-Java异常体系]]"
+  - "[[概念-Java异常]]"
 ---
 
 # Java序列化
@@ -137,7 +137,7 @@ private Object readResolve() throws ObjectStreamException {
 ## 八、与其他概念的关系
 
 - 依赖 [[机制-动态代理]]：原生序列化通过反射读写对象字段，Externalizable 除外
-- 关联 [[概念-Java异常体系]]：`writeObject` / `readObject` 抛 `IOException`（Checked），`InvalidClassException` 是版本不兼容的标志
+- 关联 [[概念-Java异常]]：`writeObject` / `readObject` 抛 `IOException`（Checked），`InvalidClassException` 是版本不兼容的标志
 - 支撑了 L5 Redis：Java 对象存入 Redis 需选择序列化方案，影响存储体积和可读性
 - 支撑了 L7 RPC：Dubbo、gRPC 的参数传递性能直接取决于序列化协议选择
 
