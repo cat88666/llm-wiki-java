@@ -6,7 +6,7 @@ layer: L4
 aliases: ["B-Tree", "B+Tree", "B树", "B+树", "多路平衡查找树"]
 related:
   - "[[机制-红黑树]]"
-  - "[[概念-数据结构]]"
+  - "[[概念-Java集合]]"
 sources:
   - "../../../raw/note/Hollis/数据结构/✅什么是B+树，和B树有什么区别？.md"
   - "../../../raw/note/Hollis/数据结构/✅什么是树？了解哪些树结构？.md"

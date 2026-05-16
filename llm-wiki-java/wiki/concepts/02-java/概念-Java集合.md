@@ -3,10 +3,24 @@ type: concept
 status: active
 name: "Java集合"
 layer: L4
-aliases: ["Java集合框架", "Collection", "List", "Set", "Map", "Queue", "JCF"]
+aliases: ["Java集合框架", "Collection", "List", "Set", "Map", "Queue", "JCF", "数组", "链表", "栈", "队列", "Stack", "Array"]
+related:
+  - "[[机制-HashMap]]"
+  - "[[机制-红黑树]]"
+  - "[[机制-优先队列]]"
+  - "[[概念-图]]"
+  - "[[机制-B+树]]"
+  - "[[概念-BitMap]]"
+  - "[[概念-前缀树]]"
+  - "[[机制-ConcurrentHashMap]]"
 sources:
   - "../../../raw/note/Hollis/集合类/"
   - "../../../raw/note/Hollis/Java并发/✅CopyOnWriteArrayList的底层原理是怎样的？.md"
+  - "../../../raw/note/Hollis/数据结构/✅数组和链表有何区别？.md"
+  - "../../../raw/note/Hollis/数据结构/✅栈和队列的区别.md"
+  - "../../../raw/note/Hollis/集合类/✅ArrayList、LinkedList与Vector的区别？.md"
+  - "../../../raw/note/Hollis/集合类/✅ArrayList的subList方法有什么需要注意的地方吗？.md"
+  - "../../../raw/note/Hollis/集合类/✅ArrayList的序列化是怎么实现的？.md"
 created: 2026-05-06
 updated: 2026-05-16
 lint_notes: ""
@@ -28,6 +42,7 @@ lint_notes: ""
 | [六、生产风险](#六生产风险) | 常见误区与踩坑 |
 | [七、与其他概念的关系](#七与其他概念的关系) | 数据结构、并发、存储 |
 | [八、应用边界](#八应用边界) | 并行流、并发容器边界 |
+| [九、L4数据结构全景](#九l4数据结构全景) | 树/堆/图/BitMap知识地图，高频考点速查 |
 
 ## 一、第一性原理
 
@@ -104,6 +119,69 @@ java.util.Map
 | PriorityQueue | 小顶堆 | 自动扩容 | 否 | 按优先级出队 |
 | LinkedBlockingQueue | 链表 | 可选 | 是 | 生产-消费模型 |
 | ArrayBlockingQueue | 数组 | 有界 | 是 | 生产-消费模型（固定容量）|
+
+### 2.6 线性结构基础：数组 · 链表 · 栈 · 队列
+
+**数组 vs 链表**（底层原理层）：
+
+| 维度 | 数组 | 链表 |
+|------|------|------|
+| 内存 | 连续 | 不连续（每个节点存指针）|
+| 按下标访问 | O(1) | O(n)（必须从头遍历）|
+| 按值查找 | O(n)；有序数组 O(log n) | O(n) |
+| 插入/删除（中间）| O(n)（需移动元素）| O(1)（改指针，前提是已有节点引用）|
+| 空间利用 | 预分配，可能浪费 | 按需分配，但有指针额外开销 |
+
+**链表变体**：
+- **单向链表**：只有 next 指针
+- **双向链表**：有 prev + next（LinkedList 底层），支持 O(1) 头尾操作
+- **环形链表**：尾节点指向头节点，用于循环缓冲区
+
+**栈（Stack）— LIFO**：
+```
+push(x) → 压栈   pop() → 弹栈   peek() → 查看栈顶
+```
+- Java 用法：`Deque<Integer> stack = new ArrayDeque<>()`（不用 `Stack` 类，有同步开销）
+- 应用：函数调用栈、括号匹配、表达式求值、DFS 非递归
+
+**队列（Queue）— FIFO**：
+```
+offer(x) → 入队   poll() → 出队   peek() → 查看队头
+```
+- 变体：Deque（双端）、循环队列（循环数组防假溢出）、优先队列（堆，见 [[机制-优先队列]]）
+- Java 用法：`ArrayDeque`（性能优于 LinkedList，Cache 友好）
+
+**四者选型**：
+```
+需要 O(1) 随机访问 → 数组（ArrayList）
+需要 O(1) 头尾增删 → 链表（LinkedList / ArrayDeque）
+只访问"最新加入"的元素 → 栈（ArrayDeque）
+只访问"最早加入"的元素 → 队列（ArrayDeque / LinkedBlockingQueue）
+```
+
+### 2.7 Set 去重机制与排序接口
+
+**Set 去重依赖**：
+
+| Set 实现 | 去重依赖 | 注意 |
+|---------|---------|------|
+| HashSet | `hashCode()` + `equals()` | 两者必须同时重写，否则去重失效 |
+| TreeSet | `compareTo()`（Comparable）或 `compare()`（Comparator）| equals 与 compareTo 结果不一致时行为异常 |
+| LinkedHashSet | 同 HashSet | 额外保留插入顺序 |
+
+**排序接口**：
+- `Comparable`（内置排序）：对象自身实现，`compareTo()`，适合有"自然顺序"的对象
+- `Comparator`（外置排序）：临时规则，`compare()`，适合多种排序维度或不能修改源类时
+
+```java
+// Comparable：对象自带排序
+class Student implements Comparable<Student> {
+    public int compareTo(Student o) { return this.age - o.age; }
+}
+
+// Comparator：临时规则，Lambda 写法
+list.sort((a, b) -> a.getName().compareTo(b.getName()));
+```
 
 ## 三、Java 核心使用
 
@@ -233,12 +311,15 @@ java.util.Map
 | HashMap 的 size() 精确 | 多线程并发 put 时不精确，ConcurrentHashMap 也只是近似 | 精确计数用 AtomicLong 或 LongAdder |
 | 并行流一定更快 | 小数据量（< 1000）线程开销 > 计算收益；有状态操作（sorted/limit）需同步反而更慢 | 大数据量 + 无状态操作时才用并行流 |
 | CopyOnWriteArrayList 写多场景 | 每次写都复制整个数组，GC 压力大 | 仅用于读多写极少场景（如监听器列表）|
+| ArrayList.subList() 陷阱 | 返回的是原 List 的**视图**（SubList 内部类），不是新 List；对父 List 做结构性修改（增/删元素）后再访问 subList 会抛 `ConcurrentModificationException` | 需要独立副本时用 `new ArrayList<>(list.subList(1, 3))`；subList 不可序列化 |
+| ArrayList 序列化 | `elementData` 是 `transient`，只序列化 `[0, size)` 范围有效元素，节省空间；但自定义序列化时若直接操作 elementData 会丢失数据 | 使用标准 `ObjectOutputStream`，序列化逻辑已由 `writeObject` 正确处理 |
 
 ## 七、与其他概念的关系
 
-- L4 数据结构基础：[[机制-HashMap]] → [[机制-红黑树]]（树化）/ [[概念-数据结构]]（数组+链表）
+- L4 数据结构：[[机制-HashMap]] 内桶用数组+链表+[[机制-红黑树]]；[[机制-优先队列]]（堆）是 PriorityQueue 底层
 - L3 并发：[[机制-ConcurrentHashMap]] → [[机制-CAS]] + [[机制-synchronized]]
-- L5 存储：[[机制-InnoDB索引]] 的 B+ 树是 MySQL 的 TreeMap；[[概念-Redis]] 的 ZSet 类似 TreeMap
+- L5 存储：[[机制-B+树]] 是 InnoDB 索引底层；[[概念-Redis]] ZSet 底层是跳表（有序链表变体）
+- 延伸结构：[[概念-图]]（BFS 用队列/DFS 用栈）、[[概念-BitMap]]（紧凑 boolean 数组）、[[概念-前缀树]]（共享前缀字符串检索）
 
 ## 八、应用边界
 
@@ -249,3 +330,82 @@ java.util.Map
 - **跨 JVM 共享**：需要 Redis、分布式缓存等方案
 - **超大数据量**：内存放不下时需要外部排序、分页查询或流式处理
 - **分布式并发**：ConcurrentHashMap 只保证单 JVM 内线程安全，跨进程需分布式锁
+
+---
+
+## 九、L4数据结构全景
+
+### 结构全景图
+
+```
+数据结构
+│
+├── 线性结构（按访问模式分类）
+│   ├── 数组：随机访问 O(1)，连续内存
+│   ├── 链表：O(1) 插删（已有引用），不连续内存
+│   ├── 栈（LIFO）：ArrayDeque 实现，函数调用/DFS
+│   └── 队列（FIFO）：ArrayDeque/LinkedList，BFS/任务调度
+│
+├── 树结构（利用有序性加速查找）
+│   ├── [[机制-红黑树]]      自平衡 BST，O(log n) 增删查，HashMap/TreeMap 底层
+│   ├── [[机制-B+树]]        多路平衡，极低树高，MySQL InnoDB 索引底层
+│   └── [[概念-前缀树]]      共享公共前缀，O(m) 字符串检索，搜索补全
+│
+├── 堆（维护动态集合最值）
+│   └── [[机制-优先队列]]    完全二叉树 + 数组实现，Top K / TP99 / 定时器
+│
+├── 图（多对多关系）
+│   └── [[概念-图]]          有向/无向，DFS/BFS，Dijkstra 依赖小顶堆
+│
+└── 空间压缩结构
+    └── [[概念-BitMap]]      1 bit 表示整数存在性，布隆过滤器基础，去重/签到
+```
+
+### 高频考点速查
+
+**红黑树**：
+- 5 条规则：黑根；红节点子必黑；所有路径黑高相同 → 最长路径 ≤ 最短 × 2
+- Java 使用：`HashMap`（链表长 ≥ 8 → 红黑树）；`TreeMap`/`TreeSet`
+- vs AVL：红黑树旋转次数少，写多读少优选；AVL 查询略快，读多写少优选
+
+**B+ 树**：
+- 数据只在叶节点：非叶节点纯路由，单页存更多键，树更矮（通常 3-4 层）
+- 叶节点双向链表：天然支持范围查询、顺序扫描
+- B 树 vs B+ 树：B 树单点查询可提前终止；B+ 树范围查询更优
+
+**堆 / Top K**：
+- 反直觉口诀：**找最大 K → 用小顶堆**（维护 K 个候选，新元素 > 堆顶才替换）
+- 原因：小顶堆只存 K 个元素，内存 O(k)；大顶堆需存全量数据
+- Java：`PriorityQueue`（默认小顶堆）；大顶堆 `new PriorityQueue<>(Comparator.reverseOrder())`
+
+**图遍历**：
+- BFS：用队列，按层扩散，无权图最短路径
+- DFS：用栈/递归，一路到底再回溯，适合连通性、环检测
+- Dijkstra：有权最短路，BFS 基础 + 小顶堆选最短距离节点
+
+**BitMap 与布隆过滤器**：
+- BitMap：1 bit = 1 个整数的存在状态，10 亿整数仅需 125 MB
+- 布隆过滤器：k 个哈希 → k 个 bit 位；有误判（假阳性），无漏判（假阴性）；不支持删除
+
+### 结构间依赖
+
+```
+线性结构（栈/队列）
+    ↓ 是 DFS/BFS 的运行时容器
+图遍历（DFS/BFS）
+    ↓ BFS + 小顶堆 →
+Dijkstra 最短路径 ← 依赖 堆（优先队列）← 数组实现
+
+红黑树 → 磁盘场景多路化 → B+ 树 → MySQL InnoDB 索引底层
+
+BitMap → 扩展为布隆过滤器（多哈希 + 多 bit 位）→ 缓存穿透防护 / URL 去重
+```
+
+### L4 与上下层关系
+
+| 上层依赖 | 具体联系 |
+|---------|---------|
+| L4 容器（集合框架）| `HashMap` 内桶用红黑树；`PriorityQueue` 是堆；`ArrayDeque` 是循环数组 |
+| L5 MySQL | InnoDB 索引 = B+ 树；回表 = 二级索引叶节点存主键再查聚簇索引 |
+| L5 Redis | ZSet 底层 = 跳表（有序链表变体）；BitMap 命令直接暴露位图 |
+| L3 并发 | `PriorityBlockingQueue` 是线程安全堆；`ConcurrentSkipListMap` 是跳表 |

@@ -467,3 +467,14 @@
 - 新增 3.3 CopyOnWriteArrayList 核心问题：写时复制流程（加锁→复制新数组→写新数组→切换volatile引用→解锁）、读无锁
 - 补充关键特性表：volatile array、ReentrantLock写、无锁读、迭代器快照
 - 补充适用与不适用场景：读多写极少适合；数据量大+写频繁、实时性要求高不适合
+
+## [2026-05-16] Update | 合并 概念-数据结构.md → 概念-Java集合.md
+- 概念-Java集合.md 新增 2.6（线性结构基础：数组·链表·栈·队列 + 四者选型）
+- 概念-Java集合.md 新增 2.7（Set去重机制 + Comparable vs Comparator）
+- 概念-Java集合.md 新增 九、L4数据结构全景（结构全景图/高频考点速查/结构间依赖/上下层关系）
+- 概念-Java集合.md 生产风险强化：ArrayList.subList()陷阱 + 序列化说明
+- 概念-Java集合.md frontmatter：合并 related/sources/aliases
+- 概念-Java集合.md 七、与其他概念的关系 更新为完整链接
+- 7个引用文件中 [[概念-数据结构]] 替换为 [[概念-Java集合]]
+- 删除 wiki/concepts/02-java/概念-数据结构.md
+- 重建索引：89页（-1）
