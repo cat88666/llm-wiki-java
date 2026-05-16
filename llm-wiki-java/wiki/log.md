@@ -1,5 +1,13 @@
 # Wiki Log
 
+## [2026-05-16] Update | 主题-设计模式.md — 合并 tuling/架构设计.md 一~四节
+- 创建型补充：建造者（链式/Lombok @Builder）、原型（clone/Prototype Scope）
+- 结构型补充：适配器（HandlerAdapter/AdvisorAdapter）、装饰器（HttpServletRequestWrapper）、桥接/组合/外观速查表
+- 行为型补充：命令/迭代器/中介者/备忘录/状态/访问者/解释器速查表
+- 新增 七、Spring 设计模式全景（10种 pattern → Spring class 完整映射，含中介者/DispatcherServlet）
+- 原七→八（与其他概念的关系），导航表同步更新
+- 已有深度内容（代理/工厂/单例/观察者/模板方法/策略/责任链）未重复
+
 ## [2026-05-16] Ingest | 主题-架构体系.md — 新建（raw/note/架构体系/ 7个文件）
 - 新建 `summaries/主题-架构体系.md`，覆盖 7 大模块知识全景
 - 聚焦 wiki 其他页未覆盖内容：DDD（战略/战术/分层/CQRS）、Spring Cloud Netflix vs Alibaba 对比、高可用 SLA 指标/异地多活策略、秒杀系统分层拦截、SOLID 原则、CI/CD + K8s 发布策略
