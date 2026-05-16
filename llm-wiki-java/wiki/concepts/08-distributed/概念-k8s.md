@@ -10,9 +10,6 @@ related:
   - "[[概念-分布式理论]]"
   - "[[概念-可观测性]]"
   - "[[机制-ElasticSearch]]"
-created: 2026-05-16
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # Kubernetes

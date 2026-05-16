@@ -10,9 +10,6 @@ related:
   - "[[机制-Zookeeper]]"
   - "[[概念-分布式理论]]"
   - "[[概念-幂等设计]]"
-created: 2026-05-07
-updated: 2026-05-16
-lint_notes: ""
 ---
 
 # Kafka
