@@ -2,9 +2,9 @@
 type: concept
 status: active
 name: "ElasticSearch"
-layer: L7
+layer: L5
 aliases: ["ElasticSearch", "ES", "倒排索引", "全文搜索", "深度分页", "scroll", "search_after", "ELK", "ILM", "Hot-Warm-Cold", "乐观锁"]
-tags: ["#distributed"]
+tags: ["#storage"]
 related:
   - "[[概念-MySQL]]"
   - "[[机制-RabbitMQ]]"

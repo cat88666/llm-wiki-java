@@ -188,7 +188,7 @@ keywords = [
 
 [[layers]]
 id = "L5"
-name = "Redis / MySQL / RocksDB"
+name = "Redis / MySQL / ElasticSearch / RocksDB"
 concept_dirs = ["concepts/06-storage"]
 keywords = [
   # MySQL 索引
@@ -222,6 +222,9 @@ keywords = [
   { text = "缓存穿透/击穿/雪崩", path = "concepts/06-storage/概念-Redis.md" },
   { text = "缓存一致性", path = "concepts/06-storage/概念-Redis.md" },
   { text = "内存淘汰策略", path = "concepts/06-storage/概念-Redis.md" },
+  # ElasticSearch
+  { text = "ElasticSearch", path = "concepts/06-storage/机制-ElasticSearch.md" },
+  { text = "倒排索引", path = "concepts/06-storage/机制-ElasticSearch.md" },
   # RocksDB
   { text = "LSM树/RocksDB", path = "concepts/06-storage/机制-RocksDB.md" },
 ]
@@ -290,9 +293,6 @@ keywords = [
   { text = "gRPC/Protobuf", path = "concepts/08-distributed/机制-Protobuf.md" },
   # 网络框架
   { text = "Netty", path = "concepts/08-distributed/机制-Netty.md" },
-  # 搜索
-  { text = "ElasticSearch", path = "concepts/08-distributed/机制-ElasticSearch.md" },
-  { text = "倒排索引", path = "concepts/08-distributed/机制-ElasticSearch.md" },
   # 容器
   { text = "Docker", path = "concepts/08-distributed/机制-Docker.md" },
   { text = "K8s/Kubernetes", path = "concepts/08-distributed/概念-k8s.md" },
