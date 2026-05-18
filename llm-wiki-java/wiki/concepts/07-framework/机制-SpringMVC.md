@@ -3,134 +3,153 @@ type: concept
 status: active
 name: "SpringMVC"
 layer: L6
-aliases: ["SpringMVC", "DispatcherServlet", "HandlerMapping", "HandlerAdapter", "MappingRegistry", "请求路由", "拦截器", "ViewResolver", "ExceptionResolver"]
+aliases: ["SpringMVC", "DispatcherServlet", "HandlerMapping", "HandlerAdapter", "MappingRegistry", "请求路由", "拦截器", "ViewResolver", "ExceptionResolver", "HandlerMethodArgumentResolver"]
 related:
   - "[[机制-Spring]]"
   - "[[机制-SpringBoot]]"
+  - "[[机制-动态代理]]"
+sources:
+  - "../../../raw/note/Hollis/Spring/✅SpringMVC是如何将不同的Request路由到不同Controller中的？.md"
+  - "../../../raw/note/Hollis/Spring/✅SpringMVC中如何实现流式输出.md"
+updated: 2026-05-18
 ---
 
 # SpringMVC
 
-> SpringMVC 以 DispatcherServlet 为核心前端控制器，通过 HandlerMapping 路由、HandlerAdapter 调用、Interceptor 前后置处理、ViewResolver 渲染四级流水线，将 HTTP 请求分发到对应 Controller 方法并返回响应。
+> SpringMVC 用 `DispatcherServlet` 统一接收 HTTP 请求，再通过 HandlerMapping 路由、HandlerAdapter 调用、Interceptor 增强、ExceptionResolver 兜底，把 Web 请求处理拆成可扩展流水线。
 
+<a id="sec-1"></a>
 ## 快速导航
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | URL→Handler 路由、调用、增强三关注点分离 |
-| [二、核心机制](#二核心机制) | 继承结构、路由注册、请求处理流水线、异常处理 |
-| [三、综合对比](#三综合对比) | 设计模式全景、Interceptor vs AOP |
-| [四、关键权衡](#四关键权衡) | HandlerAdapter 必要性、参数解析器链、@ResponseBody 互斥 |
-| [五、与其他概念的关系](#五与其他概念的关系) | Spring IoC、SpringBoot 自动装配 |
-| [六、应用边界](#六应用边界) | 全局异常处理、自定义参数解析、Interceptor 边界 |
+| [一、SpringMVC 解决的问题](#sec-2) | URL 到 Controller 方法的统一分发 |
+| [二、启动期路由注册](#sec-3) | `RequestMappingInfo`、`HandlerMethod`、`MappingRegistry` |
+| [三、运行期请求流水线](#sec-4) | `doDispatch` 主链路 |
+| [四、参数解析与返回值处理](#sec-5) | Resolver/Handler 策略链 |
+| [五、拦截器、异常与流式输出](#sec-6) | Interceptor、ExceptionResolver、ResponseBodyEmitter |
+| [六、设计模式与对比](#sec-7) | 前端控制器、适配器、责任链、AOP 对比 |
+| [七、生产风险与排查](#sec-8) | 路由冲突、参数解析失败、异常未统一 |
+| [八、关系与边界](#sec-9) | 与 Spring、Boot、AOP 的关系 |
+| [九、面试速答口径](#sec-10) | 高频问题答案 |
 
-## 一、第一性原理
+<a id="sec-2"></a>
+## 一、SpringMVC 解决的问题
 
-Web 框架的核心问题：**不同的 URL 请求如何准确找到对应的处理逻辑，并以统一方式前后置增强？** 朴素解法是一个大 Map（URL → Handler），但现实需求更复杂——同一 URL 的 GET 和 POST 要路由不同方法；请求前需要鉴权；返回值可能是 JSON 也可能是模板视图。
+Web 框架要解决三件事：
 
-SpringMVC 的答案：**将路由、调用、增强三个关注点分离**，分别由 HandlerMapping、HandlerAdapter、Interceptor/ViewResolver 负责，DispatcherServlet 作为协调者串联整条链路。
+1. HTTP 请求如何匹配到一个业务方法。
+2. 请求参数如何转换成 Java 方法参数。
+3. 返回值、异常和前后置逻辑如何统一处理。
 
-## 二、核心机制
+SpringMVC 的答案是把分发、调用、增强拆开，`DispatcherServlet` 只负责协调。
 
-### 2.1 继承结构
+<a id="sec-3"></a>
+## 二、启动期路由注册
 
-```
-HttpServlet
-  └── FrameworkServlet（doService 入口）
-        └── DispatcherServlet（核心分发逻辑）
-```
-
-HTTP 请求从 Servlet 容器（Tomcat）进入 `HttpServlet.service()` → `FrameworkServlet.doService()` → `DispatcherServlet.doDispatch()`。
-
-### 2.2 路由注册（启动期）
-
-```
-@RequestMapping 注解
-  └── 启动时由 RequestMappingHandlerMapping 扫描
-        ↓
-  RequestMappingInfo（封装 URL/Method/Header 等条件）
-    + HandlerMethod（封装目标 Method + 持有 Bean）
-        ↓
-  注册到 MappingRegistry（本质是多维度的 Map）
+```text
+扫描 @Controller / @RequestMapping
+  -> 生成 RequestMappingInfo（URL、Method、Header、Param 条件）
+  -> 生成 HandlerMethod（目标 Bean + Method）
+  -> 注册到 MappingRegistry
 ```
 
-**RequestMappingInfo** 聚合多个 `RequestCondition`（URL条件、HTTP Method条件、Header条件、Params条件），这是**门面模式**（Facade）——用一个对象统一外部复杂条件的比较。
+`RequestMappingInfo` 聚合多种匹配条件，匹配请求时再按条件比较选出最优 `HandlerMethod`。
 
-匹配时通过 `AbstractHandlerMethodMapping#lookupHandlerMethod` 遍历 MappingRegistry，利用各 Condition 的 `compare()` 方法选出最优 HandlerMethod，这是**组合模式**（Composite）。
+<a id="sec-4"></a>
+## 三、运行期请求流水线
 
-### 2.3 请求处理流水线（运行期）
-
-```
+```text
 HTTP Request
-  ↓
-1. HandlerMapping.getHandler()
-   → HandlerExecutionChain（HandlerMethod + Interceptor列表）
-   → HandlerAdapter（根据 Handler 类型适配）
-  ↓
-2. Interceptor.preHandle()（责任链，任一返回false则短路）
-  ↓
-3. HandlerAdapter.handle()
-   ├── HandlerMethodArgumentResolver（参数解析，@RequestBody → 反序列化）
-   ├── 反射调用 HandlerMethod.invoke()
-   └── HandlerMethodReturnValueHandler（返回值处理，@ResponseBody → 序列化）
-  ↓
-4. Interceptor.postHandle()（逆序执行）
-  ↓
-5. ViewResolver.resolveViewName() → View.render(ModelAndView → Response)
-  ↓
-6. Interceptor.afterCompletion()（逆序，无论异常均执行）
+  -> DispatcherServlet#doDispatch
+  -> HandlerMapping#getHandler
+  -> HandlerExecutionChain（Handler + Interceptors）
+  -> HandlerAdapter#handle
+  -> Controller 方法调用
+  -> ReturnValueHandler 写响应或 ModelAndView
+  -> ViewResolver 渲染视图（非 @ResponseBody 场景）
+  -> afterCompletion 收尾
 ```
 
-### 2.4 异常处理（ExceptionResolver）
+核心结论：`HandlerMapping` 负责找谁处理，`HandlerAdapter` 负责怎么调用。
 
+<a id="sec-5"></a>
+## 四、参数解析与返回值处理
+
+| 扩展点 | 作用 | 示例 |
+| --- | --- | --- |
+| `HandlerMethodArgumentResolver` | 把请求内容转成方法参数 | `@RequestBody`、`@PathVariable` |
+| `HandlerMethodReturnValueHandler` | 把方法返回值写入响应 | `@ResponseBody`、`ModelAndView` |
+| `HttpMessageConverter` | Java 对象与 HTTP Body 转换 | JSON 序列化/反序列化 |
+
+自定义登录用户参数、租户上下文、灰度标记时，优先用参数解析器，而不是在每个 Controller 重复解析。
+
+<a id="sec-6"></a>
+## 五、拦截器、异常与流式输出
+
+### 5.1 Interceptor 执行顺序
+
+```text
+preHandle 正序
+  -> Controller
+postHandle 逆序
+  -> View 渲染
+afterCompletion 逆序
 ```
-业务方法抛出异常
-  ↓
-HandlerExceptionResolver 责任链（@ExceptionHandler → ResponseStatus → DefaultHandler）
-  ↓
-ExceptionHandlerMethodResolver（启动时扫描 @ExceptionHandler，key=异常类型, value=处理方法）
-  ↓
-参数解析 + 反射调用（与正常 Handler 调用路径几乎相同）→ 响应
-```
 
-## 三、综合对比
+### 5.2 异常处理链
 
-### 3.1 设计模式全景
+`HandlerExceptionResolver` 负责把 Controller 抛出的异常翻译成响应，常见实践是 `@ControllerAdvice + @ExceptionHandler`。
+
+### 5.3 流式输出
+
+SpringMVC 可以用 `StreamingResponseBody`、`ResponseBodyEmitter` 做流式响应，但传统 MVC 仍占用 Servlet 请求线程；高并发长连接场景要评估 WebFlux 或异步化方案。
+
+<a id="sec-7"></a>
+## 六、设计模式与对比
 
 | 模式 | 体现 |
-|------|------|
-| **前端控制器** | DispatcherServlet 统一接收所有请求 |
-| **门面（Facade）** | RequestMappingInfo 聚合多个 Condition |
-| **适配器（Adapter）** | HandlerAdapter 统一调用不同类型 Handler（Method/Servlet/...）|
-| **组合（Composite）** | RequestCondition 嵌套组合多种匹配条件 |
-| **责任链（Chain of Responsibility）** | Interceptor 链、ExceptionResolver 链 |
-| **策略（Strategy）** | HandlerMethodArgumentResolver / ReturnValueHandler 多策略按需选择 |
+| --- | --- |
+| 前端控制器 | `DispatcherServlet` |
+| 适配器 | `HandlerAdapter` |
+| 责任链 | Interceptor、ExceptionResolver |
+| 策略 | ArgumentResolver、ReturnValueHandler |
+| 门面 | `RequestMappingInfo` 聚合匹配条件 |
 
-### 3.2 Interceptor vs AOP
+Interceptor vs AOP：
 
 | 维度 | Interceptor | AOP |
-|------|-------------|-----|
-| 工作层 | DispatcherServlet 层，只拦截 Controller 请求 | Bean 方法层，可拦截任意 Bean 调用 |
-| 典型场景 | 登录鉴权、请求日志、跨域处理 | 事务注解、缓存注解、方法级权限 |
-| 执行顺序 | preHandle → Controller → postHandle → afterCompletion | 包裹在 Bean 方法调用上 |
+| --- | --- | --- |
+| 层级 | Web 请求层 | Bean 方法层 |
+| 适合 | 登录、鉴权、请求日志 | 事务、缓存、方法权限 |
+| 生效范围 | Controller 请求 | Spring Bean 方法调用 |
 
-## 四、关键权衡
+<a id="sec-8"></a>
+## 七、生产风险与排查
 
-| 权衡点 | 说明 |
-|--------|------|
-| HandlerAdapter 的必要性 | Controller 方法可以是 @RequestMapping 方法、实现 Controller 接口的 Bean、原生 HttpServlet——HandlerAdapter 将这三种接口不同的 Handler 统一适配，DispatcherServlet 无需关心具体类型 |
-| 参数解析器链的代价 | `HandlerMethodArgumentResolver` 列表按顺序匹配，参数复杂时匹配开销增大；框架内置 26+ 个解析器，自定义时需注意注册顺序 |
-| @ResponseBody 与视图解析互斥 | 方法标注 `@ResponseBody` 时 `ReturnValueHandler` 直接写 Response，不走 ViewResolver 渲染流程 |
+| 风险 | 现象 | 排查点 |
+| --- | --- | --- |
+| 路由冲突 | 启动失败或请求命中不稳定 | URL、Method、Header 条件 |
+| 参数绑定失败 | 400 / 类型转换异常 | 参数注解、Converter、JSON 字段 |
+| 异常未统一 | 响应格式不一致 | `@ControllerAdvice` 是否扫描 |
+| 拦截器误用 | 静态资源/健康检查被拦截 | path pattern 与排除规则 |
+| 流式输出阻塞 | 线程被长期占用 | Servlet 线程池与连接时长 |
 
-## 五、与其他概念的关系
+<a id="sec-9"></a>
+## 八、关系与边界
 
-- 依赖 [[机制-Spring]]：DispatcherServlet 通过 `WebApplicationContext` 获取 HandlerMapping/Adapter Bean；Controller 由 IoC 管理，`@Transactional`、`@Cacheable` 等注解依赖 AOP 代理生效
-- 由 [[机制-SpringBoot]] 装配：`DispatcherServletAutoConfiguration` 自动注册 DispatcherServlet；`WebMvcAutoConfiguration` 自动注册 HandlerMapping/Adapter/ViewResolver
+- 依赖 [[机制-Spring]]：Controller、HandlerMapping、Adapter 都是容器 Bean。
+- 由 [[机制-SpringBoot]] 自动装配：Boot 注册 `DispatcherServlet` 与 MVC 默认组件。
+- 与 [[机制-动态代理]]：Controller 上的事务或缓存注解仍依赖 Spring AOP 代理。
 
-## 六、应用边界
+边界：SpringMVC 是 Servlet 栈 Web 框架，不适合把所有 Service 层横切能力放进 Interceptor。
 
-**全局异常处理**：实现 `@ControllerAdvice` + `@ExceptionHandler`，统一处理 Controller 层异常，不要在每个 Controller 里单独 try-catch。
+<a id="sec-10"></a>
+## 九、面试速答口径
 
-**自定义参数解析**：实现 `HandlerMethodArgumentResolver` 注册到 `WebMvcConfigurer#addArgumentResolvers`，注意不要破坏内置解析器顺序。
-
-**不适合用 Interceptor 的场景**：需要在 Service 层做横切逻辑（如事务、缓存）——用 AOP；需要精确控制 Bean 初始化顺序——用 BeanPostProcessor。
+| 问题 | 关键答案 |
+| --- | --- |
+| SpringMVC 核心流程 | `DispatcherServlet -> HandlerMapping -> HandlerAdapter -> Controller -> ReturnValueHandler/ViewResolver` |
+| HandlerAdapter 为什么需要 | 不同 Handler 类型调用方式不同，Adapter 统一调用接口 |
+| Interceptor 和 AOP 区别 | Web 请求层 vs Bean 方法层 |
+| 全局异常怎么做 | `@ControllerAdvice + @ExceptionHandler` |
