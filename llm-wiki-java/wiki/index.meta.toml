@@ -189,7 +189,7 @@ keywords = [
 
 [[layers]]
 id = "L5"
-name = "Redis / MySQL / ElasticSearch / RocksDB"
+name = "Redis / MySQL / ElasticSearch / RocksDB / TiDB"
 concept_dirs = ["concepts/06-storage"]
 keywords = [
   # MySQL 索引
@@ -228,6 +228,10 @@ keywords = [
   { text = "倒排索引", path = "concepts/06-storage/机制-ElasticSearch.md" },
   # RocksDB
   { text = "LSM树/RocksDB", path = "concepts/06-storage/机制-RocksDB.md" },
+  # TiDB
+  { text = "TiDB/NewSQL", path = "concepts/06-storage/机制-TiDB.md" },
+  { text = "TiKV/PD/Region", path = "concepts/06-storage/机制-TiDB.md" },
+  { text = "HTAP/TiFlash", path = "concepts/06-storage/机制-TiDB.md" },
 ]
 
 [[layers]]
