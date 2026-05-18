@@ -1,5 +1,11 @@
 # Wiki Log
 
+## [2026-05-18] Update | 5 个 07-framework 机制页按 rewrite-concept-prompt 重写优化
+- 重写并统一结构：`机制-MyBatis.md`、`机制-Spring.md`、`机制-SpringBoot.md`、`机制-SpringCloud.md`、`机制-SpringMVC.md`
+- 全部页面补充 `sources` 与 `updated: 2026-05-18`，并保留/增强 aliases、related 等 frontmatter 主字段
+- 章节统一为“本质定位/机制链路/设计原则/选型对比/生产风险/关系边界/面试口径”，并统一使用显式锚点 `#sec-*` 修复中文标题跳转兼容性
+- 强化关键实战内容：MyBatis Mapper 调用链路与缓存风险、Spring 生命周期/三级缓存/事务失效、SpringBoot 自动配置与 fat jar、SpringCloud OpenFeign/Gateway/Nacos/Sentinel、SpringMVC DispatcherServlet 请求链路
+
 ## [2026-05-18] Update | concepts/02-java 快速导航锚点修复（11 页）
 - 扫描并修复 `concepts/02-java/*.md` 的“快速导航”跳转问题：统一改为显式锚点 `#sec-*`，避免不同 Markdown 渲染器对中文标题 slug 规则差异导致跳转失效
 - 为每个二级标题补充 `<a id=\"sec-N\"></a>`，并按章节顺序重写导航链接目标（如 `#sec-2` 对应正文第一章）
