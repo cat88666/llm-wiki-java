@@ -18,22 +18,22 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | Future.get() 的局限、事件驱动模型 |
-| [二、核心机制](#二核心机制) | Completion 链、result 字段、ForkJoinPool |
-| [三、核心 API 分类](#三核心-api-分类) | 创建、串行编排、并行聚合、异常处理 |
-| [四、典型应用场景](#四典型应用场景) | 并行查询聚合、批量异步、超时控制 |
-| [五、综合对比](#五综合对比) | thenApply vs thenApplyAsync、CompletableFuture vs CountDownLatch |
-| [六、生产风险](#六生产风险) | ForkJoinPool 陷阱、异常吞噬、join() vs get() |
-| [七、与其他概念的关系](#七与其他概念的关系) | 线程池、JMM、AQS |
-| [八、应用边界](#八应用边界) | 适合/不适合、虚拟线程趋势 |
+| [一、从阻塞 Future 到事件驱动](#一从阻塞-future-到事件驱动) | Future.get() 的局限、Completion 回调模型 |
+| [二、Completion 链与默认线程池](#二completion-链与默认线程池) | Completion 链、result 字段、ForkJoinPool |
+| [三、异步编排 API 分类](#三异步编排-api-分类) | 创建、串行编排、并行聚合、异常处理 |
+| [四、任务聚合与超时场景](#四任务聚合与超时场景) | 并行查询聚合、批量异步、超时控制 |
+| [五、CompletableFuture 语义对比](#五completablefuture-语义对比) | thenApply vs thenApplyAsync、CompletableFuture vs CountDownLatch |
+| [六、异步编排生产风险](#六异步编排生产风险) | ForkJoinPool 陷阱、异常吞噬、join() vs get() |
+| [七、CompletableFuture 的依赖关系](#七completablefuture-的依赖关系) | 线程池、JMM、AQS |
+| [八、CompletableFuture 适用边界](#八completablefuture-适用边界) | 适合/不适合、虚拟线程趋势 |
 
-## 一、第一性原理
+## 一、从阻塞 Future 到事件驱动
 
 Java 5 引入 `Future`，可提交异步任务但只能通过 `get()` 阻塞等待结果——本质上是把异步变回同步，浪费了异步的价值。若有 N 个并行查询，`Future.get()` 只能串行等待。
 
 CompletableFuture 的核心洞察：**结果到来时通知我（回调），而不是我阻塞等它**。实现机制：每个 CompletableFuture 内部维护一个 Completion 链，上一阶段完成时自动触发下一阶段——这正是事件驱动的本质。
 
-## 二、核心机制
+## 二、Completion 链与默认线程池
 
 ### 底层结构
 
@@ -74,7 +74,7 @@ ForkJoinPool.commonPool()  // 并行度 = CPU核心数 - 1
 cf.thenApplyAsync(fn, customExecutor)
 ```
 
-## 三、核心 API 分类
+## 三、异步编排 API 分类
 
 ### 创建
 
@@ -150,7 +150,7 @@ cf.whenComplete((result, ex) -> {
 });
 ```
 
-## 四、典型应用场景
+## 四、任务聚合与超时场景
 
 ### 并行查询多服务聚合
 
@@ -200,7 +200,7 @@ CompletableFuture.supplyAsync(() -> fetchFromDB(id))
     .thenAccept(result -> response.write(result));
 ```
 
-## 五、综合对比
+## 五、CompletableFuture 语义对比
 
 ### thenApply vs thenApplyAsync
 
@@ -222,7 +222,7 @@ CompletableFuture.supplyAsync(() -> fetchFromDB(id))
 | 可重用 | ✗（一次性）| ✗（一次性）|
 | 代码简洁性 | 高 | 较低 |
 
-## 六、生产风险
+## 六、异步编排生产风险
 
 | 风险 | 场景 | 解决方案 |
 |------|------|---------|
@@ -241,13 +241,13 @@ CompletableFuture.supplyAsync(() -> fetchFromDB(id))
 | 中断处理 | 不响应中断 | 响应中断（抛 InterruptedException）|
 | 链式使用 | 推荐（无需 try-catch）| 不推荐（强迫写 try-catch）|
 
-## 七、与其他概念的关系
+## 七、CompletableFuture 的依赖关系
 
 - 依赖 [[机制-线程池]]：默认使用 `ForkJoinPool.commonPool()`；IO 密集场景必须自定义独立线程池（`supplyAsync(fn, executor)`）
 - 依赖 [[概念-JMM]]：`result` 字段是 volatile，阶段间结果传递满足 happens-before，阶段 B 能看到阶段 A 的所有写操作
 - 相关 [[机制-AQS]]：`CountDownLatch` 可实现类似 `allOf` 的等待，但缺乏链式编排；CompletableFuture 是更高层的异步抽象
 
-## 八、应用边界
+## 八、CompletableFuture 适用边界
 
 **适合 CompletableFuture**：
 - 微服务中并行查询多个下游服务并聚合结果

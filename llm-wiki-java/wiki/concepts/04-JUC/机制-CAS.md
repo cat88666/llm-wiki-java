@@ -19,15 +19,15 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 无锁算法的根本逻辑、与悲观锁的对比 |
-| [二、核心机制](#二核心机制) | cmpxchg 指令、Java Unsafe/AtomicXxx、三大问题 |
-| [三、LongAdder 高竞争优化](#三longadder-高竞争优化) | Cell 数组分段、base+cells 机制 |
-| [四、综合对比](#四综合对比) | 乐观锁 vs 悲观锁、AtomicLong vs LongAdder |
-| [五、生产风险](#五生产风险) | ABA 敏感场景、忙等待、多变量原子性 |
-| [六、与其他概念的关系](#六与其他概念的关系) | volatile、AQS、synchronized |
-| [七、应用边界](#七应用边界) | 适合/不适合场景 |
+| [一、无锁更新的乐观假设](#一无锁更新的乐观假设) | CAS 如何用比较替换避免阻塞 |
+| [二、CPU 指令到 Atomic 类](#二cpu-指令到-atomic-类) | cmpxchg 指令、Unsafe/AtomicXxx、ABA/自旋/单变量限制 |
+| [三、LongAdder 的分段竞争](#三longadder-的分段竞争) | Cell 数组分段、base+cells 机制 |
+| [四、CAS 相关选型对比](#四cas-相关选型对比) | 乐观锁 vs 悲观锁、AtomicLong vs LongAdder |
+| [五、CAS 生产误用风险](#五cas-生产误用风险) | ABA 敏感场景、忙等待、多变量原子性 |
+| [六、CAS 的并发体系位置](#六cas-的并发体系位置) | volatile、AQS、synchronized |
+| [七、CAS 适用边界](#七cas-适用边界) | 适合/不适合场景 |
 
-## 一、第一性原理
+## 一、无锁更新的乐观假设
 
 synchronized 用互斥锁保证原子性，代价是线程阻塞/唤醒（OS 系统调用），竞争激烈时上下文切换开销可能远超临界区本身的执行时间。
 
@@ -35,7 +35,7 @@ CAS 的存在理由：**不通过锁，而是通过"比较再替换"的乐观假
 
 关键推论：CAS 性能优于 synchronized 的前提是**冲突不频繁**；高竞争下自旋成为 CPU 浪费，synchronized 反而更好（线程挂起不占 CPU）。
 
-## 二、核心机制
+## 二、CPU 指令到 Atomic 类
 
 ### 硬件保证：cmpxchg 指令
 
@@ -118,7 +118,7 @@ CAS 一次只能操作一个内存地址，多变量的原子更新需要：
 - `AtomicReference<T>`（把多个变量封装为对象，CAS 整个引用）
 - `synchronized` 或 `Lock`
 
-## 三、LongAdder 高竞争优化
+## 三、LongAdder 的分段竞争
 
 `AtomicLong` 在高并发下所有线程竞争同一个 `value`，CAS 失败率高。`LongAdder` 引入**分段竞争**：
 
@@ -137,7 +137,7 @@ sum() = base + Σ cells[i].value
 
 **代价**：`sum()` 不是精确快照（读取 base + 所有 Cell 之间有时间差），适合统计场景（如计数器、求和），不适合需要精确值的场景。
 
-## 四、综合对比
+## 四、CAS 相关选型对比
 
 ### 乐观锁 vs 悲观锁
 
@@ -160,7 +160,7 @@ sum() = base + Σ cells[i].value
 | 内存占用 | 小 | 较大（Cell 数组）|
 | 适用 | 需要精确原子值 | 高并发统计/累加 |
 
-## 五、生产风险
+## 五、CAS 生产误用风险
 
 | 风险 | 场景 | 解决 |
 |------|------|------|
@@ -170,14 +170,14 @@ sum() = base + Σ cells[i].value
 | sum() 精度误解 | LongAdder.sum() 用于余额计算 | 余额等精确场景用 AtomicLong + synchronized |
 | Unsafe 直接调用 | 绕过 JVM 安全机制 | 不要直接使用 Unsafe，用 AtomicXxx 封装 |
 
-## 六、与其他概念的关系
+## 六、CAS 的并发体系位置
 
 - 依赖 [[机制-Volatile]]：`AtomicInteger.value` 是 volatile，CAS 读写结合 volatile 实现可见性
 - 依赖 [[概念-JMM]]：CAS 操作隐含 happens-before 关系，成功的 CAS 对后续读可见
 - 支撑 [[机制-AQS]]：AQS 的 `compareAndSetState(expect, update)` 就是 CAS，是 AQS 修改同步状态的核心手段
 - 相对于 [[机制-Synchronized]]：CAS 是乐观非阻塞，synchronized 是悲观阻塞；两者互补，AQS 内部混用了两者（CAS + LockSupport.park）
 
-## 七、应用边界
+## 七、CAS 适用边界
 
 **适合 CAS / AtomicXxx**：
 - 单变量原子计数器（`AtomicInteger`、`AtomicLong`）
