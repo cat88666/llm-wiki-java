@@ -1,5 +1,23 @@
 # Wiki Log
 
+## [2026-05-18] Update | 按 rewrite-concept-prompt 优化 机制-加密与脱敏.md
+- 重命名禁用章名：ch11 "加密脱敏适用边界" → "必须全链路加密 / 脱敏即可 / 不需要加密的判断"，更新快速导航
+- ch3 新增 RSA+AES 混合加密 ASCII 流程图（发送方→接收方的5步拆解），并说明 RSA 不直接加密数据的性能原因
+- ch9 工程取舍表格补充"结论"列（性能/可搜索性/密钥管理/可逆性各给明确建议）
+- frontmatter 补充 sources/updated
+
+## [2026-05-18] Update | 按 rewrite-summaries-prompt 优化 10 个 summaries 页
+- `主题-机器容量.md`：全量重写，无编号→9章（一~九），新增快速导航，修复重复 related，补充 sources/updated
+- `主题-海量数据.md`：全量重写，无编号→7章（一~七），新增快速导航，修复重复 [[概念-BitMap]]，补充 sources/updated
+- `主题-消息队列.md`：全量重写，无编号→7章（一~七），新增快速导航，移除自引用 [[主题-消息队列]]，面试追问改为编号标题+`---`分隔格式，补充 sources/updated
+- `主题-高频算法.md`：全量重写，单体"高频题型与核心思路"章→10章（一~十），LRU/TopK/海量数据/排序/二分/双指针/DP/树图各成章，新增快速导航，补充 sources/updated
+- `主题-三高架构.md`：精准化 ch7 名称（与其他概念的关系→三高与存储/MQ/系统设计的依赖关系），补充 sources/updated
+- `主题-架构体系.md`：精准化 ch8 名称（与其他概念的关系→架构体系在 Wiki 知识图谱的位置），补充 sources/updated
+- `主题-设计模式.md`：精准化 ch8 名称（与其他概念的关系→设计模式在动态代理与 Spring 体系的落地），补充 sources/updated
+- `主题-锁体系.md`：新增快速导航（9章），修复 body 重复 [[概念-MySQL]] 引用，补充 sources/updated
+- `主题-编程语言.md`：将 "**一句话总结**" 转换为 blockquote 定位语，新增快速导航（10章），补充 sources/updated
+- `主题-源码体系.md`：修复 Spring 子节编号（3.x→4.x）和 JVM 子节编号（6.x→7.x），修复重复 [[机制-HashMap]] related，合并重复关联页面条目，补充 sources/updated
+
 ## [2026-05-18] Update | 4 个 06-storage 概念页按 rewrite-concept-prompt 重写优化
 - `机制-ElasticSearch.md`：12章→9章，合并乐观锁+事务边界为"五、并发控制与事务边界"，合并权衡/边界/关系为"九、核心权衡/适用边界/与MySQL的关系"，补充 B+树对比表、IK分词器说明、binlog Canal推荐方案
 - `机制-RocksDB.md`：8章→7章，合并"七、与其他概念的关系"+"八、应用边界"为"七、在存储体系的位置&实战案例"，全部章名改为知识驱动命名，补充 sources/updated

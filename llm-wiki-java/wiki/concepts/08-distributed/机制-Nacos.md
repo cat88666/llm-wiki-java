@@ -19,17 +19,17 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 配置中心 vs 注册中心各自的根本问题 |
+| [一、配置与服务发现解决什么](#一配置与服务发现解决什么) | 配置中心 vs 注册中心各自的根本问题 |
 | [二、配置中心](#二配置中心) | 动态 vs 静态配置分层管理；Namespace/Group/DataId；vs SpringCloud Config；配置优先级；@RefreshScope |
 | [三、Nacos 注册中心机制](#三nacos-注册中心机制) | 服务注册/心跳/推拉结合发现；雪崩保护（保护阈值）；临时实例 vs 持久实例 |
 | [四、配置动态感知](#四配置动态感知) | 1.x 长轮询 vs 2.x gRPC 长连接 |
 | [五、AP + CP 双模式](#五ap--cp-双模式) | Distro（AP）+ JRaft（CP）各管一摊 |
 | [六、注册中心选型对比](#六注册中心选型对比) | Nacos/Eureka/Consul/ZK 四维对比 |
-| [七、关键权衡](#七关键权衡) | AP vs CP 实际影响，gRPC vs HTTP |
-| [八、与其他概念的关系](#八与其他概念的关系) | SpringCloud、Zookeeper、分布式理论 |
-| [九、应用边界](#九应用边界) | 配置中心适用范围，Nacos 适用规模 |
+| [七、Nacos 模式取舍](#七nacos-模式取舍) | AP vs CP 实际影响，gRPC vs HTTP |
+| [八、Nacos 的生态位置](#八nacos-的生态位置) | SpringCloud、Zookeeper、分布式理论 |
+| [九、Nacos 适用边界](#九nacos-适用边界) | 配置中心适用范围，Nacos 适用规模 |
 
-## 一、第一性原理
+## 一、配置与服务发现解决什么
 
 **配置中心解决的根本问题**：业务配置（开关、阈值、灰度比例）写死在代码或本地文件中，每次变更都需要发版，代价高且风险大。配置中心的核心价值是让配置**独立于代码、动态生效、集中可见**。
 
@@ -170,19 +170,19 @@ Client 发送 HTTP 请求（hold 30s）
 
 **选型建议**：Spring Cloud Alibaba / Dubbo 体系 → Nacos；需要强健康检查和多数据中心 → Consul；已有 Zookeeper 基础设施 → ZK；避免继续新建 Eureka（已停维）。
 
-## 七、关键权衡
+## 七、Nacos 模式取舍
 
 1. **AP vs CP 的实际影响**：注册中心用 AP，意味着某节点短暂宕机后还会被调用方发现并调用，调用失败后触发重试——可接受；配置中心用 CP，意味着网络分区时配置写入会被拒绝——可接受（配置变更远少于读操作）
 2. **Nacos 2.x gRPC vs 1.x 长轮询**：gRPC 减少了 GC 和 TIME_WAIT，但可观测性不如 HTTP，调试相对困难；2.x 是推荐版本
 3. **所有配置放配置中心 vs 分层管理**：全部放配置中心简化运维，但静态配置（如密码）频繁读配置中心增加无谓网络开销；最佳实践：动态配置用配置中心，静态配置用 Spring profiles
 
-## 八、与其他概念的关系
+## 八、Nacos 的生态位置
 
 - 支撑 [[机制-SpringCloud]]：Nacos 是 Spring Cloud Alibaba 的注册中心和配置中心核心组件，替代 Eureka + Spring Cloud Config 的组合
 - 关联 [[机制-Zookeeper]]：Nacos CP 模式（JRaft）和 Zookeeper（ZAB）都基于 Raft/Paxos 思想实现强一致性，但 Nacos 同时支持 AP，场景更全面
 - 依赖 [[概念-分布式理论]]：AP/CP 选择是 CAP 定理的直接应用，Distro 协议体现了最终一致性设计
 
-## 九、应用边界
+## 九、Nacos 适用边界
 
 **适合用配置中心**：需要动态变更且不发版的参数（开关、比例、阈值）；多服务共享配置（公共数据源、MQ地址）。
 

@@ -6,7 +6,7 @@ layer: L8
 aliases: ["区块链OTC", "P2P场外交易", "冷热钱包", "UTXO", "私钥安全", "链上对账", "Escrow", "Disruptor撮合"]
 tags: ["#practice", "#distributed"]
 related:
-  - "[[机制-数据加密与脱敏]]"
+  - "[[机制-加密与脱敏]]"
   - "[[概念-幂等设计]]"
   - "[[概念-Redis]]"
   - "[[系统设计-支付系统]]"
@@ -230,7 +230,7 @@ CREATE UNIQUE INDEX uk_withdrawal ON withdrawal_tx(withdrawal_id);
 
 ## 八、与其他概念的关系
 
-- 私钥内存安全（AES-GCM + Arrays.fill）参见 [[机制-数据加密与脱敏]]：对称加密存储、私钥清零是该页的工程实践
+- 私钥内存安全（AES-GCM + Arrays.fill）参见 [[机制-加密与脱敏]]：对称加密存储、私钥清零是该页的工程实践
 - 充值/提现幂等（txHash 唯一索引）属于 [[概念-幂等设计]]：链上交易幂等是支付系统幂等的区块链版
 - 余额冻结和分布式锁依赖 [[概念-Redis]]：Redisson 锁防并发超扣，Redis 缓存热钱包余额
 - 支付系统中的余额三态和对账设计参见 [[系统设计-支付系统]]：相同的冻结→扣减模型，区块链版需要额外处理链上异步确认

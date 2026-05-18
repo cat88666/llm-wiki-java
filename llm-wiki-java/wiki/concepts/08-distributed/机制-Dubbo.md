@@ -20,7 +20,7 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | RPC 存在的根本原因：远程调用透明化 |
+| [一、RPC 透明调用的本质](#一rpc-透明调用的本质) | RPC 存在的根本原因：远程调用透明化 |
 | [二、RPC vs HTTP](#二rpc-vs-http) | 协议差异、适用场景边界 |
 | [三、Dubbo 整体架构](#三dubbo-整体架构) | 9层分层架构（各层关键组件）、三阶段流程、Protocol/Invoker/Exporter 三件套 |
 | [四、服务导出与引入流程](#四服务导出与引入流程) | Provider 端 5 步导出、Consumer 端 4 步引入 |
@@ -31,11 +31,11 @@ related:
 | [九、服务治理体系](#九服务治理体系) | 集群容错、流量管控、降级、动态配置 |
 | [十、优雅停机](#十优雅停机) | SIGTERM → JVM hook → Dubbo 有序收尾 |
 | [十一、gRPC 与序列化协议对比](#十一grpc-与序列化协议对比) | gRPC vs Dubbo，4种通信模式 |
-| [十二、关键权衡](#十二关键权衡) | RPC vs HTTP、序列化、LB 方式 |
-| [十三、与其他概念的关系](#十三与其他概念的关系) | Zookeeper、动态代理、SPI、序列化 |
-| [十四、应用边界](#十四应用边界) | 适合 vs 不适合场景 |
+| [十二、Dubbo 工程权衡](#十二dubbo-工程权衡) | RPC vs HTTP、序列化、LB 方式 |
+| [十三、Dubbo 的生态位置](#十三dubbo-的生态位置) | Zookeeper、动态代理、SPI、序列化 |
+| [十四、Dubbo 适用边界](#十四dubbo-适用边界) | 适合 vs 不适合场景 |
 
-## 一、第一性原理
+## 一、RPC 透明调用的本质
 
 分布式系统中，不同服务部署在不同机器上，服务间通信必然涉及网络传输——如果每次调用都要开发者手动处理序列化、连接管理、重试、负载均衡，开发效率极低且极易出错。**RPC 框架的存在理由：让远程调用像本地调用一样透明，同时把分布式通信的复杂性（连接池、序列化、服务发现、容错）统一在框架层解决。**
 
@@ -228,7 +228,7 @@ Google 开源的高性能 RPC 框架，基于 **HTTP/2 + Protobuf**：
 
 **适用场景**：微服务内部跨语言通信；对性能极致要求（Protobuf 比 JSON 小 3-10倍）；需要流式传输。
 
-## 十二、关键权衡
+## 十二、Dubbo 工程权衡
 
 1. **RPC vs HTTP**：内部服务优先 RPC（性能高、治理能力强）；对外接口用 HTTP（互通性好、防火墙友好）
 2. **序列化性能 vs 跨语言**：Hessian2 跨语言性能好是默认选择；Protobuf 更高性能但需 IDL；Fury 性能极致但生态较新
@@ -236,7 +236,7 @@ Google 开源的高性能 RPC 框架，基于 **HTTP/2 + Protobuf**：
 4. **Failover vs Failfast**：Failover 提高可用性但可能放大写操作副作用（重试导致重复写）；幂等操作用 Failover，非幂等用 Failfast
 5. **长连接复用 vs 连接数**：dubbo 协议单一长连接高并发性能好，但高权重节点需调整连接数
 
-## 十三、与其他概念的关系
+## 十三、Dubbo 的生态位置
 
 - **依赖 [[机制-Zookeeper]]**：Dubbo 默认使用 ZooKeeper 作为注册中心（利用 ZK 临时节点做服务上下线感知，Watch 机制做变更通知）
 - **依赖 [[机制-动态代理]]**：Consumer 端 Stub 通过 JDK 动态代理或 Javassist 字节码生成，实现调用透明化
@@ -244,7 +244,7 @@ Google 开源的高性能 RPC 框架，基于 **HTTP/2 + Protobuf**：
 - **依赖 [[机制-Java序列化]]**：RPC 跨进程调用必须序列化，Dubbo 默认 Hessian2，可插拔替换
 - **与 [[机制-SpringBoot]] 协作**：Dubbo Spring Boot Starter 借助 AutoConfiguration 自动注册 DubboConfig Bean
 
-## 十四、应用边界
+## 十四、Dubbo 适用边界
 
 **适合 Dubbo**：Java 技术栈的内部微服务间调用；需要丰富服务治理（路由、降级、监控）；ZooKeeper/Nacos 注册中心已有沉淀。
 

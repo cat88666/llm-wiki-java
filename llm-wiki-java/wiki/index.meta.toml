@@ -63,6 +63,7 @@ keywords = [
   { text = "XSS/CSRF", path = "concepts/01-CS/概念-网络安全.md" },
   { text = "SQL注入", path = "concepts/01-CS/概念-网络安全.md" },
   { text = "DDoS", path = "concepts/01-CS/概念-网络安全.md" },
+  { text = "加密/脱敏", path = "concepts/01-CS/机制-加密与脱敏.md" },
   # WebSocket
   { text = "WebSocket", path = "concepts/01-CS/机制-WebSocket.md" },
 ]
@@ -308,8 +309,6 @@ keywords = [
   # 任务调度
   { text = "XXL-Job", path = "concepts/08-distributed/概念-分布式任务.md" },
   { text = "时间轮", path = "concepts/08-distributed/概念-分布式任务.md" },
-  # 加密
-  { text = "加密/脱敏", path = "concepts/08-distributed/机制-数据加密与脱敏.md" },
   # 限流
   { text = "限流熔断", path = "summaries/主题-三高架构.md" },
 ]

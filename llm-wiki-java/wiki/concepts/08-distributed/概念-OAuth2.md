@@ -18,18 +18,18 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 密码泄露问题、令牌作为中间层 |
+| [一、OAuth2 解决的授权问题](#一oauth2-解决的授权问题) | 密码泄露问题、令牌作为中间层 |
 | [二、三个核心角色](#二三个核心角色) | Client/Resource Server/OAuth Server |
 | [三、授权码模式流程](#三授权码模式流程) | 最安全的标准流程（code → token） |
 | [四、四种授权类型](#四四种授权类型) | 授权码/隐式/密码/客户端凭证 |
 | [五、OAuth2 与 SSO](#五oauth2-与-sso) | OIDC = OAuth2 + 身份认证 + ID Token |
 | [六、PKCE 扩展](#六pkce-扩展) | 移动 App 无法安全存储 client_secret 的解决方案 |
 | [七、Token 验证方式](#七token-验证方式) | JWT 本地验证 vs Introspection 远程验证 |
-| [八、关键权衡](#八关键权衡) | 安全性、复杂度、可撤销性 |
-| [九、与其他概念的关系](#九与其他概念的关系) | 网络安全、SpringMVC |
-| [十、应用边界](#十应用边界) | 适合 vs 不适合场景 |
+| [八、OAuth2 安全取舍](#八oauth2-安全取舍) | 安全性、复杂度、可撤销性 |
+| [九、OAuth2 的安全生态位置](#九oauth2-的安全生态位置) | 网络安全、SpringMVC |
+| [十、OAuth2 适用边界](#十oauth2-适用边界) | 适合 vs 不适合场景 |
 
-## 一、第一性原理
+## 一、OAuth2 解决的授权问题
 
 在 OAuth2 出现前，第三方应用访问用户数据的唯一手段是用户直接提供账户密码。这带来三个问题：
 1. **密码泄露风险高**：用户把密码给第三方，密码对等于全权授权
@@ -116,19 +116,19 @@ Client 生成 code_verifier（随机字符串）
 
 **最佳实践**：Access Token 短期有效（1小时）+ JWT 本地验证；Refresh Token 长期有效 + Introspection 或 DB 查询验证（因为 Refresh Token 需要支持撤销）。
 
-## 八、关键权衡
+## 八、OAuth2 安全取舍
 
 1. **令牌安全**：Access Token 一旦泄露可被滥用，必须配合 HTTPS + 短有效期 + Refresh Token 轮转机制
 2. **JWT vs Introspection**：撤销需求高（如用户注销立即失效）选 Introspection；追求性能且可接受有效期内无法撤销选 JWT
 3. **PKCE 使用场景**：移动 App 和 SPA 必须使用 PKCE，Web App 后端可以安全存储 client_secret 则不需要
 4. **复杂度**：OAuth2 流程和令牌管理机制较复杂，错误配置（如未验证 state 参数、redirect_uri 未校验）会引入 CSRF 和重定向攻击风险
 
-## 九、与其他概念的关系
+## 九、OAuth2 的安全生态位置
 
 - 与 [[概念-网络安全]] 相关：OAuth2 是 API 安全的核心授权机制，Token 通过 HTTPS 传输，防止中间人攻击；与 JWT、HMAC 签名结合实现防篡改
 - 依赖 [[机制-SpringMVC]]：Spring Security OAuth2 的 Token 验证通过 Filter/Interceptor 在请求进入 Controller 前完成；Spring Authorization Server 实现标准 OAuth2 服务端
 
-## 十、应用边界
+## 十、OAuth2 适用边界
 
 **适合 OAuth2**：
 - 第三方应用集成（"用微信登录"、"用 Google 登录"）

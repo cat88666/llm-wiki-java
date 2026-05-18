@@ -20,7 +20,7 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 容器 vs VM：namespace + cgroup vs Hypervisor |
+| [一、容器隔离的本质](#一容器隔离的本质) | 容器 vs VM：namespace + cgroup vs Hypervisor |
 | [二、容器 vs 虚拟机对比](#二容器-vs-虚拟机对比) | 隔离实现、启动时间、资源开销 |
 | [三、Docker 核心概念与命令](#三docker-核心概念与命令) | Image/Container/Registry，Dockerfile，常用命令 |
 | [四、为什么有 Docker 还需要 K8s](#四为什么有-docker-还需要-k8s) | 生产编排问题，K8s 核心对象 |
@@ -28,11 +28,11 @@ related:
 | [六、三种云部署模式](#六三种云部署模式) | 公有云/私有云/混合云 |
 | [七、Serverless 与 Java 冷启动](#七serverless-与-java-冷启动) | 冷启动问题，GraalVM Native Image 解法 |
 | [八、无状态设计原则](#八无状态设计原则) | 有状态 vs 无状态，云原生改造要点 |
-| [九、关键权衡](#九关键权衡) | 容器隔离、Compose vs K8s、无状态性能 |
-| [十、与其他概念的关系](#十与其他概念的关系) | SpringCloud、Dubbo、三高架构 |
-| [十一、应用边界](#十一应用边界) | 适合 vs 谨慎容器化，K8s 引入时机 |
+| [九、容器化工程权衡](#九容器化工程权衡) | 容器隔离、Compose vs K8s、无状态性能 |
+| [十、容器化的系统位置](#十容器化的系统位置) | SpringCloud、Dubbo、三高架构 |
+| [十一、Docker 与云原生适用边界](#十一docker-与云原生适用边界) | 适合 vs 谨慎容器化，K8s 引入时机 |
 
-## 一、第一性原理
+## 一、容器隔离的本质
 
 虚拟机通过 Hypervisor 为每个 VM 模拟完整硬件并运行独立 OS 内核，隔离彻底但每个 VM 都携带完整 OS，启动慢、资源开销大。
 
@@ -206,7 +206,7 @@ Docker 解决单机容器运行，K8s 解决生产环境的编排问题：
 | 优雅停机 | 强制 kill | graceful shutdown + SIGTERM |
 | 服务发现 | 配置文件写死 IP | Nacos / K8s Service DNS |
 
-## 九、关键权衡
+## 九、容器化工程权衡
 
 1. **容器隔离 vs VM 隔离**：容器更轻，但共享内核；高安全场景可用 gVisor 等强隔离方案
 2. **Compose vs K8s**：Compose 适合开发；K8s 才是生产编排标准
@@ -214,13 +214,13 @@ Docker 解决单机容器运行，K8s 解决生产环境的编排问题：
 4. **无状态 vs 本地性能**：无状态利于扩展，但会牺牲部分本地缓存便利
 5. **Serverless 灵活 vs Java 冷启动**：Serverless 运维成本低，但 Java 需要额外优化启动路径
 
-## 十、与其他概念的关系
+## 十、容器化的系统位置
 
 - **[[机制-SpringCloud]]**：云原生是微服务的基础设施层承载方式，Nacos/Sentinel 等组件在 K8s 中以 Sidecar 模式运行
 - **[[机制-Dubbo]]**：容器环境中服务发现和 IP 漂移会影响 RPC 治理，Dubbo 需配合 Nacos/ZK 感知变化
 - **[[主题-三高架构]]**：K8s Deployment、HPA、Probe、反亲和性是高可用的基础设施手段
 
-## 十一、应用边界
+## 十一、Docker 与云原生适用边界
 
 **适合容器化 / 云原生**：无状态 Web 服务、微服务 API、定时任务、CI/CD 工作负载、推理服务。
 

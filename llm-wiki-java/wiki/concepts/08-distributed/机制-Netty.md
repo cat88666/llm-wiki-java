@@ -19,20 +19,20 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | epoll O(1) vs select/poll O(n)，原生 NIO API 问题 |
+| [一、Netty 为什么封装 NIO](#一netty-为什么封装-nio) | epoll O(1) vs select/poll O(n)，原生 NIO API 问题 |
 | [二、IO 模型对比](#二io-模型对比) | BIO/NIO/AIO + select/poll/epoll |
 | [三、主从 Reactor 架构](#三主从-reactor-架构) | BossGroup / WorkerGroup 职责分离 |
-| [四、核心组件](#四核心组件) | EventLoopGroup、ChannelPipeline、ChannelHandler、ByteBuf |
+| [四、Channel、Pipeline 与 ByteBuf](#四channelpipeline-与-bytebuf) | EventLoopGroup、ChannelPipeline、ChannelHandler、ByteBuf |
 | [五、粘包拆包解决方案](#五粘包拆包解决方案) | 入站解码、出站编码、3种拆包解码器 |
 | [六、心跳机制](#六心跳机制) | IdleStateHandler 检测 + 应用层心跳 |
 | [七、断线重连与关闭链路](#七断线重连与关闭链路) | ChannelFuture 监听、channelInactive 重连、关闭清理 |
 | [八、TCP 参数调优](#八tcp-参数调优) | SO_BACKLOG、TCP_NODELAY、WriteBufferWaterMark |
 | [九、高性能设计要点](#九高性能设计要点) | 无锁串行化、内存池、零拷贝、epoll ET |
-| [十、关键权衡](#十关键权衡) | EventLoop 单线程 vs 耗时操作，ByteBuf 手动释放 |
-| [十一、与其他概念的关系](#十一与其他概念的关系) | IO模型、Dubbo、设计模式 |
-| [十二、应用边界](#十二应用边界) | 适合 vs 不适合场景 |
+| [十、Netty 工程风险](#十netty-工程风险) | EventLoop 单线程 vs 耗时操作，ByteBuf 手动释放 |
+| [十一、Netty 的生态位置](#十一netty-的生态位置) | IO模型、Dubbo、设计模式 |
+| [十二、Netty 适用边界](#十二netty-适用边界) | 适合 vs 不适合场景 |
 
-## 一、第一性原理
+## 一、Netty 为什么封装 NIO
 
 Java 原生 NIO 有两个根本问题：
 1. **API 繁琐**：flip/position/limit 易出错，读写需要手动切换模式
@@ -105,7 +105,7 @@ WorkerGroup（N个EventLoop，每个固定一个线程）
 - **数据写出**：`ctx.write(msg)` → Outbound 链 tail 到 head → Encoder → `ChannelOutboundBuffer` → `flush()` → `socket.write()`
 - **任务执行**：EventLoop 每轮循环通常是 `select` → 处理 IO 事件 → `runAllTasks()`，普通任务和定时任务都在同一线程串行执行
 
-## 四、核心组件
+## 四、Channel、Pipeline 与 ByteBuf
 
 ### EventLoopGroup / EventLoop
 
@@ -247,20 +247,20 @@ if (ctx.channel().isWritable()) {
 4. **高性能队列**（MPSC）：多生产者单消费者队列，减少 CAS 竞争
 5. **epoll 边缘触发**：Linux 下自动选用 epoll，仅通知就绪事件，O(1)
 
-## 十、关键权衡
+## 十、Netty 工程风险
 
 1. **EventLoop 单线程无锁 vs 耗时操作阻塞**：ChannelHandler 内不能做数据库查询、RPC 调用等耗时操作，必须提交到业务线程池（`ctx.executor().submit()`），否则阻塞整个 EventLoop 的 IO 处理
 2. **ByteBuf 需手动 release**：DirectByteBuf 在堆外，GC 无法管理；若忘记 release，会有堆外内存泄漏（ResourceLeakDetector 可检测）
 3. **Boss/Worker 线程数**：BossGroup 默认 1 个线程（accept 很快，单线程足够）；WorkerGroup 默认 `2 × CPU 核数`
 4. **Netty vs Tomcat**：Netty 关注网络数据传输（任意协议），Tomcat 是 Servlet 容器（HTTP 协议）；Netty 可定制性更高但需自定义协议处理
 
-## 十一、与其他概念的关系
+## 十一、Netty 的生态位置
 
 - **依赖 [[概念-IO模型]]**：Netty 的 BIO/NIO/AIO 对应同步阻塞/同步非阻塞/异步，底层 epoll 是 NIO 多路复用的 Linux 实现
 - **支撑 [[机制-Dubbo]]**：Dubbo 底层网络传输基于 Netty；Dubbo 的 Provider/Consumer 通信通道就是 Netty Channel
 - **应用 [[主题-设计模式]]**：ChannelPipeline = 责任链模式；ByteBufAllocator = 工厂模式；SelectStrategy = 策略模式；EventExecutorChooser = 策略模式
 
-## 十二、应用边界
+## 十二、Netty 适用边界
 
 **适合 Netty**：需要高性能网络通信的底层框架（RPC、WebSocket、IM 系统、游戏服务器）；需要自定义协议的场景（二进制协议、混合协议）；服务端需要承载 10万+ 长连接。
 

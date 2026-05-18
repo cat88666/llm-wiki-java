@@ -20,8 +20,8 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 顺序磁盘写为什么这么快 |
-| [二、核心架构](#二核心架构) | Topic/Partition/ConsumerGroup/Offset |
+| [一、Kafka 高吞吐的本质](#一kafka-高吞吐的本质) | 顺序磁盘写为什么这么快 |
+| [二、Topic、Partition 与 Offset](#二topicpartition-与-offset) | Topic/Partition/ConsumerGroup/Offset |
 | [三、为什么 Kafka 快](#三为什么-kafka-快) | 六大优化维度 |
 | [四、消息可靠性：acks + ISR + HW](#四消息可靠性acks--isr--hw) | 生产者确认、ISR 同步（版本演进）、高水位、消息丢失排查 |
 | [五、重平衡（Rebalance）](#五重平衡rebalance) | 触发条件、消费者组5种状态、渐进式重平衡、减少重平衡手段 |
@@ -30,15 +30,15 @@ related:
 | [八、与其他 MQ 的对比](#八与其他-mq-的对比) | Kafka vs RocketMQ vs RabbitMQ |
 | [九、生产者与消费者调优参数](#九生产者与消费者调优参数) | 关键参数与调优建议 |
 | [十、大流量实战](#十大流量实战) | 消息积压治理、广播模式 |
-| [十一、关键权衡与应用边界](#十一关键权衡与应用边界) | 高吞吐 vs 功能，适合 vs 不适合场景 |
+| [十一、Kafka 取舍与适用边界](#十一kafka-取舍与适用边界) | 高吞吐 vs 功能，适合 vs 不适合场景 |
 
-## 一、第一性原理
+## 一、Kafka 高吞吐的本质
 
 Kafka 快的本质：**磁盘顺序写速度接近内存（约 600 MB/s），远超随机写（约 100 MB/s）**。只要保证消息追加写入（Append-Only），就能以极低成本实现极高吞吐。所有其他优化（批处理减少网络往返、零拷贝减少内核切换、稀疏索引减少内存占用）都是围绕这一点展开。
 
 Kafka 的设计哲学：**用简单和克制换取极致性能**。砍掉死信队列、延迟消息、复杂路由，只做分布式日志（Append-Only 分区）这一件事，做到极致。
 
-## 二、核心架构
+## 二、Topic、Partition 与 Offset
 
 ```
 生产者 Producer
@@ -326,9 +326,9 @@ lottery.draw.result topic（1条开奖消息）
 → 一条消息广播给 N 个系统，天然 Fanout 模式
 ```
 
-## 十一、关键权衡与应用边界
+## 十一、Kafka 取舍与适用边界
 
-### 关键权衡
+### Kafka 取舍
 
 | 权衡点 | 结论 |
 |--------|------|
@@ -337,13 +337,13 @@ lottery.draw.result topic（1条开奖消息）
 | acks=-1 vs 性能 | 最高可靠性需等全 ISR 确认，吞吐降低；通常 acks=1 + 重试是合理折衷 |
 | 消费者数量 vs Partition 数量 | 消费者 ≤ Partition 数才能完全并行；消费者 > Partition 数则多余消费者空闲 |
 
-### 与其他概念的关系
+### Kafka 的生态位置
 
 - **依赖 [[机制-Zookeeper]]**：Kafka 2.8 之前依赖 ZooKeeper 做 Controller 选举和元数据存储；4.0 通过 KRaft 协议自治，完全移除 ZK 依赖
 - **相关 [[机制-RabbitMQ]]**：Kafka 是消息队列的一种实现，高频面试题是与 RabbitMQ/RocketMQ 对比
 - **依赖 [[概念-幂等设计]]**：At-least-once 语义下消费者必须实现幂等处理，防止重复消费带来副作用
 
-### 应用边界
+### Kafka 适用边界
 
 **适合 Kafka**：日志采集（ELK Pipeline）、实时流处理（Flink 数据源）、大数据管道（Hadoop 写入缓冲）、业务事件总线（高吞吐场景）。
 

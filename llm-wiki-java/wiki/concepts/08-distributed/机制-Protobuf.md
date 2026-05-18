@@ -20,7 +20,7 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | REST/JSON 的两个本质瓶颈 |
+| [一、JSON 与 REST 的通信瓶颈](#一json-与-rest-的通信瓶颈) | REST/JSON 的两个本质瓶颈 |
 | [二、Protobuf 二进制编码](#二protobuf-二进制编码) | Field Tag、Varint、向后兼容 |
 | [三、HTTP/2 多路复用](#三http2-多路复用) | vs HTTP/1.1：Stream 并发、HPACK 头压缩 |
 | [四、四种通信模式](#四四种通信模式) | Unary/Server Stream/Client Stream/双向流 |
@@ -28,10 +28,10 @@ related:
 | [六、Deadline 传播](#六deadline-传播) | 调用链级联超时控制 |
 | [七、错误模型](#七错误模型) | 17种 Status Code |
 | [八、gRPC vs REST 关键权衡](#八grpc-vs-rest-关键权衡) | 性能/可读性/浏览器支持/契约管理 |
-| [九、与其他概念的关系](#九与其他概念的关系) | Netty、Dubbo、SpringCloud、MQ |
-| [十、应用边界](#十应用边界) | 选 gRPC vs 选 REST 的决策信号 |
+| [九、Protobuf 与 gRPC 的生态位置](#九protobuf-与-grpc-的生态位置) | Netty、Dubbo、SpringCloud、MQ |
+| [十、Protobuf 与 gRPC 适用边界](#十protobuf-与-grpc-适用边界) | 选 gRPC vs 选 REST 的决策信号 |
 
-## 一、第一性原理
+## 一、JSON 与 REST 的通信瓶颈
 
 REST/JSON 的两个本质瓶颈：
 1. **文本编码低效**：JSON 字段名重复传输、数字以字符串形式传输，体积大、解析慢
@@ -141,14 +141,14 @@ gRPC 有 17 种 Status Code（非 HTTP Status Code）：
 **选 gRPC 的信号**：内部微服务高频调用、跨语言团队、需要流式通信、性能敏感。
 **选 REST 的信号**：对外 API、需要浏览器直接调用、团队 HTTP 生态成熟。
 
-## 九、与其他概念的关系
+## 九、Protobuf 与 gRPC 的生态位置
 
 - **依赖 [[机制-Netty]]**：Java gRPC 底层传输层使用 Netty，EventLoop 管理 HTTP/2 连接
 - **区别于 [[机制-Dubbo]]**：Dubbo 是 Java-first 的服务治理框架，内置注册中心/负载均衡；gRPC 只是通信协议，需要外部治理（Consul/Nacos）
 - **与 [[机制-SpringCloud]] 配合**：Spring Cloud 生态通过 `grpc-spring-boot-starter` 集成 gRPC，Nacos 作为注册中心
 - **优于 [[机制-RabbitMQ]] 的场景**：同步请求-响应（RPC），而非异步消息投递
 
-## 十、应用边界
+## 十、Protobuf 与 gRPC 适用边界
 
 **用 gRPC**：
 - 内部微服务之间高频 RPC（延迟降低 15%+）
