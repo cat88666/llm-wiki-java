@@ -1,5 +1,10 @@
 # Wiki Log
 
+## [2026-05-18] Update | 补充 P7 缺失核心内容（零新建文件，聚合到现有页面）
+- `主题-三高架构.md`：四、高性能章节新增"缓存设计：四种模式与热 Key 防护"（Cache Aside/Write Through/Write Behind/Refresh Ahead 对比 + 先删后删陷阱 + 热 key 防护策略）；二、限流章节新增 Redis ZSet 滑动窗口 + Lua 令牌桶实现代码
+- `主题-架构体系.md`：4.5 节从"微服务与 DDD 关系"扩展为"微服务拆分实践"（拆分原则/粒度决策/通信选型/接口兼容）；新增第八章"存储选型决策矩阵"（MySQL/Redis/ES/MongoDB/HBase/TiDB 六类存储定位 + 场景决策树 + 常见组合架构）
+- `概念-OAuth2.md`：新增第十一章"RBAC 权限模型"（三表数据模型 + 权限校验流程 + 数据权限三方案 + 权限缓存设计 + OAuth2 Scope vs RBAC 边界）；frontmatter 补充 RBAC 别名、Redis related、sources、updated
+
 ## [2026-05-18] Update | 按 rewrite-synthesis-prompt 优化 3 个 synthesis 页
 - `系统设计-支付系统.md`：补充 sources/updated；重命名 ch11 "与其他概念的关系" → "Seata/幂等/Redis/MySQL 在支付链路的位置"
 - `系统设计-游戏架构.md`：补充 sources/updated；重命名 ch1（"场景概述与整体架构"→"游戏平台架构：五层微服务拓扑与技术选型全景"）、ch2（"核心设计亮点"→"接入层三大决策：用户线程隔离、工厂路由、协议转换"）、ch6（"关键权衡对比"→"SOFA-Bolt 选型、线程隔离取舍、任务链 vs Actor 三路对比"）、ch8（"与其他概念的关系"→"Netty、Dubbo、Nacos、RocketMQ 在游戏平台的位置"）；ch7 FAQ 格式由 **问**/**答** 改为编号标题+`---`

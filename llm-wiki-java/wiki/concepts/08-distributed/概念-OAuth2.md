@@ -3,11 +3,15 @@ type: concept
 status: active
 name: "OAuth2授权协议"
 layer: L7
-aliases: ["OAuth2", "OAuth 2.0", "开放授权", "Access Token", "授权服务器", "单点登录", "SSO", "OIDC", "PKCE", "Refresh Token", "授权码模式"]
+aliases: ["OAuth2", "OAuth 2.0", "开放授权", "Access Token", "授权服务器", "单点登录", "SSO", "OIDC", "PKCE", "Refresh Token", "授权码模式", "RBAC", "权限模型", "用户角色权限", "数据权限", "行级权限"]
 tags: ["#distributed"]
 related:
   - "[[概念-网络安全]]"
   - "[[机制-SpringMVC]]"
+  - "[[概念-Redis]]"
+sources:
+  - "../../raw/note/Hollis/面经实战/"
+updated: 2026-05-18
 ---
 
 # OAuth2授权协议
@@ -28,6 +32,7 @@ related:
 | [八、OAuth2 安全取舍](#八oauth2-安全取舍) | 安全性、复杂度、可撤销性 |
 | [九、OAuth2 的安全生态位置](#九oauth2-的安全生态位置) | 网络安全、SpringMVC |
 | [十、OAuth2 适用边界](#十oauth2-适用边界) | 适合 vs 不适合场景 |
+| [十一、RBAC 权限模型：认证之外的授权分工](#十一rbac-权限模型认证之外的授权分工) | 用户-角色-权限三表、数据权限、权限缓存 |
 
 ## 一、OAuth2 解决的授权问题
 
@@ -140,3 +145,60 @@ Client 生成 code_verifier（随机字符串）
 - 同一组织内部简单的用户认证（用 Session + JWT 即可，OAuth2 引入不必要的复杂度）
 - 完全离线的本地系统
 - 简单的 API Key 认证场景（过度设计）
+
+## 十一、RBAC 权限模型：认证之外的授权分工
+
+**OAuth2 与 RBAC 的分工**：OAuth2 负责"你是谁"（认证 + 颁发 Token），RBAC 负责"你能做什么"（细粒度授权）。两者协作：OAuth2 Token 携带 userId → 后端查 RBAC 判断权限。
+
+**RBAC0 核心数据模型**（三表 + 两张关联表）：
+
+```sql
+CREATE TABLE sys_user       (id BIGINT, username VARCHAR(64), ...);
+CREATE TABLE sys_role       (id BIGINT, role_name VARCHAR(64), ...);
+CREATE TABLE sys_permission (id BIGINT, resource VARCHAR(128), action VARCHAR(32), ...);
+-- 用户-角色（多对多）
+CREATE TABLE user_role      (user_id BIGINT, role_id BIGINT);
+-- 角色-权限（多对多）
+CREATE TABLE role_permission(role_id BIGINT, permission_id BIGINT);
+```
+
+**权限校验流程**：
+
+```
+请求 → 过滤器取 Token → 解析 userId
+              ↓
+    Redis HGETALL "perm:{userId}"
+        ├─ 命中 → 直接校验权限集合
+        └─ Miss → 查 DB（user_role + role_permission JOIN）
+                  → 回写 Redis（TTL 5min）→ 校验
+              ↓
+    通过 → 放行；失败 → 403
+```
+
+**数据权限（行级权限）**：接口权限（能否访问接口）之外，还需控制"能看哪些行数据"。
+
+| 方案 | 实现 | 适用 |
+|------|------|------|
+| MyBatis 拦截器注入 WHERE | 动态追加 `AND dept_id IN (?)` | 部门/组织层级权限 |
+| 应用层过滤 | Service 层查出后过滤，数量少时可接受 | 数据量 < 1000 条 |
+| 视图隔离 | 不同角色查不同 DB View | 报表场景 |
+
+**权限缓存设计**：
+
+```java
+// 登录时预加载：HSET perm:{userId} {resource}:{action} 1
+// 校验时：HEXISTS perm:{userId} order:read
+// 角色变更时：DEL perm:{userId}（全量失效优于精确更新，避免漏失效）
+redisTemplate.opsForHash().putAll("perm:" + userId, permissionMap);
+redisTemplate.expire("perm:" + userId, 5, TimeUnit.MINUTES);
+```
+
+**OAuth2 Scope vs RBAC 的选型边界**：
+
+| 维度 | OAuth2 Scope | RBAC |
+|------|-------------|------|
+| 粒度 | 粗粒度（`read:order`、`write:user`）| 细粒度（菜单/按钮/数据行）|
+| 适用 | 开放 API（第三方 Client 访问）| 后台管理系统（内部角色控制）|
+| 管理方式 | 授权时由用户选择授权哪些 Scope | 管理员分配角色 |
+
+> 两者可同时存在：外部 Client 调用走 OAuth2 Scope 粗粒度控制，内部操作员后台走 RBAC 细粒度权限。
