@@ -1,5 +1,11 @@
 # Wiki Log
 
+## [2026-05-18] Update | 4 个 06-storage 概念页按 rewrite-concept-prompt 重写优化
+- `机制-ElasticSearch.md`：12章→9章，合并乐观锁+事务边界为"五、并发控制与事务边界"，合并权衡/边界/关系为"九、核心权衡/适用边界/与MySQL的关系"，补充 B+树对比表、IK分词器说明、binlog Canal推荐方案
+- `机制-RocksDB.md`：8章→7章，合并"七、与其他概念的关系"+"八、应用边界"为"七、在存储体系的位置&实战案例"，全部章名改为知识驱动命名，补充 sources/updated
+- `概念-MySQL.md`：保留15章结构，4个泛化章名精准化（第一性原理→四大机制存在理由与知识地图、综合对比→MVCC vs锁横向、与其他概念→MySQL在存储体系的位置、应用边界→各机制适用边界与常见误用），修复 frontmatter 重复自引用，补充 sources/updated
+- `概念-Redis.md`：保留13章结构，4个泛化章名精准化（第一性原理→为什么Redis快、综合对比→RDB/AOF/哨兵/Cluster多维横向、与其他概念→Redis在缓存体系的位置、应用边界→类型选型/持久化/集群/分布式锁边界），补充 sources/updated
+
 ## [2026-05-18] Update | 5 个 07-framework 机制页按 rewrite-concept-prompt 重写优化
 - 重写并统一结构：`机制-MyBatis.md`、`机制-Spring.md`、`机制-SpringBoot.md`、`机制-SpringCloud.md`、`机制-SpringMVC.md`
 - 全部页面补充 `sources` 与 `updated: 2026-05-18`，并保留/增强 aliases、related 等 frontmatter 主字段

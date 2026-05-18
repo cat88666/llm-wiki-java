@@ -11,6 +11,9 @@ related:
   - "[[机制-AQS]]"
   - "[[概念-MySQL]]"
   - "[[概念-幂等设计]]"
+sources:
+  - "../../../raw/note/Hollis/Redis/"
+updated: 2026-05-18
 ---
 
 # Redis
@@ -21,21 +24,21 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 内存 KV 的核心矛盾、快的根本原因 |
+| [一、为什么 Redis 快：内存 + 单线程 + IO 多路复用](#一为什么-redis-快内存--单线程--io-多路复用) | 内存 KV 的核心矛盾、快的根本原因 |
 | [二、数据类型与底层编码](#二数据类型与底层编码) | 5 种类型、SDS、二态编码、ZSet 双结构 |
 | [三、持久化机制](#三持久化机制) | RDB、AOF 三种写回策略、混合持久化 |
 | [四、分布式锁](#四分布式锁) | SET NX EX、Lua 解锁、Redisson watchdog、Hash 可重入、RedLock |
 | [五、集群与高可用](#五集群与高可用) | 主从复制、哨兵模式、Cluster 分片、脑裂 |
-| [六、综合对比](#六综合对比) | RDB vs AOF、哨兵 vs Cluster、Redis 锁 vs ZK 锁 |
+| [六、RDB vs AOF vs 混合 / 哨兵 vs Cluster / Redis vs 竞品](#六rdb-vs-aof-vs-混合--哨兵-vs-cluster--redis-vs-竞品) | RDB vs AOF、哨兵 vs Cluster、Redis 锁 vs ZK 锁 |
 | [七、生产风险](#七生产风险) | 大 Key、热 Key、持久化配置、脑裂、锁失效 |
-| [八、与其他概念的关系](#八与其他概念的关系) | MySQL 日志、B+树、CAS、AQS |
-| [九、应用边界](#九应用边界) | 类型选型、各机制适用边界、常见误用 |
+| [八、Redis 在缓存体系的位置](#八redis-在缓存体系的位置) | MySQL 日志、B+树、CAS、AQS |
+| [九、类型选型 / 持久化 / 集群 / 分布式锁边界](#九类型选型--持久化--集群--分布式锁边界) | 类型选型、各机制适用边界、常见误用 |
 | [十、实战场景设计](#十实战场景设计) | 排行榜、GEO、点赞、红包、UV、购物车 |
 | [十一、缓存三大问题](#十一缓存三大问题) | 穿透/击穿/雪崩、过期策略、一致性策略、内存淘汰 |
 | [十二、工程实践](#十二工程实践) | 公共 Redis 迁移、秒杀缓存与 DB 双写一致性 |
 | [十三、面试追问](#十三面试追问) | 高频追问速答 |
 
-## 一、第一性原理
+## 一、为什么 Redis 快：内存 + 单线程 + IO 多路复用
 
 Redis 的核心矛盾：**内存宝贵，但访问必须快**。
 
@@ -411,7 +414,7 @@ min-replicas-max-lag 10      # 从节点延迟超过 10s 则拒绝写
 
 旧 Master 发现从节点全断 → 拒绝写请求 → 网络恢复后降为从节点，数据丢失最小化。
 
-## 六、综合对比
+## 六、RDB vs AOF vs 混合 / 哨兵 vs Cluster / Redis vs 竞品
 
 ### RDB vs AOF vs 混合
 
@@ -474,7 +477,7 @@ min-replicas-max-lag 10      # 从节点延迟超过 10s 则拒绝写
 | **Cluster 跨 slot 操作** | `MGET`/事务/Lua 涉及多 key 跨 slot，报错 | 用 hashtag `{user:1}:name` 保证同 slot；或应用层拆分 |
 | **AOF 文件膨胀** | 未配置 AOF 重写，文件无限增长 | 确认 `auto-aof-rewrite-percentage` 和 `auto-aof-rewrite-min-size` 配置 |
 
-## 八、与其他概念的关系
+## 八、Redis 在缓存体系的位置
 
 - 类比 [[概念-MySQL]] 日志：AOF ≈ binlog（追加写操作日志），RDB ≈ 数据库全量备份；混合持久化的思路与 MySQL 的 redo log（快照 + 增量）异曲同工
 - 依赖 [[机制-B+树]]：理解为什么 ZSet 不用 B+ 树——跳表已足够，且 Redis 是内存操作，B+ 树的磁盘 IO 友好特性无优势
@@ -490,7 +493,7 @@ min-replicas-max-lag 10      # 从节点延迟超过 10s 则拒绝写
 - 被 **L6 框架**使用：Spring Cache 可用 Redis 作为缓存后端；Spring Session 用 Redis 实现分布式 Session
 - 被 **L7 分布式**使用：分布式限流（令牌桶/滑动窗口用 Lua + Redis）、分布式 Session、消息幂等去重
 
-## 九、应用边界
+## 九、类型选型 / 持久化 / 集群 / 分布式锁边界
 
 **数据类型选型**：
 

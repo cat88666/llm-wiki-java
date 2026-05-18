@@ -10,6 +10,9 @@ related:
   - "[[概念-MySQL]]"
   - "[[概念-Redis]]"
   - "[[概念-分布式理论]]"
+sources:
+  - "../../../raw/note/Hollis/ElasticSearch/"
+updated: 2026-05-18
 ---
 
 # RocksDB
@@ -20,24 +23,27 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | B+ 树随机写瓶颈、LSM 顺序写颠覆 |
-| [二、核心机制](#二核心机制) | 三层结构、SSTable、写路径、读路径、Compaction、三大放大因子 |
-| [三、Java 核心使用](#三java-核心使用) | RocksDB 核心特性、Java 生态集成 |
-| [四、综合对比](#四综合对比) | LSM vs B+ 树、Compaction 策略对比 |
-| [五、关键权衡](#五关键权衡) | 写放大 vs 读放大、Compaction IO、空间回收、L0 热点 |
+| [一、为什么 LSM-Tree 写比 B+树快 10x～100x](#一为什么-lsm-tree-写比-b树快-10x100x) | B+ 树随机写瓶颈、LSM 顺序写颠覆 |
+| [二、LSM-Tree：写路径、读路径与 Compaction](#二lsm-tree写路径读路径与-compaction) | 三层结构、SSTable、写路径、读路径、三大放大因子 |
+| [三、RocksDB 核心特性与 Java 生态](#三rocksdb-核心特性与-java-生态) | 列族、前缀迭代、事务、Java 生态集成 |
+| [四、LSM-Tree vs B+树 / Compaction 策略对比](#四lsm-tree-vs-b树--compaction-策略对比) | 读写放大对比、三种 Compaction 策略 |
+| [五、写放大 vs 读放大：Leveled / Size-Tiered 选型](#五写放大-vs-读放大leveled--size-tiered-选型) | 三放大因子权衡、L0 热点、Compaction IO |
 | [六、生产风险](#六生产风险) | 写停顿、Compaction 抢占、墓碑膨胀、Bloom Filter 失效 |
-| [七、与其他概念的关系](#七与其他概念的关系) | B+ 树、WAL、Redis 持久化、分布式存储 |
-| [八、应用边界](#八应用边界) | 适用与不适用场景 |
+| [七、在存储体系的位置 & 实战案例](#七在存储体系的位置--实战案例) | B+树/WAL/Redis 类比、游戏结算写缓冲实战 |
 
-## 一、第一性原理
+---
+
+## 一、为什么 LSM-Tree 写比 B+树快 10x～100x
 
 B+ 树的写性能瓶颈：每次写入都需**随机定位**磁盘上的 B+ 树节点并原地更新，加上预写日志，一次写入实际发生 2-3 次随机 IO。磁盘随机 IO 是绝对瓶颈（HDD：~100 IOPS；SSD：数万 IOPS 但仍有延迟上限）。
 
 **LSM-Tree 颠覆**：把随机写变成顺序写。所有写操作只做两件事：① 顺序追加 WAL；② 更新内存中的 Memtable。顺序写比随机写快 10x～100x。代价是读需要查多层结构（读放大）。
 
-## 二、核心机制
+---
 
-### 2.1 三层结构
+## 二、LSM-Tree：写路径、读路径与 Compaction
+
+### 三层结构
 
 ```
 Write ──→ WAL（预写日志，顺序追加，崩溃恢复）
@@ -53,7 +59,7 @@ Write ──→ WAL（预写日志，顺序追加，崩溃恢复）
           Ln  ── 每层容量 × 10
 ```
 
-### 2.2 SSTable（Sorted String Table）
+### SSTable（Sorted String Table）
 
 不可变的有序磁盘文件，内含：
 
@@ -64,7 +70,7 @@ Write ──→ WAL（预写日志，顺序追加，崩溃恢复）
 | Bloom Filter | 概率判断 key 是否存在，快速排除不含该 key 的文件（节省 IO） |
 | Footer | 指向 Index/Bloom Filter 的偏移量 |
 
-### 2.3 写路径（极速）
+### 写路径（极速）
 
 ```
 写请求 → WAL 顺序追加（μs 级）→ Memtable 插入（内存 SkipList）→ 返回
@@ -74,7 +80,7 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 触发 Compaction（L0 → L1 合并排序，消除重复 key，保留最新版本）
 ```
 
-### 2.4 读路径（需查多层）
+### 读路径（需查多层）
 
 ```
 读请求（点查）：
@@ -89,7 +95,7 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 
 **Bloom Filter 是读性能的关键**：以约 10 bits/key 的空间代价，将"不存在的 key"的磁盘 IO 降为 0。
 
-### 2.5 三大放大因子
+### 三大放大因子
 
 | | 写放大 (WA) | 读放大 (RA) | 空间放大 (SA) |
 |--|--|--|--|
@@ -97,9 +103,11 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 | **LSM（Leveled）** | 10-30x | 5-20x | 1.1-2x（旧版本待 Compaction）|
 | **B+ 树（InnoDB）** | 2-3x | 1-2x（树高 IO）| 1.1-1.2x |
 
-## 三、Java 核心使用
+---
 
-### 3.1 RocksDB 核心特性
+## 三、RocksDB 核心特性与 Java 生态
+
+### RocksDB 核心特性
 
 | 特性 | 说明 |
 |------|------|
@@ -109,7 +117,7 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 | **备份/Checkpoint** | 物理快照，不停写创建一致性备份 |
 | **rate_limiter** | 限制 Compaction IO 速率，避免抢占前台读写 |
 
-### 3.2 Java 生态集成
+### Java 生态集成
 
 | 系统 | 使用方式 | 说明 |
 |------|---------|------|
@@ -118,9 +126,11 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 | **Kafka Streams** | RocksDB State Store | 流处理本地状态存储 |
 | **JNI 嵌入** | `org.rocksdb:rocksdbjni` | 直接在 Java 进程内嵌入，无独立进程 |
 
-## 四、综合对比
+---
 
-### 4.1 LSM-Tree vs B+ 树
+## 四、LSM-Tree vs B+树 / Compaction 策略对比
+
+### LSM-Tree vs B+ 树
 
 | 维度 | LSM-Tree（RocksDB） | B+ 树（InnoDB） |
 |------|---------------------|-----------------|
@@ -131,7 +141,7 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 | 空间放大 | 1.1-2x | 1.1-1.2x |
 | 适用 | 写密集（时序/消息/日志） | 读密集（OLTP 事务） |
 
-### 4.2 Compaction 策略对比
+### Compaction 策略对比
 
 | 策略 | 写放大 | 读放大 | 空间放大 | 适用场景 |
 |------|--------|--------|----------|---------|
@@ -139,15 +149,19 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 | **Size-Tiered** | 低（3-10x）| 高 | 高 | 写密集，读性能要求低 |
 | **FIFO** | 极低 | 极高 | 高 | 时序数据，只追加不更新 |
 
-## 五、关键权衡
+---
+
+## 五、写放大 vs 读放大：Leveled / Size-Tiered 选型
 
 | 权衡点 | 说明 |
 |--------|------|
-| 写放大 vs 读放大 | Leveled Compaction 写放大大（每 key 平均被写 10-30 次磁盘）但读快；Size-Tiered 写放大小但读慢——根据实际读写比选择 |
-| Compaction 占用 IO | Compaction 是后台任务，会抢占磁盘 IO，影响前台读写延迟；线上必须设置 `rate_limiter`（如限制 100MB/s），宁可 Compaction 慢一些 |
-| 空间回收延迟 | 删除操作写入墓碑（Tombstone）记录，真正释放空间在 Compaction 后；极端情况下大量删除后磁盘反而膨胀（旧数据 + 墓碑同时占用） |
-| L0 文件数是热点 | L0 不做排序，文件多了读放大急剧恶化，且 L0→L1 Compaction 是写入停顿的根源；需严格配置 `level0_slowdown_writes_trigger`（慢写）和 `level0_stop_writes_trigger`（停写）阈值 |
-| LSM vs B+ 树选型 | 写吞吐优先（时序/消息/日志存储）选 LSM；强一致点查性能优先（OLTP 金融交易）选 B+ 树（InnoDB） |
+| **写放大 vs 读放大** | Leveled Compaction 写放大大（每 key 平均被写 10-30 次磁盘）但读快；Size-Tiered 写放大小但读慢——根据实际读写比选择 |
+| **Compaction 占用 IO** | Compaction 是后台任务，会抢占磁盘 IO，影响前台读写延迟；线上必须设置 `rate_limiter`（如限制 100MB/s），宁可 Compaction 慢一些 |
+| **空间回收延迟** | 删除操作写入墓碑（Tombstone）记录，真正释放空间在 Compaction 后；极端情况下大量删除后磁盘反而膨胀（旧数据 + 墓碑同时占用） |
+| **L0 文件数是热点** | L0 不做排序，文件多了读放大急剧恶化，且 L0→L1 Compaction 是写入停顿的根源；需严格配置 `level0_slowdown_writes_trigger`（慢写）和 `level0_stop_writes_trigger`（停写）阈值 |
+| **LSM vs B+ 树选型** | 写吞吐优先（时序/消息/日志存储）选 LSM；强一致点查性能优先（OLTP 金融交易）选 B+ 树（InnoDB） |
+
+---
 
 ## 六、生产风险
 
@@ -159,25 +173,36 @@ Memtable → Immutable → 后台 flush → L0 新 SSTable
 | **Bloom Filter 失效** | 范围查询性能差 | Bloom Filter 只对点查有效，范围扫描无法利用 | 范围查询场景使用 Prefix Bloom Filter 或迭代器优化 |
 | **大 Value 写放大** | Compaction 开销急剧增大 | Value 大时每次 Compaction 移动数据量倍增 | KV 分离（BlobDB）或限制 Value 大小 |
 
-## 七、与其他概念的关系
+---
 
-- **对立于 [[机制-B+树]]**：B+ 树原地更新优化随机读（低读放大），LSM 顺序追加优化随机写（低写延迟）；InnoDB 用 B+树，TiKV/RocksDB 用 LSM 树——两种不同的读写权衡
-- **借鉴 [[概念-MySQL]]**：WAL（Write-Ahead Log）是 LSM 和 InnoDB redo log 共享的崩溃恢复思想；Memtable flush = InnoDB Buffer Pool 刷脏页
-- **类比 [[概念-Redis]]**：RDB ≈ SSTable 全量快照；AOF ≈ WAL 顺序追加；LSM Compaction ≈ AOF rewrite 整理
-- **支撑 [[概念-分布式理论]]**：TiKV（TiDB 底层）、CockroachDB、Cassandra、HBase 均基于 LSM；RocksDB 是工程落地的事实标准
+## 七、在存储体系的位置 & 实战案例
 
-## 八、应用边界
+### 在存储体系的位置
 
-**适合 LSM/RocksDB**：
-- 写多读少（消息存储、时序数据、IoT 设备日志）
-- 作为**事务兜底存储**（游戏/交易系统异步写入，极端网络下保证最终一致性）
-- 嵌入式存储（直接 JNI 调用，无独立进程）
-- 分布式存储引擎底层（Flink RocksDB State Backend、TiKV、MyRocks）
+```
+LSM-Tree / RocksDB
+  ↑ 对立于 [[机制-B+树]]
+      B+ 树原地更新优化随机读（低读放大）
+      LSM 顺序追加优化随机写（低写延迟）
+      InnoDB 用 B+树，TiKV/RocksDB 用 LSM 树
 
-**不适合**：
-- 高频随机点查 + 复杂 JOIN（B+ 树更优，InnoDB 是正确选择）
-- 数据量小（< 1GB），B+ 树简单可靠
-- 事务 ACID 要求严格的 OLTP 核心链路
+  ↑ 借鉴 [[概念-MySQL]] WAL 思想
+      WAL 是 LSM 和 InnoDB redo log 共享的崩溃恢复思想
+      Memtable flush ≈ InnoDB Buffer Pool 刷脏页
+
+  ↑ 类比 [[概念-Redis]] 持久化
+      RDB ≈ SSTable 全量快照
+      AOF ≈ WAL 顺序追加
+      LSM Compaction ≈ AOF rewrite 整理
+
+  → 支撑 [[概念-分布式理论]]
+      TiKV（TiDB）、CockroachDB、Cassandra、HBase 均基于 LSM
+      RocksDB 是工程落地的事实标准
+```
+
+**适合 LSM/RocksDB**：写多读少（消息存储、时序数据、IoT 设备日志）；作为事务兜底存储（游戏/交易系统异步写入）；嵌入式存储（JNI 直接调用，无独立进程）；分布式存储引擎底层（Flink RocksDB State Backend、TiKV、MyRocks）。
+
+**不适合**：高频随机点查 + 复杂 JOIN（B+ 树更优，InnoDB 是正确选择）；数据量小（< 1GB），B+ 树简单可靠；事务 ACID 要求严格的 OLTP 核心链路。
 
 ### 实战案例：游戏结算写缓冲
 
