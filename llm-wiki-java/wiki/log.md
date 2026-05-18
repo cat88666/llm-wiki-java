@@ -1,5 +1,11 @@
 # Wiki Log
 
+## [2026-05-18] Update | 8 个 02-java 概念页按 rewrite-concept-prompt 重写优化
+- 重写并统一结构：`机制-Lambda.md`、`机制-SPI.md`、`机制-动态代理.md`、`机制-泛型.md`、`概念-Java异常.md`、`概念-Java类型.md`、`概念-JDK新特性.md`、`概念-OOP特征.md`
+- 全部页面补充 `sources` 与 `updated: 2026-05-18`，并保留既有 frontmatter 主字段
+- 章节统一为“本质问题/机制链路/设计原则/对比结论/生产风险/边界/面试口径”，强化可直接用于评审和面试的表达
+- 补强关键实战内容：SPI 类加载器边界、JDK/CGLIB 代理决策、泛型 PECS 与擦除陷阱、异常治理策略、JDK 版本升级路径、类型系统高频事故排查
+
 ## [2026-05-18] Update | 机制-Java序列化.md — 按 rewrite-concept-prompt 重写优化
 - 保留并增强 frontmatter：补充 `related`（SPI/Redis/Dubbo）、新增 `sources`、更新 `updated: 2026-05-18`
 - 章节重构为“本质问题 → 原生机制链路 → UID 兼容 → 字段与钩子 → 协议选型 → 风险防御 → 排障迁移 → 关系边界 → 面试速答”

@@ -7,156 +7,111 @@ aliases: ["Exception", "异常", "Checked Exception", "RuntimeException", "Error
 related:
   - "[[机制-Java序列化]]"
   - "[[概念-OOP特征]]"
+  - "[[概念-JMM]]"
+sources:
+  - "../../../raw/note/Hollis/Java基础/✅Java中异常分哪两类，有什么区别？.md"
+updated: 2026-05-18
 ---
 
 # Java 异常体系
 
-> Java 通过类型化的异常继承树，将运行失败分为"编译期必须处理的可预期失败"和"运行期暴露的代码缺陷"两类，强制调用方在编译期明确应对策略。
+> Java 异常体系通过类型化错误模型把故障分层：可恢复故障强制声明处理，不可恢复故障快速暴露并中断错误路径。
 
 ## 快速导航
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | 错误码缺陷、编译期失败感知 |
-| [二、核心机制](#二核心机制) | Throwable 继承树、Checked vs Unchecked、finally 规则 |
-| [三、Java 核心使用](#三java-核心使用) | 关键字语义、自定义异常、全局异常处理 |
-| [四、核心使用原则](#四核心使用原则) | 异常选型、catch 精度、业务异常设计 |
-| [五、综合对比](#五综合对比) | Checked vs Unchecked vs Error 全维度对比 |
-| [六、生产风险](#六生产风险) | 异常控流性能、finally 陷阱、异常吞没 |
-| [七、与其他概念的关系](#七与其他概念的关系) | 序列化、JVM、Spring |
-| [八、应用边界](#八应用边界) | 适用场景与反模式 |
+| [一、异常模型的目标](#一异常模型的目标) | 从错误码到类型化失败治理 |
+| [二、Throwable 分层机制](#二throwable-分层机制) | Error/Checked/Unchecked 语义边界 |
+| [三、关键语义与执行规则](#三关键语义与执行规则) | try-catch-finally、throws、异常链 |
+| [四、业务异常设计实践](#四业务异常设计实践) | 统一错误码、全局处理、降级策略 |
+| [五、异常策略选择原则](#五异常策略选择原则) | 何时 checked，何时 runtime |
+| [六、对比与结论](#六对比与结论) | Checked vs Runtime vs Error |
+| [七、生产风险与排查](#七生产风险与排查) | 吞异常、控流滥用、日志污染 |
+| [八、关系与边界](#八关系与边界) | 与事务、并发、序列化关系 |
+| [九、面试速答口径](#九面试速答口径) | 高频问答 |
 
-## 一、第一性原理
+## 一、异常模型的目标
 
-不区分异常类型时，所有错误要么显式检查（C 风格错误码，代码充斥 if-check），要么完全不处理（错误静默失败）。Java 异常体系的根本目的：**让调用方在编译期就知道哪些失败场景必须明确应对，哪些属于代码 Bug 应在开发期消灭**。
+异常机制的目标不是“打印错误”，而是让失败成为显式流程的一部分，且在调用边界可追踪、可治理。
 
-## 二、核心机制
+## 二、Throwable 分层机制
 
-### 2.1 Throwable 继承树
-
-```
+```text
 Throwable
-├── Error                ← JVM/系统级，程序无法恢复
-│   ├── OutOfMemoryError
-│   ├── StackOverflowError
-│   └── ...
-└── Exception
-    ├── IOException      ← Checked：编译器强制处理
-    ├── SQLException
-    ├── ...
-    └── RuntimeException ← Unchecked：代码缺陷，运行期暴露
-        ├── NullPointerException
-        ├── IllegalArgumentException
-        ├── ClassCastException
-        ├── IndexOutOfBoundsException
-        └── ...
+  -> Error
+  -> Exception
+     -> Checked Exception
+     -> RuntimeException
 ```
 
-### 2.2 Checked vs Unchecked 核心区别
+| 类型 | 代表意义 | 处理策略 |
+| --- | --- | --- |
+| Error | JVM/系统级不可恢复 | 不捕获，快速失败 |
+| Checked Exception | 外部可预期失败 | 显式处理或继续上抛 |
+| RuntimeException | 编程缺陷或非法状态 | 修代码为主，必要时兜底 |
 
-| 维度 | Checked Exception | Unchecked (RuntimeException) | Error |
-|------|-------------------|------------------------------|-------|
-| 编译期 | 必须 try-catch 或 throws 声明 | 无需声明 | 无需声明 |
-| 语义 | 可预期的外部失败 | 代码逻辑错误 | JVM/系统不可恢复 |
-| 调用方责任 | 必须处理（重试/降级/上抛） | 自行决定 | 不应捕获 |
-| 典型例子 | IOException、SQLException | NPE、IAE、ClassCastException | OOM、SOF |
+## 三、关键语义与执行规则
 
-### 2.3 finally 执行规则
+1. `throw` 抛出异常实例，`throws` 声明方法可能抛出的异常。
+2. finally 通常都会执行，但 `System.exit`/进程崩溃是例外。
+3. finally 中 return 会覆盖 try/catch 的 return，属于高危反模式。
+4. 异常链要保留 cause，避免根因丢失。
 
-- **正常情况**：无论是否有异常，finally 块都会执行
-- **不执行的例外**：`System.exit()` 调用、JVM 崩溃、线程被 kill
-- **finally-return 覆盖**：finally 中的 return 会覆盖 try/catch 中的 return 值
-
-**面试陷阱**：finally 中不要写 return，否则 try 中的返回值被吞没且无编译警告。
-
-## 三、Java 核心使用
-
-### 3.1 五个关键字
-
-| 关键字 | 作用 |
-|--------|------|
-| `try` | 包裹可能抛异常的代码块 |
-| `catch` | 捕获并处理特定异常类型 |
-| `finally` | 无论是否异常都执行的清理逻辑 |
-| `throw` | 方法内抛出一个异常实例 |
-| `throws` | 方法签名声明可能抛出的异常类型 |
-
-### 3.2 try-with-resources（JDK 7+）
+## 四、业务异常设计实践
 
 ```java
-try (InputStream is = new FileInputStream("f.txt")) {
-    // 使用资源
-}  // 自动调用 is.close()，无需手写 finally
-```
-
-实现 `AutoCloseable` 接口的对象均可使用，替代手写 finally 关闭资源。
-
-### 3.3 自定义业务异常
-
-```java
-// 继承 RuntimeException，避免调用方被迫 try-catch
 public class BizException extends RuntimeException {
-    private final String errorCode;
-    public BizException(String errorCode, String message) {
-        super(message);
-        this.errorCode = errorCode;
+    private final String code;
+    public BizException(String code, String msg, Throwable cause) {
+        super(msg, cause);
+        this.code = code;
     }
 }
 ```
 
-配合 Spring `@ControllerAdvice` + `@ExceptionHandler` 全局统一翻译为 HTTP 响应码。
+- 业务层通常使用 RuntimeException + 错误码。
+- Web 层通过 `@ControllerAdvice` 统一翻译响应。
+- 基础设施异常转换为领域异常再上抛。
 
-## 四、核心使用原则
+## 五、异常策略选择原则
 
-| 原则 | 说明 |
-|------|------|
-| 业务异常继承 RuntimeException | 避免调用方被迫 try-catch，全局处理器统一处理 |
-| catch 要精确 | 禁止 `catch(Exception e)` 吞掉所有异常，隐藏真实问题 |
-| 不要捕获 Error | OOM/SOF 后系统已不稳定，捕获无意义 |
-| 不用异常控制业务流程 | 异常创建需 `fillInStackTrace()`，开销远大于 if-else |
-| 异常信息要完整 | `throw new XxxException("orderId=" + id, cause)` 保留上下文和原始异常链 |
-| finally 不要 return | finally 的 return 会覆盖 try 的返回值 |
+| 场景 | 建议 |
+| --- | --- |
+| 外部系统可恢复故障（IO/网络） | checked 或包装后带重试语义 |
+| 参数非法、状态不一致 | runtime，快速失败 |
+| 系统不可恢复（OOM） | 不捕获 |
+| 批处理任务局部失败 | 收集异常并继续，最终汇总 |
 
-## 五、综合对比
+## 六、对比与结论
 
-### 5.1 final / finally / finalize
+| 维度 | Checked | Runtime | Error |
+| --- | --- | --- | --- |
+| 编译期约束 | 强制处理 | 不强制 | 不强制 |
+| 可恢复性 | 通常可恢复 | 视场景 | 不可恢复 |
+| 主要动作 | 重试/补偿/降级 | 修复缺陷 + 局部兜底 | 保护现场并重启 |
 
-| 关键字 | 类别 | 作用 |
-|--------|------|------|
-| `final` | 修饰符 | 类不可继承、方法不可重写、变量不可重赋值 |
-| `finally` | 异常处理 | try-catch 后必执行的清理块 |
-| `finalize` | Object 方法 | GC 前回调（JDK 9+ 已废弃，不可依赖） |
+## 七、生产风险与排查
 
-### 5.2 异常处理策略选型
+| 风险 | 现象 | 处理 |
+| --- | --- | --- |
+| 吞异常 | 问题难定位 | 禁止空 catch，统一日志规范 |
+| 异常控流 | CPU 抖动 | 改为条件分支 |
+| 过度包装 | 堆栈冗长 | 保留根因，不重复包裹 |
+| 事务误回滚 | 捕获后未继续抛出 | 明确事务边界和回滚规则 |
 
-| 场景 | 推荐方式 | 原因 |
-|------|---------|------|
-| 文件/网络 IO | Checked Exception + 重试/降级 | 外部失败可预期，调用方有能力处理 |
-| 参数校验失败 | IllegalArgumentException（Unchecked） | 代码 Bug，应在开发期修复 |
-| 业务规则违反（余额不足） | 自定义 RuntimeException | 全局处理器统一翻译 |
-| 正常流程分支 | if-else / Optional | 异常不是流程控制工具 |
+## 八、关系与边界
 
-## 六、生产风险
+- 与 [[机制-Java序列化]]：远程调用中的异常对象传输依赖序列化策略。
+- 与 [[概念-OOP特征]]：异常是跨层契约的一部分。
+- 与 [[概念-JMM]]：并发异常（可见性竞态）常表现为 runtime 异常。
 
-| 风险 | 触发场景 | 后果 | 防御 |
-|------|---------|------|------|
-| 异常控流性能差 | 用 throw/catch 替代 if-else | `fillInStackTrace()` 开销大，比条件判断慢数百倍 | 正常分支用 if/Optional |
-| 异常被吞没 | `catch(Exception e) {}` 空块 | 问题隐藏，排查困难 | 至少 log.error，最好重抛 |
-| finally-return 覆盖 | finally 中写 return | try 中返回值被静默覆盖 | finally 只做清理，不要 return |
-| 异常链丢失 | `throw new XxxException(msg)` 不传 cause | 原始根因丢失 | 构造时传入 cause |
-| catch 范围过大 | `catch(Exception e)` | 意外捕获 NPE 等 Bug 类异常 | 精确 catch 具体异常类型 |
+边界：异常体系不替代监控告警与容量治理。
 
-## 七、与其他概念的关系
+## 九、面试速答口径
 
-- [[机制-Java序列化]]：序列化相关方法抛 `IOException`（Checked），提醒调用方处理 IO 失败
-- JVM 层：`StackOverflowError`、`OutOfMemoryError` 是 Error，由 JVM 抛出，与 GC 和内存结构直接相关
-- Spring 框架：`@ExceptionHandler` + `@ControllerAdvice` 实现全局异常处理，将业务异常翻译为统一响应格式
-- [[概念-OOP特征]]：异常体系本身是多态的典型应用 -- catch 父类型可捕获所有子类型
-
-## 八、应用边界
-
-| 场景 | 适用 | 不适用 |
-|------|------|--------|
-| Checked Exception | API 边界处，调用方确实能恢复（重试、降级） | 调用方无法处理只能上抛的场景（退化为模板代码） |
-| RuntimeException | 业务规则违反、参数校验失败 | 需要调用方强制感知的外部失败 |
-| 异常机制 | 异常/错误场景的处理 | 正常业务流程跳转、性能热路径 |
+| 问题 | 关键答案 |
+| --- | --- |
+| Checked 和 Runtime 本质差异 | 是否强制调用方在编译期处理 |
+| 为什么不建议 `catch(Exception)` | 会吞掉语义边界，导致误处理 |
+| finally 一定执行吗 | 通常会，`System.exit`/崩溃例外 |
