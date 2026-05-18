@@ -1,5 +1,11 @@
 # Wiki Log
 
+## [2026-05-18] Update | 机制-Java序列化.md — 按 rewrite-concept-prompt 重写优化
+- 保留并增强 frontmatter：补充 `related`（SPI/Redis/Dubbo）、新增 `sources`、更新 `updated: 2026-05-18`
+- 章节重构为“本质问题 → 原生机制链路 → UID 兼容 → 字段与钩子 → 协议选型 → 风险防御 → 排障迁移 → 关系边界 → 面试速答”
+- 强化可执行内容：新增 UID 变更策略表、协议选型决策树、`InvalidClassException` 排障流程、JDK→Protobuf 迁移步骤
+- 补齐高频风险口径：反序列化 RCE、敏感字段泄漏、单例破坏、fastjson AutoType 风险与防御
+
 ## [2026-05-18] Update | 概念-JVM.md — 按 rewrite-concept-prompt 重写优化
 - 保留 frontmatter（aliases/related/sources），并将 `updated` 更新为 `2026-05-18`
 - 章节重组为“职责与代价 → 内存流转 → GC链路 → 类加载隔离 → JIT → 调优闭环 → 选型结论 → 故障模式 → 面试边界”，减少泛化标题
