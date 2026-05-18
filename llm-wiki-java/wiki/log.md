@@ -1,5 +1,11 @@
 # Wiki Log
 
+## [2026-05-18] Update | concepts/02-java 快速导航锚点修复（11 页）
+- 扫描并修复 `concepts/02-java/*.md` 的“快速导航”跳转问题：统一改为显式锚点 `#sec-*`，避免不同 Markdown 渲染器对中文标题 slug 规则差异导致跳转失效
+- 为每个二级标题补充 `<a id=\"sec-N\"></a>`，并按章节顺序重写导航链接目标（如 `#sec-2` 对应正文第一章）
+- 覆盖文件：`机制-HashMap`、`机制-Java序列化`、`机制-Lambda`、`机制-SPI`、`机制-动态代理`、`机制-泛型`、`概念-JDK新特性`、`概念-Java异常`、`概念-Java类型`、`概念-Java集合`、`概念-OOP特征`
+- 逐文件校验导航目标均存在对应锚点，无缺失项
+
 ## [2026-05-18] Update | 8 个 02-java 概念页按 rewrite-concept-prompt 重写优化
 - 重写并统一结构：`机制-Lambda.md`、`机制-SPI.md`、`机制-动态代理.md`、`机制-泛型.md`、`概念-Java异常.md`、`概念-Java类型.md`、`概念-JDK新特性.md`、`概念-OOP特征.md`
 - 全部页面补充 `sources` 与 `updated: 2026-05-18`，并保留既有 frontmatter 主字段
