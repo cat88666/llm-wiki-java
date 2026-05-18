@@ -1,5 +1,10 @@
 # Wiki Log
 
+## [2026-05-18] Update | 按 rewrite-synthesis-prompt 优化 3 个 synthesis 页
+- `系统设计-支付系统.md`：补充 sources/updated；重命名 ch11 "与其他概念的关系" → "Seata/幂等/Redis/MySQL 在支付链路的位置"
+- `系统设计-游戏架构.md`：补充 sources/updated；重命名 ch1（"场景概述与整体架构"→"游戏平台架构：五层微服务拓扑与技术选型全景"）、ch2（"核心设计亮点"→"接入层三大决策：用户线程隔离、工厂路由、协议转换"）、ch6（"关键权衡对比"→"SOFA-Bolt 选型、线程隔离取舍、任务链 vs Actor 三路对比"）、ch8（"与其他概念的关系"→"Netty、Dubbo、Nacos、RocketMQ 在游戏平台的位置"）；ch7 FAQ 格式由 **问**/**答** 改为编号标题+`---`
+- `系统设计-IM系统.md`：补充 sources/updated；重命名 ch1（"场景概述与问题拆解"→"IM 系统架构：可靠投递、会话有序、百万扩展三大核心约束"）、ch9（"与其他概念的关系"→"Netty、Redis、幂等设计、MQ 在 IM 架构中的位置"）；ch8 FAQ 格式由 **问**/**答** 改为编号标题+`---`
+
 ## [2026-05-18] Update | 按 rewrite-concept-prompt 优化 机制-加密与脱敏.md
 - 重命名禁用章名：ch11 "加密脱敏适用边界" → "必须全链路加密 / 脱敏即可 / 不需要加密的判断"，更新快速导航
 - ch3 新增 RSA+AES 混合加密 ASCII 流程图（发送方→接收方的5步拆解），并说明 RSA 不直接加密数据的性能原因

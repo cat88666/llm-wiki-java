@@ -10,227 +10,245 @@ related:
   - "[[概念-幂等设计]]"
   - "[[概念-Redis]]"
   - "[[系统设计-支付系统]]"
+updated: 2026-05-18
 ---
 
 # 系统设计-区块链OTC
 
-> 区块链 OTC 系统的三大核心工程挑战：**私钥安全**（AES-256-GCM 加密存储 + Arrays.fill 清零）、**链上异步确认**（监听→待确认→定时对账→MQ 入账）、**资金原子操作**（分布式锁 + 唯一索引双重防护）；所有操作必须以"资金零损失"为最高约束。
+> 区块链 OTC 的最高约束是资金零损失：私钥不能泄露、链上确认不能误判、同一 txHash 不能重复入账、提现不能超提；技术选型默认是 **冷热钱包隔离 + 链上监听/对账 + 余额冻结状态机 + DB 唯一索引兜底**。
 
 ## 快速导航
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、场景概述与问题拆解](#一场景概述与问题拆解) | BTC/ETH 模型差异、三大挑战 |
-| [二、冷热钱包架构](#二冷热钱包架构) | 私钥加密、归集阈值、离线签名 |
-| [三、P2P OTC 撮合引擎](#三p2p-otc-撮合引擎) | 订单簿、Escrow 流程、Disruptor 无锁 |
-| [四、充值异步对账流程](#四充值异步对账流程) | 链上监听、确认阈值、幂等入账 |
-| [五、提现流程与安全](#五提现流程与安全) | 冻结→审批→广播→确认、Gas 加速 |
-| [六、资金安全三道防线](#六资金安全三道防线) | 代码层/DB层/监控层 |
-| [七、面试高频追问](#七面试高频追问) | 私钥安全、链上一致性、资金原子 |
-| [八、与其他概念的关系](#八与其他概念的关系) | 加密与脱敏、幂等设计、Redis、支付 |
+| [一、OTC 业务闭环：挂单、托管、付款、放币、对账](#一otc-业务闭环挂单托管付款放币对账) | 核心流程、BTC/ETH 模型差异 |
+| [二、钱包安全：热钱包在线签名，冷钱包离线托管](#二钱包安全热钱包在线签名冷钱包离线托管) | 私钥加密、KMS、归集阈值 |
+| [三、撮合与托管：订单簿选型和 Escrow 状态机](#三撮合与托管订单簿选型和-escrow-状态机) | Disruptor vs 分布式撮合、托管流转 |
+| [四、链上充值：确认数、分叉风险与幂等入账](#四链上充值确认数分叉风险与幂等入账) | 监听、待确认、MQ、唯一索引 |
+| [五、链上提现：冻结、审批、广播、Fee Bump](#五链上提现冻结审批广播fee-bump) | 提现状态机、Nonce/UTXO、重试 |
+| [六、资金安全防线：锁只是加速，DB 才是裁决者](#六资金安全防线锁只是加速db-才是裁决者) | 代码层、DB 层、监控层 |
+| [七、区块链 OTC 决策树](#七区块链-otc-决策树) | 钱包、撮合、确认数、锁选型 |
+| [八、面试追问](#八面试追问) | 私钥、链上超时、RedLock、UTXO |
+| [九、OTC 与加密、Redis、支付系统的关系](#九otc-与加密redis支付系统的关系) | 加密脱敏、幂等、余额模型 |
 
-## 一、场景概述与问题拆解
-
-### BTC vs ETH 账户模型对比
-
-| 维度 | BTC（UTXO 模型）| ETH（账户模型）| 对系统设计的影响 |
-|------|--------------|-------------|--------------|
-| 余额概念 | 不存在"账户余额"，只有 UTXO 集合 | 账户有明确余额字段 | BTC 需要合并 UTXO，ETH 直接查余额 |
-| 地址使用 | 每次充值可用新地址（BIP44 HD 钱包）| 单一地址长期使用 | BTC 地址追踪更复杂 |
-| 防重放 | UTXO 被消费后自动失效 | 依赖 Nonce 递增 | ETH 必须管理 Nonce，防止重放 |
-| 确认阈值 | 6 个确认（~60 分钟）| 12-20 个确认（~3-5 分钟）| ETH 入账更快 |
-
-**三大核心工程挑战**：
-
-| 挑战 | 风险 | 设计要点 |
-|------|------|---------|
-| 私钥安全 | 私钥泄露 = 资产全失，不可追回 | AES-256-GCM 加密 + 使用后立即清零 |
-| 链上异步确认 | 链上确认时间不确定（分钟到小时）| 异步监听 + 定时轮询 + 幂等入账 |
-| 资金原子操作 | 并发导致重复入账/超额提现 | 分布式锁 + DB 唯一索引双重保障 |
-
-## 二、冷热钱包架构
+## 一、OTC 业务闭环：挂单、托管、付款、放币、对账
 
 ```
-┌─────────────────────────────────────┐
-│         热钱包（在线）               │
-│  日常充提 < 热钱包阈值（如 1 BTC）   │
-│  私钥 = AES-256-GCM 加密存 DB       │
-│  使用时解密，用完立即 Arrays.fill(0) │
-└─────────────────────────────────────┘
-           ↑ 超阈值触发自动归集 ↓
-┌─────────────────────────────────────┐
-│         冷钱包（离线）              │
-│  大额储备资产（> 90% 总资产）         │
-│  私钥从不上网（air-gapped 硬件设备） │
-│  签名流程：生成未签名 PSBT →        │
-│   导出到冷设备 → 离线签名 → 导回广播│
-└─────────────────────────────────────┘
+卖家挂广告/挂单
+  → 买家下单，订单锁定价格和数量
+  → 卖家币进入平台 Escrow/平台冻结卖家币
+  → 买家线下支付法币
+  → 卖家确认收款
+  → 平台放币给买家
+  → 链上确认/内部账务入账
+  → 日终链上余额、平台账、用户账三方对账
 ```
 
-**私钥内存安全实现**：
+| 不变量 | 破坏后果 | 防线 |
+|--------|----------|------|
+| 私钥不能明文落盘/长时间留在内存 | 资产不可追回 | AES-GCM/KMS + 使用后清零 |
+| 充值少确认不能入账 | 分叉/双花导致资损 | 确认阈值 + 待确认状态 |
+| 同一 txHash 只能入账一次 | 重复给用户加钱 | `uk_chain_tx(direction, tx_hash)` |
+| 提现不能超出可用余额 | 平台垫资 | 余额冻结 + DB 条件更新 |
+| 放币必须绑定订单状态 | 争议/重复放币 | Escrow 状态机 + 审计流水 |
+
+BTC 与 ETH 对系统设计的影响：
+
+| 维度 | BTC UTXO | ETH 账户模型 | 结论 |
+|------|----------|--------------|------|
+| 余额 | UTXO 集合 | 账户余额 | BTC 提现需选币和找零，ETH 直接扣账户 |
+| 防重 | UTXO 消费即失效 | Nonce 单调递增 | ETH 必须集中管理 Nonce |
+| 地址 | HD 钱包可一单一地址 | 常见一用户一地址 | BTC 地址映射和扫描更复杂 |
+| 确认 | 常用 6 确认 | 常用 12-20 确认 | 阈值按链和资产风险配置 |
+
+## 二、钱包安全：热钱包在线签名，冷钱包离线托管
+
+```
+用户充提小额资产
+  → 热钱包（在线，保留 < 10% 资产）
+       ├─ 私钥加密存储，签名时短暂解密
+       └─ 自动归集/补充，满足日常流动性
+
+大额储备资产
+  → 冷钱包（离线，保留 > 90% 资产）
+       ├─ 未签名交易导出
+       ├─ 离线设备签名
+       └─ 签名交易导回广播
+```
+
+| 密钥层级 | 存放位置 | 作用 | 结论 |
+|----------|----------|------|------|
+| 私钥明文 | 只在签名内存短暂存在 | 链上签名 | 用完必须清零 |
+| DEK | DB 中加密保存 | 加密私钥 | 拖库拿不到明文私钥 |
+| KEK | KMS/环境注入 | 加密 DEK | 生产推荐 KMS，不落盘 |
 
 ```java
-byte[] keyBytes = aesDecrypt(encryptedKey);  // 解密得到私钥字节
+byte[] keyBytes = aesGcmDecrypt(encryptedPrivateKey, dek);
 try {
     ECKey key = ECKey.fromPrivate(keyBytes);
-    // ... 签名操作（仅在此处使用）
+    return signer.sign(rawTx, key);
 } finally {
-    Arrays.fill(keyBytes, (byte) 0);  // 使用后立即清零
-    // 为什么必须清零：JVM GC 不保证立即回收，堆内存中的私钥可能在 heap dump 中暴露
+    Arrays.fill(keyBytes, (byte) 0);
 }
 ```
 
-**热→冷归集触发**：
+反直觉：`String` 不适合存私钥明文，因为不可变对象无法主动清零；私钥明文应使用 `byte[]`，签名后立即覆盖。
+
+## 三、撮合与托管：订单簿选型和 Escrow 状态机
+
+| 撮合方案 | 优点 | 代价 | 结论 |
+|----------|------|------|------|
+| 单线程 Disruptor | 全局有序、无锁、延迟低 | 单节点容量和可用性边界明显 | 中小 OTC 交易对首选 |
+| 按交易对分片撮合 | 可水平扩展 | 分片路由和迁移复杂 | 多交易对规模化后使用 |
+| 分布式共享订单簿 | 扩展能力最强 | 一致性和延迟成本高 | OTC 通常不推荐 |
+
+Escrow 订单状态：
+
+```
+CREATED ──卖家托管币──▶ ESCROW_LOCKED ──买家标记已付款──▶ PAID
+   │                         │                               │
+   └─超时取消──▶ CANCELLED    └─托管失败──▶ FAILED             ▼
+                         DISPUTING ◀──申诉──── SELLER_CONFIRMED
+                              │                         │
+                              └────仲裁────▶ RELEASED ◀─┘
+```
+
+```sql
+UPDATE otc_order
+SET status = 'RELEASED', release_tx_hash = #{txHash}, version = version + 1
+WHERE order_id = #{orderId}
+  AND status IN ('SELLER_CONFIRMED', 'DISPUTING')
+  AND version = #{version};
+```
+
+## 四、链上充值：确认数、分叉风险与幂等入账
+
+```
+链上监听发现 tx
+  → 写 pending_deposit(txHash, confirms=0, status=PENDING)
+  → 定时任务轮询确认数
+  → 达阈值后发送 deposit.confirmed MQ
+  → 消费端写入账流水 + 增加用户余额
+  → 更新 deposit=CREDITED
+  → 日终按链上 tx 与平台流水对账
+```
+
+```sql
+CREATE UNIQUE INDEX uk_deposit_tx
+ON wallet_deposit(chain, tx_hash, asset);
+```
 
 ```java
-@Scheduled(cron = "0 0 2 * * *")  // 每天凌晨 2 点
-public void consolidateToCold() {
-    BigDecimal hotBalance = getHotBalance();
-    if (hotBalance.compareTo(HOT_THRESHOLD) > 0) {
-        BigDecimal amount = hotBalance.subtract(HOT_THRESHOLD);
-        // 提交人工审批流，审批通过后才真正广播交易
-        submitColdTransferApproval(coldWalletAddress, amount);
-    }
-}
-```
-
-## 三、P2P OTC 撮合引擎
-
-**OTC 交易流程**：
-
-```
-1. 卖家挂单：数量 + 单价 + 支持支付方式
-2. 买家下单：选择卖家订单，锁定资金
-3. 平台托管：卖家加密货币转入 Escrow 地址
-4. 买家付款：链下向卖家转账法币（银行/支付宝）
-5. 卖家确认：确认收到法币 → 平台从 Escrow 释放加密货币给买家
-6. 超时仲裁：买家超时不付款 → 取消；付款超时卖家不确认 → 人工仲裁
-```
-
-**Escrow 实现（ETH 为例）**：
-
-```java
-// 撮合成功：卖家 ETH 转入平台托管
-String escrowTxHash = transferToEscrow(sellerAddress, escrowAddress, amount);
-order.setEscrowTxHash(escrowTxHash);
-order.setStatus(OrderStatus.ESCROW_LOCKED);
-
-// 卖家确认收款 → 释放给买家
-String releaseTxHash = releaseFromEscrow(escrowAddress, buyerAddress, amount);
-order.setReleaseTxHash(releaseTxHash);
-order.setStatus(OrderStatus.COMPLETED);
-```
-
-**Disruptor 单线程无锁撮合**：
-
-```java
-// 订单簿操作全部经过 Disruptor 单线程处理，天然串行，无需加锁
-Disruptor<OrderEvent> disruptor = new Disruptor<>(
-    OrderEvent::new, 1024, DaemonThreadFactory.INSTANCE);
-disruptor.handleEventsWith(new MatchingEngine(orderBook));
-disruptor.start();
-// 所有下单操作发布到 Disruptor RingBuffer，由单线程 MatchingEngine 处理
-```
-
-## 四、充值异步对账流程
-
-**链上确认阈值**：
-
-| 链 | 确认阈值 | 原因 |
-|----|---------|------|
-| BTC | 6 个确认（~60 分钟）| 算力攻击成本高，需等更多确认 |
-| ETH | 12-20 个确认（~3-5 分钟）| 区块时间短，确认更快 |
-
-**充值四步异步流程**：
-
-```java
-// 步骤 1：链上事件监听（只记录"待确认"，不立即入账）
-wallet.addCoinsReceivedEventListener((wallet, tx, prevBalance, newBalance) -> {
-    depositRepo.save(new PendingDeposit(userId, tx.getTxId().toString(), amount, 0));
-});
-
-// 步骤 2：定时扫描确认数（每 5 分钟）
-@Scheduled(fixedDelay = 300_000)
-public void reconcileDeposits() {
-    depositRepo.findByStatus(PENDING).forEach(d -> {
-        int confirms = bitcoinj.getTransactionConfirms(d.getTxHash());
-        if (confirms >= REQUIRED_CONFIRMS) {
-            // 通过 MQ 发送入账事件（Consumer 做幂等）
-            mq.send("deposit.confirmed", new DepositEvent(d.getUserId(), d.getAmount(), d.getTxHash()));
-            d.setStatus(CONFIRMING);
-        }
-    });
-}
-
-// 步骤 3：MQ 消费端幂等入账（txHash 唯一索引防重复入账）
 @Transactional
-public void onDepositConfirmed(DepositEvent event) {
-    if (depositRepo.existsByTxHash(event.getTxHash())) return;  // 幂等检查
-    userBalanceService.credit(event.getUserId(), event.getAmount());
-    depositRepo.updateStatus(event.getTxHash(), CREDITED);
+public void credit(DepositConfirmed event) {
+    int inserted = depositFlowMapper.insertIgnore(event.chain(), event.txHash(), event.amount());
+    if (inserted == 0) return;
+    walletMapper.addAvailable(event.userId(), event.asset(), event.amount());
+    depositMapper.updateStatus(event.txHash(), "CREDITED");
 }
 ```
 
-**为什么不能立即入账**：链上存在"分叉"风险，区块可能被孤立（orphan block），确认数越多分叉可能性越低。少于 6 个确认的 BTC 交易存在双花风险。
+为什么不能监听到就入账：链上可能分叉，少确认交易可能从主链消失；确认数越高，被回滚概率越低。资金系统宁可慢入账，也不能误入账。
 
-## 五、提现流程与安全
+## 五、链上提现：冻结、审批、广播、Fee Bump
 
 ```
 用户申请提现
-  → 冻结可用余额（available -= amount, frozen += amount）
-  → 风控审核（金额/频率/黑名单）
-  → 自动/人工审批
-  → 构建交易 → 热钱包签名 → 广播上链
-  → 记录 txHash，状态 = BROADCASTING
-  → 定时轮询确认数
-  → 达阈值：状态 = COMPLETED，清零 frozen
-  → 超时未确认：Fee Bump（BTC RBF / ETH gas 加速）
+  → DB 条件更新冻结余额（available -= amount, frozen += amount）
+  → 风控/人工审批
+  → 构建交易（BTC 选 UTXO；ETH 分配 Nonce）
+  → 热钱包签名并广播
+  → 记录 txHash，状态 BROADCASTED
+  → 轮询确认数
+  → 成功：frozen 扣减，状态 COMPLETED
+  → 超时：BTC RBF / ETH 同 Nonce 高 Gas 替换
+  → 失败：解冻余额，状态 FAILED
 ```
 
-**幂等保障**：
+提现幂等关键约束：
+
+| 环节 | 幂等键 | 防什么 |
+|------|--------|--------|
+| 申请提现 | `withdrawal_id` | 用户/网络重复提交 |
+| 广播交易 | `withdrawal_id` 唯一 | 重试导致二次广播 |
+| ETH Nonce | `address + nonce` 唯一 | 并发提现 Nonce 冲突 |
+| Fee Bump | `withdrawal_id + bump_round` | 重复加速 |
 
 ```sql
--- 广播前查重，防止网络重试导致二次广播
-CREATE UNIQUE INDEX uk_withdrawal ON withdrawal_tx(withdrawal_id);
--- 广播时 INSERT IGNORE，已存在则说明已广播，查询状态返回即可
+UPDATE wallet
+SET available = available - #{amount},
+    frozen = frozen + #{amount},
+    version = version + 1
+WHERE user_id = #{userId}
+  AND asset = #{asset}
+  AND available >= #{amount}
+  AND version = #{version};
 ```
 
-## 六、资金安全三道防线
+## 六、资金安全防线：锁只是加速，DB 才是裁决者
 
 | 防线 | 措施 | 结论 |
 |------|------|------|
-| **代码层** | Redisson 分布式锁（userId+operation）、Lua 原子操作、私钥 Arrays.fill 清零 | 防并发超扣和内存泄漏 |
-| **DB 层** | 唯一索引（txHash/withdrawal_id）、余额 `CHECK available >= 0`、流水表 append-only | 数据库层最终兜底 |
-| **监控层** | 热钱包余额告警（低于阈值）、异常大额提现告警、链上对账差异告警 | 问题发生后快速响应 |
+| 代码层 | Redisson 锁、签名内存清零、Nonce 串行分配 | 降低并发冲突，但不能作为唯一正确性来源 |
+| DB 层 | 唯一索引、余额条件更新、流水 append-only | 资金正确性的最终裁决者 |
+| 链上层 | 确认阈值、RBF/Gas 加速、链上扫描 | 解决链上异步和不确定性 |
+| 监控层 | 热钱包阈值、异常提现、账实差异 | 快速发现资损风险 |
 
-**冷热钱包比例**：热钱包保留 < 10% 资产（满足日常充提需求），> 90% 资产归集到冷钱包（离线硬件签名）。
+RedLock 结论：可以减少单 Redis 故障导致的并发问题，但它不能替代 DB 幂等。资金链路必须让唯一索引、状态机和流水表承担最终一致性裁决。
 
-## 七、面试高频追问
+## 七、区块链 OTC 决策树
 
-**问**：CoinsOTC 最难的技术挑战是什么？
-**答**：资金安全。私钥泄露、超提、重复入账的损失都无法追回。具体解法：①Redisson 分布式锁保障同用户余额操作串行；②txHash 唯一索引在 DB 层做最终幂等防护；③充值采用"监听→待确认→定时对账→MQ 入账"四步异步流程，与链上确认解耦；④私钥 AES-GCM 加密存 DB，使用时解密，用完 Arrays.fill(0) 清零防 heap dump。
+```
+资产是否可在线自动签名？
+  ├─ 小额高频 → 热钱包，KMS + 风控限额
+  └─ 大额储备 → 冷钱包，离线签名 + 人工审批
 
-**问**：链上交易超时未确认怎么处理？
-**答**：Fee Bump 加速：BTC 使用 RBF（Replace By Fee）广播一笔相同输入但更高手续费的新交易，矿工优先打包高手续费交易；ETH 使用相同 Nonce 广播更高 gasPrice 的替换交易。系统层面：设置超时阈值（如 BTC 6 小时、ETH 30 分钟），超时自动触发 Fee Bump；需要幂等处理，防止 Fee Bump 也超时后再次触发。
+充值是否可立即入账？
+  ├─ 否 → 待确认 + 确认阈值 + MQ 幂等入账
+  └─ 仅测试链/低风险资产 → 可降低确认数，但仍要唯一索引
 
-**问**：Disruptor 单线程撮合和分布式撮合怎么选？
-**答**：单线程撮合（Disruptor RingBuffer）：性能极高（百万级 QPS，无锁），全局有序，逻辑简单；缺点是单节点限制吞吐上限，单点故障影响整个撮合服务。分布式撮合：水平扩展能力强，但需要全局订单簿同步，一致性复杂。OTC 场景订单量相对有限，单节点 Disruptor 足够，水平扩展靠数据分片（按交易对分布在不同节点）。
+撮合量是否超过单节点能力？
+  ├─ 否 → Disruptor 单线程撮合
+  └─ 是 → 按交易对/币种分片撮合
 
-**问**：UTXO 和账户模型对充值对账的影响是什么？
-**答**：BTC UTXO 模型下，充值地址可以每次不同（HD 钱包派生），系统需要维护地址→userId 的映射表，对账时扫描所有派生地址的 UTXO。ETH 账户模型下，充值地址固定（或一个 userId 一个地址），对账通过订阅 Transfer 事件（ERC20）或监听账户余额变化。BTC 对账逻辑更复杂，ETH 更简单直接。
+提现超时未确认？
+  ├─ BTC → RBF 替换更高手续费交易
+  └─ ETH → 同 Nonce 广播更高 Gas 交易
+```
 
-**问**：AES 密钥存哪里？DEK/KEK 分层是什么？
-**答**：三层管理：①DEK（数据密钥）加密私钥，加密后存 DB；②KEK（密钥加密密钥）加密 DEK，存环境变量，部署时注入，不写代码或配置文件；③生产最终方案 KEK 由 KMS（AWS KMS/阿里云 KMS）管理，应用启动时通过 IAM 获取，KEK 从不落盘。拖库只能拿到加密后的 DEK + 加密私钥，没有 KEK 无法解密。
+## 八、面试追问
 
-**问**：Redisson 主节点宕机，分布式锁失效怎么办？
-**答**：两层保障：①RedLock——向 3 个独立 Redis 节点加锁，majority 成功才算成功，单节点宕机不影响；②DB 层幂等——链上转账有 txHash，DB 建唯一索引 `(txHash, direction)`，锁失效时二次提交被唯一约束拦截。
+### 1. OTC 最难的技术点是什么？
 
-**问**：你了解 Kleppmann 批评 RedLock 的观点吗？
-**答**：核心观点：RedLock 依赖系统时钟，时钟跳变（NTP 校准/VM 暂停）导致锁 TTL 提前过期，两个客户端同时持锁。解决方案是 Fencing Token——锁附带单调递增 token，存储层只接受比上次更大的 token 写入。我们的场景：RedLock + DB 唯一索引本质就是变相 Fencing，DB 唯一约束扮演最终裁决者。
+**资金安全和链上异步一致性**。私钥泄露、重复入账、超额提现都不可逆。我的设计会用冷热钱包隔离保护资产，用链上确认阈值避免分叉误入账，用 DB 唯一索引和余额条件更新做资金最终裁决。
 
-## 八、与其他概念的关系
+---
 
-- 私钥内存安全（AES-GCM + Arrays.fill）参见 [[机制-加密与脱敏]]：对称加密存储、私钥清零是该页的工程实践
-- 充值/提现幂等（txHash 唯一索引）属于 [[概念-幂等设计]]：链上交易幂等是支付系统幂等的区块链版
-- 余额冻结和分布式锁依赖 [[概念-Redis]]：Redisson 锁防并发超扣，Redis 缓存热钱包余额
-- 支付系统中的余额三态和对账设计参见 [[系统设计-支付系统]]：相同的冻结→扣减模型，区块链版需要额外处理链上异步确认
+### 2. 链上交易长时间未确认怎么办？
+
+BTC 用 RBF 重新广播相同输入、更高手续费的交易；ETH 用相同 Nonce、更高 Gas 的交易替换。系统上要记录加速轮次并做幂等，避免多个任务同时 Fee Bump。
+
+---
+
+### 3. BTC UTXO 和 ETH 账户模型对系统有什么影响？
+
+BTC 充值需要维护地址到用户的映射，提现要选 UTXO 和处理找零；ETH 余额查询更直接，但必须严格管理 Nonce，避免并发提现使用同一 Nonce。两者共同点是 txHash 入账必须唯一。
+
+---
+
+### 4. Redisson 主节点宕机会不会导致资金错账？
+
+锁失效可能导致并发进入，但不应该导致错账。资金系统的最终防线是 DB：余额条件更新防超提，`txHash`/`withdrawal_id` 唯一索引防重复处理，流水表 append-only 便于对账。锁只提升并发体验，不承担最终正确性。
+
+---
+
+### 5. DEK/KEK 分层怎么讲？
+
+DEK 加密私钥，密文和加密后的 DEK 可存 DB；KEK 加密 DEK，生产上由 KMS 管理，应用通过 IAM 临时获取解密能力。拖库只能拿到密文，没有 KMS 权限不能还原私钥。
+
+## 九、OTC 与加密、Redis、支付系统的关系
+
+- [[机制-加密与脱敏]]：私钥 AES-GCM 加密、KMS 分层、内存清零是加密脱敏在资金系统中的高风险实践。
+- [[概念-幂等设计]]：充值 `txHash`、提现 `withdrawal_id`、Fee Bump 轮次都必须有幂等键。
+- [[概念-Redis]]：Redisson 锁可降低同用户并发余额操作冲突，但不能替代 DB 唯一索引。
+- [[系统设计-支付系统]]：余额冻结、支付状态机、对账模型可复用；区块链版额外处理链上确认和私钥安全。
