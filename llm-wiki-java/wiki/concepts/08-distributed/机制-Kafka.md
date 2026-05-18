@@ -3,7 +3,7 @@ type: concept
 status: active
 name: "Kafka"
 layer: L7
-aliases: ["Kafka", "消息流平台", "Kafka重平衡", "ISR", "高水位", "Leader Epoch", "渐进式重平衡", "Kafka顺序消费", "Kafka存储结构", "KRaft", "acks", "HW", "LEO", "消费者组状态", "批量消费", "Controller选举", "Partition Leader选举", "Topic vs Partition"]
+aliases: ["Kafka", "消息流平台", "Kafka重平衡", "ISR", "高水位", "Leader Epoch", "渐进式重平衡", "Kafka顺序消费", "Kafka存储结构", "KRaft", "acks", "HW", "LEO", "消费者组状态", "批量消费", "Controller选举", "Partition Leader选举", "Topic vs Partition", "Exactly-Once", "幂等生产者", "事务生产者", "transactional.id", "enable.idempotence", "Transaction Coordinator"]
 tags: ["#distributed"]
 related:
   - "[[机制-RabbitMQ]]"
