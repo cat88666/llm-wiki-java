@@ -39,70 +39,55 @@ synthesis = [
 
 [[layers]]
 id = "L0"
-name = "计算机与网络"
+name = "计算机基础：OS / 网络 / IO / 安全"
 concept_dirs = ["concepts/01-CS"]
 keywords = [
-  # 操作系统
-  { text = "进程", path = "concepts/01-CS/概念-操作系统.md" },
-  { text = "线程", path = "concepts/01-CS/概念-操作系统.md" },
-  { text = "协程", path = "concepts/01-CS/概念-操作系统.md" },
-  { text = "虚拟内存", path = "concepts/01-CS/概念-操作系统.md" },
+  { text = "进程/线程/协程", path = "concepts/01-CS/概念-操作系统.md" },
+  { text = "调度/内存/内核边界", path = "concepts/01-CS/概念-操作系统.md" },
   { text = "用户态/内核态", path = "concepts/01-CS/概念-操作系统.md" },
-  # 网络
-  { text = "TCP", path = "concepts/01-CS/概念-计算机网络.md" },
-  { text = "HTTP/HTTPS", path = "concepts/01-CS/概念-计算机网络.md" },
-  { text = "DNS", path = "concepts/01-CS/概念-计算机网络.md" },
+  { text = "TCP/UDP/HTTP", path = "concepts/01-CS/概念-计算机网络.md" },
+  { text = "HTTPS/DNS/CDN", path = "concepts/01-CS/概念-计算机网络.md" },
   { text = "Cookie/Session/Token", path = "concepts/01-CS/概念-计算机网络.md" },
-  { text = "跨域/CDN", path = "concepts/01-CS/概念-计算机网络.md" },
-  # IO
   { text = "BIO/NIO/AIO", path = "concepts/01-CS/概念-IO模型.md" },
-  { text = "epoll", path = "concepts/01-CS/概念-IO模型.md" },
-  { text = "Reactor", path = "concepts/01-CS/概念-IO模型.md" },
+  { text = "epoll/Reactor", path = "concepts/01-CS/概念-IO模型.md" },
   { text = "零拷贝", path = "concepts/01-CS/概念-IO模型.md" },
-  # 安全
-  { text = "XSS/CSRF", path = "concepts/01-CS/概念-网络安全.md" },
-  { text = "SQL注入", path = "concepts/01-CS/概念-网络安全.md" },
-  { text = "DDoS", path = "concepts/01-CS/概念-网络安全.md" },
-  { text = "加密/脱敏", path = "concepts/01-CS/机制-加密与脱敏.md" },
-  # WebSocket
-  { text = "WebSocket", path = "concepts/01-CS/机制-WebSocket.md" },
+  { text = "XSS/CSRF/SQL注入", path = "concepts/01-CS/概念-网络安全.md" },
+  { text = "DDoS/信任边界", path = "concepts/01-CS/概念-网络安全.md" },
+  { text = "AES-GCM/RSA-OAEP", path = "concepts/01-CS/机制-加密与脱敏.md" },
+  { text = "签名/防重放/脱敏", path = "concepts/01-CS/机制-加密与脱敏.md" },
+  { text = "WebSocket握手/帧/心跳", path = "concepts/01-CS/机制-WebSocket.md" },
+  { text = "长连接水平扩展", path = "concepts/01-CS/机制-WebSocket.md" },
 ]
 
 [[layers]]
 id = "L1"
-name = "Java基础"
+name = "Java语言基础：类型 / OOP / 集合 / 扩展机制"
 concept_dirs = ["concepts/02-java"]
 keywords = [
-  # 基础类型
-  { text = "String", path = "concepts/02-java/概念-Java类型.md" },
-  { text = "BigDecimal", path = "concepts/02-java/概念-Java类型.md" },
-  { text = "自动装箱", path = "concepts/02-java/概念-Java类型.md" },
-  # OOP
-  { text = "OOP", path = "concepts/02-java/概念-OOP特征.md" },
-  { text = "接口与抽象类", path = "concepts/02-java/概念-OOP特征.md" },
-  # 异常
+  { text = "String不可变", path = "concepts/02-java/概念-Java类型.md" },
+  { text = "包装类/自动装箱", path = "concepts/02-java/概念-Java类型.md" },
+  { text = "BigDecimal精度", path = "concepts/02-java/概念-Java类型.md" },
+  { text = "封装/继承/多态", path = "concepts/02-java/概念-OOP特征.md" },
+  { text = "接口/抽象类", path = "concepts/02-java/概念-OOP特征.md" },
+  { text = "组合优于继承", path = "concepts/02-java/概念-OOP特征.md" },
   { text = "异常体系", path = "concepts/02-java/概念-Java异常.md" },
-  # 集合
-  { text = "集合框架", path = "concepts/02-java/概念-Java集合.md" },
-  { text = "List/Set/Map", path = "concepts/02-java/概念-Java集合.md" },
-  # HashMap
+  { text = "受检/非受检异常", path = "concepts/02-java/概念-Java异常.md" },
+  { text = "List/Set/Map体系", path = "concepts/02-java/概念-Java集合.md" },
+  { text = "ArrayList/LinkedList", path = "concepts/02-java/概念-Java集合.md" },
   { text = "HashMap", path = "concepts/02-java/机制-HashMap.md" },
   { text = "ConcurrentHashMap", path = "concepts/02-java/机制-HashMap.md" },
-  { text = "CopyOnWrite", path = "concepts/02-java/机制-HashMap.md" },
-  # 序列化
-  { text = "序列化", path = "concepts/02-java/机制-Java序列化.md" },
-  # Lambda
+  { text = "扩容/红黑树化", path = "concepts/02-java/机制-HashMap.md" },
+  { text = "serialVersionUID", path = "concepts/02-java/机制-Java序列化.md" },
+  { text = "序列化协议选型", path = "concepts/02-java/机制-Java序列化.md" },
   { text = "Lambda/Stream", path = "concepts/02-java/机制-Lambda.md" },
-  # 泛型
+  { text = "函数式接口", path = "concepts/02-java/机制-Lambda.md" },
   { text = "泛型/类型擦除", path = "concepts/02-java/机制-泛型.md" },
-  # 反射/代理
-  { text = "反射", path = "concepts/02-java/机制-动态代理.md" },
-  { text = "动态代理", path = "concepts/02-java/机制-动态代理.md" },
-  # SPI
-  { text = "SPI", path = "concepts/02-java/机制-SPI.md" },
-  # JDK版本
-  { text = "JDK新特性", path = "concepts/02-java/概念-JDK新特性.md" },
-  { text = "虚拟线程", path = "concepts/02-java/概念-JDK新特性.md" },
+  { text = "通配符/PECS", path = "concepts/02-java/机制-泛型.md" },
+  { text = "反射/JDK代理/CGLIB", path = "concepts/02-java/机制-动态代理.md" },
+  { text = "Spring AOP代理选择", path = "concepts/02-java/机制-动态代理.md" },
+  { text = "SPI/ServiceLoader", path = "concepts/02-java/机制-SPI.md" },
+  { text = "JDK8/17/21", path = "concepts/02-java/概念-JDK新特性.md" },
+  { text = "虚拟线程/结构化并发", path = "concepts/02-java/概念-JDK新特性.md" },
 ]
 
 [[layers]]
@@ -110,229 +95,180 @@ id = "L2"
 name = "JVM"
 concept_dirs = ["concepts/03-jvm"]
 keywords = [
-  # 体系
-  { text = "JVM生命周期", path = "concepts/03-jvm/概念-JVM.md" },
-  { text = "类生命周期", path = "concepts/03-jvm/概念-JVM.md" },
-  { text = "jstat/jmap/jstack", path = "concepts/03-jvm/概念-JVM.md" },
-  # 内存
-  { text = "堆/栈/方法区", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "运行时内存区域", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "堆/栈/方法区/直接内存", path = "concepts/03-jvm/概念-JVM.md" },
   { text = "元空间", path = "concepts/03-jvm/概念-JVM.md" },
-  { text = "OOM排查", path = "concepts/03-jvm/概念-JVM.md" },
-  # GC
-  { text = "GC算法", path = "concepts/03-jvm/概念-JVM.md" },
-  { text = "G1/ZGC", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "GC Roots/三色标记", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "G1/ZGC/Shenandoah", path = "concepts/03-jvm/概念-JVM.md" },
   { text = "强/软/弱/虚引用", path = "concepts/03-jvm/概念-JVM.md" },
-  # 类加载
-  { text = "类加载", path = "concepts/03-jvm/概念-JVM.md" },
-  { text = "双亲委派", path = "concepts/03-jvm/概念-JVM.md" },
-  # JIT
-  { text = "JIT", path = "concepts/03-jvm/机制-JIT编译.md" },
-  { text = "逃逸分析", path = "concepts/03-jvm/机制-JIT编译.md" },
-  { text = "AOT", path = "concepts/03-jvm/机制-JIT编译.md" },
-  # 对象池
+  { text = "类加载/双亲委派", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "jstat/jmap/jstack", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "OOM/FullGC排查", path = "concepts/03-jvm/概念-JVM.md" },
+  { text = "解释执行/JIT/AOT", path = "concepts/03-jvm/机制-JIT编译.md" },
+  { text = "分层编译/热点探测", path = "concepts/03-jvm/机制-JIT编译.md" },
+  { text = "逃逸分析/锁消除", path = "concepts/03-jvm/机制-JIT编译.md" },
   { text = "对象池/连接池", path = "concepts/03-jvm/机制-对象池技术.md" },
+  { text = "HikariCP/Druid", path = "concepts/03-jvm/机制-对象池技术.md" },
+  { text = "Netty池化ByteBuf", path = "concepts/03-jvm/机制-对象池技术.md" },
 ]
 
 [[layers]]
 id = "L3"
-name = "Java并发"
+name = "Java并发：JMM / 锁 / 线程池 / 异步编排"
 concept_dirs = ["concepts/04-JUC"]
 keywords = [
-  # JMM
-  { text = "JMM", path = "concepts/04-JUC/概念-JMM.md" },
-  { text = "happens-before", path = "concepts/04-JUC/概念-JMM.md" },
-  # 并发体系
-  { text = "JUC", path = "concepts/04-JUC/概念-Java并发.md" },
   { text = "可见性/原子性/有序性", path = "concepts/04-JUC/概念-Java并发.md" },
-  # ThreadLocal
-  { text = "ThreadLocal", path = "concepts/04-JUC/概念-ThreadLocal.md" },
-  # synchronized
-  { text = "synchronized", path = "concepts/04-JUC/机制-Synchronized.md" },
-  { text = "锁升级", path = "concepts/04-JUC/机制-Synchronized.md" },
-  # volatile
-  { text = "volatile", path = "concepts/04-JUC/机制-Volatile.md" },
+  { text = "JMM/happens-before", path = "concepts/04-JUC/概念-JMM.md" },
+  { text = "内存屏障", path = "concepts/04-JUC/概念-JMM.md" },
+  { text = "ThreadLocal/ThreadLocalMap", path = "concepts/04-JUC/概念-ThreadLocal.md" },
+  { text = "线程池内存泄漏", path = "concepts/04-JUC/概念-ThreadLocal.md" },
+  { text = "synchronized/Monitor", path = "concepts/04-JUC/机制-Synchronized.md" },
+  { text = "偏向/轻量/重量级锁", path = "concepts/04-JUC/机制-Synchronized.md" },
+  { text = "volatile可见性", path = "concepts/04-JUC/机制-Volatile.md" },
   { text = "DCL双重检验锁", path = "concepts/04-JUC/机制-Volatile.md" },
-  # CAS
-  { text = "CAS", path = "concepts/04-JUC/机制-CAS.md" },
-  { text = "LongAdder", path = "concepts/04-JUC/机制-CAS.md" },
-  # AQS
-  { text = "AQS", path = "concepts/04-JUC/机制-AQS.md" },
-  { text = "ReentrantLock", path = "concepts/04-JUC/机制-AQS.md" },
-  { text = "CountDownLatch", path = "concepts/04-JUC/机制-AQS.md" },
-  # 线程池
-  { text = "线程池", path = "concepts/04-JUC/机制-线程池.md" },
-  { text = "拒绝策略", path = "concepts/04-JUC/机制-线程池.md" },
-  # CompletableFuture
-  { text = "CompletableFuture", path = "concepts/04-JUC/机制-CompletableFuture.md" },
-  # 线程生命周期
-  { text = "线程生命周期", path = "concepts/04-JUC/机制-线程.md" },
-  { text = "线程状态", path = "concepts/04-JUC/机制-线程.md" },
-  { text = "BLOCKED/WAITING", path = "concepts/04-JUC/机制-线程.md" },
-  { text = "死锁", path = "concepts/04-JUC/机制-线程.md" },
-  { text = "线程中断", path = "concepts/04-JUC/机制-线程.md" },
+  { text = "CAS/ABA", path = "concepts/04-JUC/机制-CAS.md" },
+  { text = "Atomic/LongAdder", path = "concepts/04-JUC/机制-CAS.md" },
+  { text = "AQS state/同步队列", path = "concepts/04-JUC/机制-AQS.md" },
+  { text = "ReentrantLock/Condition", path = "concepts/04-JUC/机制-AQS.md" },
+  { text = "CountDownLatch/Semaphore", path = "concepts/04-JUC/机制-AQS.md" },
+  { text = "ThreadPoolExecutor", path = "concepts/04-JUC/机制-线程池.md" },
+  { text = "阻塞队列/拒绝策略", path = "concepts/04-JUC/机制-线程池.md" },
+  { text = "CompletableFuture编排", path = "concepts/04-JUC/机制-CompletableFuture.md" },
+  { text = "allOf/anyOf/超时", path = "concepts/04-JUC/机制-CompletableFuture.md" },
+  { text = "线程状态/中断/死锁", path = "concepts/04-JUC/机制-线程.md" },
 ]
 
 [[layers]]
 id = "L4"
-name = "算法"
+name = "数据结构与算法"
 concept_dirs = ["concepts/05-structure"]
 keywords = [
-  { text = "红黑树", path = "concepts/05-structure/机制-红黑树.md" },
-  { text = "B+树", path = "concepts/05-structure/机制-B+树.md" },
-  { text = "跳表", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "堆/优先队列", path = "concepts/05-structure/机制-优先队列.md" },
-  { text = "布隆过滤器", path = "concepts/05-structure/概念-BitMap.md" },
-  { text = "BitMap", path = "concepts/05-structure/概念-BitMap.md" },
-  { text = "前缀树/Trie", path = "concepts/05-structure/概念-前缀树.md" },
-  { text = "图/DFS/BFS", path = "concepts/05-structure/概念-图.md" },
+  { text = "红黑规则/旋转/黑高", path = "concepts/05-structure/机制-红黑树.md" },
+  { text = "红黑树 vs AVL", path = "concepts/05-structure/机制-红黑树.md" },
+  { text = "B+树磁盘友好", path = "concepts/05-structure/机制-B+树.md" },
+  { text = "范围查询/叶子链表", path = "concepts/05-structure/机制-B+树.md" },
+  { text = "堆/优先队列/TopK", path = "concepts/05-structure/机制-优先队列.md" },
+  { text = "实时分位数", path = "concepts/05-structure/机制-优先队列.md" },
+  { text = "BitMap位压缩", path = "concepts/05-structure/概念-BitMap.md" },
+  { text = "布隆/布谷鸟过滤器", path = "concepts/05-structure/概念-BitMap.md" },
+  { text = "Trie前缀匹配", path = "concepts/05-structure/概念-前缀树.md" },
+  { text = "字符串自动补全", path = "concepts/05-structure/概念-前缀树.md" },
+  { text = "图存储/DFS/BFS", path = "concepts/05-structure/概念-图.md" },
+  { text = "稠密图/稀疏图", path = "concepts/05-structure/概念-图.md" },
 ]
 
 [[layers]]
 id = "L5"
-name = "Redis / MySQL / ElasticSearch / RocksDB / TiDB"
+name = "存储与搜索：MySQL / Redis / ES / RocksDB / TiDB"
 concept_dirs = ["concepts/06-storage"]
 keywords = [
-  # MySQL 索引
-  { text = "InnoDB索引", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "回表/覆盖索引", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "最左前缀", path = "concepts/06-storage/概念-MySQL.md" },
-  # MySQL 锁
-  { text = "MySQL锁", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "Next-Key Lock", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "死锁", path = "concepts/06-storage/概念-MySQL.md" },
-  # MySQL MVCC
-  { text = "MVCC", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "ReadView", path = "concepts/06-storage/概念-MySQL.md" },
-  # MySQL 日志
+  { text = "InnoDB索引/B+树", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "回表/覆盖索引/最左前缀", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "行锁/间隙锁/Next-Key Lock", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "MVCC/ReadView", path = "concepts/06-storage/概念-MySQL.md" },
   { text = "binlog/redo/undo", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "两阶段提交", path = "concepts/06-storage/概念-MySQL.md" },
-  # MySQL 优化
-  { text = "慢SQL/EXPLAIN", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "深分页", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "索引失效", path = "concepts/06-storage/概念-MySQL.md" },
-  # MySQL 扩展
-  { text = "分库分表", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "读写分离", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "Canal/CDC", path = "concepts/06-storage/概念-MySQL.md" },
-  { text = "雪花算法", path = "concepts/06-storage/概念-MySQL.md" },
-  # Redis
-  { text = "Redis数据结构", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "Redis持久化", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "Redis分布式锁", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "Redis集群", path = "concepts/06-storage/概念-Redis.md" },
+  { text = "两阶段提交/崩溃恢复", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "慢SQL/EXPLAIN/索引失效", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "深分页/分库分表/读写分离", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "Canal/CDC/雪花算法", path = "concepts/06-storage/概念-MySQL.md" },
+  { text = "String/List/Hash/Set/ZSet", path = "concepts/06-storage/概念-Redis.md" },
+  { text = "SDS/跳表/整数集合", path = "concepts/06-storage/概念-Redis.md" },
+  { text = "RDB/AOF/混合持久化", path = "concepts/06-storage/概念-Redis.md" },
+  { text = "SET NX PX/Lua/Redisson", path = "concepts/06-storage/概念-Redis.md" },
+  { text = "主从/哨兵/Cluster", path = "concepts/06-storage/概念-Redis.md" },
   { text = "缓存穿透/击穿/雪崩", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "缓存一致性", path = "concepts/06-storage/概念-Redis.md" },
-  { text = "内存淘汰策略", path = "concepts/06-storage/概念-Redis.md" },
-  # ElasticSearch
-  { text = "ElasticSearch", path = "concepts/06-storage/机制-ElasticSearch.md" },
-  { text = "倒排索引", path = "concepts/06-storage/机制-ElasticSearch.md" },
-  # RocksDB
-  { text = "LSM树/RocksDB", path = "concepts/06-storage/机制-RocksDB.md" },
-  # TiDB
-  { text = "TiDB/NewSQL", path = "concepts/06-storage/机制-TiDB.md" },
-  { text = "TiKV/PD/Region", path = "concepts/06-storage/机制-TiDB.md" },
-  { text = "HTAP/TiFlash", path = "concepts/06-storage/机制-TiDB.md" },
+  { text = "缓存一致性/淘汰策略", path = "concepts/06-storage/概念-Redis.md" },
+  { text = "倒排索引/分词/相关性", path = "concepts/06-storage/机制-ElasticSearch.md" },
+  { text = "ES分片/副本/深分页", path = "concepts/06-storage/机制-ElasticSearch.md" },
+  { text = "LSM-Tree/MemTable/SSTable", path = "concepts/06-storage/机制-RocksDB.md" },
+  { text = "Compaction写放大/读放大", path = "concepts/06-storage/机制-RocksDB.md" },
+  { text = "TiDB Server/PD/TiKV", path = "concepts/06-storage/机制-TiDB.md" },
+  { text = "Region/Raft/TSO/MVCC", path = "concepts/06-storage/机制-TiDB.md" },
+  { text = "HTAP/TiFlash/分布式事务", path = "concepts/06-storage/机制-TiDB.md" },
 ]
 
 [[layers]]
 id = "L6"
-name = "Spring / SpringBoot"
+name = "Java主流框架：Spring / SpringBoot / MVC / Cloud / MyBatis"
 concept_dirs = ["concepts/07-framework"]
 keywords = [
-  # Spring
-  { text = "IoC/DI", path = "concepts/07-framework/机制-Spring.md" },
-  { text = "Bean生命周期", path = "concepts/07-framework/机制-Spring.md" },
-  { text = "BeanFactory/ApplicationContext", path = "concepts/07-framework/机制-Spring.md" },
-  { text = "AOP", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "IoC/DI/BeanFactory", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "Bean生命周期/扩展点", path = "concepts/07-framework/机制-Spring.md" },
   { text = "循环依赖/三级缓存", path = "concepts/07-framework/机制-Spring.md" },
-  { text = "Spring事务", path = "concepts/07-framework/机制-Spring.md" },
-  { text = "事务传播", path = "concepts/07-framework/机制-Spring.md" },
-  # SpringBoot
-  { text = "自动装配", path = "concepts/07-framework/机制-SpringBoot.md" },
-  { text = "Starter", path = "concepts/07-framework/机制-SpringBoot.md" },
-  # SpringMVC
+  { text = "AOP/JDK代理/CGLIB", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "声明式事务/传播行为", path = "concepts/07-framework/机制-Spring.md" },
+  { text = "SpringBoot启动流程", path = "concepts/07-framework/机制-SpringBoot.md" },
+  { text = "自动配置/条件装配", path = "concepts/07-framework/机制-SpringBoot.md" },
+  { text = "Starter/配置加载/fat jar", path = "concepts/07-framework/机制-SpringBoot.md" },
   { text = "DispatcherServlet", path = "concepts/07-framework/机制-SpringMVC.md" },
-  { text = "拦截器", path = "concepts/07-framework/机制-SpringMVC.md" },
-  # SpringCloud
-  { text = "微服务", path = "concepts/07-framework/机制-SpringCloud.md" },
-  { text = "OpenFeign/Feign", path = "concepts/07-framework/机制-SpringCloud.md" },
-  { text = "Feign超时", path = "concepts/07-framework/机制-SpringCloud.md" },
-  { text = "网关/Gateway", path = "concepts/07-framework/机制-SpringCloud.md" },
-  { text = "Route/Predicate/Filter", path = "concepts/07-framework/机制-SpringCloud.md" },
-  { text = "Sentinel/熔断", path = "concepts/07-framework/机制-SpringCloud.md" },
-  { text = "灰度发布", path = "concepts/07-framework/机制-SpringCloud.md" },
-  # MyBatis
-  { text = "MyBatis", path = "concepts/07-framework/机制-MyBatis.md" },
+  { text = "HandlerMapping/Adapter", path = "concepts/07-framework/机制-SpringMVC.md" },
+  { text = "参数解析/返回值处理", path = "concepts/07-framework/机制-SpringMVC.md" },
+  { text = "微服务拆分/服务治理", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "注册发现/配置中心", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "OpenFeign/超时重试", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "Gateway Route/Predicate/Filter", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "Sentinel熔断/灰度发布", path = "concepts/07-framework/机制-SpringCloud.md" },
+  { text = "Mapper调用链路", path = "concepts/07-framework/机制-MyBatis.md" },
+  { text = "参数映射/结果映射", path = "concepts/07-framework/机制-MyBatis.md" },
+  { text = "缓存/分页/插件", path = "concepts/07-framework/机制-MyBatis.md" },
 ]
 
 [[layers]]
 id = "L7"
-name = "分布式"
+name = "分布式与云原生：事务 / MQ / RPC / 注册配置 / 容器 / 观测"
 concept_dirs = ["concepts/08-distributed"]
 keywords = [
-  # 理论
-  { text = "CAP/BASE", path = "concepts/08-distributed/概念-分布式理论.md" },
-  { text = "Raft/Paxos", path = "concepts/08-distributed/概念-分布式理论.md" },
-  { text = "一致性哈希", path = "concepts/08-distributed/概念-分布式理论.md" },
-  # 事务
-  { text = "分布式事务", path = "concepts/08-distributed/概念-分布式事务.md" },
-  { text = "TCC/Saga", path = "concepts/08-distributed/概念-分布式事务.md" },
-  { text = "Seata", path = "concepts/08-distributed/机制-Seata.md" },
-  # 幂等
-  { text = "幂等设计", path = "concepts/08-distributed/概念-幂等设计.md" },
-  # 消息队列
-  { text = "Kafka", path = "concepts/08-distributed/机制-Kafka.md" },
-  { text = "RabbitMQ", path = "concepts/08-distributed/机制-RabbitMQ.md" },
-  { text = "RocketMQ", path = "concepts/08-distributed/机制-RocketMQ.md" },
-  { text = "消息可靠性", path = "concepts/08-distributed/机制-RabbitMQ.md" },
-  { text = "死信/延迟队列", path = "concepts/08-distributed/机制-RabbitMQ.md" },
-  { text = "事务消息", path = "concepts/08-distributed/机制-RocketMQ.md" },
-  { text = "顺序消息", path = "concepts/08-distributed/机制-RocketMQ.md" },
-  { text = "消息堆积", path = "concepts/08-distributed/机制-RocketMQ.md" },
-  # 注册发现/配置
-  { text = "Nacos", path = "concepts/08-distributed/机制-Nacos.md" },
-  { text = "Zookeeper", path = "concepts/08-distributed/机制-Zookeeper.md" },
-  { text = "ZAB/ZK锁", path = "concepts/08-distributed/机制-Zookeeper.md" },
-  # RPC
-  { text = "Dubbo", path = "concepts/08-distributed/机制-Dubbo.md" },
-  { text = "gRPC/Protobuf", path = "concepts/08-distributed/机制-Protobuf.md" },
-  # 网络框架
-  { text = "Netty", path = "concepts/08-distributed/机制-Netty.md" },
-  # 容器
-  { text = "Docker", path = "concepts/08-distributed/机制-Docker.md" },
-  { text = "K8s/Kubernetes", path = "concepts/08-distributed/概念-k8s.md" },
-  { text = "Pod/Deployment/Service", path = "concepts/08-distributed/概念-k8s.md" },
-  { text = "Ingress/HPA", path = "concepts/08-distributed/概念-k8s.md" },
-  { text = "云原生", path = "concepts/08-distributed/机制-Docker.md" },
-  # 认证
-  { text = "OAuth2/SSO", path = "concepts/08-distributed/概念-OAuth2.md" },
-  # 可观测性
-  { text = "链路追踪", path = "concepts/08-distributed/概念-可观测性.md" },
-  { text = "Prometheus/Grafana", path = "concepts/08-distributed/概念-可观测性.md" },
-  { text = "Arthas", path = "concepts/08-distributed/概念-可观测性.md" },
-  # 任务调度
-  { text = "XXL-Job", path = "concepts/08-distributed/概念-分布式任务.md" },
-  { text = "时间轮", path = "concepts/08-distributed/概念-分布式任务.md" },
-  # 限流
-  { text = "限流熔断", path = "summaries/主题-三高架构.md" },
+  { text = "CAP/BASE/网络分区", path = "concepts/08-distributed/概念-分布式理论.md" },
+  { text = "Raft/Paxos/一致性哈希", path = "concepts/08-distributed/概念-分布式理论.md" },
+  { text = "2PC/3PC/TCC/Saga", path = "concepts/08-distributed/概念-分布式事务.md" },
+  { text = "本地消息表/事务消息", path = "concepts/08-distributed/概念-分布式事务.md" },
+  { text = "Seata AT/TCC/Saga/XA", path = "concepts/08-distributed/机制-Seata.md" },
+  { text = "幂等Key/唯一约束/MQ幂等", path = "concepts/08-distributed/概念-幂等设计.md" },
+  { text = "一锁二判三更新", path = "concepts/08-distributed/概念-幂等设计.md" },
+  { text = "Kafka Topic/Partition/Offset", path = "concepts/08-distributed/机制-Kafka.md" },
+  { text = "Kafka ISR/HW/Rebalance", path = "concepts/08-distributed/机制-Kafka.md" },
+  { text = "RabbitMQ Exchange/Queue", path = "concepts/08-distributed/机制-RabbitMQ.md" },
+  { text = "死信队列/消费端限流", path = "concepts/08-distributed/机制-RabbitMQ.md" },
+  { text = "RocketMQ事务/顺序/延迟消息", path = "concepts/08-distributed/机制-RocketMQ.md" },
+  { text = "RocketMQ刷盘/消息堆积", path = "concepts/08-distributed/机制-RocketMQ.md" },
+  { text = "Nacos配置/注册/AP+CP", path = "concepts/08-distributed/机制-Nacos.md" },
+  { text = "Zookeeper ZNode/Watch/ZAB", path = "concepts/08-distributed/机制-Zookeeper.md" },
+  { text = "ZK锁/Leader选举", path = "concepts/08-distributed/机制-Zookeeper.md" },
+  { text = "Dubbo服务导出/透明代理", path = "concepts/08-distributed/机制-Dubbo.md" },
+  { text = "Protobuf/gRPC/HTTP2", path = "concepts/08-distributed/机制-Protobuf.md" },
+  { text = "Netty Reactor/Pipeline/ByteBuf", path = "concepts/08-distributed/机制-Netty.md" },
+  { text = "粘包拆包/零拷贝", path = "concepts/08-distributed/机制-Netty.md" },
+  { text = "Docker镜像/容器/网络", path = "concepts/08-distributed/机制-Docker.md" },
+  { text = "K8s Pod/Deployment/Service", path = "concepts/08-distributed/概念-k8s.md" },
+  { text = "Ingress/HPA/调度", path = "concepts/08-distributed/概念-k8s.md" },
+  { text = "OAuth2授权码/SSO", path = "concepts/08-distributed/概念-OAuth2.md" },
+  { text = "Metrics/Tracing/Logging", path = "concepts/08-distributed/概念-可观测性.md" },
+  { text = "Prometheus/Grafana/Arthas", path = "concepts/08-distributed/概念-可观测性.md" },
+  { text = "XXL-Job/分片广播", path = "concepts/08-distributed/概念-分布式任务.md" },
+  { text = "Timer/DelayQueue/时间轮", path = "concepts/08-distributed/概念-分布式任务.md" },
+  { text = "分布式锁/Session/ID", path = "concepts/08-distributed/概念-分布式场景.md" },
+  { text = "高并发库存扣减/SSO", path = "concepts/08-distributed/概念-分布式场景.md" },
 ]
 
 [[layers]]
 id = "L8"
-name = "架构与实践"
+name = "架构设计与项目实践"
 concept_dirs = ["concepts/09-practice"]
 keywords = [
-  { text = "DDD", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "领域建模", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "聚合根", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "实体/值对象", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "领域事件", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "CQRS", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "限界上下文", path = "concepts/09-practice/概念-DDD.md" },
-  { text = "秒杀", path = "synthesis/系统设计-电商系统.md" },
-  { text = "短链", path = "synthesis/系统设计-短链服务.md" },
-  { text = "容量规划", path = "summaries/主题-机器容量.md" },
-  { text = "接口防护", path = "synthesis/设计-接口设计与防护.md" },
-  { text = "项目难点", path = "synthesis/设计-项目难点表达.md" },
-  { text = "P7/P8思维", path = "synthesis/设计-P8架构思维.md" },
+  { text = "DDD战略建模/限界上下文", path = "concepts/09-practice/概念-DDD.md" },
+  { text = "聚合根/实体/值对象", path = "concepts/09-practice/概念-DDD.md" },
+  { text = "领域事件/CQRS", path = "concepts/09-practice/概念-DDD.md" },
+  { text = "电商秒杀/库存一致性", path = "synthesis/系统设计-电商系统.md" },
+  { text = "支付中台/账务对账", path = "synthesis/系统设计-支付系统.md" },
+  { text = "IM长连接/消息可靠", path = "synthesis/系统设计-IM系统.md" },
+  { text = "短链生成/302跳转", path = "synthesis/系统设计-短链服务.md" },
+  { text = "游戏房间/状态同步", path = "synthesis/系统设计-游戏架构.md" },
+  { text = "彩票开奖/批量结算", path = "synthesis/系统设计-彩票系统.md" },
+  { text = "区块链OTC/链上对账", path = "synthesis/系统设计-区块链OTC.md" },
+  { text = "P7架构权衡", path = "synthesis/设计-P7架构思维.md" },
+  { text = "P8边界追问", path = "synthesis/设计-P8架构思维.md" },
+  { text = "德州扑克牌型/边池", path = "synthesis/设计-德州扑克核心算法.md" },
+  { text = "接口限流/防重/熔断", path = "synthesis/设计-接口设计与防护.md" },
+  { text = "项目难点STAR表达", path = "synthesis/设计-项目难点表达.md" },
+  { text = "容量规划/机器估算", path = "summaries/主题-机器容量.md" },
 ]
