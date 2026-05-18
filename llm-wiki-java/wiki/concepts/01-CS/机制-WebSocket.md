@@ -20,17 +20,17 @@ related:
 
 | 标题索引 | 概述 |
 | --- | --- |
-| [一、第一性原理](#一第一性原理) | HTTP 限制、四种推送方案对比 |
-| [二、核心机制](#二核心机制) | HTTP Upgrade 握手、帧结构、心跳 |
-| [三、Java 核心使用](#三java-核心使用) | Netty Pipeline、Spring WebSocket |
-| [四、认证与安全](#四认证与安全) | Token 方案、WSS |
-| [五、水平扩展](#五水平扩展) | 粘滞会话、Redis 注册表 + MQ 路由 |
-| [六、综合对比](#六综合对比) | WebSocket vs SSE vs 长轮询 vs gRPC 流 |
-| [七、生产风险](#七生产风险) | 连接数、消息可靠性、重连、LB 兼容 |
-| [八、与其他概念的关系](#八与其他概念的关系) | Netty、Kafka、gRPC |
-| [九、应用边界](#九应用边界) | 适用场景、不适用场景 |
+| [一、从 HTTP 拉取到全双工推送](#一从-http-拉取到全双工推送) | HTTP 请求-响应限制、轮询/SSE/WebSocket 选型 |
+| [二、WebSocket 握手、帧与心跳](#二websocket-握手帧与心跳) | HTTP Upgrade、Frame 字段、Ping/Pong 与假死连接 |
+| [三、Java 服务端落地方式](#三java-服务端落地方式) | Netty Pipeline、Spring WebSocket 的适用边界 |
+| [四、连接认证与传输安全](#四连接认证与传输安全) | 首条消息认证、Cookie、WSS |
+| [五、有状态长连接的水平扩展](#五有状态长连接的水平扩展) | 粘滞会话、Redis 注册表 + MQ 路由 |
+| [六、推送协议选型](#六推送协议选型) | WebSocket vs SSE vs 长轮询 vs gRPC 流 |
+| [七、长连接生产故障模式](#七长连接生产故障模式) | 连接数、消息可靠性、重连、LB 兼容 |
+| [八、WebSocket 在系统中的位置](#八websocket-在系统中的位置) | Netty、Kafka、Protobuf、幂等 |
+| [九、WebSocket 适用边界](#九websocket-适用边界) | 适用场景、不适用场景 |
 
-## 一、第一性原理
+## 一、从 HTTP 拉取到全双工推送
 
 HTTP 请求-响应模型的根本限制：**只有客户端能发起通信，服务端无法主动推送**。
 
@@ -43,7 +43,7 @@ HTTP 请求-响应模型的根本限制：**只有客户端能发起通信，服
 
 IM、实时游戏、行情推送等场景需要**真正的全双工**，WebSocket 是协议层唯一合适的选择。
 
-## 二、核心机制
+## 二、WebSocket 握手、帧与心跳
 
 ### HTTP Upgrade 握手
 
@@ -82,7 +82,7 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 - **客户端**：每 30s 发心跳包，连续 N 次收不到 Pong 则主动重连
 - **双向检测**是关键：只有服务端检测会漏掉"客户端假死"场景
 
-## 三、Java 核心使用
+## 三、Java 服务端落地方式
 
 ### Netty Pipeline（生产主流）
 
@@ -112,7 +112,7 @@ public class WsConfig implements WebSocketConfigurer {
 
 Spring WebSocket 底层可切换 Jetty/Tomcat NIO，不需要 Netty 时可用，但连接数量大时优先选 Netty。
 
-## 四、认证与安全
+## 四、连接认证与传输安全
 
 **问题**：WebSocket 握手是 HTTP 请求，浏览器的 JS 无法自定义 `Authorization` Header。
 
@@ -124,7 +124,7 @@ Spring WebSocket 底层可切换 Jetty/Tomcat NIO，不需要 Netty 时可用，
 
 **WSS**（WebSocket over TLS）：生产必须启用，防止中间人劫持。
 
-## 五、水平扩展
+## 五、有状态长连接的水平扩展
 
 WebSocket 连接是**有状态的**（绑定到具体机器），横向扩容需解决跨节点路由：
 
@@ -139,7 +139,7 @@ Client ─ LB ──┬── Node A（userId: 101, 203）
 | 粘滞会话（Sticky Session） | LB 按 userId hash 固定路由到同一节点 | 节点宕机则该节点所有连接全断 |
 | Redis 注册表 + MQ 路由（推荐） | 连接建立时写 `HSET ws:conn userId nodeId`；消息先查 Redis 找目标节点，再发 MQ，目标节点消费后推送 | 复杂度高，但弹性好 |
 
-## 六、综合对比
+## 六、推送协议选型
 
 | 维度 | WebSocket | SSE | 长轮询 | gRPC 双向流 |
 |------|-----------|-----|--------|------------|
@@ -151,7 +151,7 @@ Client ─ LB ──┬── Node A（userId: 101, 203）
 
 **结论**：只需服务端单向推送用 SSE；需要浏览器全双工用 WebSocket；服务间双向流考虑 gRPC。
 
-## 七、生产风险
+## 七、长连接生产故障模式
 
 | 风险 | 表现 | 应对 |
 |------|------|------|
@@ -162,14 +162,14 @@ Client ─ LB ──┬── Node A（userId: 101, 203）
 | LB 兼容性 | Nginx/K8s Ingress 默认不支持 Upgrade | Nginx 配置 `proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade` |
 | 重连风暴 | 大量客户端同时断线重连打垮服务端 | 指数退避重连：`min(基础延迟 × 2^n, 上限)`，加随机抖动 |
 
-## 八、与其他概念的关系
+## 八、WebSocket 在系统中的位置
 
 - 依赖 [[机制-Netty]]：Java 生产级 WebSocket 几乎都用 Netty，`WebSocketServerProtocolHandler` 封装了握手全流程
 - 区别于 [[机制-Kafka]]：WebSocket 是实时推送协议（在线用户）；Kafka 是持久化消息队列（离线积压）；IM 系统两者都需要
 - 区别于 [[机制-Protobuf]]：gRPC 双向流也可实现类似能力，但不适合浏览器直连；WebSocket 对浏览器天然友好
 - 依赖 [[概念-幂等设计]]：重连补发离线消息时，客户端必须幂等处理，防止重复展示
 
-## 九、应用边界
+## 九、WebSocket 适用边界
 
 **适合 WebSocket：**
 - IM / 聊天系统（在线实时推送）
